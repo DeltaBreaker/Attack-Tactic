@@ -1,0 +1,16 @@
+{
+    "tags": [
+    	"pallet.village",
+        "tile.floor.hallway.vertical",
+        "pallet.flooded_forrest"
+    ],
+    "property": "DEFAULT",
+    "model": "tile_22_snow_forrest.dae",
+    "texture": "tile_22_village.png",
+    "shader": "main_3d",
+    "solid": false,
+    "offset": [
+        0.0, 0.5, 0.0
+    ],
+    "material": "DEFAULT"
+}

@@ -1,0 +1,22 @@
+{
+	"id": "item.key.chest",
+	"name": "Silver Key",
+	"type": "item.type.key.chest",
+	"tier": 0,
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 0,
+	"text": [
+		"A small key used",
+		"to open chests",
+		"and doors"
+	],
+	"model": "item_key_chest.dae",
+	"texture": "item_key_chest.png",
+	"material": "SILVER",
+	"recipe": {
+		"cost": -1
+	}
+}

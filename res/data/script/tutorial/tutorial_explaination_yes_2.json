@@ -1,0 +1,55 @@
+[
+	{
+		"text": [
+			"The blue area shows how",
+			"far they can move.",
+			"The red area shows their",
+			"attack range.",
+			"Different weapons have",
+			"different ranges so keep",
+			"that in mind!",
+			"Moving a unit will show",
+			"you all the options they",
+			"have in that spot.",
+			"As you get more",
+			"abilities theyll show up",
+			"in that list.",
+			"If you see any new ones",
+			"be sure to try them out!",
+			"For now though lets just",
+			"try attacking."
+		],
+		"charTime": [
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_almyra",
+				"expression": "portrait_female_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			},
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			}
+		],
+		"highlight": 0
+	}
+]

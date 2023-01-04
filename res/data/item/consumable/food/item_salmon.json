@@ -1,0 +1,24 @@
+{
+	"id": "item.other.salmon",
+	"name": "Salmon",
+	"type": "item.type.usable",
+	"tier": 0,
+	"rate": 0.5,
+	"use": "ITEM_USE_HEAL_10",
+	"fish_rate": 0.75,
+	"locations": [
+		"pallet.seabed_cove"
+	],
+	"price": 200,
+	"text": [
+		"A tasty salmon that",
+		"would make any",
+		"persons mouth water"
+	],
+	"model": "item_salmon.dae",
+	"texture": "item_salmon.png",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": -1
+	}
+}

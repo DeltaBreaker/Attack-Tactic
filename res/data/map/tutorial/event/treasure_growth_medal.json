@@ -1,0 +1,14 @@
+{
+	"activator": "event.activator.wait 3 2",
+	"script": [
+		"hidecursor true",
+		"controllock true",
+		"addpauseeffect 100 ~",
+		"wait 300",
+		"additem item.accessory.growth.medal ~",
+		"playsfx loot.ogg",
+		"hidecursor false",
+		"controllock false",
+		"disable"
+	]
+}

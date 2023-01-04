@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.village",
+        "tile.house.wall.bottom.left"
+    ],
+    "property": "TILE_HOUSING",
+    "model": "tile_house_wall_bottom_left.dae",
+    "texture": "tile_house_wall_bottom_left.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 24.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

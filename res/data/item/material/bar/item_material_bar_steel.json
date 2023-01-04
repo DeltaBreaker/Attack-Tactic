@@ -1,0 +1,23 @@
+{
+	"id": "item.material.bar.steel",
+	"name": "Steel Bar",
+	"type": "item.type.other",
+	"tier": 2,
+	"rate": 0.75,
+	"fish_rate": 0.0,
+	"locations": [
+		"pallet.seabed_cove",
+		"pallet.scorched_crater"
+	],
+	"price": 200,
+	"text": [
+		"A short bar made",
+		"from steel"
+	],
+	"model": "item_material_bar.dae",
+	"texture": "item_material_bar_steel.png",
+	"material": "SILVER",
+	"recipe": {
+		"cost": -1
+	}
+}

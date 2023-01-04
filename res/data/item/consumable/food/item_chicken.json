@@ -1,0 +1,24 @@
+{
+	"id": "item.usable.chicken",
+	"name": "Chicken",
+	"type": "item.type.usable",
+	"tier": 1,
+	"use": "ITEM_USE_HEAL_20",
+	"rate": 1.0,
+	"fish_rate": 0.0,
+	"locations": [
+		"pallet.village",
+		"pallet.flooded_forrest"
+	],
+	"price": 125,
+	"text": [
+		"Restores 20 HP",
+		"to the user"
+	],
+	"model": "item_chicken.dae",
+	"texture": "item_chicken.png",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": -1
+	}
+}

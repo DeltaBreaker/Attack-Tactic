@@ -1,0 +1,25 @@
+{
+	"id": "item.usable.cheese",
+	"name": "Cheese",
+	"type": "item.type.usable",
+	"tier": 0,
+	"use": "ITEM_USE_HEAL_10",
+	"rate": 1.0,
+	"fish_rate": 0.0,
+	"locations": [
+		"pallet.snow_forrest",
+		"pallet.village",
+		"pallet.flooded_forrest"
+	],
+	"price": 100,
+	"text": [
+		"Restores 10 HP",
+		"to the user"
+	],
+	"model": "item_cheese.dae",
+	"texture": "item_cheese.png",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": -1
+	}
+}

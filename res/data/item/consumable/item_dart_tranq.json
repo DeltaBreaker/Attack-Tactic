@@ -1,0 +1,39 @@
+{
+	"id": "item.usable.dart.tranq",
+	"name": "Tranq Dart",
+	"type": "item.type.usable",
+	"tier": 1,
+	"use": "ITEM_USE_DART_TRANQ",
+	"rate": 0.5,
+	"fish_rate": 0.0,
+	"locations": [
+		"pallet.snow_forrest",
+		"pallet.village",
+		"pallet.flooded_forrest",
+		"pallet.seabed_cove",
+		"pallet.scorched_crater",
+		"pallet.medial_plane",
+		"pallet.castle_depths"
+	],
+	"price": 65,
+	"text": [
+		"A dart coated in",
+		"tranq serum"
+	],
+	"model": "item_dart_tranq.dae",
+	"texture": "item_dart_tranq.png",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": 65,
+		"materials": [
+			{
+				"item": "item.material.wood",
+				"count": 1
+			},
+			{
+				"item": "item.material.vial.tranq",
+				"count": 1
+			}
+		]
+	}
+}

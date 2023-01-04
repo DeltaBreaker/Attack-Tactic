@@ -1,0 +1,44 @@
+{
+	"id": "item.bow.gold",
+	"name": "Gold Bow",
+	"type": "item.type.weapon",
+	"tier": 1,
+	"damage_type": "item.damage.physical",
+	"animation": "ITEM_ANIMATION_PIERCE",
+	"range": 3,
+	"hp": 0,
+	"atk": 7,
+	"mag": 0,
+	"spd": 2,
+	"def": 0,
+	"res": 0,
+	"mov": 0,
+	"abilities": [],
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 1200,
+	"text": [
+		"A malleable bow",
+		"made from gold"
+	],
+	"model": "item_bow_gold.dae",
+	"texture": "item_bow_gold.png",
+	"wearable_model_id": "unit_weapon_bow_type_0",
+	"wearable_texture_id": "unit_weapon_bow_gold",
+	"material": "GOLD",
+	"recipe": {
+		"cost": 650,
+		"materials": [
+			{
+				"item": "item.material.bar.gold",
+				"count": 2
+			},
+			{
+				"item": "item.material.fibre.plant",
+				"count": 2
+			}
+		]
+	}
+}

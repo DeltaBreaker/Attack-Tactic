@@ -1,0 +1,51 @@
+{
+	"id": "item.shield.gold",
+	"name": "Gold Shield",
+	"type": "item.type.weapon",
+	"tier": 1,
+	"damage_type": "item.damage.physical",
+	"animation": "ITEM_ANIMATION_BASH",
+	"range": 1,
+	"hp": 0,
+	"atk": 9,
+	"mag": 0,
+	"spd": -3,
+	"def": 4,
+	"res": 2,
+	"mov": 0,
+	"abilities": [
+		"ITEM_ABILITY_HARDEN"
+	],
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 1200,
+	"text": [
+		"A malleable",
+		"shield made from",
+		"gold"
+	],
+	"model": "item_shield_gold.dae",
+	"texture": "item_shield_gold.png",
+	"wearable_model_id": "unit_weapon_shield_type_0",
+	"wearable_texture_id": "unit_weapon_shield_gold",
+	"material": "GOLD",
+	"recipe": {
+		"cost": 1200,
+		"materials": [
+			{
+				"item": "item.material.bar.gold",
+				"count": 2
+			},
+			{
+				"item": "item.material.fibre.plant",
+				"count": 1
+			},
+			{
+				"item": "item.material.leather",
+				"count": 1
+			}
+		]
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"tags": [
+		"pallet.snow_forrest"
+	],
+	"property": "DEFAULT",
+	"model": "tile_grass_snow_forrest.dae",
+	"texture": "tile_grass_snow_forrest.png",
+	"shader": "main_3d",
+	"solid": false,
+	"offset": [
+		0.0,
+		8.0,
+		0.0
+	],
+	"material": "DEFAULT"
+}

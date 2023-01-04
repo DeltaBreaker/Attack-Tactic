@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.village",
+        "tile.house.chair.left"
+    ],
+    "property": "TILE_HOUSING_FURNISHING",
+    "model": "tile_house_chair_left.dae",
+    "texture": "tile_house_chair_left.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 16.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

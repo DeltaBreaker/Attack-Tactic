@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.village",
+        "tile.house.bed"
+    ],
+    "property": "TILE_HOUSING_FURNISHING",
+    "model": "tile_bed.dae",
+    "texture": "tile_bed.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 16.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

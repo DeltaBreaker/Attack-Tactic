@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.scorched_crater",
+        "tile.wall.vertical"
+    ],
+    "property": "DEFAULT",
+    "model": "tile_19_scorched_crater.dae",
+    "texture": "tile_19_scorched_crater.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 10.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

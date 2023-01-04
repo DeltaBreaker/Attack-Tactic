@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <created>2020-07-16T05:14:47Z</created>
+    <modified>2020-07-16T05:14:47Z</modified>
+    <revision>1.0</revision>
+  </asset>
+  <library_images>
+    <image id="unit_hair_0_right_0-diffuse-tex" name="unit_hair_0_right_0-diffuse-tex">
+      <init_from>unit_hair_0_right_0_diffuse.png</init_from>
+    </image>
+    <image id="unit_hair_0_right_0-emissive-tex" name="unit_hair_0_right_0-emissive-tex">
+      <init_from>unit_hair_0_right_0_emissive.png</init_from>
+    </image>
+  </library_images>
+  <library_effects>
+    <effect id="unit_hair_0_right_0-Effect">
+      <profile_COMMON>
+        <newparam sid="unit_hair_0_right_0-diffuse-surface">
+          <surface type="2D">
+            <init_from>unit_hair_0_right_0-diffuse-tex</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="unit_hair_0_right_0-emissive-surface">
+          <surface type="2D">
+            <init_from>unit_hair_0_right_0-emissive-tex</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="unit_hair_0_right_0-diffuse-sampler">
+          <sampler2D>
+            <source>unit_hair_0_right_0-diffuse-surface</source>
+            <wrap_s>CLAMP</wrap_s>
+            <wrap_t>CLAMP</wrap_t>
+            <minfilter>NONE</minfilter>
+            <magfilter>NONE</magfilter>
+          </sampler2D>
+        </newparam>
+        <newparam sid="unit_hair_0_right_0-emissive-sampler">
+          <sampler2D>
+            <source>unit_hair_0_right_0-emissive-surface</source>
+            <wrap_s>CLAMP</wrap_s>
+            <wrap_t>CLAMP</wrap_t>
+            <minfilter>NONE</minfilter>
+            <magfilter>NONE</magfilter>
+          </sampler2D>
+        </newparam>
+        <technique sid="phong1">
+          <phong>
+            <emission>
+              <texture texcoord="unit_hair_0_right_0-tex-bind" texture="unit_hair_0_right_0-emissive-sampler"/>
+            </emission>
+            <ambient>
+              <color>1.0 1.0 1.0 1.0</color>
+            </ambient>
+            <diffuse>
+              <texture texcoord="unit_hair_0_right_0-tex-bind" texture="unit_hair_0_right_0-diffuse-sampler"/>
+            </diffuse>
+            <specular>
+              <color>0.0 0.0 0.0 1.0</color>
+            </specular>
+            <shininess>
+              <float>5.0</float>
+            </shininess>
+            <reflective>
+              <color>1.0 1.0 1.0 1.0</color>
+            </reflective>
+            <reflectivity>
+              <float>0.2</float>
+            </reflectivity>
+            <transparent>
+              <color>1.0 1.0 1.0 1.0</color>
+            </transparent>
+            <transparency>
+              <float>1.0</float>
+            </transparency>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="unit_hair_0_right_0-Material">
+      <instance_effect url="#unit_hair_0_right_0-Effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="unit_hair_0_right_0-Geom" name="unit_hair_0_right_0-Geom">
+      <mesh>
+        <source id="unit_hair_0_right_0-Pos">
+          <float_array count="72" id="unit_hair_0_right_0-Pos-array">-1.0 -2.0 1.0 -1.0 6.0 1.0 -1.0 6.0 0.0 -1.0 -2.0 0.0 1.0 -2.0 0.0 1.0 6.0 0.0 1.0 6.0 1.0 1.0 -2.0 1.0 -1.0 -2.0 0.0 1.0 -2.0 0.0 1.0 -2.0 1.0 -1.0 -2.0 1.0 -1.0 6.0 1.0 1.0 6.0 1.0 1.0 6.0 0.0 -1.0 6.0 0.0 -1.0 6.0 0.0 1.0 6.0 0.0 1.0 -2.0 0.0 -1.0 -2.0 0.0 -1.0 -2.0 1.0 1.0 -2.0 1.0 1.0 6.0 1.0 -1.0 6.0 1.0 </float_array>
+          <technique_common>
+            <accessor count="24" source="#unit_hair_0_right_0-Pos-array" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="unit_hair_0_right_0-UV">
+          <float_array count="48" id="unit_hair_0_right_0-UV-array">0.0625 0.5 0.0625 1.0 0.0 1.0 0.0 0.5 0.0 0.0 0.0 0.5 0.0625 0.5 0.0625 0.0 0.0625 0.875 0.0625 1.0 0.125 1.0 0.125 0.875 0.1875 0.875 0.1875 1.0 0.125 1.0 0.125 0.875 0.0625 0.375 0.1875 0.375 0.1875 0.875 0.0625 0.875 0.1875 0.875 0.3125 0.875 0.3125 0.375 0.1875 0.375 </float_array>
+          <technique_common>
+            <accessor count="24" source="#unit_hair_0_right_0-UV-array" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="unit_hair_0_right_0-Normal">
+          <float_array count="18" id="unit_hair_0_right_0-Normal-array">-1.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 1.0</float_array>
+          <technique_common>
+            <accessor count="6" source="#unit_hair_0_right_0-Normal-array" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="unit_hair_0_right_0-Vertices">
+          <input semantic="POSITION" source="#unit_hair_0_right_0-Pos"/>
+        </vertices>
+        <polylist count="6" material="unit_hair_0_right_0-Material">
+          <input offset="0" semantic="VERTEX" source="#unit_hair_0_right_0-Vertices"/>
+          <input offset="1" semantic="TEXCOORD" set="0" source="#unit_hair_0_right_0-UV"/>
+          <input offset="2" semantic="NORMAL" source="#unit_hair_0_right_0-Normal"/>
+          <vcount>4 4 4 4 4 4 </vcount>
+          <p>0 0 0 1 1 0 2 2 0 3 3 0 4 4 1 5 5 1 6 6 1 7 7 1 8 8 2 9 9 2 10 10 2 11 11 2 12 12 3 13 13 3 14 14 3 15 15 3 16 16 4 17 17 4 18 18 4 19 19 4 20 20 5 21 21 5 22 22 5 23 23 5 </p>
+        </polylist>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_animations/>
+  <library_visual_scenes>
+    <visual_scene id="DefaultScene">
+      <node id="unit_hair_0_right_0" name="unit_hair_0_right_0">
+        <translate>0 0 0</translate>
+        <rotate>0 0 1 0</rotate>
+        <rotate>0 1 0 0</rotate>
+        <rotate>1 0 0 0</rotate>
+        <scale>1 1 1</scale>
+        <instance_geometry url="#unit_hair_0_right_0-Geom">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="unit_hair_0_right_0-Material" target="#unit_hair_0_right_0-Material">
+                <bind_vertex_input input_semantic="TEXCOORD" input_set="0" semantic="unit_hair_0_right_0-tex-bind"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#DefaultScene"/>
+  </scene>
+</COLLADA>

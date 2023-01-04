@@ -1,0 +1,15 @@
+{
+    "tags": [
+    	"pallet.medial_plane",
+        "tile.decoration.foliage"
+    ],
+    "property": "TILE_RESIDUE",
+    "model": "tile_floor_medial_plane.dae",
+    "texture": "tile_floor_medial_plane.png",
+    "shader": "main_3d_nobloom",
+    "solid": false,
+    "offset": [
+        0.0, 0.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

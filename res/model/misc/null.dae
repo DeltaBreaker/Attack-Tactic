@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <created>2020-09-10T00:44:52Z</created>
+    <modified>2020-09-10T00:44:52Z</modified>
+    <revision>1.0</revision>
+  </asset>
+  <library_images>
+    <image id="sword-diffuse-tex" name="sword-diffuse-tex">
+      <init_from>sword_diffuse.png</init_from>
+    </image>
+    <image id="sword-emissive-tex" name="sword-emissive-tex">
+      <init_from>sword_emissive.png</init_from>
+    </image>
+  </library_images>
+  <library_effects>
+    <effect id="sword-Effect">
+      <profile_COMMON>
+        <newparam sid="sword-diffuse-surface">
+          <surface type="2D">
+            <init_from>sword-diffuse-tex</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="sword-emissive-surface">
+          <surface type="2D">
+            <init_from>sword-emissive-tex</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="sword-diffuse-sampler">
+          <sampler2D>
+            <source>sword-diffuse-surface</source>
+            <wrap_s>CLAMP</wrap_s>
+            <wrap_t>CLAMP</wrap_t>
+            <minfilter>NONE</minfilter>
+            <magfilter>NONE</magfilter>
+          </sampler2D>
+        </newparam>
+        <newparam sid="sword-emissive-sampler">
+          <sampler2D>
+            <source>sword-emissive-surface</source>
+            <wrap_s>CLAMP</wrap_s>
+            <wrap_t>CLAMP</wrap_t>
+            <minfilter>NONE</minfilter>
+            <magfilter>NONE</magfilter>
+          </sampler2D>
+        </newparam>
+        <technique sid="phong1">
+          <phong>
+            <emission>
+              <texture texcoord="sword-tex-bind" texture="sword-emissive-sampler"/>
+            </emission>
+            <ambient>
+              <color>1.0 1.0 1.0 1.0</color>
+            </ambient>
+            <diffuse>
+              <texture texcoord="sword-tex-bind" texture="sword-diffuse-sampler"/>
+            </diffuse>
+            <specular>
+              <color>0.0 0.0 0.0 1.0</color>
+            </specular>
+            <shininess>
+              <float>5.0</float>
+            </shininess>
+            <reflective>
+              <color>1.0 1.0 1.0 1.0</color>
+            </reflective>
+            <reflectivity>
+              <float>0.2</float>
+            </reflectivity>
+            <transparent>
+              <color>1.0 1.0 1.0 1.0</color>
+            </transparent>
+            <transparency>
+              <float>1.0</float>
+            </transparency>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="sword-Material">
+      <instance_effect url="#sword-Effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="sword-Geom" name="sword-Geom">
+      <mesh>
+        <source id="sword-Pos">
+          <float_array count="0" id="sword-Pos-array"/>
+          <technique_common>
+            <accessor count="0" source="#sword-Pos-array" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="sword-UV">
+          <float_array count="0" id="sword-UV-array"/>
+          <technique_common>
+            <accessor count="0" source="#sword-UV-array" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="sword-Normal">
+          <float_array count="18" id="sword-Normal-array">-1.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 1.0</float_array>
+          <technique_common>
+            <accessor count="6" source="#sword-Normal-array" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="sword-Vertices">
+          <input semantic="POSITION" source="#sword-Pos"/>
+        </vertices>
+        <polylist count="0" material="sword-Material">
+          <input offset="0" semantic="VERTEX" source="#sword-Vertices"/>
+          <input offset="1" semantic="TEXCOORD" set="0" source="#sword-UV"/>
+          <input offset="2" semantic="NORMAL" source="#sword-Normal"/>
+          <vcount/>
+          <p/>
+        </polylist>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_animations/>
+  <library_visual_scenes>
+    <visual_scene id="DefaultScene">
+      <node id="sword" name="sword">
+        <translate>0 0 0</translate>
+        <rotate>0 0 1 0</rotate>
+        <rotate>0 1 0 0</rotate>
+        <rotate>1 0 0 0</rotate>
+        <scale>1 1 1</scale>
+        <instance_geometry url="#sword-Geom">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="sword-Material" target="#sword-Material">
+                <bind_vertex_input input_semantic="TEXCOORD" input_set="0" semantic="sword-tex-bind"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#DefaultScene"/>
+  </scene>
+</COLLADA>

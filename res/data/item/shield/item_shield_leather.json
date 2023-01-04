@@ -1,0 +1,47 @@
+{
+	"id": "item.shield.leather",
+	"name": "Leather Shield",
+	"type": "item.type.weapon",
+	"tier": 0,
+	"damage_type": "item.damage.physical",
+	"animation": "ITEM_ANIMATION_BASH",
+	"range": 1,
+	"hp": 0,
+	"atk": 3,
+	"mag": 0,
+	"spd": -2,
+	"def": 1,
+	"res": 1,
+	"mov": 0,
+	"abilities": [
+		"ITEM_ABILITY_HARDEN"
+	],
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 150,
+	"text": [
+		"A brittle shield",
+		"made from oak",
+		"and leather"
+	],
+	"model": "item_shield_leather.dae",
+	"texture": "item_shield_leather.png",
+	"wearable_model_id": "unit_weapon_shield_type_0",
+	"wearable_texture_id": "unit_weapon_shield_leather",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": 150,
+		"materials": [
+			{
+				"item": "item.material.fibre.plant",
+				"count": 1
+			},
+			{
+				"item": "item.material.leather",
+				"count": 3
+			}
+		]
+	}
+}

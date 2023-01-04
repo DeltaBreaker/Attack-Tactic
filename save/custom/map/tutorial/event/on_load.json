@@ -1,0 +1,106 @@
+{
+	"activator": "event.activator.map.load",
+	"script": [
+		"loadunit res/data/map/tutorial/unit/40c0f0de-5b7f-4d33-9b56-9108482203b2.dat",
+		"loadunit res/data/map/tutorial/unit/439d9dda-5c0b-49f2-affa-a698d0e95386.dat",
+		"loadunit res/data/map/tutorial/unit/1020c9b4-2ff0-402e-89b8-5d1a6c12ba71.dat",
+		"recruitunit bfce0c80-ebe4-487d-90a1-a869e0c4e8b9",
+		"recruitunit ffc6dde5-9d4a-414a-a4a3-875fac2c8dc2",
+		
+		"controllock true",
+		"hidecursor true",
+		
+		"poselock bfce0c80-ebe4-487d-90a1-a869e0c4e8b9 true",
+		"poselock ffc6dde5-9d4a-414a-a4a3-875fac2c8dc2 true",
+		"dir bfce0c80-ebe4-487d-90a1-a869e0c4e8b9 3 0",
+		"dir ffc6dde5-9d4a-414a-a4a3-875fac2c8dc2 3 0",
+		
+		"wait 432",
+		"script tutorial_scene_0.json",
+		"wait 72",
+		
+		"spawnunit 40c0f0de-5b7f-4d33-9b56-9108482203b2 4 8 false true",
+		"spawnunit 1020c9b4-2ff0-402e-89b8-5d1a6c12ba71 4 9 false true",
+		"spawnunit 439d9dda-5c0b-49f2-affa-a698d0e95386 4 10 false true",
+		
+		"moveunit 40c0f0de-5b7f-4d33-9b56-9108482203b2 4 4",
+		"poselock 40c0f0de-5b7f-4d33-9b56-9108482203b2 true",
+		"dir 40c0f0de-5b7f-4d33-9b56-9108482203b2 3 0",
+		
+		"moveunit 1020c9b4-2ff0-402e-89b8-5d1a6c12ba71 3 5",
+		"poselock 1020c9b4-2ff0-402e-89b8-5d1a6c12ba71 true",
+		"dir 1020c9b4-2ff0-402e-89b8-5d1a6c12ba71 3 0",
+		
+		"moveunit 439d9dda-5c0b-49f2-affa-a698d0e95386 5 5",
+		"poselock 439d9dda-5c0b-49f2-affa-a698d0e95386 true",
+		"dir 439d9dda-5c0b-49f2-affa-a698d0e95386 3 0",
+		
+		"wait 72",
+		"dir bfce0c80-ebe4-487d-90a1-a869e0c4e8b9 4 0",
+		"dir ffc6dde5-9d4a-414a-a4a3-875fac2c8dc2 4 0",
+		"wait 72",
+		
+		"script tutorial_scene_1.json",
+		"wait 72",
+		
+		"poselock 40c0f0de-5b7f-4d33-9b56-9108482203b2 false",
+		"moveunit 40c0f0de-5b7f-4d33-9b56-9108482203b2 12 8",
+		
+		"poselock 1020c9b4-2ff0-402e-89b8-5d1a6c12ba71 false",
+		"moveunit 1020c9b4-2ff0-402e-89b8-5d1a6c12ba71 5 9",
+		
+		"poselock 439d9dda-5c0b-49f2-affa-a698d0e95386 false",
+		"moveunit 439d9dda-5c0b-49f2-affa-a698d0e95386 4 7",
+		
+		"wait 46",
+		"dir bfce0c80-ebe4-487d-90a1-a869e0c4e8b9 1 0",
+		"dir ffc6dde5-9d4a-414a-a4a3-875fac2c8dc2 2 0",
+		"script tutorial_scene_2.json",
+		"choice tutorial_explaination yes no",
+				
+		"if tutorial_explaination 0",
+		"script tutorial_explaination_yes_0.json",
+		"wait 72",
+		"warpcursor 4 4",
+		"hidecursor false",
+		"wait 144",
+		"script tutorial_explaination_yes_1.json",
+		"wait 72",
+		"movecursor -1 -1",
+		"wait 72",
+		"selectunit ffc6dde5-9d4a-414a-a4a3-875fac2c8dc2",
+		"wait 144",
+		"script tutorial_explaination_yes_2.json",
+		"wait 72",
+		"movecursor 1 3",
+		"wait 72",
+		"poselock ffc6dde5-9d4a-414a-a4a3-875fac2c8dc2 false",
+		"moveunit ffc6dde5-9d4a-414a-a4a3-875fac2c8dc2 4 6",
+		"playsfx menu_open.ogg",
+		"showrange ffc6dde5-9d4a-414a-a4a3-875fac2c8dc2",
+		"menulock true",
+		"actionmenu ffc6dde5-9d4a-414a-a4a3-875fac2c8dc2",
+		"wait_menu 144",
+		"menuselect ffc6dde5-9d4a-414a-a4a3-875fac2c8dc2",
+		"menulock false",
+		"wait 72",
+		"movecursor 0 1",
+		"movecamera 0 1",
+		"wait 72",
+		"script tutorial_explaination_yes_3.json",
+		"wait 72",
+		"hidecursor true",
+		"attack ffc6dde5-9d4a-414a-a4a3-875fac2c8dc2 439d9dda-5c0b-49f2-affa-a698d0e95386",
+		"script tutorial_explaination_yes_4.json",
+		"end",
+		
+		"if tutorial_explaination 1",
+		"script tutorial_explaination_no.json",
+		"end",
+		
+		"poselock bfce0c80-ebe4-487d-90a1-a869e0c4e8b9 false",
+		"poselock ffc6dde5-9d4a-414a-a4a3-875fac2c8dc2 false",
+		"hidecursor false",
+		"controllock false"
+	]	
+}

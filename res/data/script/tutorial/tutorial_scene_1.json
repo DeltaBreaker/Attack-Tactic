@@ -1,0 +1,209 @@
+[
+	{
+		"text": [
+			"Funny seeing you here",
+			"Allan.",
+			"I guess this is where",
+			"they take the trash now",
+			"huh&"
+		],
+		"charTime": [
+			8,
+			8,
+			8,
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_teryn",
+				"expression": "portrait_male_0_sly_eyes",
+				"mouth": "portrait_mouth_sly"
+			},
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_annoyed_eyes",
+				"mouth": "portrait_mouth_annoyed"
+			}
+		],
+		"highlight": 0
+	},
+	{
+		"text": [
+			"Oh is that why you",
+			"showed up&"
+		],
+		"charTime": [
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_teryn",
+				"expression": "portrait_male_0_sly_eyes",
+				"mouth": "portrait_mouth_sly"
+			},
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_annoyed_eyes",
+				"mouth": "portrait_mouth_annoyed"
+			},
+			{
+				"portrait": "portrait_almyra",
+				"expression": "portrait_female_annoyed_eyes",
+				"mouth": "portrait_mouth_annoyed"
+			}
+		],
+		"highlight": 2
+	},
+	{
+		"text": [
+			"As feisty as ever I see.",
+			"Why dont you finally",
+			"come and join the",
+			"winning side almyra&",
+			"I know youve got to be",
+			"tired of this loser by",
+			"now."
+		],
+		"charTime": [
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_teryn",
+				"expression": "portrait_male_0_sly_eyes",
+				"mouth": "portrait_mouth_sly"
+			},
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_annoyed_eyes",
+				"mouth": "portrait_mouth_annoyed"
+			},
+			{
+				"portrait": "portrait_almyra",
+				"expression": "portrait_female_annoyed_eyes",
+				"mouth": "portrait_mouth_annoyed"
+			}
+		],
+		"highlight": 0
+	},
+	{
+		"text": [
+			"The only thing youre",
+			"going to win is my foot",
+			"up your ass."
+		],
+		"charTime": [
+			8,
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_teryn",
+				"expression": "portrait_male_0_sly_eyes",
+				"mouth": "portrait_mouth_sly"
+			},
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_annoyed_eyes",
+				"mouth": "portrait_mouth_annoyed"
+			},
+			{
+				"portrait": "portrait_almyra",
+				"expression": "portrait_female_annoyed_eyes",
+				"mouth": "portrait_mouth_annoyed"
+			}
+		],
+		"highlight": 2
+	},
+	{
+		"text": [
+			"Can we hurry this up",
+			"Teryn&",
+			"The guild is expecting",
+			"me to be back pretty",
+			"soon.",
+			"I dont have time to sit",
+			"here and listen to you",
+			"blather."
+		],
+		"charTime": [
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_teryn",
+				"expression": "portrait_male_0_sly_eyes",
+				"mouth": "portrait_mouth_sly"
+			},
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_annoyed_eyes",
+				"mouth": "portrait_mouth_annoyed"
+			},
+			{
+				"portrait": "portrait_almyra",
+				"expression": "portrait_female_annoyed_eyes",
+				"mouth": "portrait_mouth_annoyed"
+			}
+		],
+		"highlight": 1
+	},
+	{
+		"text": [
+			"Oh this wont take long.",
+			"I was going to go easy",
+			"on you but you need to",
+			"be taught a long lesson",
+			"about respect.",
+			"Keep the exits covered",
+			"boys.",
+			"I dont want him running",
+			"away."
+		],
+		"charTime": [
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_teryn",
+				"expression": "portrait_male_0_annoyed_eyes",
+				"mouth": "portrait_mouth_annoyed"
+			},
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_annoyed_eyes",
+				"mouth": "portrait_mouth_annoyed"
+			},
+			{
+				"portrait": "portrait_almyra",
+				"expression": "portrait_female_annoyed_eyes",
+				"mouth": "portrait_mouth_annoyed"
+			}
+		],
+		"highlight": 0
+	}
+]

@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.castle_depths",
+        "tile.door.locked"
+    ],
+    "property": "TILE_DOOR_LOCKED",
+    "model": "tile_door_locked.dae",
+    "texture": "tile_door_locked.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 16.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

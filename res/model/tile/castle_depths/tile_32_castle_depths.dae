@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <created>2021-06-30T23:37:17Z</created>
+    <modified>2021-06-30T23:37:17Z</modified>
+    <revision>1.0</revision>
+  </asset>
+  <library_images>
+    <image id="castle_floor-diffuse-tex" name="castle_floor-diffuse-tex">
+      <init_from>castle_floor_diffuse.png</init_from>
+    </image>
+    <image id="castle_floor-emissive-tex" name="castle_floor-emissive-tex">
+      <init_from>castle_floor_emissive.png</init_from>
+    </image>
+  </library_images>
+  <library_effects>
+    <effect id="castle_floor-Effect">
+      <profile_COMMON>
+        <newparam sid="castle_floor-diffuse-surface">
+          <surface type="2D">
+            <init_from>castle_floor-diffuse-tex</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="castle_floor-emissive-surface">
+          <surface type="2D">
+            <init_from>castle_floor-emissive-tex</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="castle_floor-diffuse-sampler">
+          <sampler2D>
+            <source>castle_floor-diffuse-surface</source>
+            <wrap_s>CLAMP</wrap_s>
+            <wrap_t>CLAMP</wrap_t>
+            <minfilter>NONE</minfilter>
+            <magfilter>NONE</magfilter>
+          </sampler2D>
+        </newparam>
+        <newparam sid="castle_floor-emissive-sampler">
+          <sampler2D>
+            <source>castle_floor-emissive-surface</source>
+            <wrap_s>CLAMP</wrap_s>
+            <wrap_t>CLAMP</wrap_t>
+            <minfilter>NONE</minfilter>
+            <magfilter>NONE</magfilter>
+          </sampler2D>
+        </newparam>
+        <technique sid="phong1">
+          <phong>
+            <emission>
+              <texture texcoord="castle_floor-tex-bind" texture="castle_floor-emissive-sampler"/>
+            </emission>
+            <ambient>
+              <color>1.0 1.0 1.0 1.0</color>
+            </ambient>
+            <diffuse>
+              <texture texcoord="castle_floor-tex-bind" texture="castle_floor-diffuse-sampler"/>
+            </diffuse>
+            <specular>
+              <color>0.0 0.0 0.0 1.0</color>
+            </specular>
+            <shininess>
+              <float>5.0</float>
+            </shininess>
+            <reflective>
+              <color>1.0 1.0 1.0 1.0</color>
+            </reflective>
+            <reflectivity>
+              <float>0.2</float>
+            </reflectivity>
+            <transparent>
+              <color>1.0 1.0 1.0 1.0</color>
+            </transparent>
+            <transparency>
+              <float>1.0</float>
+            </transparency>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="castle_floor-Material">
+      <instance_effect url="#castle_floor-Effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="castle_floor-Geom" name="castle_floor-Geom">
+      <mesh>
+        <source id="castle_floor-Pos">
+          <float_array count="192" id="castle_floor-Pos-array">-8.0 -8.5 8.0 -8.0 7.5 8.0 -8.0 7.5 -8.0 -8.0 -8.5 -8.0 -8.0 7.5 8.0 -8.0 8.5 8.0 -8.0 8.5 4.0000005 -8.0 7.5 4.0000005 3.0000002 7.5 4.0000005 3.0000002 8.5 4.0000005 3.0000002 8.5 3.0000002 3.0000002 7.5 3.0000002 4.0000005 7.5 3.0000002 4.0000005 8.5 3.0000002 4.0000005 8.5 -8.0 4.0000005 7.5 -8.0 8.0 -8.5 -8.0 8.0 8.5 -8.0 8.0 8.5 8.0 8.0 -8.5 8.0 -8.0 -8.5 -8.0 8.0 -8.5 -8.0 8.0 -8.5 8.0 -8.0 -8.5 8.0 -8.0 7.5 3.0000002 4.0000005 7.5 3.0000002 4.0000005 7.5 -8.0 -8.0 7.5 -8.0 -8.0 7.5 4.0000005 3.0000002 7.5 4.0000005 3.0000002 7.5 3.0000002 -8.0 7.5 3.0000002 4.0000005 8.5 8.0 8.0 8.5 8.0 8.0 8.5 -8.0 4.0000005 8.5 -8.0 -8.0 8.5 8.0 4.0000005 8.5 8.0 4.0000005 8.5 4.0000005 -8.0 8.5 4.0000005 3.0000002 8.5 4.0000005 4.0000005 8.5 4.0000005 4.0000005 8.5 3.0000002 3.0000002 8.5 3.0000002 -8.0 7.5 -8.0 8.0 7.5 -8.0 8.0 -8.5 -8.0 -8.0 -8.5 -8.0 4.0000005 8.5 -8.0 8.0 8.5 -8.0 8.0 7.5 -8.0 4.0000005 7.5 -8.0 3.0000002 8.5 3.0000002 4.0000005 8.5 3.0000002 4.0000005 7.5 3.0000002 3.0000002 7.5 3.0000002 -8.0 8.5 4.0000005 3.0000002 8.5 4.0000005 3.0000002 7.5 4.0000005 -8.0 7.5 4.0000005 -8.0 -8.5 8.0 8.0 -8.5 8.0 8.0 8.5 8.0 -8.0 8.5 8.0 </float_array>
+          <technique_common>
+            <accessor count="64" source="#castle_floor-Pos-array" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="castle_floor-UV">
+          <float_array count="128" id="castle_floor-UV-array">0.0 0.75 0.25 0.75 0.25 1.0 0.0 1.0 0.296875 0.9375 0.3125 0.9375 0.3125 1.0 0.296875 1.0 0.296875 0.890625 0.3125 0.890625 0.3125 0.90625 0.296875 0.90625 0.34375 0.828125 0.359375 0.828125 0.359375 1.0 0.34375 1.0 0.0 0.4375 0.0 0.703125 0.25 0.703125 0.25 0.4375 0.296875 0.703125 0.546875 0.703125 0.546875 0.453125 0.296875 0.453125 0.5625 0.8125 0.5625 1.0 0.390625 1.0 0.390625 0.8125 0.609375 0.828125 0.609375 1.0 0.59375 1.0 0.59375 0.828125 0.640625 0.75 0.703125 0.75 0.703125 1.0 0.640625 1.0 0.796875 0.8125 0.796875 1.0 0.734375 1.0 0.734375 0.8125 0.390625 0.984375 0.40625 0.984375 0.40625 1.0 0.390625 1.0 0.59375 0.453125 0.84375 0.453125 0.84375 0.703125 0.59375 0.703125 0.3125 0.796875 0.3125 0.859375 0.296875 0.859375 0.296875 0.796875 0.390625 0.984375 0.40625 0.984375 0.40625 1.0 0.390625 1.0 0.359375 0.828125 0.359375 1.0 0.34375 1.0 0.34375 0.828125 0.0 0.40625 0.25 0.40625 0.25 0.140625 0.0 0.140625 </float_array>
+          <technique_common>
+            <accessor count="64" source="#castle_floor-UV-array" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="castle_floor-Normal">
+          <float_array count="18" id="castle_floor-Normal-array">-1.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 1.0</float_array>
+          <technique_common>
+            <accessor count="6" source="#castle_floor-Normal-array" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="castle_floor-Vertices">
+          <input semantic="POSITION" source="#castle_floor-Pos"/>
+        </vertices>
+        <polylist count="16" material="castle_floor-Material">
+          <input offset="0" semantic="VERTEX" source="#castle_floor-Vertices"/>
+          <input offset="1" semantic="TEXCOORD" set="0" source="#castle_floor-UV"/>
+          <input offset="2" semantic="NORMAL" source="#castle_floor-Normal"/>
+          <vcount>4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 </vcount>
+          <p>0 0 0 1 1 0 2 2 0 3 3 0 4 4 0 5 5 0 6 6 0 7 7 0 8 8 0 9 9 0 10 10 0 11 11 0 12 12 0 13 13 0 14 14 0 15 15 0 16 16 1 17 17 1 18 18 1 19 19 1 20 20 2 21 21 2 22 22 2 23 23 2 24 24 3 25 25 3 26 26 3 27 27 3 28 28 3 29 29 3 30 30 3 31 31 3 32 32 3 33 33 3 34 34 3 35 35 3 36 36 3 37 37 3 38 38 3 39 39 3 40 40 3 41 41 3 42 42 3 43 43 3 44 44 4 45 45 4 46 46 4 47 47 4 48 48 4 49 49 4 50 50 4 51 51 4 52 52 4 53 53 4 54 54 4 55 55 4 56 56 4 57 57 4 58 58 4 59 59 4 60 60 5 61 61 5 62 62 5 63 63 5 </p>
+        </polylist>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_animations/>
+  <library_visual_scenes>
+    <visual_scene id="DefaultScene">
+      <node id="castle_floor" name="castle_floor">
+        <translate>0 0 0</translate>
+        <rotate>0 0 1 0</rotate>
+        <rotate>0 1 0 0</rotate>
+        <rotate>1 0 0 0</rotate>
+        <scale>1 1 1</scale>
+        <instance_geometry url="#castle_floor-Geom">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="castle_floor-Material" target="#castle_floor-Material">
+                <bind_vertex_input input_semantic="TEXCOORD" input_set="0" semantic="castle_floor-tex-bind"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#DefaultScene"/>
+  </scene>
+</COLLADA>

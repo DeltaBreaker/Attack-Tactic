@@ -1,0 +1,24 @@
+{
+	"id": "item.material.wood",
+	"name": "Wood",
+	"type": "item.type.other",
+	"tier": 0,
+	"rate": 1.0,
+	"fish_rate": 0.1,
+	"locations": [
+		"pallet.snow_forrest",
+		"pallet.village",
+		"pallet.flooded_forrest"
+	],
+	"price": 50,
+	"text": [
+		"A small piece",
+		"of dried wood"
+	],
+	"model": "item_material_wood.dae",
+	"texture": "item_material_wood.png",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": -1
+	}
+}

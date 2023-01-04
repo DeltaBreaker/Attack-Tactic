@@ -1,0 +1,71 @@
+{
+	"name": "Flooded Forrest",
+	"pallet_tag": "pallet.flooded_forrest",
+	"max_depth": 20,
+	"level_scaler": 0.5,
+	"base_world_size": 24,
+	"world_size_scaler": 0.25,
+	"perlin_persistance": 0.35,
+	"test_limit": 1024,
+	"room_size_min": 5,
+	"room_size_random": 6,
+	"item_count_random": 3,
+	"item_count_certain": 1,
+	"enemy_room_count_devisor": 2.0,
+	"enemy_room_count_random_devisor": 4.0,
+	"enemy_count_random": 3,
+	"enemy_count_certain": 1,
+	"enemy_level_reduction": 0,
+	"enemy_level_deviation": 10,
+	"chest_base_count": 1,
+	"chest_level_spacer": 5,
+	"tier": 0,
+	"ai_type_rates": [
+		"0",
+		"1",
+		"0",
+		"0"
+	],
+	"screen_color": [
+		"0.0",
+		"0.0",
+		"0.0"
+	],
+	"decor_tags": [
+		{
+			"tag": "dungeon.decoration.foliage",
+			"vars": [
+				1.0,
+				2.0,
+				3.0
+			]
+		},
+		{
+			"tag": "dungeon.decoration.water",
+			"vars": [
+				10.0,
+				3.0,
+				3.0,
+				0.0
+			]
+		}
+	],
+	"effect_tags": [
+		{
+			"tag": "dungeon.light.main",
+			"vars": [
+				0.75,
+				0.75,
+				0.6,
+				0.5,
+				0.0009,
+				0.00005
+			]
+		},
+		{
+			"tag": "dungeon.effect.rain",
+			"vars": [
+			]
+		}
+	]
+}

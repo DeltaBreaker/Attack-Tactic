@@ -1,0 +1,48 @@
+{
+	"id": "item.sword.steel",
+	"name": "Steel Sword",
+	"type": "item.type.weapon",
+	"tier": 0,
+	"damage_type": "item.damage.physical",
+	"animation": "ITEM_ANIMATION_SLASH",
+	"range": 1,
+	"hp": 0,
+	"atk": 9,
+	"mag": 0,
+	"spd": 0,
+	"def": 0,
+	"res": 0,
+	"mov": 0,
+	"abilities": [],
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 950,
+	"text": [
+		"A short sword",
+		"made from steel"
+	],
+	"model": "item_sword_steel.dae",
+	"texture": "item_sword_steel.png",
+	"wearable_model_id": "unit_weapon_sword_type_0",
+	"wearable_texture_id": "unit_weapon_sword_steel",
+	"material": "SILVER",
+	"recipe": {
+		"cost": 950,
+		"materials": [
+			{
+				"item": "item.material.bar.steel",
+				"count": 2
+			},
+			{
+				"item": "item.material.fibre.plant",
+				"count": 1
+			},
+			{
+				"item": "item.material.wood",
+				"count": 1
+			}
+		]
+	}
+}

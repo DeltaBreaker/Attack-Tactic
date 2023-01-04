@@ -1,0 +1,32 @@
+{
+	"id": "item.accessory.mirror.medal",
+	"name": "Mirror Medal",
+	"type": "item.type.accessory",
+	"tier": 1,
+	"hp": 0,
+	"atk": 0,
+	"mag": 0,
+	"spd": 0,
+	"def": 0,
+	"res": 0,
+	"mov": 0,
+	"abilities": [
+		"ITEM_ABILITY_REFLECT"
+	],
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [],
+	"price": 500,
+	"text": [
+		"An enchanted medal",
+		"that protects its",
+		"wearer from",
+		"projectiles"
+	],
+	"model": "item_accessory_mirror_medal.dae",
+	"texture": "item_accessory_mirror_medal.png",
+	"material": "SILVER",
+	"recipe": {
+		"cost": -1
+	}
+}

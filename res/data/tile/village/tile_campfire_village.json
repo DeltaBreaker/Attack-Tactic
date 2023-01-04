@@ -1,0 +1,16 @@
+{
+    "tags": [
+        "pallet.village",
+        "tile.campfire",
+        "pallet.flooded_forrest"
+    ],
+    "property": "TILE_CAMPFIRE",
+    "model": "tile_campfire_snow_forrest.dae",
+    "texture": "tile_campfire_village.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 8.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

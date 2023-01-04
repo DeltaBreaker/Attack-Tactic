@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.seabed_cove",
+        "tile.decoration.foliage"
+    ],
+    "property": "TILE_OCEAN_VENT",
+    "model": "tile_vent_seabed_cove.dae",
+    "texture": "tile_vent_seabed_cove.png",
+    "shader": "main_3d",
+    "solid": false,
+    "offset": [
+        0.0, 8.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

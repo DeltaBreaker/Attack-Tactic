@@ -1,0 +1,24 @@
+{
+	"id": "item.other.carp",
+	"name": "Carp",
+	"type": "item.type.usable",
+	"tier": 1,
+	"rate": 0.25,
+	"use": "ITEM_USE_HEAL_20",
+	"fish_rate": 0.5,
+	"locations": [
+		"pallet.seabed_cove"
+	],
+	"price": 250,
+	"text": [
+		"A majestic carp",
+		"capable of ruling",
+		"all that we know"
+	],
+	"model": "item_carp.dae",
+	"texture": "item_carp.png",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": -1
+	}
+}

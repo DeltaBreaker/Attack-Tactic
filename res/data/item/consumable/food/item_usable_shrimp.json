@@ -1,0 +1,23 @@
+{
+	"id": "item.usable.shrimp",
+	"name": "Shrimp",
+	"type": "item.type.usable",
+	"tier": 0,
+	"use": "ITEM_USE_HEAL_5",
+	"rate": 1.0,
+	"fish_rate": 1.0,
+	"locations": [
+		"pallet.seabed_cove"
+	],
+	"price": 35,
+	"text": [
+		"Restores 5 HP",
+		"to the user"
+	],
+	"model": "item_usable_shrimp.dae",
+	"texture": "item_usable_shrimp.png",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": -1
+	}
+}

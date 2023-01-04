@@ -1,0 +1,16 @@
+{
+    "tags": [
+        "pallet.village",
+        "tile.door.closed",
+        "pallet.flooded_forrest"
+    ],
+    "property": "TILE_DOOR",
+    "model": "tile_door_closed.dae",
+    "texture": "tile_door_closed.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 16.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

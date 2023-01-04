@@ -1,0 +1,26 @@
+{
+	"id": "item.material.vial.sleep",
+	"name": "Sleep Vial",
+	"type": "item.type.other",
+	"tier": 0,
+	"rate": 0.75,
+	"fish_rate": 0.0,
+	"locations": [
+		"pallet.snow_forrest",
+		"pallet.village",
+		"pallet.flooded_forrest"
+	],
+	"price": 25,
+	"text": [
+		"A small vial of",
+		"tranq serum",
+		"extracted from",
+		"stray plants"
+	],
+	"model": "item_material_vial.dae",
+	"texture": "item_material_vial_sleep.png",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": -1
+	}
+}

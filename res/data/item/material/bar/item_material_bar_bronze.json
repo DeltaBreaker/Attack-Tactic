@@ -1,0 +1,25 @@
+{
+	"id": "item.material.bar.bronze",
+	"name": "Bronze Bar",
+	"type": "item.type.other",
+	"tier": 1,
+	"rate": 0.8,
+	"fish_rate": 0.0,
+	"locations": [
+		"pallet.snow_forrest",
+		"pallet.village",
+		"pallet.flooded_forrest",
+		"pallet.scorched_crater"
+	],
+	"price": 150,
+	"text": [
+		"A short bar made",
+		"from bronze"
+	],
+	"model": "item_material_bar.dae",
+	"texture": "item_material_bar_bronze.png",
+	"material": "BRONZE",
+	"recipe": {
+		"cost": -1
+	}
+}

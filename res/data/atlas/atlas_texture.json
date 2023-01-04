@@ -1,0 +1,4118 @@
+[
+	{
+		"source": "null.png",
+		"copies": [
+			"unit_weapon_sword_wood_0_3_0.png",
+			"unit_weapon_sword_wood_0_3_1.png",
+			"unit_weapon_sword_wood_0_3_2.png",
+			"unit_weapon_sword_wood_0_3_3.png",
+			"unit_weapon_sword_wood_1_3_0.png",
+			"unit_weapon_sword_wood_1_3_1.png",
+			"unit_weapon_sword_wood_1_3_2.png",
+			"unit_weapon_sword_wood_1_3_3.png",
+			"unit_weapon_sword_wood_2_3_0.png",
+			"unit_weapon_sword_wood_2_3_1.png",
+			"unit_weapon_sword_wood_2_3_2.png",
+			"unit_weapon_sword_wood_2_3_3.png",
+			"unit_weapon_sword_wood_3_3_0.png",
+			"unit_weapon_sword_wood_3_3_1.png",
+			"unit_weapon_sword_wood_3_3_2.png",
+			"unit_weapon_sword_wood_3_3_3.png",
+			"unit_weapon_sword_bronze_0_3_0.png",
+			"unit_weapon_sword_bronze_0_3_1.png",
+			"unit_weapon_sword_bronze_0_3_2.png",
+			"unit_weapon_sword_bronze_0_3_3.png",
+			"unit_weapon_sword_bronze_1_3_0.png",
+			"unit_weapon_sword_bronze_1_3_1.png",
+			"unit_weapon_sword_bronze_1_3_2.png",
+			"unit_weapon_sword_bronze_1_3_3.png",
+			"unit_weapon_sword_bronze_2_3_0.png",
+			"unit_weapon_sword_bronze_2_3_1.png",
+			"unit_weapon_sword_bronze_2_3_2.png",
+			"unit_weapon_sword_bronze_2_3_3.png",
+			"unit_weapon_sword_bronze_3_3_0.png",
+			"unit_weapon_sword_bronze_3_3_1.png",
+			"unit_weapon_sword_bronze_3_3_2.png",
+			"unit_weapon_sword_bronze_3_3_3.png",
+			"unit_weapon_sword_steel_0_3_0.png",
+			"unit_weapon_sword_steel_0_3_1.png",
+			"unit_weapon_sword_steel_0_3_2.png",
+			"unit_weapon_sword_steel_0_3_3.png",
+			"unit_weapon_sword_steel_1_3_0.png",
+			"unit_weapon_sword_steel_1_3_1.png",
+			"unit_weapon_sword_steel_1_3_2.png",
+			"unit_weapon_sword_steel_1_3_3.png",
+			"unit_weapon_sword_steel_2_3_0.png",
+			"unit_weapon_sword_steel_2_3_1.png",
+			"unit_weapon_sword_steel_2_3_2.png",
+			"unit_weapon_sword_steel_2_3_3.png",
+			"unit_weapon_sword_steel_3_3_0.png",
+			"unit_weapon_sword_steel_3_3_1.png",
+			"unit_weapon_sword_steel_3_3_2.png",
+			"unit_weapon_sword_steel_3_3_3.png",
+			"unit_weapon_sword_gold_0_3_0.png",
+			"unit_weapon_sword_gold_0_3_1.png",
+			"unit_weapon_sword_gold_0_3_2.png",
+			"unit_weapon_sword_gold_0_3_3.png",
+			"unit_weapon_sword_gold_1_3_0.png",
+			"unit_weapon_sword_gold_1_3_1.png",
+			"unit_weapon_sword_gold_1_3_2.png",
+			"unit_weapon_sword_gold_1_3_3.png",
+			"unit_weapon_sword_gold_2_3_0.png",
+			"unit_weapon_sword_gold_2_3_1.png",
+			"unit_weapon_sword_gold_2_3_2.png",
+			"unit_weapon_sword_gold_2_3_3.png",
+			"unit_weapon_sword_gold_3_3_0.png",
+			"unit_weapon_sword_gold_3_3_1.png",
+			"unit_weapon_sword_gold_3_3_2.png",
+			"unit_weapon_sword_gold_3_3_3.png",
+			"unit_weapon_sword_titanium_0_3_0.png",
+			"unit_weapon_sword_titanium_0_3_1.png",
+			"unit_weapon_sword_titanium_0_3_2.png",
+			"unit_weapon_sword_titanium_0_3_3.png",
+			"unit_weapon_sword_titanium_1_3_0.png",
+			"unit_weapon_sword_titanium_1_3_1.png",
+			"unit_weapon_sword_titanium_1_3_2.png",
+			"unit_weapon_sword_titanium_1_3_3.png",
+			"unit_weapon_sword_titanium_2_3_0.png",
+			"unit_weapon_sword_titanium_2_3_1.png",
+			"unit_weapon_sword_titanium_2_3_2.png",
+			"unit_weapon_sword_titanium_2_3_3.png",
+			"unit_weapon_sword_titanium_3_3_0.png",
+			"unit_weapon_sword_titanium_3_3_1.png",
+			"unit_weapon_sword_titanium_3_3_2.png",
+			"unit_weapon_sword_titanium_3_3_3.png",
+			"unit_weapon_tome_smfire_0_3_0.png",
+			"unit_weapon_tome_smfire_0_3_1.png",
+			"unit_weapon_tome_smfire_0_3_2.png",
+			"unit_weapon_tome_smfire_0_3_3.png",
+			"unit_weapon_tome_smfire_1_3_0.png",
+			"unit_weapon_tome_smfire_1_3_1.png",
+			"unit_weapon_tome_smfire_1_3_2.png",
+			"unit_weapon_tome_smfire_1_3_3.png",
+			"unit_weapon_tome_smfire_2_3_0.png",
+			"unit_weapon_tome_smfire_2_3_1.png",
+			"unit_weapon_tome_smfire_2_3_2.png",
+			"unit_weapon_tome_smfire_2_3_3.png",
+			"unit_weapon_tome_smfire_3_3_0.png",
+			"unit_weapon_tome_smfire_3_3_1.png",
+			"unit_weapon_tome_smfire_3_3_2.png",
+			"unit_weapon_tome_smfire_3_3_3.png",
+			"unit_weapon_tome_exfire_0_3_0.png",
+			"unit_weapon_tome_exfire_0_3_1.png",
+			"unit_weapon_tome_exfire_0_3_2.png",
+			"unit_weapon_tome_exfire_0_3_3.png",
+			"unit_weapon_tome_exfire_1_3_0.png",
+			"unit_weapon_tome_exfire_1_3_1.png",
+			"unit_weapon_tome_exfire_1_3_2.png",
+			"unit_weapon_tome_exfire_1_3_3.png",
+			"unit_weapon_tome_exfire_2_3_0.png",
+			"unit_weapon_tome_exfire_2_3_1.png",
+			"unit_weapon_tome_exfire_2_3_2.png",
+			"unit_weapon_tome_exfire_2_3_3.png",
+			"unit_weapon_tome_exfire_3_3_0.png",
+			"unit_weapon_tome_exfire_3_3_1.png",
+			"unit_weapon_tome_exfire_3_3_2.png",
+			"unit_weapon_tome_exfire_3_3_3.png",
+			"unit_weapon_tome_smdark_0_3_0.png",
+			"unit_weapon_tome_smdark_0_3_1.png",
+			"unit_weapon_tome_smdark_0_3_2.png",
+			"unit_weapon_tome_smdark_0_3_3.png",
+			"unit_weapon_tome_smdark_1_3_0.png",
+			"unit_weapon_tome_smdark_1_3_1.png",
+			"unit_weapon_tome_smdark_1_3_2.png",
+			"unit_weapon_tome_smdark_1_3_3.png",
+			"unit_weapon_tome_smdark_2_3_0.png",
+			"unit_weapon_tome_smdark_2_3_1.png",
+			"unit_weapon_tome_smdark_2_3_2.png",
+			"unit_weapon_tome_smdark_2_3_3.png",
+			"unit_weapon_tome_smdark_3_3_0.png",
+			"unit_weapon_tome_smdark_3_3_1.png",
+			"unit_weapon_tome_smdark_3_3_2.png",
+			"unit_weapon_tome_smdark_3_3_3.png",
+			"unit_weapon_tome_exdark_0_3_0.png",
+			"unit_weapon_tome_exdark_0_3_1.png",
+			"unit_weapon_tome_exdark_0_3_2.png",
+			"unit_weapon_tome_exdark_0_3_3.png",
+			"unit_weapon_tome_exdark_1_3_0.png",
+			"unit_weapon_tome_exdark_1_3_1.png",
+			"unit_weapon_tome_exdark_1_3_2.png",
+			"unit_weapon_tome_exdark_1_3_3.png",
+			"unit_weapon_tome_exdark_2_3_0.png",
+			"unit_weapon_tome_exdark_2_3_1.png",
+			"unit_weapon_tome_exdark_2_3_2.png",
+			"unit_weapon_tome_exdark_2_3_3.png",
+			"unit_weapon_tome_exdark_3_3_0.png",
+			"unit_weapon_tome_exdark_3_3_1.png",
+			"unit_weapon_tome_exdark_3_3_2.png",
+			"unit_weapon_tome_exdark_3_3_3.png",
+			"unit_weapon_bow_wood_0_3_0.png",
+			"unit_weapon_bow_wood_0_3_1.png",
+			"unit_weapon_bow_wood_0_3_2.png",
+			"unit_weapon_bow_wood_0_3_3.png",
+			"unit_weapon_bow_wood_1_3_0.png",
+			"unit_weapon_bow_wood_1_3_1.png",
+			"unit_weapon_bow_wood_1_3_2.png",
+			"unit_weapon_bow_wood_1_3_3.png",
+			"unit_weapon_bow_wood_2_3_0.png",
+			"unit_weapon_bow_wood_2_3_1.png",
+			"unit_weapon_bow_wood_2_3_2.png",
+			"unit_weapon_bow_wood_2_3_3.png",
+			"unit_weapon_bow_wood_3_3_0.png",
+			"unit_weapon_bow_wood_3_3_1.png",
+			"unit_weapon_bow_wood_3_3_2.png",
+			"unit_weapon_bow_wood_3_3_3.png",
+			"unit_weapon_bow_bronze_0_3_0.png",
+			"unit_weapon_bow_bronze_0_3_1.png",
+			"unit_weapon_bow_bronze_0_3_2.png",
+			"unit_weapon_bow_bronze_0_3_3.png",
+			"unit_weapon_bow_bronze_1_3_0.png",
+			"unit_weapon_bow_bronze_1_3_1.png",
+			"unit_weapon_bow_bronze_1_3_2.png",
+			"unit_weapon_bow_bronze_1_3_3.png",
+			"unit_weapon_bow_bronze_2_3_0.png",
+			"unit_weapon_bow_bronze_2_3_1.png",
+			"unit_weapon_bow_bronze_2_3_2.png",
+			"unit_weapon_bow_bronze_2_3_3.png",
+			"unit_weapon_bow_bronze_3_3_0.png",
+			"unit_weapon_bow_bronze_3_3_1.png",
+			"unit_weapon_bow_bronze_3_3_2.png",
+			"unit_weapon_bow_bronze_3_3_3.png",
+			"unit_weapon_bow_steel_0_3_0.png",
+			"unit_weapon_bow_steel_0_3_1.png",
+			"unit_weapon_bow_steel_0_3_2.png",
+			"unit_weapon_bow_steel_0_3_3.png",
+			"unit_weapon_bow_steel_1_3_0.png",
+			"unit_weapon_bow_steel_1_3_1.png",
+			"unit_weapon_bow_steel_1_3_2.png",
+			"unit_weapon_bow_steel_1_3_3.png",
+			"unit_weapon_bow_steel_2_3_0.png",
+			"unit_weapon_bow_steel_2_3_1.png",
+			"unit_weapon_bow_steel_2_3_2.png",
+			"unit_weapon_bow_steel_2_3_3.png",
+			"unit_weapon_bow_steel_3_3_0.png",
+			"unit_weapon_bow_steel_3_3_1.png",
+			"unit_weapon_bow_steel_3_3_2.png",
+			"unit_weapon_bow_steel_3_3_3.png",
+			"unit_weapon_bow_gold_0_3_0.png",
+			"unit_weapon_bow_gold_0_3_1.png",
+			"unit_weapon_bow_gold_0_3_2.png",
+			"unit_weapon_bow_gold_0_3_3.png",
+			"unit_weapon_bow_gold_1_3_0.png",
+			"unit_weapon_bow_gold_1_3_1.png",
+			"unit_weapon_bow_gold_1_3_2.png",
+			"unit_weapon_bow_gold_1_3_3.png",
+			"unit_weapon_bow_gold_2_3_0.png",
+			"unit_weapon_bow_gold_2_3_1.png",
+			"unit_weapon_bow_gold_2_3_2.png",
+			"unit_weapon_bow_gold_2_3_3.png",
+			"unit_weapon_bow_gold_3_3_0.png",
+			"unit_weapon_bow_gold_3_3_1.png",
+			"unit_weapon_bow_gold_3_3_2.png",
+			"unit_weapon_bow_gold_3_3_3.png",
+			"unit_weapon_bow_titanium_0_3_0.png",
+			"unit_weapon_bow_titanium_0_3_1.png",
+			"unit_weapon_bow_titanium_0_3_2.png",
+			"unit_weapon_bow_titanium_0_3_3.png",
+			"unit_weapon_bow_titanium_1_3_0.png",
+			"unit_weapon_bow_titanium_1_3_1.png",
+			"unit_weapon_bow_titanium_1_3_2.png",
+			"unit_weapon_bow_titanium_1_3_3.png",
+			"unit_weapon_bow_titanium_2_3_0.png",
+			"unit_weapon_bow_titanium_2_3_1.png",
+			"unit_weapon_bow_titanium_2_3_2.png",
+			"unit_weapon_bow_titanium_2_3_3.png",
+			"unit_weapon_bow_titanium_3_3_0.png",
+			"unit_weapon_bow_titanium_3_3_1.png",
+			"unit_weapon_bow_titanium_3_3_2.png",
+			"unit_weapon_bow_titanium_3_3_3.png",
+			"unit_weapon_shield_gold_0_3_0.png",
+			"unit_weapon_shield_gold_0_3_1.png",
+			"unit_weapon_shield_gold_0_3_2.png",
+			"unit_weapon_shield_gold_0_3_3.png",
+			"unit_weapon_shield_gold_1_3_0.png",
+			"unit_weapon_shield_gold_1_3_1.png",
+			"unit_weapon_shield_gold_1_3_2.png",
+			"unit_weapon_shield_gold_1_3_3.png",
+			"unit_weapon_shield_gold_2_3_0.png",
+			"unit_weapon_shield_gold_2_3_1.png",
+			"unit_weapon_shield_gold_2_3_2.png",
+			"unit_weapon_shield_gold_2_3_3.png",
+			"unit_weapon_shield_gold_3_3_0.png",
+			"unit_weapon_shield_gold_3_3_1.png",
+			"unit_weapon_shield_gold_3_3_2.png",
+			"unit_weapon_shield_gold_3_3_3.png",
+			"unit_weapon_shield_bronze_0_3_0.png",
+			"unit_weapon_shield_bronze_0_3_1.png",
+			"unit_weapon_shield_bronze_0_3_2.png",
+			"unit_weapon_shield_bronze_0_3_3.png",
+			"unit_weapon_shield_bronze_1_3_0.png",
+			"unit_weapon_shield_bronze_1_3_1.png",
+			"unit_weapon_shield_bronze_1_3_2.png",
+			"unit_weapon_shield_bronze_1_3_3.png",
+			"unit_weapon_shield_bronze_2_3_0.png",
+			"unit_weapon_shield_bronze_2_3_1.png",
+			"unit_weapon_shield_bronze_2_3_2.png",
+			"unit_weapon_shield_bronze_2_3_3.png",
+			"unit_weapon_shield_bronze_3_3_0.png",
+			"unit_weapon_shield_bronze_3_3_1.png",
+			"unit_weapon_shield_bronze_3_3_2.png",
+			"unit_weapon_shield_bronze_3_3_3.png",
+			"unit_weapon_shield_leather_0_3_0.png",
+			"unit_weapon_shield_leather_0_3_1.png",
+			"unit_weapon_shield_leather_0_3_2.png",
+			"unit_weapon_shield_leather_0_3_3.png",
+			"unit_weapon_shield_leather_1_3_0.png",
+			"unit_weapon_shield_leather_1_3_1.png",
+			"unit_weapon_shield_leather_1_3_2.png",
+			"unit_weapon_shield_leather_1_3_3.png",
+			"unit_weapon_shield_leather_2_3_0.png",
+			"unit_weapon_shield_leather_2_3_1.png",
+			"unit_weapon_shield_leather_2_3_2.png",
+			"unit_weapon_shield_leather_2_3_3.png",
+			"unit_weapon_shield_leather_3_3_0.png",
+			"unit_weapon_shield_leather_3_3_1.png",
+			"unit_weapon_shield_leather_3_3_2.png",
+			"unit_weapon_shield_leather_3_3_3.png",
+			"unit_weapon_shield_steel_0_3_0.png",
+			"unit_weapon_shield_steel_0_3_1.png",
+			"unit_weapon_shield_steel_0_3_2.png",
+			"unit_weapon_shield_steel_0_3_3.png",
+			"unit_weapon_shield_steel_1_3_0.png",
+			"unit_weapon_shield_steel_1_3_1.png",
+			"unit_weapon_shield_steel_1_3_2.png",
+			"unit_weapon_shield_steel_1_3_3.png",
+			"unit_weapon_shield_steel_2_3_0.png",
+			"unit_weapon_shield_steel_2_3_1.png",
+			"unit_weapon_shield_steel_2_3_2.png",
+			"unit_weapon_shield_steel_2_3_3.png",
+			"unit_weapon_shield_steel_3_3_0.png",
+			"unit_weapon_shield_steel_3_3_1.png",
+			"unit_weapon_shield_steel_3_3_2.png",
+			"unit_weapon_shield_steel_3_3_3.png",
+			"unit_weapon_shield_titanium_0_3_0.png",
+			"unit_weapon_shield_titanium_0_3_1.png",
+			"unit_weapon_shield_titanium_0_3_2.png",
+			"unit_weapon_shield_titanium_0_3_3.png",
+			"unit_weapon_shield_titanium_1_3_0.png",
+			"unit_weapon_shield_titanium_1_3_1.png",
+			"unit_weapon_shield_titanium_1_3_2.png",
+			"unit_weapon_shield_titanium_1_3_3.png",
+			"unit_weapon_shield_titanium_2_3_0.png",
+			"unit_weapon_shield_titanium_2_3_1.png",
+			"unit_weapon_shield_titanium_2_3_2.png",
+			"unit_weapon_shield_titanium_2_3_3.png",
+			"unit_weapon_shield_titanium_3_3_0.png",
+			"unit_weapon_shield_titanium_3_3_1.png",
+			"unit_weapon_shield_titanium_3_3_2.png",
+			"unit_weapon_shield_titanium_3_3_3.png",
+			"unit_weapon_staff_oak_0_3_0.png",
+			"unit_weapon_staff_oak_0_3_1.png",
+			"unit_weapon_staff_oak_0_3_2.png",
+			"unit_weapon_staff_oak_0_3_3.png",
+			"unit_weapon_staff_oak_1_3_0.png",
+			"unit_weapon_staff_oak_1_3_1.png",
+			"unit_weapon_staff_oak_1_3_2.png",
+			"unit_weapon_staff_oak_1_3_3.png",
+			"unit_weapon_staff_oak_2_3_0.png",
+			"unit_weapon_staff_oak_2_3_1.png",
+			"unit_weapon_staff_oak_2_3_2.png",
+			"unit_weapon_staff_oak_2_3_3.png",
+			"unit_weapon_staff_oak_3_3_0.png",
+			"unit_weapon_staff_oak_3_3_1.png",
+			"unit_weapon_staff_oak_3_3_2.png",
+			"unit_weapon_staff_oak_3_3_3.png",
+			"unit_weapon_axe_titanium_0_3_0.png",
+			"unit_weapon_axe_titanium_0_3_1.png",
+			"unit_weapon_axe_titanium_0_3_2.png",
+			"unit_weapon_axe_titanium_0_3_3.png",
+			"unit_weapon_axe_titanium_1_3_0.png",
+			"unit_weapon_axe_titanium_1_3_1.png",
+			"unit_weapon_axe_titanium_1_3_2.png",
+			"unit_weapon_axe_titanium_1_3_3.png",
+			"unit_weapon_axe_titanium_2_3_0.png",
+			"unit_weapon_axe_titanium_2_3_1.png",
+			"unit_weapon_axe_titanium_2_3_2.png",
+			"unit_weapon_axe_titanium_2_3_3.png",
+			"unit_weapon_axe_titanium_3_3_0.png",
+			"unit_weapon_axe_titanium_3_3_1.png",
+			"unit_weapon_axe_titanium_3_3_2.png",
+			"unit_weapon_axe_titanium_3_3_3.png",
+			"unit_weapon_axe_wood_0_3_0.png",
+			"unit_weapon_axe_wood_0_3_1.png",
+			"unit_weapon_axe_wood_0_3_2.png",
+			"unit_weapon_axe_wood_0_3_3.png",
+			"unit_weapon_axe_wood_1_3_0.png",
+			"unit_weapon_axe_wood_1_3_1.png",
+			"unit_weapon_axe_wood_1_3_2.png",
+			"unit_weapon_axe_wood_1_3_3.png",
+			"unit_weapon_axe_wood_2_3_0.png",
+			"unit_weapon_axe_wood_2_3_1.png",
+			"unit_weapon_axe_wood_2_3_2.png",
+			"unit_weapon_axe_wood_2_3_3.png",
+			"unit_weapon_axe_wood_3_3_0.png",
+			"unit_weapon_axe_wood_3_3_1.png",
+			"unit_weapon_axe_wood_3_3_2.png",
+			"unit_weapon_axe_wood_3_3_3.png",
+			"unit_weapon_axe_steel_0_3_0.png",
+			"unit_weapon_axe_steel_0_3_1.png",
+			"unit_weapon_axe_steel_0_3_2.png",
+			"unit_weapon_axe_steel_0_3_3.png",
+			"unit_weapon_axe_steel_1_3_0.png",
+			"unit_weapon_axe_steel_1_3_1.png",
+			"unit_weapon_axe_steel_1_3_2.png",
+			"unit_weapon_axe_steel_1_3_3.png",
+			"unit_weapon_axe_steel_2_3_0.png",
+			"unit_weapon_axe_steel_2_3_1.png",
+			"unit_weapon_axe_steel_2_3_2.png",
+			"unit_weapon_axe_steel_2_3_3.png",
+			"unit_weapon_axe_steel_3_3_0.png",
+			"unit_weapon_axe_steel_3_3_1.png",
+			"unit_weapon_axe_steel_3_3_2.png",
+			"unit_weapon_axe_steel_3_3_3.png",
+			"unit_weapon_axe_gold_0_3_0.png",
+			"unit_weapon_axe_gold_0_3_1.png",
+			"unit_weapon_axe_gold_0_3_2.png",
+			"unit_weapon_axe_gold_0_3_3.png",
+			"unit_weapon_axe_gold_1_3_0.png",
+			"unit_weapon_axe_gold_1_3_1.png",
+			"unit_weapon_axe_gold_1_3_2.png",
+			"unit_weapon_axe_gold_1_3_3.png",
+			"unit_weapon_axe_gold_2_3_0.png",
+			"unit_weapon_axe_gold_2_3_1.png",
+			"unit_weapon_axe_gold_2_3_2.png",
+			"unit_weapon_axe_gold_2_3_3.png",
+			"unit_weapon_axe_gold_3_3_0.png",
+			"unit_weapon_axe_gold_3_3_1.png",
+			"unit_weapon_axe_gold_3_3_2.png",
+			"unit_weapon_axe_gold_3_3_3.png",
+			"unit_weapon_axe_bronze_0_3_0.png",
+			"unit_weapon_axe_bronze_0_3_1.png",
+			"unit_weapon_axe_bronze_0_3_2.png",
+			"unit_weapon_axe_bronze_0_3_3.png",
+			"unit_weapon_axe_bronze_1_3_0.png",
+			"unit_weapon_axe_bronze_1_3_1.png",
+			"unit_weapon_axe_bronze_1_3_2.png",
+			"unit_weapon_axe_bronze_1_3_3.png",
+			"unit_weapon_axe_bronze_2_3_0.png",
+			"unit_weapon_axe_bronze_2_3_1.png",
+			"unit_weapon_axe_bronze_2_3_2.png",
+			"unit_weapon_axe_bronze_2_3_3.png",
+			"unit_weapon_axe_bronze_3_3_0.png",
+			"unit_weapon_axe_bronze_3_3_1.png",
+			"unit_weapon_axe_bronze_3_3_2.png",
+			"unit_weapon_axe_bronze_3_3_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_staff_oak_0_1_0.png",
+		"copies": [
+			"unit_weapon_staff_oak_1_1_0.png",
+			"unit_weapon_staff_oak_0_4_3.png",
+			"unit_weapon_staff_oak_1_4_3.png",
+			"unit_weapon_staff_oak_2_1_0.png",
+			"unit_weapon_staff_oak_2_4_3.png",
+			"unit_weapon_staff_oak_3_4_3.png",
+			"unit_weapon_staff_oak_3_1_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_staff_oak_0_0_0.png",
+		"copies": [
+			"unit_weapon_staff_oak_0_4_0.png",
+			"unit_weapon_staff_oak_0_4_1.png",
+			"unit_weapon_staff_oak_0_4_2.png",
+			"unit_weapon_staff_oak_1_4_0.png",
+			"unit_weapon_staff_oak_1_4_1.png",
+			"unit_weapon_staff_oak_1_4_2.png",
+			"unit_weapon_staff_oak_2_4_0.png",
+			"unit_weapon_staff_oak_2_4_1.png",
+			"unit_weapon_staff_oak_2_4_2.png",
+			"unit_weapon_staff_oak_3_4_0.png",
+			"unit_weapon_staff_oak_3_4_1.png",
+			"unit_weapon_staff_oak_3_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_staff_oak_0_1_1.png",
+		"copies": [
+			"unit_weapon_staff_oak_0_1_2.png",
+			"unit_weapon_staff_oak_0_1_3.png",
+			"unit_weapon_staff_oak_1_1_1.png",
+			"unit_weapon_staff_oak_1_1_2.png",
+			"unit_weapon_staff_oak_1_1_3.png",
+			"unit_weapon_staff_oak_2_1_1.png",
+			"unit_weapon_staff_oak_2_1_2.png",
+			"unit_weapon_staff_oak_2_1_3.png",
+			"unit_weapon_staff_oak_3_1_1.png",
+			"unit_weapon_staff_oak_3_1_2.png",
+			"unit_weapon_staff_oak_3_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_staff_oak_0_2_0.png",
+		"copies": [
+			"unit_weapon_staff_oak_1_2_0.png",
+			"unit_weapon_staff_oak_2_2_0.png",
+			"unit_weapon_staff_oak_3_2_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_staff_oak_0_2_1.png",
+		"copies": [
+			"unit_weapon_staff_oak_0_2_2.png",
+			"unit_weapon_staff_oak_0_2_3.png",
+			"unit_weapon_staff_oak_1_2_1.png",
+			"unit_weapon_staff_oak_1_2_2.png",
+			"unit_weapon_staff_oak_1_2_3.png",
+			"unit_weapon_staff_oak_2_2_1.png",
+			"unit_weapon_staff_oak_2_2_2.png",
+			"unit_weapon_staff_oak_2_2_3.png",
+			"unit_weapon_staff_oak_3_2_1.png",
+			"unit_weapon_staff_oak_3_2_2.png",
+			"unit_weapon_staff_oak_3_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_staff_oak_0_0_2.png",
+		"copies": [
+			"unit_weapon_staff_oak_1_0_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_staff_oak_0_0_0.png",
+		"copies": [
+			"unit_weapon_staff_oak_0_0_1.png",
+			"unit_weapon_staff_oak_0_0_2.png",
+			"unit_weapon_staff_oak_0_0_3.png",
+			"unit_weapon_staff_oak_1_0_0.png",
+			"unit_weapon_staff_oak_1_0_1.png",
+			"unit_weapon_staff_oak_1_0_2.png",
+			"unit_weapon_staff_oak_1_0_3.png",
+			"unit_weapon_staff_oak_2_0_0.png",
+			"unit_weapon_staff_oak_2_0_1.png",
+			"unit_weapon_staff_oak_2_0_2.png",
+			"unit_weapon_staff_oak_2_0_3.png",
+			"unit_weapon_staff_oak_3_0_0.png",
+			"unit_weapon_staff_oak_3_0_1.png",
+			"unit_weapon_staff_oak_3_0_2.png",
+			"unit_weapon_staff_oak_3_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_shield_titanium_0_0_0.png",
+		"copies": [
+			"unit_weapon_shield_titanium_0_0_1.png",
+			"unit_weapon_shield_titanium_0_0_2.png",
+			"unit_weapon_shield_titanium_0_0_3.png",
+			"unit_weapon_shield_titanium_0_2_0.png",
+			"unit_weapon_shield_titanium_0_2_1.png",
+			"unit_weapon_shield_titanium_0_2_2.png",
+			"unit_weapon_shield_titanium_0_2_3.png",
+			"unit_weapon_shield_titanium_0_1_0.png",
+			"unit_weapon_shield_titanium_0_1_1.png",
+			"unit_weapon_shield_titanium_0_1_2.png",
+			"unit_weapon_shield_titanium_0_1_3.png",
+			"unit_weapon_shield_titanium_0_4_0.png",
+			"unit_weapon_shield_titanium_0_4_1.png",
+			"unit_weapon_shield_titanium_0_4_2.png",
+			"unit_weapon_shield_titanium_0_4_3.png",
+			"unit_weapon_shield_titanium_1_0_0.png",
+			"unit_weapon_shield_titanium_1_0_1.png",
+			"unit_weapon_shield_titanium_1_0_2.png",
+			"unit_weapon_shield_titanium_1_0_3.png",
+			"unit_weapon_shield_titanium_1_2_0.png",
+			"unit_weapon_shield_titanium_1_2_1.png",
+			"unit_weapon_shield_titanium_1_2_2.png",
+			"unit_weapon_shield_titanium_1_2_3.png",
+			"unit_weapon_shield_titanium_1_1_0.png",
+			"unit_weapon_shield_titanium_1_1_1.png",
+			"unit_weapon_shield_titanium_1_1_2.png",
+			"unit_weapon_shield_titanium_1_1_3.png",
+			"unit_weapon_shield_titanium_1_4_0.png",
+			"unit_weapon_shield_titanium_1_4_1.png",
+			"unit_weapon_shield_titanium_1_4_2.png",
+			"unit_weapon_shield_titanium_1_4_3.png",
+			"unit_weapon_shield_titanium_2_0_0.png",
+			"unit_weapon_shield_titanium_2_0_1.png",
+			"unit_weapon_shield_titanium_2_0_2.png",
+			"unit_weapon_shield_titanium_2_0_3.png",
+			"unit_weapon_shield_titanium_2_2_0.png",
+			"unit_weapon_shield_titanium_2_2_1.png",
+			"unit_weapon_shield_titanium_2_2_2.png",
+			"unit_weapon_shield_titanium_2_2_3.png",
+			"unit_weapon_shield_titanium_2_1_0.png",
+			"unit_weapon_shield_titanium_2_1_1.png",
+			"unit_weapon_shield_titanium_2_1_2.png",
+			"unit_weapon_shield_titanium_2_1_3.png",
+			"unit_weapon_shield_titanium_2_4_0.png",
+			"unit_weapon_shield_titanium_2_4_1.png",
+			"unit_weapon_shield_titanium_2_4_2.png",
+			"unit_weapon_shield_titanium_2_4_3.png",
+			"unit_weapon_shield_titanium_3_0_0.png",
+			"unit_weapon_shield_titanium_3_0_1.png",
+			"unit_weapon_shield_titanium_3_0_2.png",
+			"unit_weapon_shield_titanium_3_0_3.png",
+			"unit_weapon_shield_titanium_3_2_0.png",
+			"unit_weapon_shield_titanium_3_2_1.png",
+			"unit_weapon_shield_titanium_3_2_2.png",
+			"unit_weapon_shield_titanium_3_2_3.png",
+			"unit_weapon_shield_titanium_3_1_0.png",
+			"unit_weapon_shield_titanium_3_1_1.png",
+			"unit_weapon_shield_titanium_3_1_2.png",
+			"unit_weapon_shield_titanium_3_1_3.png",
+			"unit_weapon_shield_titanium_3_4_0.png",
+			"unit_weapon_shield_titanium_3_4_1.png",
+			"unit_weapon_shield_titanium_3_4_2.png",
+			"unit_weapon_shield_titanium_3_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_shield_steel_0_0_0.png",
+		"copies": [
+			"unit_weapon_shield_steel_0_0_1.png",
+			"unit_weapon_shield_steel_0_0_2.png",
+			"unit_weapon_shield_steel_0_0_3.png",
+			"unit_weapon_shield_steel_0_2_0.png",
+			"unit_weapon_shield_steel_0_2_1.png",
+			"unit_weapon_shield_steel_0_2_2.png",
+			"unit_weapon_shield_steel_0_2_3.png",
+			"unit_weapon_shield_steel_0_1_0.png",
+			"unit_weapon_shield_steel_0_1_1.png",
+			"unit_weapon_shield_steel_0_1_2.png",
+			"unit_weapon_shield_steel_0_1_3.png",
+			"unit_weapon_shield_steel_0_4_0.png",
+			"unit_weapon_shield_steel_0_4_1.png",
+			"unit_weapon_shield_steel_0_4_2.png",
+			"unit_weapon_shield_steel_0_4_3.png",
+			"unit_weapon_shield_steel_1_0_0.png",
+			"unit_weapon_shield_steel_1_0_1.png",
+			"unit_weapon_shield_steel_1_0_2.png",
+			"unit_weapon_shield_steel_1_0_3.png",
+			"unit_weapon_shield_steel_1_2_0.png",
+			"unit_weapon_shield_steel_1_2_1.png",
+			"unit_weapon_shield_steel_1_2_2.png",
+			"unit_weapon_shield_steel_1_2_3.png",
+			"unit_weapon_shield_steel_1_1_0.png",
+			"unit_weapon_shield_steel_1_1_1.png",
+			"unit_weapon_shield_steel_1_1_2.png",
+			"unit_weapon_shield_steel_1_1_3.png",
+			"unit_weapon_shield_steel_1_4_0.png",
+			"unit_weapon_shield_steel_1_4_1.png",
+			"unit_weapon_shield_steel_1_4_2.png",
+			"unit_weapon_shield_steel_1_4_3.png",
+			"unit_weapon_shield_steel_2_0_0.png",
+			"unit_weapon_shield_steel_2_0_1.png",
+			"unit_weapon_shield_steel_2_0_2.png",
+			"unit_weapon_shield_steel_2_0_3.png",
+			"unit_weapon_shield_steel_2_2_0.png",
+			"unit_weapon_shield_steel_2_2_1.png",
+			"unit_weapon_shield_steel_2_2_2.png",
+			"unit_weapon_shield_steel_2_2_3.png",
+			"unit_weapon_shield_steel_2_1_0.png",
+			"unit_weapon_shield_steel_2_1_1.png",
+			"unit_weapon_shield_steel_2_1_2.png",
+			"unit_weapon_shield_steel_2_1_3.png",
+			"unit_weapon_shield_steel_2_4_0.png",
+			"unit_weapon_shield_steel_2_4_1.png",
+			"unit_weapon_shield_steel_2_4_2.png",
+			"unit_weapon_shield_steel_2_4_3.png",
+			"unit_weapon_shield_steel_3_0_0.png",
+			"unit_weapon_shield_steel_3_0_1.png",
+			"unit_weapon_shield_steel_3_0_2.png",
+			"unit_weapon_shield_steel_3_0_3.png",
+			"unit_weapon_shield_steel_3_2_0.png",
+			"unit_weapon_shield_steel_3_2_1.png",
+			"unit_weapon_shield_steel_3_2_2.png",
+			"unit_weapon_shield_steel_3_2_3.png",
+			"unit_weapon_shield_steel_3_1_0.png",
+			"unit_weapon_shield_steel_3_1_1.png",
+			"unit_weapon_shield_steel_3_1_2.png",
+			"unit_weapon_shield_steel_3_1_3.png",
+			"unit_weapon_shield_steel_3_4_0.png",
+			"unit_weapon_shield_steel_3_4_1.png",
+			"unit_weapon_shield_steel_3_4_2.png",
+			"unit_weapon_shield_steel_3_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_shield_leather_0_0_0.png",
+		"copies": [
+			"unit_weapon_shield_leather_0_0_1.png",
+			"unit_weapon_shield_leather_0_0_2.png",
+			"unit_weapon_shield_leather_0_0_3.png",
+			"unit_weapon_shield_leather_0_2_0.png",
+			"unit_weapon_shield_leather_0_2_1.png",
+			"unit_weapon_shield_leather_0_2_2.png",
+			"unit_weapon_shield_leather_0_2_3.png",
+			"unit_weapon_shield_leather_0_1_0.png",
+			"unit_weapon_shield_leather_0_1_1.png",
+			"unit_weapon_shield_leather_0_1_2.png",
+			"unit_weapon_shield_leather_0_1_3.png",
+			"unit_weapon_shield_leather_0_4_0.png",
+			"unit_weapon_shield_leather_0_4_1.png",
+			"unit_weapon_shield_leather_0_4_2.png",
+			"unit_weapon_shield_leather_0_4_3.png",
+			"unit_weapon_shield_leather_1_0_0.png",
+			"unit_weapon_shield_leather_1_0_1.png",
+			"unit_weapon_shield_leather_1_0_2.png",
+			"unit_weapon_shield_leather_1_0_3.png",
+			"unit_weapon_shield_leather_1_2_0.png",
+			"unit_weapon_shield_leather_1_2_1.png",
+			"unit_weapon_shield_leather_1_2_2.png",
+			"unit_weapon_shield_leather_1_2_3.png",
+			"unit_weapon_shield_leather_1_1_0.png",
+			"unit_weapon_shield_leather_1_1_1.png",
+			"unit_weapon_shield_leather_1_1_2.png",
+			"unit_weapon_shield_leather_1_1_3.png",
+			"unit_weapon_shield_leather_1_4_0.png",
+			"unit_weapon_shield_leather_1_4_1.png",
+			"unit_weapon_shield_leather_1_4_2.png",
+			"unit_weapon_shield_leather_1_4_3.png",
+			"unit_weapon_shield_leather_2_0_0.png",
+			"unit_weapon_shield_leather_2_0_1.png",
+			"unit_weapon_shield_leather_2_0_2.png",
+			"unit_weapon_shield_leather_2_0_3.png",
+			"unit_weapon_shield_leather_2_2_0.png",
+			"unit_weapon_shield_leather_2_2_1.png",
+			"unit_weapon_shield_leather_2_2_2.png",
+			"unit_weapon_shield_leather_2_2_3.png",
+			"unit_weapon_shield_leather_2_1_0.png",
+			"unit_weapon_shield_leather_2_1_1.png",
+			"unit_weapon_shield_leather_2_1_2.png",
+			"unit_weapon_shield_leather_2_1_3.png",
+			"unit_weapon_shield_leather_2_4_0.png",
+			"unit_weapon_shield_leather_2_4_1.png",
+			"unit_weapon_shield_leather_2_4_2.png",
+			"unit_weapon_shield_leather_2_4_3.png",
+			"unit_weapon_shield_leather_3_0_0.png",
+			"unit_weapon_shield_leather_3_0_1.png",
+			"unit_weapon_shield_leather_3_0_2.png",
+			"unit_weapon_shield_leather_3_0_3.png",
+			"unit_weapon_shield_leather_3_2_0.png",
+			"unit_weapon_shield_leather_3_2_1.png",
+			"unit_weapon_shield_leather_3_2_2.png",
+			"unit_weapon_shield_leather_3_2_3.png",
+			"unit_weapon_shield_leather_3_1_0.png",
+			"unit_weapon_shield_leather_3_1_1.png",
+			"unit_weapon_shield_leather_3_1_2.png",
+			"unit_weapon_shield_leather_3_1_3.png",
+			"unit_weapon_shield_leather_3_4_0.png",
+			"unit_weapon_shield_leather_3_4_1.png",
+			"unit_weapon_shield_leather_3_4_2.png",
+			"unit_weapon_shield_leather_3_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_shield_bronze_0_0_0.png",
+		"copies": [
+			"unit_weapon_shield_bronze_0_0_1.png",
+			"unit_weapon_shield_bronze_0_0_2.png",
+			"unit_weapon_shield_bronze_0_0_3.png",
+			"unit_weapon_shield_bronze_0_2_0.png",
+			"unit_weapon_shield_bronze_0_2_1.png",
+			"unit_weapon_shield_bronze_0_2_2.png",
+			"unit_weapon_shield_bronze_0_2_3.png",
+			"unit_weapon_shield_bronze_0_1_0.png",
+			"unit_weapon_shield_bronze_0_1_1.png",
+			"unit_weapon_shield_bronze_0_1_2.png",
+			"unit_weapon_shield_bronze_0_1_3.png",
+			"unit_weapon_shield_bronze_0_4_0.png",
+			"unit_weapon_shield_bronze_0_4_1.png",
+			"unit_weapon_shield_bronze_0_4_2.png",
+			"unit_weapon_shield_bronze_0_4_3.png",
+			"unit_weapon_shield_bronze_1_0_0.png",
+			"unit_weapon_shield_bronze_1_0_1.png",
+			"unit_weapon_shield_bronze_1_0_2.png",
+			"unit_weapon_shield_bronze_1_0_3.png",
+			"unit_weapon_shield_bronze_1_2_0.png",
+			"unit_weapon_shield_bronze_1_2_1.png",
+			"unit_weapon_shield_bronze_1_2_2.png",
+			"unit_weapon_shield_bronze_1_2_3.png",
+			"unit_weapon_shield_bronze_1_1_0.png",
+			"unit_weapon_shield_bronze_1_1_1.png",
+			"unit_weapon_shield_bronze_1_1_2.png",
+			"unit_weapon_shield_bronze_1_1_3.png",
+			"unit_weapon_shield_bronze_1_4_0.png",
+			"unit_weapon_shield_bronze_1_4_1.png",
+			"unit_weapon_shield_bronze_1_4_2.png",
+			"unit_weapon_shield_bronze_1_4_3.png",
+			"unit_weapon_shield_bronze_2_0_0.png",
+			"unit_weapon_shield_bronze_2_0_1.png",
+			"unit_weapon_shield_bronze_2_0_2.png",
+			"unit_weapon_shield_bronze_2_0_3.png",
+			"unit_weapon_shield_bronze_2_2_0.png",
+			"unit_weapon_shield_bronze_2_2_1.png",
+			"unit_weapon_shield_bronze_2_2_2.png",
+			"unit_weapon_shield_bronze_2_2_3.png",
+			"unit_weapon_shield_bronze_2_1_0.png",
+			"unit_weapon_shield_bronze_2_1_1.png",
+			"unit_weapon_shield_bronze_2_1_2.png",
+			"unit_weapon_shield_bronze_2_1_3.png",
+			"unit_weapon_shield_bronze_2_4_0.png",
+			"unit_weapon_shield_bronze_2_4_1.png",
+			"unit_weapon_shield_bronze_2_4_2.png",
+			"unit_weapon_shield_bronze_2_4_3.png",
+			"unit_weapon_shield_bronze_3_0_0.png",
+			"unit_weapon_shield_bronze_3_0_1.png",
+			"unit_weapon_shield_bronze_3_0_2.png",
+			"unit_weapon_shield_bronze_3_0_3.png",
+			"unit_weapon_shield_bronze_3_2_0.png",
+			"unit_weapon_shield_bronze_3_2_1.png",
+			"unit_weapon_shield_bronze_3_2_2.png",
+			"unit_weapon_shield_bronze_3_2_3.png",
+			"unit_weapon_shield_bronze_3_1_0.png",
+			"unit_weapon_shield_bronze_3_1_1.png",
+			"unit_weapon_shield_bronze_3_1_2.png",
+			"unit_weapon_shield_bronze_3_1_3.png",
+			"unit_weapon_shield_bronze_3_4_0.png",
+			"unit_weapon_shield_bronze_3_4_1.png",
+			"unit_weapon_shield_bronze_3_4_2.png",
+			"unit_weapon_shield_bronze_3_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_shield_gold_0_0_0.png",
+		"copies": [
+			"unit_weapon_shield_gold_0_0_1.png",
+			"unit_weapon_shield_gold_0_0_2.png",
+			"unit_weapon_shield_gold_0_0_3.png",
+			"unit_weapon_shield_gold_0_2_0.png",
+			"unit_weapon_shield_gold_0_2_1.png",
+			"unit_weapon_shield_gold_0_2_2.png",
+			"unit_weapon_shield_gold_0_2_3.png",
+			"unit_weapon_shield_gold_0_1_0.png",
+			"unit_weapon_shield_gold_0_1_1.png",
+			"unit_weapon_shield_gold_0_1_2.png",
+			"unit_weapon_shield_gold_0_1_3.png",
+			"unit_weapon_shield_gold_0_4_0.png",
+			"unit_weapon_shield_gold_0_4_1.png",
+			"unit_weapon_shield_gold_0_4_2.png",
+			"unit_weapon_shield_gold_0_4_3.png",
+			"unit_weapon_shield_gold_1_0_0.png",
+			"unit_weapon_shield_gold_1_0_1.png",
+			"unit_weapon_shield_gold_1_0_2.png",
+			"unit_weapon_shield_gold_1_0_3.png",
+			"unit_weapon_shield_gold_1_2_0.png",
+			"unit_weapon_shield_gold_1_2_1.png",
+			"unit_weapon_shield_gold_1_2_2.png",
+			"unit_weapon_shield_gold_1_2_3.png",
+			"unit_weapon_shield_gold_1_1_0.png",
+			"unit_weapon_shield_gold_1_1_1.png",
+			"unit_weapon_shield_gold_1_1_2.png",
+			"unit_weapon_shield_gold_1_1_3.png",
+			"unit_weapon_shield_gold_1_4_0.png",
+			"unit_weapon_shield_gold_1_4_1.png",
+			"unit_weapon_shield_gold_1_4_2.png",
+			"unit_weapon_shield_gold_1_4_3.png",
+			"unit_weapon_shield_gold_2_0_0.png",
+			"unit_weapon_shield_gold_2_0_1.png",
+			"unit_weapon_shield_gold_2_0_2.png",
+			"unit_weapon_shield_gold_2_0_3.png",
+			"unit_weapon_shield_gold_2_2_0.png",
+			"unit_weapon_shield_gold_2_2_1.png",
+			"unit_weapon_shield_gold_2_2_2.png",
+			"unit_weapon_shield_gold_2_2_3.png",
+			"unit_weapon_shield_gold_2_1_0.png",
+			"unit_weapon_shield_gold_2_1_1.png",
+			"unit_weapon_shield_gold_2_1_2.png",
+			"unit_weapon_shield_gold_2_1_3.png",
+			"unit_weapon_shield_gold_2_4_0.png",
+			"unit_weapon_shield_gold_2_4_1.png",
+			"unit_weapon_shield_gold_2_4_2.png",
+			"unit_weapon_shield_gold_2_4_3.png",
+			"unit_weapon_shield_gold_3_0_0.png",
+			"unit_weapon_shield_gold_3_0_1.png",
+			"unit_weapon_shield_gold_3_0_2.png",
+			"unit_weapon_shield_gold_3_0_3.png",
+			"unit_weapon_shield_gold_3_2_0.png",
+			"unit_weapon_shield_gold_3_2_1.png",
+			"unit_weapon_shield_gold_3_2_2.png",
+			"unit_weapon_shield_gold_3_2_3.png",
+			"unit_weapon_shield_gold_3_1_0.png",
+			"unit_weapon_shield_gold_3_1_1.png",
+			"unit_weapon_shield_gold_3_1_2.png",
+			"unit_weapon_shield_gold_3_1_3.png",
+			"unit_weapon_shield_gold_3_4_0.png",
+			"unit_weapon_shield_gold_3_4_1.png",
+			"unit_weapon_shield_gold_3_4_2.png",
+			"unit_weapon_shield_gold_3_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_titanium_3_4_0.png",
+		"copies": [
+			"unit_weapon_bow_titanium_3_4_1.png",
+			"unit_weapon_bow_titanium_3_4_2.png",
+			"unit_weapon_bow_titanium_3_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_titanium_1_0_0.png",
+		"copies": [
+			"unit_weapon_bow_titanium_1_0_1.png",
+			"unit_weapon_bow_titanium_3_0_0.png",
+			"unit_weapon_bow_titanium_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_titanium_1_0_2.png",
+		"copies": [
+			"unit_weapon_bow_titanium_1_0_3.png",
+			"unit_weapon_bow_titanium_2_0_2.png",
+			"unit_weapon_bow_titanium_2_0_3.png",
+			"unit_weapon_bow_titanium_3_0_2.png",
+			"unit_weapon_bow_titanium_3_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_titanium_0_4_0.png",
+		"copies": [
+			"unit_weapon_bow_titanium_0_4_1.png",
+			"unit_weapon_bow_titanium_0_4_2.png",
+			"unit_weapon_bow_titanium_0_4_3.png",
+			"unit_weapon_bow_titanium_1_4_0.png",
+			"unit_weapon_bow_titanium_1_4_1.png",
+			"unit_weapon_bow_titanium_1_4_2.png",
+			"unit_weapon_bow_titanium_1_4_3.png",
+			"unit_weapon_bow_titanium_2_4_0.png",
+			"unit_weapon_bow_titanium_2_4_1.png",
+			"unit_weapon_bow_titanium_2_4_2.png",
+			"unit_weapon_bow_titanium_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_titanium_0_0_0.png",
+		"copies": [
+			"unit_weapon_bow_titanium_0_0_1.png",
+			"unit_weapon_bow_titanium_2_0_0.png",
+			"unit_weapon_bow_titanium_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_titanium_0_0_2.png",
+		"copies": [
+			"unit_weapon_bow_titanium_0_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_titanium_0_1_0.png",
+		"copies": [
+			"unit_weapon_bow_titanium_0_1_1.png",
+			"unit_weapon_bow_titanium_0_1_2.png",
+			"unit_weapon_bow_titanium_0_1_3.png",
+			"unit_weapon_bow_titanium_0_2_0.png",
+			"unit_weapon_bow_titanium_0_2_1.png",
+			"unit_weapon_bow_titanium_0_2_2.png",
+			"unit_weapon_bow_titanium_0_2_3.png",
+			"unit_weapon_bow_titanium_1_1_0.png",
+			"unit_weapon_bow_titanium_1_1_1.png",
+			"unit_weapon_bow_titanium_1_1_2.png",
+			"unit_weapon_bow_titanium_1_1_3.png",
+			"unit_weapon_bow_titanium_1_2_0.png",
+			"unit_weapon_bow_titanium_1_2_1.png",
+			"unit_weapon_bow_titanium_1_2_2.png",
+			"unit_weapon_bow_titanium_1_2_3.png",
+			"unit_weapon_bow_titanium_2_1_0.png",
+			"unit_weapon_bow_titanium_2_1_1.png",
+			"unit_weapon_bow_titanium_2_1_2.png",
+			"unit_weapon_bow_titanium_2_1_3.png",
+			"unit_weapon_bow_titanium_2_2_0.png",
+			"unit_weapon_bow_titanium_2_2_1.png",
+			"unit_weapon_bow_titanium_2_2_2.png",
+			"unit_weapon_bow_titanium_2_2_3.png",
+			"unit_weapon_bow_titanium_3_1_0.png",
+			"unit_weapon_bow_titanium_3_1_1.png",
+			"unit_weapon_bow_titanium_3_1_2.png",
+			"unit_weapon_bow_titanium_3_1_3.png",
+			"unit_weapon_bow_titanium_3_2_0.png",
+			"unit_weapon_bow_titanium_3_2_1.png",
+			"unit_weapon_bow_titanium_3_2_2.png",
+			"unit_weapon_bow_titanium_3_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_gold_3_4_0.png",
+		"copies": [
+			"unit_weapon_bow_gold_3_4_1.png",
+			"unit_weapon_bow_gold_3_4_2.png",
+			"unit_weapon_bow_gold_3_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_gold_1_0_0.png",
+		"copies": [
+			"unit_weapon_bow_gold_1_0_1.png",
+			"unit_weapon_bow_gold_3_0_0.png",
+			"unit_weapon_bow_gold_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_gold_1_0_2.png",
+		"copies": [
+			"unit_weapon_bow_gold_1_0_3.png",
+			"unit_weapon_bow_gold_2_0_2.png",
+			"unit_weapon_bow_gold_2_0_3.png",
+			"unit_weapon_bow_gold_3_0_2.png",
+			"unit_weapon_bow_gold_3_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_gold_0_4_0.png",
+		"copies": [
+			"unit_weapon_bow_gold_0_4_1.png",
+			"unit_weapon_bow_gold_0_4_2.png",
+			"unit_weapon_bow_gold_0_4_3.png",
+			"unit_weapon_bow_gold_1_4_0.png",
+			"unit_weapon_bow_gold_1_4_1.png",
+			"unit_weapon_bow_gold_1_4_2.png",
+			"unit_weapon_bow_gold_1_4_3.png",
+			"unit_weapon_bow_gold_2_4_0.png",
+			"unit_weapon_bow_gold_2_4_1.png",
+			"unit_weapon_bow_gold_2_4_2.png",
+			"unit_weapon_bow_gold_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_gold_0_0_0.png",
+		"copies": [
+			"unit_weapon_bow_gold_0_0_1.png",
+			"unit_weapon_bow_gold_2_0_0.png",
+			"unit_weapon_bow_gold_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_gold_0_0_2.png",
+		"copies": [
+			"unit_weapon_bow_gold_0_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_gold_0_1_0.png",
+		"copies": [
+			"unit_weapon_bow_gold_0_1_1.png",
+			"unit_weapon_bow_gold_0_1_2.png",
+			"unit_weapon_bow_gold_0_1_3.png",
+			"unit_weapon_bow_gold_0_2_0.png",
+			"unit_weapon_bow_gold_0_2_1.png",
+			"unit_weapon_bow_gold_0_2_2.png",
+			"unit_weapon_bow_gold_0_2_3.png",
+			"unit_weapon_bow_gold_1_1_0.png",
+			"unit_weapon_bow_gold_1_1_1.png",
+			"unit_weapon_bow_gold_1_1_2.png",
+			"unit_weapon_bow_gold_1_1_3.png",
+			"unit_weapon_bow_gold_1_2_0.png",
+			"unit_weapon_bow_gold_1_2_1.png",
+			"unit_weapon_bow_gold_1_2_2.png",
+			"unit_weapon_bow_gold_1_2_3.png",
+			"unit_weapon_bow_gold_2_1_0.png",
+			"unit_weapon_bow_gold_2_1_1.png",
+			"unit_weapon_bow_gold_2_1_2.png",
+			"unit_weapon_bow_gold_2_1_3.png",
+			"unit_weapon_bow_gold_2_2_0.png",
+			"unit_weapon_bow_gold_2_2_1.png",
+			"unit_weapon_bow_gold_2_2_2.png",
+			"unit_weapon_bow_gold_2_2_3.png",
+			"unit_weapon_bow_gold_3_1_0.png",
+			"unit_weapon_bow_gold_3_1_1.png",
+			"unit_weapon_bow_gold_3_1_2.png",
+			"unit_weapon_bow_gold_3_1_3.png",
+			"unit_weapon_bow_gold_3_2_0.png",
+			"unit_weapon_bow_gold_3_2_1.png",
+			"unit_weapon_bow_gold_3_2_2.png",
+			"unit_weapon_bow_gold_3_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_steel_3_4_0.png",
+		"copies": [
+			"unit_weapon_bow_steel_3_4_1.png",
+			"unit_weapon_bow_steel_3_4_2.png",
+			"unit_weapon_bow_steel_3_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_steel_1_0_0.png",
+		"copies": [
+			"unit_weapon_bow_steel_1_0_1.png",
+			"unit_weapon_bow_steel_3_0_0.png",
+			"unit_weapon_bow_steel_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_steel_1_0_2.png",
+		"copies": [
+			"unit_weapon_bow_steel_1_0_3.png",
+			"unit_weapon_bow_steel_2_0_2.png",
+			"unit_weapon_bow_steel_2_0_3.png",
+			"unit_weapon_bow_steel_3_0_2.png",
+			"unit_weapon_bow_steel_3_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_steel_0_4_0.png",
+		"copies": [
+			"unit_weapon_bow_steel_0_4_1.png",
+			"unit_weapon_bow_steel_0_4_2.png",
+			"unit_weapon_bow_steel_0_4_3.png",
+			"unit_weapon_bow_steel_1_4_0.png",
+			"unit_weapon_bow_steel_1_4_1.png",
+			"unit_weapon_bow_steel_1_4_2.png",
+			"unit_weapon_bow_steel_1_4_3.png",
+			"unit_weapon_bow_steel_2_4_0.png",
+			"unit_weapon_bow_steel_2_4_1.png",
+			"unit_weapon_bow_steel_2_4_2.png",
+			"unit_weapon_bow_steel_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_steel_0_0_0.png",
+		"copies": [
+			"unit_weapon_bow_steel_0_0_1.png",
+			"unit_weapon_bow_steel_2_0_0.png",
+			"unit_weapon_bow_steel_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_steel_0_0_2.png",
+		"copies": [
+			"unit_weapon_bow_steel_0_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_steel_0_1_0.png",
+		"copies": [
+			"unit_weapon_bow_steel_0_1_1.png",
+			"unit_weapon_bow_steel_0_1_2.png",
+			"unit_weapon_bow_steel_0_1_3.png",
+			"unit_weapon_bow_steel_0_2_0.png",
+			"unit_weapon_bow_steel_0_2_1.png",
+			"unit_weapon_bow_steel_0_2_2.png",
+			"unit_weapon_bow_steel_0_2_3.png",
+			"unit_weapon_bow_steel_1_1_0.png",
+			"unit_weapon_bow_steel_1_1_1.png",
+			"unit_weapon_bow_steel_1_1_2.png",
+			"unit_weapon_bow_steel_1_1_3.png",
+			"unit_weapon_bow_steel_1_2_0.png",
+			"unit_weapon_bow_steel_1_2_1.png",
+			"unit_weapon_bow_steel_1_2_2.png",
+			"unit_weapon_bow_steel_1_2_3.png",
+			"unit_weapon_bow_steel_2_1_0.png",
+			"unit_weapon_bow_steel_2_1_1.png",
+			"unit_weapon_bow_steel_2_1_2.png",
+			"unit_weapon_bow_steel_2_1_3.png",
+			"unit_weapon_bow_steel_2_2_0.png",
+			"unit_weapon_bow_steel_2_2_1.png",
+			"unit_weapon_bow_steel_2_2_2.png",
+			"unit_weapon_bow_steel_2_2_3.png",
+			"unit_weapon_bow_steel_3_1_0.png",
+			"unit_weapon_bow_steel_3_1_1.png",
+			"unit_weapon_bow_steel_3_1_2.png",
+			"unit_weapon_bow_steel_3_1_3.png",
+			"unit_weapon_bow_steel_3_2_0.png",
+			"unit_weapon_bow_steel_3_2_1.png",
+			"unit_weapon_bow_steel_3_2_2.png",
+			"unit_weapon_bow_steel_3_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_bronze_3_4_0.png",
+		"copies": [
+			"unit_weapon_bow_bronze_3_4_1.png",
+			"unit_weapon_bow_bronze_3_4_2.png",
+			"unit_weapon_bow_bronze_3_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_bronze_1_0_0.png",
+		"copies": [
+			"unit_weapon_bow_bronze_1_0_1.png",
+			"unit_weapon_bow_bronze_3_0_0.png",
+			"unit_weapon_bow_bronze_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_bronze_1_0_2.png",
+		"copies": [
+			"unit_weapon_bow_bronze_1_0_3.png",
+			"unit_weapon_bow_bronze_2_0_2.png",
+			"unit_weapon_bow_bronze_2_0_3.png",
+			"unit_weapon_bow_bronze_3_0_2.png",
+			"unit_weapon_bow_bronze_3_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_bronze_0_4_0.png",
+		"copies": [
+			"unit_weapon_bow_bronze_0_4_1.png",
+			"unit_weapon_bow_bronze_0_4_2.png",
+			"unit_weapon_bow_bronze_0_4_3.png",
+			"unit_weapon_bow_bronze_1_4_0.png",
+			"unit_weapon_bow_bronze_1_4_1.png",
+			"unit_weapon_bow_bronze_1_4_2.png",
+			"unit_weapon_bow_bronze_1_4_3.png",
+			"unit_weapon_bow_bronze_2_4_0.png",
+			"unit_weapon_bow_bronze_2_4_1.png",
+			"unit_weapon_bow_bronze_2_4_2.png",
+			"unit_weapon_bow_bronze_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_bronze_0_0_0.png",
+		"copies": [
+			"unit_weapon_bow_bronze_0_0_1.png",
+			"unit_weapon_bow_bronze_2_0_0.png",
+			"unit_weapon_bow_bronze_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_bronze_0_0_2.png",
+		"copies": [
+			"unit_weapon_bow_bronze_0_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_bronze_0_1_0.png",
+		"copies": [
+			"unit_weapon_bow_bronze_0_1_1.png",
+			"unit_weapon_bow_bronze_0_1_2.png",
+			"unit_weapon_bow_bronze_0_1_3.png",
+			"unit_weapon_bow_bronze_0_2_0.png",
+			"unit_weapon_bow_bronze_0_2_1.png",
+			"unit_weapon_bow_bronze_0_2_2.png",
+			"unit_weapon_bow_bronze_0_2_3.png",
+			"unit_weapon_bow_bronze_1_1_0.png",
+			"unit_weapon_bow_bronze_1_1_1.png",
+			"unit_weapon_bow_bronze_1_1_2.png",
+			"unit_weapon_bow_bronze_1_1_3.png",
+			"unit_weapon_bow_bronze_1_2_0.png",
+			"unit_weapon_bow_bronze_1_2_1.png",
+			"unit_weapon_bow_bronze_1_2_2.png",
+			"unit_weapon_bow_bronze_1_2_3.png",
+			"unit_weapon_bow_bronze_2_1_0.png",
+			"unit_weapon_bow_bronze_2_1_1.png",
+			"unit_weapon_bow_bronze_2_1_2.png",
+			"unit_weapon_bow_bronze_2_1_3.png",
+			"unit_weapon_bow_bronze_2_2_0.png",
+			"unit_weapon_bow_bronze_2_2_1.png",
+			"unit_weapon_bow_bronze_2_2_2.png",
+			"unit_weapon_bow_bronze_2_2_3.png",
+			"unit_weapon_bow_bronze_3_1_0.png",
+			"unit_weapon_bow_bronze_3_1_1.png",
+			"unit_weapon_bow_bronze_3_1_2.png",
+			"unit_weapon_bow_bronze_3_1_3.png",
+			"unit_weapon_bow_bronze_3_2_0.png",
+			"unit_weapon_bow_bronze_3_2_1.png",
+			"unit_weapon_bow_bronze_3_2_2.png",
+			"unit_weapon_bow_bronze_3_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_wood_3_4_0.png",
+		"copies": [
+			"unit_weapon_bow_wood_3_4_1.png",
+			"unit_weapon_bow_wood_3_4_2.png",
+			"unit_weapon_bow_wood_3_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_wood_1_0_0.png",
+		"copies": [
+			"unit_weapon_bow_wood_1_0_1.png",
+			"unit_weapon_bow_wood_3_0_0.png",
+			"unit_weapon_bow_wood_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_wood_1_0_2.png",
+		"copies": [
+			"unit_weapon_bow_wood_1_0_3.png",
+			"unit_weapon_bow_wood_2_0_2.png",
+			"unit_weapon_bow_wood_2_0_3.png",
+			"unit_weapon_bow_wood_3_0_2.png",
+			"unit_weapon_bow_wood_3_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_wood_0_4_0.png",
+		"copies": [
+			"unit_weapon_bow_wood_0_4_1.png",
+			"unit_weapon_bow_wood_0_4_2.png",
+			"unit_weapon_bow_wood_0_4_3.png",
+			"unit_weapon_bow_wood_1_4_0.png",
+			"unit_weapon_bow_wood_1_4_1.png",
+			"unit_weapon_bow_wood_1_4_2.png",
+			"unit_weapon_bow_wood_1_4_3.png",
+			"unit_weapon_bow_wood_2_4_0.png",
+			"unit_weapon_bow_wood_2_4_1.png",
+			"unit_weapon_bow_wood_2_4_2.png",
+			"unit_weapon_bow_wood_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_wood_0_0_0.png",
+		"copies": [
+			"unit_weapon_bow_wood_0_0_1.png",
+			"unit_weapon_bow_wood_2_0_0.png",
+			"unit_weapon_bow_wood_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_wood_0_0_2.png",
+		"copies": [
+			"unit_weapon_bow_wood_0_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_bow_wood_0_1_0.png",
+		"copies": [
+			"unit_weapon_bow_wood_0_1_1.png",
+			"unit_weapon_bow_wood_0_1_2.png",
+			"unit_weapon_bow_wood_0_1_3.png",
+			"unit_weapon_bow_wood_0_2_0.png",
+			"unit_weapon_bow_wood_0_2_1.png",
+			"unit_weapon_bow_wood_0_2_2.png",
+			"unit_weapon_bow_wood_0_2_3.png",
+			"unit_weapon_bow_wood_1_1_0.png",
+			"unit_weapon_bow_wood_1_1_1.png",
+			"unit_weapon_bow_wood_1_1_2.png",
+			"unit_weapon_bow_wood_1_1_3.png",
+			"unit_weapon_bow_wood_1_2_0.png",
+			"unit_weapon_bow_wood_1_2_1.png",
+			"unit_weapon_bow_wood_1_2_2.png",
+			"unit_weapon_bow_wood_1_2_3.png",
+			"unit_weapon_bow_wood_2_1_0.png",
+			"unit_weapon_bow_wood_2_1_1.png",
+			"unit_weapon_bow_wood_2_1_2.png",
+			"unit_weapon_bow_wood_2_1_3.png",
+			"unit_weapon_bow_wood_2_2_0.png",
+			"unit_weapon_bow_wood_2_2_1.png",
+			"unit_weapon_bow_wood_2_2_2.png",
+			"unit_weapon_bow_wood_2_2_3.png",
+			"unit_weapon_bow_wood_3_1_0.png",
+			"unit_weapon_bow_wood_3_1_1.png",
+			"unit_weapon_bow_wood_3_1_2.png",
+			"unit_weapon_bow_wood_3_1_3.png",
+			"unit_weapon_bow_wood_3_2_0.png",
+			"unit_weapon_bow_wood_3_2_1.png",
+			"unit_weapon_bow_wood_3_2_2.png",
+			"unit_weapon_bow_wood_3_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_3_0_0.png",
+		"copies": [
+			"unit_weapon_tome_exdark_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_3_1_0.png",
+		"copies": [
+			"unit_weapon_tome_exdark_3_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_3_2_0.png",
+		"copies": [
+			"unit_weapon_tome_exdark_3_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_3_4_0.png",
+		"copies": [
+			"unit_weapon_tome_exdark_3_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_1_1_1.png",
+		"copies": [
+			"unit_weapon_tome_exdark_2_1_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_1_1_3.png",
+		"copies": [
+			"unit_weapon_tome_exdark_2_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_1_2_1.png",
+		"copies": [
+			"unit_weapon_tome_exdark_2_2_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_1_2_3.png",
+		"copies": [
+			"unit_weapon_tome_exdark_2_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_1_0_0.png",
+		"copies": [
+			"unit_weapon_tome_exdark_2_0_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_1_0_1.png",
+		"copies": [
+			"unit_weapon_tome_exdark_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_1_0_3.png",
+		"copies": [
+			"unit_weapon_tome_exdark_2_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_0_4_0.png",
+		"copies": [
+			"unit_weapon_tome_exdark_1_4_0.png",
+			"unit_weapon_tome_exdark_1_4_2.png",
+			"unit_weapon_tome_exdark_2_4_0.png",
+			"unit_weapon_tome_exdark_2_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_0_4_3.png",
+		"copies": [
+			"unit_weapon_tome_exdark_1_4_3.png",
+			"unit_weapon_tome_exdark_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_0_4_1.png",
+		"copies": [
+			"unit_weapon_tome_exdark_1_4_1.png",
+			"unit_weapon_tome_exdark_2_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_1_1_0.png",
+		"copies": [
+			"unit_weapon_tome_exdark_1_1_2.png",
+			"unit_weapon_tome_exdark_2_1_0.png",
+			"unit_weapon_tome_exdark_2_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_1_2_0.png",
+		"copies": [
+			"unit_weapon_tome_exdark_1_2_2.png",
+			"unit_weapon_tome_exdark_2_2_0.png",
+			"unit_weapon_tome_exdark_2_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_0_1_0.png",
+		"copies": [
+			"unit_weapon_tome_exdark_0_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_0_2_0.png",
+		"copies": [
+			"unit_weapon_tome_exdark_0_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exdark_0_4_0.png",
+		"copies": [
+			"unit_weapon_tome_exdark_0_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_3_0_0.png",
+		"copies": [
+			"unit_weapon_tome_smdark_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_3_1_0.png",
+		"copies": [
+			"unit_weapon_tome_smdark_3_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_3_2_0.png",
+		"copies": [
+			"unit_weapon_tome_smdark_3_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_3_4_0.png",
+		"copies": [
+			"unit_weapon_tome_smdark_3_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_1_1_1.png",
+		"copies": [
+			"unit_weapon_tome_smdark_2_1_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_1_1_3.png",
+		"copies": [
+			"unit_weapon_tome_smdark_2_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_1_2_1.png",
+		"copies": [
+			"unit_weapon_tome_smdark_2_2_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_1_2_3.png",
+		"copies": [
+			"unit_weapon_tome_smdark_2_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_1_0_0.png",
+		"copies": [
+			"unit_weapon_tome_smdark_2_0_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_1_0_1.png",
+		"copies": [
+			"unit_weapon_tome_smdark_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_1_0_3.png",
+		"copies": [
+			"unit_weapon_tome_smdark_2_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_0_4_0.png",
+		"copies": [
+			"unit_weapon_tome_smdark_1_4_0.png",
+			"unit_weapon_tome_smdark_1_4_2.png",
+			"unit_weapon_tome_smdark_2_4_0.png",
+			"unit_weapon_tome_smdark_2_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_0_4_3.png",
+		"copies": [
+			"unit_weapon_tome_smdark_1_4_3.png",
+			"unit_weapon_tome_smdark_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_0_4_1.png",
+		"copies": [
+			"unit_weapon_tome_smdark_1_4_1.png",
+			"unit_weapon_tome_smdark_2_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_1_1_0.png",
+		"copies": [
+			"unit_weapon_tome_smdark_1_1_2.png",
+			"unit_weapon_tome_smdark_2_1_0.png",
+			"unit_weapon_tome_smdark_2_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_1_2_0.png",
+		"copies": [
+			"unit_weapon_tome_smdark_1_2_2.png",
+			"unit_weapon_tome_smdark_2_2_0.png",
+			"unit_weapon_tome_smdark_2_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_0_1_0.png",
+		"copies": [
+			"unit_weapon_tome_smdark_0_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_0_2_0.png",
+		"copies": [
+			"unit_weapon_tome_smdark_0_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smdark_0_4_0.png",
+		"copies": [
+			"unit_weapon_tome_smdark_0_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_3_0_0.png",
+		"copies": [
+			"unit_weapon_tome_exfire_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_3_1_0.png",
+		"copies": [
+			"unit_weapon_tome_exfire_3_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_3_2_0.png",
+		"copies": [
+			"unit_weapon_tome_exfire_3_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_3_4_0.png",
+		"copies": [
+			"unit_weapon_tome_exfire_3_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_1_1_1.png",
+		"copies": [
+			"unit_weapon_tome_exfire_2_1_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_1_1_3.png",
+		"copies": [
+			"unit_weapon_tome_exfire_2_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_1_2_1.png",
+		"copies": [
+			"unit_weapon_tome_exfire_2_2_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_1_2_3.png",
+		"copies": [
+			"unit_weapon_tome_exfire_2_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_1_0_0.png",
+		"copies": [
+			"unit_weapon_tome_exfire_2_0_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_1_0_1.png",
+		"copies": [
+			"unit_weapon_tome_exfire_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_1_0_3.png",
+		"copies": [
+			"unit_weapon_tome_exfire_2_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_0_4_0.png",
+		"copies": [
+			"unit_weapon_tome_exfire_1_4_0.png",
+			"unit_weapon_tome_exfire_1_4_2.png",
+			"unit_weapon_tome_exfire_2_4_0.png",
+			"unit_weapon_tome_exfire_2_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_0_4_3.png",
+		"copies": [
+			"unit_weapon_tome_exfire_1_4_3.png",
+			"unit_weapon_tome_exfire_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_0_4_1.png",
+		"copies": [
+			"unit_weapon_tome_exfire_1_4_1.png",
+			"unit_weapon_tome_exfire_2_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_1_1_0.png",
+		"copies": [
+			"unit_weapon_tome_exfire_1_1_2.png",
+			"unit_weapon_tome_exfire_2_1_0.png",
+			"unit_weapon_tome_exfire_2_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_1_2_0.png",
+		"copies": [
+			"unit_weapon_tome_exfire_1_2_2.png",
+			"unit_weapon_tome_exfire_2_2_0.png",
+			"unit_weapon_tome_exfire_2_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_0_1_0.png",
+		"copies": [
+			"unit_weapon_tome_exfire_0_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_0_2_0.png",
+		"copies": [
+			"unit_weapon_tome_exfire_0_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_exfire_0_4_0.png",
+		"copies": [
+			"unit_weapon_tome_exfire_0_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_3_0_0.png",
+		"copies": [
+			"unit_weapon_tome_smfire_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_3_1_0.png",
+		"copies": [
+			"unit_weapon_tome_smfire_3_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_3_2_0.png",
+		"copies": [
+			"unit_weapon_tome_smfire_3_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_3_4_0.png",
+		"copies": [
+			"unit_weapon_tome_smfire_3_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_1_1_1.png",
+		"copies": [
+			"unit_weapon_tome_smfire_2_1_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_1_1_3.png",
+		"copies": [
+			"unit_weapon_tome_smfire_2_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_1_2_1.png",
+		"copies": [
+			"unit_weapon_tome_smfire_2_2_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_1_2_3.png",
+		"copies": [
+			"unit_weapon_tome_smfire_2_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_1_0_0.png",
+		"copies": [
+			"unit_weapon_tome_smfire_2_0_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_1_0_1.png",
+		"copies": [
+			"unit_weapon_tome_smfire_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_1_0_3.png",
+		"copies": [
+			"unit_weapon_tome_smfire_2_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_0_4_0.png",
+		"copies": [
+			"unit_weapon_tome_smfire_1_4_0.png",
+			"unit_weapon_tome_smfire_1_4_2.png",
+			"unit_weapon_tome_smfire_2_4_0.png",
+			"unit_weapon_tome_smfire_2_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_0_4_3.png",
+		"copies": [
+			"unit_weapon_tome_smfire_1_4_3.png",
+			"unit_weapon_tome_smfire_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_0_4_1.png",
+		"copies": [
+			"unit_weapon_tome_smfire_1_4_1.png",
+			"unit_weapon_tome_smfire_2_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_1_1_0.png",
+		"copies": [
+			"unit_weapon_tome_smfire_1_1_2.png",
+			"unit_weapon_tome_smfire_2_1_0.png",
+			"unit_weapon_tome_smfire_2_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_1_2_0.png",
+		"copies": [
+			"unit_weapon_tome_smfire_1_2_2.png",
+			"unit_weapon_tome_smfire_2_2_0.png",
+			"unit_weapon_tome_smfire_2_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_0_1_0.png",
+		"copies": [
+			"unit_weapon_tome_smfire_0_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_0_2_0.png",
+		"copies": [
+			"unit_weapon_tome_smfire_0_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_smfire_0_4_0.png",
+		"copies": [
+			"unit_weapon_tome_smfire_0_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_wood_0_0_0.png",
+		"copies": [
+			"unit_weapon_sword_wood_1_0_0.png",
+			"unit_weapon_sword_wood_2_0_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_wood_1_0_1.png",
+		"copies": [
+			"unit_weapon_sword_wood_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_wood_1_0_2.png",
+		"copies": [
+			"unit_weapon_sword_wood_2_0_2.png",
+			"unit_weapon_sword_wood_3_0_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_wood_1_0_3.png",
+		"copies": [
+			"unit_weapon_sword_wood_2_0_3.png",
+			"unit_weapon_sword_wood_3_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_wood_0_1_0.png",
+		"copies": [
+			"unit_weapon_sword_wood_0_1_2.png",
+			"unit_weapon_sword_wood_1_1_0.png",
+			"unit_weapon_sword_wood_1_1_2.png",
+			"unit_weapon_sword_wood_2_1_0.png",
+			"unit_weapon_sword_wood_2_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_wood_0_1_1.png",
+		"copies": [
+			"unit_weapon_sword_wood_0_1_3.png",
+			"unit_weapon_sword_wood_1_1_1.png",
+			"unit_weapon_sword_wood_1_1_3.png",
+			"unit_weapon_sword_wood_2_1_1.png",
+			"unit_weapon_sword_wood_2_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_wood_0_2_0.png",
+		"copies": [
+			"unit_weapon_sword_wood_0_2_2.png",
+			"unit_weapon_sword_wood_1_2_0.png",
+			"unit_weapon_sword_wood_1_2_2.png",
+			"unit_weapon_sword_wood_2_2_0.png",
+			"unit_weapon_sword_wood_2_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_wood_0_2_1.png",
+		"copies": [
+			"unit_weapon_sword_wood_0_2_3.png",
+			"unit_weapon_sword_wood_1_2_1.png",
+			"unit_weapon_sword_wood_1_2_3.png",
+			"unit_weapon_sword_wood_2_2_1.png",
+			"unit_weapon_sword_wood_2_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_wood_0_4_0.png",
+		"copies": [
+			"unit_weapon_sword_wood_0_4_2.png",
+			"unit_weapon_sword_wood_1_4_0.png",
+			"unit_weapon_sword_wood_1_4_2.png",
+			"unit_weapon_sword_wood_2_4_0.png",
+			"unit_weapon_sword_wood_2_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_wood_0_4_1.png",
+		"copies": [
+			"unit_weapon_sword_wood_1_4_1.png",
+			"unit_weapon_sword_wood_2_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_wood_0_4_3.png",
+		"copies": [
+			"unit_weapon_sword_wood_1_4_3.png",
+			"unit_weapon_sword_wood_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_wood_3_0_0.png",
+		"copies": [
+			"unit_weapon_sword_wood_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_wood_3_1_0.png",
+		"copies": [
+			"unit_weapon_sword_wood_3_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_wood_3_2_0.png",
+		"copies": [
+			"unit_weapon_sword_wood_3_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_wood_3_4_0.png",
+		"copies": [
+			"unit_weapon_sword_wood_3_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_bronze_0_0_0.png",
+		"copies": [
+			"unit_weapon_sword_bronze_1_0_0.png",
+			"unit_weapon_sword_bronze_2_0_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_bronze_1_0_1.png",
+		"copies": [
+			"unit_weapon_sword_bronze_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_bronze_1_0_2.png",
+		"copies": [
+			"unit_weapon_sword_bronze_2_0_2.png",
+			"unit_weapon_sword_bronze_3_0_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_bronze_1_0_3.png",
+		"copies": [
+			"unit_weapon_sword_bronze_2_0_3.png",
+			"unit_weapon_sword_bronze_3_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_bronze_0_1_0.png",
+		"copies": [
+			"unit_weapon_sword_bronze_0_1_2.png",
+			"unit_weapon_sword_bronze_1_1_0.png",
+			"unit_weapon_sword_bronze_1_1_2.png",
+			"unit_weapon_sword_bronze_2_1_0.png",
+			"unit_weapon_sword_bronze_2_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_bronze_0_1_1.png",
+		"copies": [
+			"unit_weapon_sword_bronze_0_1_3.png",
+			"unit_weapon_sword_bronze_1_1_1.png",
+			"unit_weapon_sword_bronze_1_1_3.png",
+			"unit_weapon_sword_bronze_2_1_1.png",
+			"unit_weapon_sword_bronze_2_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_bronze_0_2_0.png",
+		"copies": [
+			"unit_weapon_sword_bronze_0_2_2.png",
+			"unit_weapon_sword_bronze_1_2_0.png",
+			"unit_weapon_sword_bronze_1_2_2.png",
+			"unit_weapon_sword_bronze_2_2_0.png",
+			"unit_weapon_sword_bronze_2_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_bronze_0_2_1.png",
+		"copies": [
+			"unit_weapon_sword_bronze_0_2_3.png",
+			"unit_weapon_sword_bronze_1_2_1.png",
+			"unit_weapon_sword_bronze_1_2_3.png",
+			"unit_weapon_sword_bronze_2_2_1.png",
+			"unit_weapon_sword_bronze_2_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_bronze_0_4_0.png",
+		"copies": [
+			"unit_weapon_sword_bronze_0_4_2.png",
+			"unit_weapon_sword_bronze_1_4_0.png",
+			"unit_weapon_sword_bronze_1_4_2.png",
+			"unit_weapon_sword_bronze_2_4_0.png",
+			"unit_weapon_sword_bronze_2_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_bronze_0_4_1.png",
+		"copies": [
+			"unit_weapon_sword_bronze_1_4_1.png",
+			"unit_weapon_sword_bronze_2_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_bronze_0_4_3.png",
+		"copies": [
+			"unit_weapon_sword_bronze_1_4_3.png",
+			"unit_weapon_sword_bronze_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_bronze_3_0_0.png",
+		"copies": [
+			"unit_weapon_sword_bronze_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_bronze_3_1_0.png",
+		"copies": [
+			"unit_weapon_sword_bronze_3_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_bronze_3_2_0.png",
+		"copies": [
+			"unit_weapon_sword_bronze_3_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_bronze_3_4_0.png",
+		"copies": [
+			"unit_weapon_sword_bronze_3_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_gold_0_0_0.png",
+		"copies": [
+			"unit_weapon_sword_gold_1_0_0.png",
+			"unit_weapon_sword_gold_2_0_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_gold_1_0_1.png",
+		"copies": [
+			"unit_weapon_sword_gold_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_gold_1_0_2.png",
+		"copies": [
+			"unit_weapon_sword_gold_2_0_2.png",
+			"unit_weapon_sword_gold_3_0_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_gold_1_0_3.png",
+		"copies": [
+			"unit_weapon_sword_gold_2_0_3.png",
+			"unit_weapon_sword_gold_3_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_gold_0_1_0.png",
+		"copies": [
+			"unit_weapon_sword_gold_0_1_2.png",
+			"unit_weapon_sword_gold_1_1_0.png",
+			"unit_weapon_sword_gold_1_1_2.png",
+			"unit_weapon_sword_gold_2_1_0.png",
+			"unit_weapon_sword_gold_2_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_gold_0_1_1.png",
+		"copies": [
+			"unit_weapon_sword_gold_0_1_3.png",
+			"unit_weapon_sword_gold_1_1_1.png",
+			"unit_weapon_sword_gold_1_1_3.png",
+			"unit_weapon_sword_gold_2_1_1.png",
+			"unit_weapon_sword_gold_2_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_gold_0_2_0.png",
+		"copies": [
+			"unit_weapon_sword_gold_0_2_2.png",
+			"unit_weapon_sword_gold_1_2_0.png",
+			"unit_weapon_sword_gold_1_2_2.png",
+			"unit_weapon_sword_gold_2_2_0.png",
+			"unit_weapon_sword_gold_2_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_gold_0_2_1.png",
+		"copies": [
+			"unit_weapon_sword_gold_0_2_3.png",
+			"unit_weapon_sword_gold_1_2_1.png",
+			"unit_weapon_sword_gold_1_2_3.png",
+			"unit_weapon_sword_gold_2_2_1.png",
+			"unit_weapon_sword_gold_2_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_gold_0_4_0.png",
+		"copies": [
+			"unit_weapon_sword_gold_0_4_2.png",
+			"unit_weapon_sword_gold_1_4_0.png",
+			"unit_weapon_sword_gold_1_4_2.png",
+			"unit_weapon_sword_gold_2_4_0.png",
+			"unit_weapon_sword_gold_2_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_gold_0_4_1.png",
+		"copies": [
+			"unit_weapon_sword_gold_1_4_1.png",
+			"unit_weapon_sword_gold_2_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_gold_0_4_3.png",
+		"copies": [
+			"unit_weapon_sword_gold_1_4_3.png",
+			"unit_weapon_sword_gold_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_gold_3_0_0.png",
+		"copies": [
+			"unit_weapon_sword_gold_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_gold_3_1_0.png",
+		"copies": [
+			"unit_weapon_sword_gold_3_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_gold_3_2_0.png",
+		"copies": [
+			"unit_weapon_sword_gold_3_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_gold_3_4_0.png",
+		"copies": [
+			"unit_weapon_sword_gold_3_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_steel_0_0_0.png",
+		"copies": [
+			"unit_weapon_sword_steel_1_0_0.png",
+			"unit_weapon_sword_steel_2_0_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_steel_1_0_1.png",
+		"copies": [
+			"unit_weapon_sword_steel_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_steel_1_0_2.png",
+		"copies": [
+			"unit_weapon_sword_steel_2_0_2.png",
+			"unit_weapon_sword_steel_3_0_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_steel_1_0_3.png",
+		"copies": [
+			"unit_weapon_sword_steel_2_0_3.png",
+			"unit_weapon_sword_steel_3_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_steel_0_1_0.png",
+		"copies": [
+			"unit_weapon_sword_steel_0_1_2.png",
+			"unit_weapon_sword_steel_1_1_0.png",
+			"unit_weapon_sword_steel_1_1_2.png",
+			"unit_weapon_sword_steel_2_1_0.png",
+			"unit_weapon_sword_steel_2_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_steel_0_1_1.png",
+		"copies": [
+			"unit_weapon_sword_steel_0_1_3.png",
+			"unit_weapon_sword_steel_1_1_1.png",
+			"unit_weapon_sword_steel_1_1_3.png",
+			"unit_weapon_sword_steel_2_1_1.png",
+			"unit_weapon_sword_steel_2_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_steel_0_2_0.png",
+		"copies": [
+			"unit_weapon_sword_steel_0_2_2.png",
+			"unit_weapon_sword_steel_1_2_0.png",
+			"unit_weapon_sword_steel_1_2_2.png",
+			"unit_weapon_sword_steel_2_2_0.png",
+			"unit_weapon_sword_steel_2_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_steel_0_2_1.png",
+		"copies": [
+			"unit_weapon_sword_steel_0_2_3.png",
+			"unit_weapon_sword_steel_1_2_1.png",
+			"unit_weapon_sword_steel_1_2_3.png",
+			"unit_weapon_sword_steel_2_2_1.png",
+			"unit_weapon_sword_steel_2_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_steel_0_4_0.png",
+		"copies": [
+			"unit_weapon_sword_steel_0_4_2.png",
+			"unit_weapon_sword_steel_1_4_0.png",
+			"unit_weapon_sword_steel_1_4_2.png",
+			"unit_weapon_sword_steel_2_4_0.png",
+			"unit_weapon_sword_steel_2_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_steel_0_4_1.png",
+		"copies": [
+			"unit_weapon_sword_steel_1_4_1.png",
+			"unit_weapon_sword_steel_2_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_steel_0_4_3.png",
+		"copies": [
+			"unit_weapon_sword_steel_1_4_3.png",
+			"unit_weapon_sword_steel_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_steel_3_0_0.png",
+		"copies": [
+			"unit_weapon_sword_steel_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_steel_3_1_0.png",
+		"copies": [
+			"unit_weapon_sword_steel_3_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_steel_3_2_0.png",
+		"copies": [
+			"unit_weapon_sword_steel_3_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_steel_3_4_0.png",
+		"copies": [
+			"unit_weapon_sword_steel_3_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_titanium_0_0_0.png",
+		"copies": [
+			"unit_weapon_sword_titanium_1_0_0.png",
+			"unit_weapon_sword_titanium_2_0_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_titanium_1_0_1.png",
+		"copies": [
+			"unit_weapon_sword_titanium_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_titanium_1_0_2.png",
+		"copies": [
+			"unit_weapon_sword_titanium_2_0_2.png",
+			"unit_weapon_sword_titanium_3_0_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_titanium_1_0_3.png",
+		"copies": [
+			"unit_weapon_sword_titanium_2_0_3.png",
+			"unit_weapon_sword_titanium_3_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_titanium_0_1_0.png",
+		"copies": [
+			"unit_weapon_sword_titanium_0_1_2.png",
+			"unit_weapon_sword_titanium_1_1_0.png",
+			"unit_weapon_sword_titanium_1_1_2.png",
+			"unit_weapon_sword_titanium_2_1_0.png",
+			"unit_weapon_sword_titanium_2_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_titanium_0_1_1.png",
+		"copies": [
+			"unit_weapon_sword_titanium_0_1_3.png",
+			"unit_weapon_sword_titanium_1_1_1.png",
+			"unit_weapon_sword_titanium_1_1_3.png",
+			"unit_weapon_sword_titanium_2_1_1.png",
+			"unit_weapon_sword_titanium_2_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_titanium_0_2_0.png",
+		"copies": [
+			"unit_weapon_sword_titanium_0_2_2.png",
+			"unit_weapon_sword_titanium_1_2_0.png",
+			"unit_weapon_sword_titanium_1_2_2.png",
+			"unit_weapon_sword_titanium_2_2_0.png",
+			"unit_weapon_sword_titanium_2_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_titanium_0_2_1.png",
+		"copies": [
+			"unit_weapon_sword_titanium_0_2_3.png",
+			"unit_weapon_sword_titanium_1_2_1.png",
+			"unit_weapon_sword_titanium_1_2_3.png",
+			"unit_weapon_sword_titanium_2_2_1.png",
+			"unit_weapon_sword_titanium_2_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_titanium_0_4_0.png",
+		"copies": [
+			"unit_weapon_sword_titanium_0_4_2.png",
+			"unit_weapon_sword_titanium_1_4_0.png",
+			"unit_weapon_sword_titanium_1_4_2.png",
+			"unit_weapon_sword_titanium_2_4_0.png",
+			"unit_weapon_sword_titanium_2_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_titanium_0_4_1.png",
+		"copies": [
+			"unit_weapon_sword_titanium_1_4_1.png",
+			"unit_weapon_sword_titanium_2_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_titanium_0_4_3.png",
+		"copies": [
+			"unit_weapon_sword_titanium_1_4_3.png",
+			"unit_weapon_sword_titanium_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_titanium_3_0_0.png",
+		"copies": [
+			"unit_weapon_sword_titanium_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_titanium_3_1_0.png",
+		"copies": [
+			"unit_weapon_sword_titanium_3_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_titanium_3_2_0.png",
+		"copies": [
+			"unit_weapon_sword_titanium_3_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_sword_titanium_3_4_0.png",
+		"copies": [
+			"unit_weapon_sword_titanium_3_4_2.png"
+		]
+	},
+	{
+		"source": "unit_hair_0_4_0.png",
+		"copies": [
+			"unit_hair_0_4_1.png",
+			"unit_hair_0_4_2.png",
+			"unit_hair_0_4_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_0_1_0.png",
+		"copies": [
+			"unit_hair_0_1_1.png",
+			"unit_hair_0_1_2.png",
+			"unit_hair_0_1_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_0_2_0.png",
+		"copies": [
+			"unit_hair_0_2_1.png",
+			"unit_hair_0_2_2.png",
+			"unit_hair_0_2_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_0_3_0.png",
+		"copies": [
+			"unit_hair_0_3_1.png",
+			"unit_hair_0_3_2.png",
+			"unit_hair_0_3_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_0_0_1.png",
+		"copies": [
+			"unit_hair_0_0_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_1_4_0.png",
+		"copies": [
+			"unit_hair_1_4_1.png",
+			"unit_hair_1_4_2.png",
+			"unit_hair_1_4_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_1_1_0.png",
+		"copies": [
+			"unit_hair_1_1_1.png",
+			"unit_hair_1_1_2.png",
+			"unit_hair_1_1_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_1_2_0.png",
+		"copies": [
+			"unit_hair_1_2_1.png",
+			"unit_hair_1_2_2.png",
+			"unit_hair_1_2_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_1_3_0.png",
+		"copies": [
+			"unit_hair_1_3_1.png",
+			"unit_hair_1_3_2.png",
+			"unit_hair_1_3_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_1_0_1.png",
+		"copies": [
+			"unit_hair_1_0_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_2_4_0.png",
+		"copies": [
+			"unit_hair_2_4_1.png",
+			"unit_hair_2_4_2.png",
+			"unit_hair_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_2_1_0.png",
+		"copies": [
+			"unit_hair_2_1_1.png",
+			"unit_hair_2_1_2.png",
+			"unit_hair_2_1_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_2_2_0.png",
+		"copies": [
+			"unit_hair_2_2_1.png",
+			"unit_hair_2_2_2.png",
+			"unit_hair_2_2_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_2_3_0.png",
+		"copies": [
+			"unit_hair_2_3_1.png",
+			"unit_hair_2_3_2.png",
+			"unit_hair_2_3_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_2_0_1.png",
+		"copies": [
+			"unit_hair_2_0_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_3_4_0.png",
+		"copies": [
+			"unit_hair_3_4_1.png",
+			"unit_hair_3_4_2.png",
+			"unit_hair_3_4_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_3_1_0.png",
+		"copies": [
+			"unit_hair_3_1_1.png",
+			"unit_hair_3_1_2.png",
+			"unit_hair_3_1_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_3_2_0.png",
+		"copies": [
+			"unit_hair_3_2_1.png",
+			"unit_hair_3_2_2.png",
+			"unit_hair_3_2_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_3_3_0.png",
+		"copies": [
+			"unit_hair_3_3_1.png",
+			"unit_hair_3_3_2.png",
+			"unit_hair_3_3_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_3_0_1.png",
+		"copies": [
+			"unit_hair_3_0_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_4_4_0.png",
+		"copies": [
+			"unit_hair_4_4_1.png",
+			"unit_hair_4_4_2.png",
+			"unit_hair_4_4_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_4_1_0.png",
+		"copies": [
+			"unit_hair_4_1_1.png",
+			"unit_hair_4_1_2.png",
+			"unit_hair_4_1_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_4_2_0.png",
+		"copies": [
+			"unit_hair_4_2_1.png",
+			"unit_hair_4_2_2.png",
+			"unit_hair_4_2_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_4_3_0.png",
+		"copies": [
+			"unit_hair_4_3_1.png",
+			"unit_hair_4_3_2.png",
+			"unit_hair_4_3_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_4_0_1.png",
+		"copies": [
+			"unit_hair_4_0_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_5_4_0.png",
+		"copies": [
+			"unit_hair_5_4_1.png",
+			"unit_hair_5_4_2.png",
+			"unit_hair_5_4_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_5_1_0.png",
+		"copies": [
+			"unit_hair_5_1_1.png",
+			"unit_hair_5_1_2.png",
+			"unit_hair_5_1_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_5_2_0.png",
+		"copies": [
+			"unit_hair_5_2_1.png",
+			"unit_hair_5_2_2.png",
+			"unit_hair_5_2_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_5_3_0.png",
+		"copies": [
+			"unit_hair_5_3_1.png",
+			"unit_hair_5_3_2.png",
+			"unit_hair_5_3_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_5_0_1.png",
+		"copies": [
+			"unit_hair_5_0_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_6_4_0.png",
+		"copies": [
+			"unit_hair_6_4_1.png",
+			"unit_hair_6_4_2.png",
+			"unit_hair_6_4_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_6_1_0.png",
+		"copies": [
+			"unit_hair_6_1_1.png",
+			"unit_hair_6_1_2.png",
+			"unit_hair_6_1_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_6_2_0.png",
+		"copies": [
+			"unit_hair_6_2_1.png",
+			"unit_hair_6_2_2.png",
+			"unit_hair_6_2_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_6_3_0.png",
+		"copies": [
+			"unit_hair_6_3_1.png",
+			"unit_hair_6_3_2.png",
+			"unit_hair_6_3_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_6_0_1.png",
+		"copies": [
+			"unit_hair_6_0_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_7_4_0.png",
+		"copies": [
+			"unit_hair_7_4_1.png",
+			"unit_hair_7_4_2.png",
+			"unit_hair_7_4_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_7_1_0.png",
+		"copies": [
+			"unit_hair_7_1_1.png",
+			"unit_hair_7_1_2.png",
+			"unit_hair_7_1_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_7_2_0.png",
+		"copies": [
+			"unit_hair_7_2_1.png",
+			"unit_hair_7_2_2.png",
+			"unit_hair_7_2_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_7_3_0.png",
+		"copies": [
+			"unit_hair_7_3_1.png",
+			"unit_hair_7_3_2.png",
+			"unit_hair_7_3_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_7_0_1.png",
+		"copies": [
+			"unit_hair_7_0_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_8_4_0.png",
+		"copies": [
+			"unit_hair_8_4_1.png",
+			"unit_hair_8_4_2.png",
+			"unit_hair_8_4_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_8_1_0.png",
+		"copies": [
+			"unit_hair_8_1_1.png",
+			"unit_hair_8_1_2.png",
+			"unit_hair_8_1_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_8_2_0.png",
+		"copies": [
+			"unit_hair_8_2_1.png",
+			"unit_hair_8_2_2.png",
+			"unit_hair_8_2_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_8_3_0.png",
+		"copies": [
+			"unit_hair_8_3_1.png",
+			"unit_hair_8_3_2.png",
+			"unit_hair_8_3_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_8_0_1.png",
+		"copies": [
+			"unit_hair_8_0_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_9_4_0.png",
+		"copies": [
+			"unit_hair_9_4_1.png",
+			"unit_hair_9_4_2.png",
+			"unit_hair_9_4_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_9_1_0.png",
+		"copies": [
+			"unit_hair_9_1_1.png",
+			"unit_hair_9_1_2.png",
+			"unit_hair_9_1_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_9_2_0.png",
+		"copies": [
+			"unit_hair_9_2_1.png",
+			"unit_hair_9_2_2.png",
+			"unit_hair_9_2_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_9_3_0.png",
+		"copies": [
+			"unit_hair_9_3_1.png",
+			"unit_hair_9_3_2.png",
+			"unit_hair_9_3_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_9_0_1.png",
+		"copies": [
+			"unit_hair_9_0_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_10_4_0.png",
+		"copies": [
+			"unit_hair_10_4_1.png",
+			"unit_hair_10_4_2.png",
+			"unit_hair_10_4_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_10_1_0.png",
+		"copies": [
+			"unit_hair_10_1_1.png",
+			"unit_hair_10_1_2.png",
+			"unit_hair_10_1_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_10_2_0.png",
+		"copies": [
+			"unit_hair_10_2_1.png",
+			"unit_hair_10_2_2.png",
+			"unit_hair_10_2_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_10_3_0.png",
+		"copies": [
+			"unit_hair_10_3_1.png",
+			"unit_hair_10_3_2.png",
+			"unit_hair_10_3_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_10_0_1.png",
+		"copies": [
+			"unit_hair_10_0_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_11_0_1.png",
+		"copies": [
+			"unit_hair_11_0_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_11_1_0.png",
+		"copies": [
+			"unit_hair_11_1_1.png",
+			"unit_hair_11_1_3.png"
+		]
+	},
+	{
+		"source": "unit_hair_11_3_0.png",
+		"copies": [
+			"unit_hair_11_3_2.png"
+		]
+	},
+	{
+		"source": "unit_hair_11_4_0.png",
+		"copies": [
+			"unit_hair_11_4_2.png"
+		]
+	},
+	{
+		"source": "unit_hair_11_2_0.png",
+		"copies": [
+			"unit_hair_11_2_1.png",
+			"unit_hair_11_2_3.png"
+		]
+	},
+	{
+		"source": "unit_body_0_0_4_0.png",
+		"copies": [
+			"unit_body_0_0_4_2.png"
+		]
+	},
+	{
+		"source": "unit_body_0_0_3_0.png",
+		"copies": [
+			"unit_body_0_0_3_2.png"
+		]
+	},
+	{
+		"source": "unit_body_0_0_2_0.png",
+		"copies": [
+			"unit_body_0_0_2_2.png"
+		]
+	},
+	{
+		"source": "unit_body_0_0_1_0.png",
+		"copies": [
+			"unit_body_0_0_1_2.png"
+		]
+	},
+	{
+		"source": "unit_body_0_0_0_1.png",
+		"copies": [
+			"unit_body_0_0_0_3.png"
+		]
+	},
+	{
+		"source": "unit_body_0_1_4_0.png",
+		"copies": [
+			"unit_body_0_1_4_2.png"
+		]
+	},
+	{
+		"source": "unit_body_0_1_3_0.png",
+		"copies": [
+			"unit_body_0_1_3_2.png"
+		]
+	},
+	{
+		"source": "unit_body_0_1_2_0.png",
+		"copies": [
+			"unit_body_0_1_2_2.png"
+		]
+	},
+	{
+		"source": "unit_body_0_1_1_0.png",
+		"copies": [
+			"unit_body_0_1_1_2.png"
+		]
+	},
+	{
+		"source": "unit_body_0_1_0_1.png",
+		"copies": [
+			"unit_body_0_1_0_3.png"
+		]
+	},
+	{
+		"source": "unit_body_0_2_4_0.png",
+		"copies": [
+			"unit_body_0_2_4_2.png"
+		]
+	},
+	{
+		"source": "unit_body_0_2_3_0.png",
+		"copies": [
+			"unit_body_0_2_3_2.png"
+		]
+	},
+	{
+		"source": "unit_body_0_2_2_0.png",
+		"copies": [
+			"unit_body_0_2_2_2.png"
+		]
+	},
+	{
+		"source": "unit_body_0_2_1_0.png",
+		"copies": [
+			"unit_body_0_2_1_2.png"
+		]
+	},
+	{
+		"source": "unit_body_0_2_0_1.png",
+		"copies": [
+			"unit_body_0_2_0_3.png"
+		]
+	},
+	{
+		"source": "unit_body_0_3_4_0.png",
+		"copies": [
+			"unit_body_0_3_4_2.png"
+		]
+	},
+	{
+		"source": "unit_body_0_3_3_0.png",
+		"copies": [
+			"unit_body_0_3_3_2.png"
+		]
+	},
+	{
+		"source": "unit_body_0_3_2_0.png",
+		"copies": [
+			"unit_body_0_3_2_2.png"
+		]
+	},
+	{
+		"source": "unit_body_0_3_1_0.png",
+		"copies": [
+			"unit_body_0_3_1_2.png"
+		]
+	},
+	{
+		"source": "unit_body_0_3_0_1.png",
+		"copies": [
+			"unit_body_0_3_0_3.png"
+		]
+	},
+	{
+		"source": "portrait_mouth_annoyed.png",
+		"copies": [
+			"portrait_mouth_talk_0.png"
+		]
+	},
+	{
+		"source": "portrait_female_annoyed_eyes_1.png",
+		"copies": [
+			"portrait_female_annoyed_eyes_3.png"
+		]
+	},
+	{
+		"source": "portrait_female_happy_eyes_1.png",
+		"copies": [
+			"portrait_female_happy_eyes_3.png"
+		]
+	},
+	{
+		"source": "portrait_female_sly_eyes_1.png",
+		"copies": [
+			"portrait_female_sly_eyes_3.png"
+		]
+	},
+	{
+		"source": "portrait_female_eyes_sad_1.png",
+		"copies": [
+			"portrait_female_eyes_sad_3.png"
+		]
+	},
+	{
+		"source": "portrait_male_0_happy_eyes_1.png",
+		"copies": [
+			"portrait_male_0_happy_eyes_3.png"
+		]
+	},
+	{
+		"source": "portrait_male_0_sad_eyes_1.png",
+		"copies": [
+			"portrait_male_0_sad_eyes_3.png"
+		]
+	},
+	{
+		"source": "portrait_male_0_annoyed_eyes_1.png",
+		"copies": [
+			"portrait_male_0_annoyed_eyes_3.png"
+		]
+	},
+	{
+		"source": "portrait_male_0_sly_eyes_1.png",
+		"copies": [
+			"portrait_male_0_sly_eyes_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_0_1.png",
+		"copies": [
+			"unit_weapon_axe_titanium_0_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_2_0.png",
+		"copies": [
+			"unit_weapon_axe_titanium_0_2_1.png",
+			"unit_weapon_axe_titanium_0_2_2.png",
+			"unit_weapon_axe_titanium_0_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_1_0.png",
+		"copies": [
+			"unit_weapon_axe_titanium_0_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_1_1.png",
+		"copies": [
+			"unit_weapon_axe_titanium_0_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_4_0.png",
+		"copies": [
+			"unit_weapon_axe_titanium_0_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_0_0.png",
+		"copies": [
+			"unit_weapon_axe_titanium_1_0_0.png",
+			"unit_weapon_axe_titanium_2_0_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_1_0.png",
+		"copies": [
+			"unit_weapon_axe_titanium_1_1_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_1_1.png",
+		"copies": [
+			"unit_weapon_axe_titanium_1_1_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_1_2.png",
+		"copies": [
+			"unit_weapon_axe_titanium_1_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_1_3.png",
+		"copies": [
+			"unit_weapon_axe_titanium_1_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_2_0.png",
+		"copies": [
+			"unit_weapon_axe_titanium_1_2_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_2_1.png",
+		"copies": [
+			"unit_weapon_axe_titanium_1_2_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_2_2.png",
+		"copies": [
+			"unit_weapon_axe_titanium_1_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_2_3.png",
+		"copies": [
+			"unit_weapon_axe_titanium_1_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_4_0.png",
+		"copies": [
+			"unit_weapon_axe_titanium_1_4_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_4_1.png",
+		"copies": [
+			"unit_weapon_axe_titanium_1_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_4_2.png",
+		"copies": [
+			"unit_weapon_axe_titanium_1_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_0_4_3.png",
+		"copies": [
+			"unit_weapon_axe_titanium_1_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_1_0_1.png",
+		"copies": [
+			"unit_weapon_axe_titanium_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_1_0_2.png",
+		"copies": [
+			"unit_weapon_axe_titanium_2_0_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_1_0_3.png",
+		"copies": [
+			"unit_weapon_axe_titanium_2_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_1_1_0.png",
+		"copies": [
+			"unit_weapon_axe_titanium_2_1_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_1_1_1.png",
+		"copies": [
+			"unit_weapon_axe_titanium_2_1_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_1_1_2.png",
+		"copies": [
+			"unit_weapon_axe_titanium_2_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_1_1_3.png",
+		"copies": [
+			"unit_weapon_axe_titanium_2_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_1_2_0.png",
+		"copies": [
+			"unit_weapon_axe_titanium_2_2_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_1_2_1.png",
+		"copies": [
+			"unit_weapon_axe_titanium_2_2_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_1_2_2.png",
+		"copies": [
+			"unit_weapon_axe_titanium_2_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_1_2_3.png",
+		"copies": [
+			"unit_weapon_axe_titanium_2_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_1_4_0.png",
+		"copies": [
+			"unit_weapon_axe_titanium_2_4_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_1_4_1.png",
+		"copies": [
+			"unit_weapon_axe_titanium_2_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_1_4_2.png",
+		"copies": [
+			"unit_weapon_axe_titanium_2_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_1_4_3.png",
+		"copies": [
+			"unit_weapon_axe_titanium_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_3_0_0.png",
+		"copies": [
+			"unit_weapon_axe_titanium_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_3_1_0.png",
+		"copies": [
+			"unit_weapon_axe_titanium_3_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_3_2_0.png",
+		"copies": [
+			"unit_weapon_axe_titanium_3_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_titanium_3_4_0.png",
+		"copies": [
+			"unit_weapon_axe_titanium_3_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_0_1.png",
+		"copies": [
+			"unit_weapon_axe_wood_0_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_2_0.png",
+		"copies": [
+			"unit_weapon_axe_wood_0_2_1.png",
+			"unit_weapon_axe_wood_0_2_2.png",
+			"unit_weapon_axe_wood_0_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_1_0.png",
+		"copies": [
+			"unit_weapon_axe_wood_0_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_1_1.png",
+		"copies": [
+			"unit_weapon_axe_wood_0_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_4_0.png",
+		"copies": [
+			"unit_weapon_axe_wood_0_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_0_0.png",
+		"copies": [
+			"unit_weapon_axe_wood_1_0_0.png",
+			"unit_weapon_axe_wood_2_0_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_1_0.png",
+		"copies": [
+			"unit_weapon_axe_wood_1_1_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_1_1.png",
+		"copies": [
+			"unit_weapon_axe_wood_1_1_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_1_2.png",
+		"copies": [
+			"unit_weapon_axe_wood_1_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_1_3.png",
+		"copies": [
+			"unit_weapon_axe_wood_1_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_2_0.png",
+		"copies": [
+			"unit_weapon_axe_wood_1_2_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_2_1.png",
+		"copies": [
+			"unit_weapon_axe_wood_1_2_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_2_2.png",
+		"copies": [
+			"unit_weapon_axe_wood_1_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_2_3.png",
+		"copies": [
+			"unit_weapon_axe_wood_1_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_4_0.png",
+		"copies": [
+			"unit_weapon_axe_wood_1_4_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_4_1.png",
+		"copies": [
+			"unit_weapon_axe_wood_1_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_4_2.png",
+		"copies": [
+			"unit_weapon_axe_wood_1_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_0_4_3.png",
+		"copies": [
+			"unit_weapon_axe_wood_1_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_1_0_1.png",
+		"copies": [
+			"unit_weapon_axe_wood_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_1_0_2.png",
+		"copies": [
+			"unit_weapon_axe_wood_2_0_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_1_0_3.png",
+		"copies": [
+			"unit_weapon_axe_wood_2_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_1_1_0.png",
+		"copies": [
+			"unit_weapon_axe_wood_2_1_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_1_1_1.png",
+		"copies": [
+			"unit_weapon_axe_wood_2_1_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_1_1_2.png",
+		"copies": [
+			"unit_weapon_axe_wood_2_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_1_1_3.png",
+		"copies": [
+			"unit_weapon_axe_wood_2_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_1_2_0.png",
+		"copies": [
+			"unit_weapon_axe_wood_2_2_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_1_2_1.png",
+		"copies": [
+			"unit_weapon_axe_wood_2_2_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_1_2_2.png",
+		"copies": [
+			"unit_weapon_axe_wood_2_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_1_2_3.png",
+		"copies": [
+			"unit_weapon_axe_wood_2_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_1_4_0.png",
+		"copies": [
+			"unit_weapon_axe_wood_2_4_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_1_4_1.png",
+		"copies": [
+			"unit_weapon_axe_wood_2_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_1_4_2.png",
+		"copies": [
+			"unit_weapon_axe_wood_2_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_1_4_3.png",
+		"copies": [
+			"unit_weapon_axe_wood_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_3_0_0.png",
+		"copies": [
+			"unit_weapon_axe_wood_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_3_1_0.png",
+		"copies": [
+			"unit_weapon_axe_wood_3_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_3_2_0.png",
+		"copies": [
+			"unit_weapon_axe_wood_3_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_wood_3_4_0.png",
+		"copies": [
+			"unit_weapon_axe_wood_3_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_0_1.png",
+		"copies": [
+			"unit_weapon_axe_bronze_0_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_2_0.png",
+		"copies": [
+			"unit_weapon_axe_bronze_0_2_1.png",
+			"unit_weapon_axe_bronze_0_2_2.png",
+			"unit_weapon_axe_bronze_0_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_1_0.png",
+		"copies": [
+			"unit_weapon_axe_bronze_0_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_1_1.png",
+		"copies": [
+			"unit_weapon_axe_bronze_0_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_4_0.png",
+		"copies": [
+			"unit_weapon_axe_bronze_0_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_0_0.png",
+		"copies": [
+			"unit_weapon_axe_bronze_1_0_0.png",
+			"unit_weapon_axe_bronze_2_0_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_1_0.png",
+		"copies": [
+			"unit_weapon_axe_bronze_1_1_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_1_1.png",
+		"copies": [
+			"unit_weapon_axe_bronze_1_1_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_1_2.png",
+		"copies": [
+			"unit_weapon_axe_bronze_1_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_1_3.png",
+		"copies": [
+			"unit_weapon_axe_bronze_1_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_2_0.png",
+		"copies": [
+			"unit_weapon_axe_bronze_1_2_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_2_1.png",
+		"copies": [
+			"unit_weapon_axe_bronze_1_2_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_2_2.png",
+		"copies": [
+			"unit_weapon_axe_bronze_1_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_2_3.png",
+		"copies": [
+			"unit_weapon_axe_bronze_1_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_4_0.png",
+		"copies": [
+			"unit_weapon_axe_bronze_1_4_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_4_1.png",
+		"copies": [
+			"unit_weapon_axe_bronze_1_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_4_2.png",
+		"copies": [
+			"unit_weapon_axe_bronze_1_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_0_4_3.png",
+		"copies": [
+			"unit_weapon_axe_bronze_1_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_1_0_1.png",
+		"copies": [
+			"unit_weapon_axe_bronze_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_1_0_2.png",
+		"copies": [
+			"unit_weapon_axe_bronze_2_0_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_1_0_3.png",
+		"copies": [
+			"unit_weapon_axe_bronze_2_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_1_1_0.png",
+		"copies": [
+			"unit_weapon_axe_bronze_2_1_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_1_1_1.png",
+		"copies": [
+			"unit_weapon_axe_bronze_2_1_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_1_1_2.png",
+		"copies": [
+			"unit_weapon_axe_bronze_2_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_1_1_3.png",
+		"copies": [
+			"unit_weapon_axe_bronze_2_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_1_2_0.png",
+		"copies": [
+			"unit_weapon_axe_bronze_2_2_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_1_2_1.png",
+		"copies": [
+			"unit_weapon_axe_bronze_2_2_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_1_2_2.png",
+		"copies": [
+			"unit_weapon_axe_bronze_2_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_1_2_3.png",
+		"copies": [
+			"unit_weapon_axe_bronze_2_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_1_4_0.png",
+		"copies": [
+			"unit_weapon_axe_bronze_2_4_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_1_4_1.png",
+		"copies": [
+			"unit_weapon_axe_bronze_2_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_1_4_2.png",
+		"copies": [
+			"unit_weapon_axe_bronze_2_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_1_4_3.png",
+		"copies": [
+			"unit_weapon_axe_bronze_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_3_0_0.png",
+		"copies": [
+			"unit_weapon_axe_bronze_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_3_1_0.png",
+		"copies": [
+			"unit_weapon_axe_bronze_3_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_3_2_0.png",
+		"copies": [
+			"unit_weapon_axe_bronze_3_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_bronze_3_4_0.png",
+		"copies": [
+			"unit_weapon_axe_bronze_3_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_0_1.png",
+		"copies": [
+			"unit_weapon_axe_steel_0_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_2_0.png",
+		"copies": [
+			"unit_weapon_axe_steel_0_2_1.png",
+			"unit_weapon_axe_steel_0_2_2.png",
+			"unit_weapon_axe_steel_0_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_1_0.png",
+		"copies": [
+			"unit_weapon_axe_steel_0_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_1_1.png",
+		"copies": [
+			"unit_weapon_axe_steel_0_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_4_0.png",
+		"copies": [
+			"unit_weapon_axe_steel_0_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_0_0.png",
+		"copies": [
+			"unit_weapon_axe_steel_1_0_0.png",
+			"unit_weapon_axe_steel_2_0_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_1_0.png",
+		"copies": [
+			"unit_weapon_axe_steel_1_1_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_1_1.png",
+		"copies": [
+			"unit_weapon_axe_steel_1_1_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_1_2.png",
+		"copies": [
+			"unit_weapon_axe_steel_1_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_1_3.png",
+		"copies": [
+			"unit_weapon_axe_steel_1_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_2_0.png",
+		"copies": [
+			"unit_weapon_axe_steel_1_2_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_2_1.png",
+		"copies": [
+			"unit_weapon_axe_steel_1_2_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_2_2.png",
+		"copies": [
+			"unit_weapon_axe_steel_1_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_2_3.png",
+		"copies": [
+			"unit_weapon_axe_steel_1_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_4_0.png",
+		"copies": [
+			"unit_weapon_axe_steel_1_4_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_4_1.png",
+		"copies": [
+			"unit_weapon_axe_steel_1_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_4_2.png",
+		"copies": [
+			"unit_weapon_axe_steel_1_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_0_4_3.png",
+		"copies": [
+			"unit_weapon_axe_steel_1_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_1_0_1.png",
+		"copies": [
+			"unit_weapon_axe_steel_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_1_0_2.png",
+		"copies": [
+			"unit_weapon_axe_steel_2_0_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_1_0_3.png",
+		"copies": [
+			"unit_weapon_axe_steel_2_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_1_1_0.png",
+		"copies": [
+			"unit_weapon_axe_steel_2_1_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_1_1_1.png",
+		"copies": [
+			"unit_weapon_axe_steel_2_1_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_1_1_2.png",
+		"copies": [
+			"unit_weapon_axe_steel_2_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_1_1_3.png",
+		"copies": [
+			"unit_weapon_axe_steel_2_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_1_2_0.png",
+		"copies": [
+			"unit_weapon_axe_steel_2_2_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_1_2_1.png",
+		"copies": [
+			"unit_weapon_axe_steel_2_2_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_1_2_2.png",
+		"copies": [
+			"unit_weapon_axe_steel_2_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_1_2_3.png",
+		"copies": [
+			"unit_weapon_axe_steel_2_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_1_4_0.png",
+		"copies": [
+			"unit_weapon_axe_steel_2_4_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_1_4_1.png",
+		"copies": [
+			"unit_weapon_axe_steel_2_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_1_4_2.png",
+		"copies": [
+			"unit_weapon_axe_steel_2_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_1_4_3.png",
+		"copies": [
+			"unit_weapon_axe_steel_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_3_0_0.png",
+		"copies": [
+			"unit_weapon_axe_steel_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_3_1_0.png",
+		"copies": [
+			"unit_weapon_axe_steel_3_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_3_2_0.png",
+		"copies": [
+			"unit_weapon_axe_steel_3_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_steel_3_4_0.png",
+		"copies": [
+			"unit_weapon_axe_steel_3_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_0_1.png",
+		"copies": [
+			"unit_weapon_axe_gold_0_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_2_0.png",
+		"copies": [
+			"unit_weapon_axe_gold_0_2_1.png",
+			"unit_weapon_axe_gold_0_2_2.png",
+			"unit_weapon_axe_gold_0_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_1_0.png",
+		"copies": [
+			"unit_weapon_axe_gold_0_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_1_1.png",
+		"copies": [
+			"unit_weapon_axe_gold_0_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_4_0.png",
+		"copies": [
+			"unit_weapon_axe_gold_0_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_0_0.png",
+		"copies": [
+			"unit_weapon_axe_gold_1_0_0.png",
+			"unit_weapon_axe_gold_2_0_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_1_0.png",
+		"copies": [
+			"unit_weapon_axe_gold_1_1_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_1_1.png",
+		"copies": [
+			"unit_weapon_axe_gold_1_1_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_1_2.png",
+		"copies": [
+			"unit_weapon_axe_gold_1_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_1_3.png",
+		"copies": [
+			"unit_weapon_axe_gold_1_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_2_0.png",
+		"copies": [
+			"unit_weapon_axe_gold_1_2_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_2_1.png",
+		"copies": [
+			"unit_weapon_axe_gold_1_2_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_2_2.png",
+		"copies": [
+			"unit_weapon_axe_gold_1_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_2_3.png",
+		"copies": [
+			"unit_weapon_axe_gold_1_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_4_0.png",
+		"copies": [
+			"unit_weapon_axe_gold_1_4_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_4_1.png",
+		"copies": [
+			"unit_weapon_axe_gold_1_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_4_2.png",
+		"copies": [
+			"unit_weapon_axe_gold_1_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_0_4_3.png",
+		"copies": [
+			"unit_weapon_axe_gold_1_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_1_0_1.png",
+		"copies": [
+			"unit_weapon_axe_gold_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_1_0_2.png",
+		"copies": [
+			"unit_weapon_axe_gold_2_0_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_1_0_3.png",
+		"copies": [
+			"unit_weapon_axe_gold_2_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_1_1_0.png",
+		"copies": [
+			"unit_weapon_axe_gold_2_1_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_1_1_1.png",
+		"copies": [
+			"unit_weapon_axe_gold_2_1_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_1_1_2.png",
+		"copies": [
+			"unit_weapon_axe_gold_2_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_1_1_3.png",
+		"copies": [
+			"unit_weapon_axe_gold_2_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_1_2_0.png",
+		"copies": [
+			"unit_weapon_axe_gold_2_2_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_1_2_1.png",
+		"copies": [
+			"unit_weapon_axe_gold_2_2_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_1_2_2.png",
+		"copies": [
+			"unit_weapon_axe_gold_2_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_1_2_3.png",
+		"copies": [
+			"unit_weapon_axe_gold_2_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_1_4_0.png",
+		"copies": [
+			"unit_weapon_axe_gold_2_4_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_1_4_1.png",
+		"copies": [
+			"unit_weapon_axe_gold_2_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_1_4_2.png",
+		"copies": [
+			"unit_weapon_axe_gold_2_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_1_4_3.png",
+		"copies": [
+			"unit_weapon_axe_gold_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_3_0_0.png",
+		"copies": [
+			"unit_weapon_axe_gold_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_3_1_0.png",
+		"copies": [
+			"unit_weapon_axe_gold_3_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_3_2_0.png",
+		"copies": [
+			"unit_weapon_axe_gold_3_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_axe_gold_3_4_0.png",
+		"copies": [
+			"unit_weapon_axe_gold_3_4_2.png"
+		]
+	}
+]

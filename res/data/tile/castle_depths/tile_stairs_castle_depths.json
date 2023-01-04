@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.castle_depths",
+        "tile.stairs"
+    ],
+    "property": "TILE_COMPOUND",
+    "model": "tile_stairs.dae",
+    "texture": "tile_stairs.png",
+    "shader": "main_3d",
+    "solid": false,
+    "offset": [
+        0.0, 16.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

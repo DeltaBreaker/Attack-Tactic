@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.village",
+        "tile.house.counter.left"
+    ],
+    "property": "TILE_HOUSING_FURNISHING",
+    "model": "tile_house_counter_left.dae",
+    "texture": "tile_house_counter_left.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 16.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

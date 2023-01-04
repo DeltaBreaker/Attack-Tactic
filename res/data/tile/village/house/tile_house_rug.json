@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.village",
+        "tile.house.rug"
+    ],
+    "property": "TILE_HOUSING_FURNISHING",
+    "model": "tile_rug.dae",
+    "texture": "tile_rug.png",
+    "shader": "main_3d",
+    "solid": false,
+    "offset": [
+        0.0, 8.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

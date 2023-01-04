@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.scorched_crater",
+        "tile.decoration.foliage"
+    ],
+    "property": "DEFAULT",
+    "model": "tile_ore_scorched_crater.dae",
+    "texture": "tile_ore_scorched_crater.png",
+    "shader": "main_3d",
+    "solid": false,
+    "offset": [
+        0.0, 0.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

@@ -1,0 +1,24 @@
+{
+	"id": "item.material.leather",
+	"name": "Leather",
+	"type": "item.type.other",
+	"tier": 0,
+	"rate": 1.0,
+	"fish_rate": 0.1,
+	"locations": [
+		"pallet.snow_forrest",
+		"pallet.village",
+		"pallet.flooded_forrest"
+	],
+	"price": 50,
+	"text": [
+		"A thick dry",
+		"sheet of leather"
+	],
+	"model": "item_material_leather.dae",
+	"texture": "item_material_leather.png",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": -1
+	}
+}

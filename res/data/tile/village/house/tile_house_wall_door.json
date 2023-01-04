@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.village",
+        "tile.house.wall.bottom.door"
+    ],
+    "property": "TILE_HOUSING_DOOR",
+    "model": "tile_house_wall_door.dae",
+    "texture": "tile_house_wall_door.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 32.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

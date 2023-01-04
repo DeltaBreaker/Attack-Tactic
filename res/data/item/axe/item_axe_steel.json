@@ -1,0 +1,49 @@
+{
+	"id": "item.axe.steel",
+	"name": "Steel Axe",
+	"type": "item.type.weapon",
+	"tier": 1,
+	"damage_type": "item.damage.physical",
+	"animation": "ITEM_ANIMATION_SLASH",
+	"range": 1,
+	"hp": 0,
+	"atk": 9,
+	"mag": 0,
+	"spd": 0,
+	"def": 0,
+	"res": 0,
+	"mov": -2,
+	"abilities": [],
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 950,
+	"text": [
+		"A shining axe",
+		"crafted from",
+		"steel"
+	],
+	"model": "item_axe_1.dae",
+	"texture": "item_axe_steel.png",
+	"wearable_model_id": "unit_weapon_axe_type_0",
+	"wearable_texture_id": "unit_weapon_axe_steel",
+	"material": "SILVER",
+	"recipe": {
+		"cost": 950,
+		"materials": [
+			{
+				"item": "item.material.bar.steel",
+				"count": 2
+			},
+			{
+				"item": "item.material.fibre.plant",
+				"count": 1
+			},
+			{
+				"item": "item.material.wood",
+				"count": 1
+			}
+		]
+	}
+}

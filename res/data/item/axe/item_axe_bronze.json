@@ -1,0 +1,49 @@
+{
+	"id": "item.axe.bronze",
+	"name": "Bronze Axe",
+	"type": "item.type.weapon",
+	"tier": 1,
+	"damage_type": "item.damage.physical",
+	"animation": "ITEM_ANIMATION_SLASH",
+	"range": 1,
+	"hp": 0,
+	"atk": 6,
+	"mag": 0,
+	"spd": 0,
+	"def": 0,
+	"res": 0,
+	"mov": -2,
+	"abilities": [],
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 650,
+	"text": [
+		"A sturdy axe",
+		"crafted from",
+		"bronze"
+	],
+	"model": "item_axe_0.dae",
+	"texture": "item_axe_bronze.png",
+	"wearable_model_id": "unit_weapon_axe_type_0",
+	"wearable_texture_id": "unit_weapon_axe_bronze",
+	"material": "BRONZE",
+	"recipe": {
+		"cost": 650,
+		"materials": [
+			{
+				"item": "item.material.bar.bronze",
+				"count": 2
+			},
+			{
+				"item": "item.material.fibre.plant",
+				"count": 1
+			},
+			{
+				"item": "item.material.wood",
+				"count": 1
+			}
+		]
+	}
+}

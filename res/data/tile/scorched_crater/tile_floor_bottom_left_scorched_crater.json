@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.scorched_crater",
+        "tile.floor.bottom.left"
+    ],
+    "property": "DEFAULT",
+    "model": "tile_32_scorched_crater.dae",
+    "texture": "tile_32_scorched_crater.png",
+    "shader": "main_3d",
+    "solid": false,
+    "offset": [
+        0.0, -0.5, 0.0
+    ],
+    "material": "DEFAULT"
+}

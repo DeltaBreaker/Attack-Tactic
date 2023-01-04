@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.castle_depths",
+        "tile.decoration.wall"
+    ],
+    "property": "TILE_COMPOUND",
+    "model": "tile_sword_stand.dae",
+    "texture": "tile_sword_stand.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 16.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.village",
+        "tile.road.floor.hallway.horizontal"
+    ],
+    "property": "DEFAULT",
+    "model": "tile_23_castle_depths.dae",
+    "texture": "tile_23_castle_depths.png",
+    "shader": "main_3d",
+    "solid": false,
+    "offset": [
+        0.0, 0.5, 0.0
+    ],
+    "material": "DEFAULT"
+}

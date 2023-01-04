@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <created>2021-07-03T14:15:42Z</created>
+    <modified>2021-07-03T14:15:42Z</modified>
+    <revision>1.0</revision>
+  </asset>
+  <library_images>
+    <image id="rug-diffuse-tex" name="rug-diffuse-tex">
+      <init_from>rug_diffuse.png</init_from>
+    </image>
+    <image id="rug-emissive-tex" name="rug-emissive-tex">
+      <init_from>rug_emissive.png</init_from>
+    </image>
+  </library_images>
+  <library_effects>
+    <effect id="rug-Effect">
+      <profile_COMMON>
+        <newparam sid="rug-diffuse-surface">
+          <surface type="2D">
+            <init_from>rug-diffuse-tex</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="rug-emissive-surface">
+          <surface type="2D">
+            <init_from>rug-emissive-tex</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="rug-diffuse-sampler">
+          <sampler2D>
+            <source>rug-diffuse-surface</source>
+            <wrap_s>CLAMP</wrap_s>
+            <wrap_t>CLAMP</wrap_t>
+            <minfilter>NONE</minfilter>
+            <magfilter>NONE</magfilter>
+          </sampler2D>
+        </newparam>
+        <newparam sid="rug-emissive-sampler">
+          <sampler2D>
+            <source>rug-emissive-surface</source>
+            <wrap_s>CLAMP</wrap_s>
+            <wrap_t>CLAMP</wrap_t>
+            <minfilter>NONE</minfilter>
+            <magfilter>NONE</magfilter>
+          </sampler2D>
+        </newparam>
+        <technique sid="phong1">
+          <phong>
+            <emission>
+              <texture texcoord="rug-tex-bind" texture="rug-emissive-sampler"/>
+            </emission>
+            <ambient>
+              <color>1.0 1.0 1.0 1.0</color>
+            </ambient>
+            <diffuse>
+              <texture texcoord="rug-tex-bind" texture="rug-diffuse-sampler"/>
+            </diffuse>
+            <specular>
+              <color>0.0 0.0 0.0 1.0</color>
+            </specular>
+            <shininess>
+              <float>5.0</float>
+            </shininess>
+            <reflective>
+              <color>1.0 1.0 1.0 1.0</color>
+            </reflective>
+            <reflectivity>
+              <float>0.2</float>
+            </reflectivity>
+            <transparent>
+              <color>1.0 1.0 1.0 1.0</color>
+            </transparent>
+            <transparency>
+              <float>1.0</float>
+            </transparency>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="rug-Material">
+      <instance_effect url="#rug-Effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="rug-Geom" name="rug-Geom">
+      <mesh>
+        <source id="rug-Pos">
+          <float_array count="72" id="rug-Pos-array">-16.0 -0.5 16.0 -16.0 0.5 16.0 -16.0 0.5 -16.0 -16.0 -0.5 -16.0 16.0 -0.5 -16.0 16.0 0.5 -16.0 16.0 0.5 16.0 16.0 -0.5 16.0 -16.0 -0.5 -16.0 16.0 -0.5 -16.0 16.0 -0.5 16.0 -16.0 -0.5 16.0 -16.0 0.5 16.0 16.0 0.5 16.0 16.0 0.5 -16.0 -16.0 0.5 -16.0 -16.0 0.5 -16.0 16.0 0.5 -16.0 16.0 -0.5 -16.0 -16.0 -0.5 -16.0 -16.0 -0.5 16.0 16.0 -0.5 16.0 16.0 0.5 16.0 -16.0 0.5 16.0 </float_array>
+          <technique_common>
+            <accessor count="24" source="#rug-Pos-array" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="rug-UV">
+          <float_array count="48" id="rug-UV-array">0.0 0.5 0.0078125 0.5 0.0078125 1.0 0.0 1.0 0.0 1.0 0.0078125 1.0 0.0078125 0.5 0.0 0.5 0.265625 1.0 0.515625 1.0 0.515625 0.5 0.265625 0.5 0.265625 0.5 0.515625 0.5 0.515625 1.0 0.265625 1.0 0.0078125 0.5 0.0078125 1.0 0.0 1.0 0.0 0.5 0.0 0.5 0.0 1.0 0.0078125 1.0 0.0078125 0.5 </float_array>
+          <technique_common>
+            <accessor count="24" source="#rug-UV-array" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="rug-Normal">
+          <float_array count="18" id="rug-Normal-array">-1.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 1.0</float_array>
+          <technique_common>
+            <accessor count="6" source="#rug-Normal-array" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="rug-Vertices">
+          <input semantic="POSITION" source="#rug-Pos"/>
+        </vertices>
+        <polylist count="6" material="rug-Material">
+          <input offset="0" semantic="VERTEX" source="#rug-Vertices"/>
+          <input offset="1" semantic="TEXCOORD" set="0" source="#rug-UV"/>
+          <input offset="2" semantic="NORMAL" source="#rug-Normal"/>
+          <vcount>4 4 4 4 4 4 </vcount>
+          <p>0 0 0 1 1 0 2 2 0 3 3 0 4 4 1 5 5 1 6 6 1 7 7 1 8 8 2 9 9 2 10 10 2 11 11 2 12 12 3 13 13 3 14 14 3 15 15 3 16 16 4 17 17 4 18 18 4 19 19 4 20 20 5 21 21 5 22 22 5 23 23 5 </p>
+        </polylist>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_animations/>
+  <library_visual_scenes>
+    <visual_scene id="DefaultScene">
+      <node id="rug" name="rug">
+        <translate>0 0 0</translate>
+        <rotate>0 0 1 0</rotate>
+        <rotate>0 1 0 0</rotate>
+        <rotate>1 0 0 0</rotate>
+        <scale>1 1 1</scale>
+        <instance_geometry url="#rug-Geom">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="rug-Material" target="#rug-Material">
+                <bind_vertex_input input_semantic="TEXCOORD" input_set="0" semantic="rug-tex-bind"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#DefaultScene"/>
+  </scene>
+</COLLADA>

@@ -1,0 +1,6 @@
+{
+	"activator": "event.activator.death bfce0c80-ebe4-487d-90a1-a869e0c4e8b9",
+	"script": [
+		"event reset.json"
+	]	
+}

@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.village",
+        "tile.house.shelf.book"
+    ],
+    "property": "TILE_HOUSING_FURNISHING",
+    "model": "tile_shelf_book.dae",
+    "texture": "tile_shelf_book.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 16.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

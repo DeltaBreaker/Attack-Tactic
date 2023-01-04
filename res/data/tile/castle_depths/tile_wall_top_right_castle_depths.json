@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.castle_depths",
+        "tile.wall.turn.top.right"
+    ],
+    "property": "DEFAULT",
+    "model": "tile_3_castle_depths.dae",
+    "texture": "tile_3_castle_depths.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 8.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

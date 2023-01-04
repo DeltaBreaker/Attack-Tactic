@@ -1,0 +1,15 @@
+{
+    "tags": [
+    	"pallet.medial_plane",
+        "tile.decoration.illumination.floor"
+    ],
+    "property": "TILE_ROTATED",
+    "model": "tile_corruption_medial_plane.dae",
+    "texture": "tile_corruption_medial_plane.png",
+    "shader": "main_3d_medial",
+    "solid": true,
+    "offset": [
+        0.0, 8.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

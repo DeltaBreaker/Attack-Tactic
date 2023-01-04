@@ -1,0 +1,24 @@
+{
+	"id": "item.other.trout",
+	"name": "Trout",
+	"type": "item.type.usable",
+	"tier": 0,
+	"rate": 0.5,
+	"use": "ITEM_USE_HEAL_10",
+	"fish_rate": 0.85,
+	"locations": [
+		"pallet.seabed_cove"
+	],
+	"price": 150,
+	"text": [
+		"A common trout",
+		"often used for",
+		"dinner"
+	],
+	"model": "item_trout.dae",
+	"texture": "item_trout.png",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": -1
+	}
+}

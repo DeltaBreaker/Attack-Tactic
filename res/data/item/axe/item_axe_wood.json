@@ -1,0 +1,45 @@
+{
+	"id": "item.axe.wood",
+	"name": "Wood Axe",
+	"type": "item.type.weapon",
+	"tier": 1,
+	"damage_type": "item.damage.physical",
+	"animation": "ITEM_ANIMATION_SLASH",
+	"range": 1,
+	"hp": 0,
+	"atk": 3,
+	"mag": 0,
+	"spd": 0,
+	"def": 0,
+	"res": 0,
+	"mov": -2,
+	"abilities": [],
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 150,
+	"text": [
+		"A fragile axe",
+		"crafted from",
+		"dry wood"
+	],
+	"model": "item_axe_0.dae",
+	"texture": "item_axe_wood.png",
+	"wearable_model_id": "unit_weapon_axe_type_0",
+	"wearable_texture_id": "unit_weapon_axe_wood",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": 150,
+		"materials": [
+			{
+				"item": "item.material.fibre.plant",
+				"count": 1
+			},
+			{
+				"item": "item.material.wood",
+				"count": 3
+			}
+		]
+	}
+}

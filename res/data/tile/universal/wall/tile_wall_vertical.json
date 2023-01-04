@@ -1,0 +1,19 @@
+{
+	"tags": [
+		"pallet.village",
+		"tile.wall_vertical",
+		"pallet.flooded_forrest",
+		"pallet.snow_forrest"
+	],
+	"property": "TILE_COMPOUND",
+	"model": "tile_wall_vertical.dae",
+	"texture": "tile_wall_vertical.png",
+	"shader": "main_3d",
+	"solid": true,
+	"offset": [
+		0.0,
+		16.0,
+		0.0
+	],
+	"material": "DEFAULT"
+}

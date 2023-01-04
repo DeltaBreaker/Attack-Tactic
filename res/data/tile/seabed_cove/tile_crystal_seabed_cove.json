@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.seabed_cove",
+        "tile.decoration.illumination.floor"
+    ],
+    "property": "TILE_CRYSTAL",
+    "model": "tile_crystal_seabed_cove.dae",
+    "texture": "tile_crystal_seabed_cove.png",
+    "shader": "main_3d_bloom",
+    "solid": true,
+    "offset": [
+        0.0, 16.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

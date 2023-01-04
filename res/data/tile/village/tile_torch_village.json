@@ -1,0 +1,16 @@
+{
+    "tags": [
+        "pallet.village",
+        "tile.decoration.illumination.floor",
+        "pallet.flooded_forrest"
+    ],
+    "property": "TILE_TORCH",
+    "model": "tile_torch_snow_forrest.dae",
+    "texture": "tile_torch_village.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 8.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

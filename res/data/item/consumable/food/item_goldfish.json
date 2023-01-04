@@ -1,0 +1,24 @@
+{
+	"id": "item.other.goldfish",
+	"name": "Goldfish",
+	"type": "item.type.usable",
+	"tier": 0,
+	"rate": 1.0,
+	"use": "ITEM_USE_HEAL_5",
+	"fish_rate": 1.0,
+	"locations": [
+		"pallet.seabed_cove"
+	],
+	"price": 100,
+	"text": [
+		"A small goldfish",
+		"that would likely",
+		"make for a good pet"
+	],
+	"model": "item_goldfish.dae",
+	"texture": "item_goldfish.png",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": -1
+	}
+}

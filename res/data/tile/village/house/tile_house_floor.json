@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.village",
+        "tile.house.floor"
+    ],
+    "property": "DEFAULT",
+    "model": "tile_house_floor.dae",
+    "texture": "tile_house_floor.png",
+    "shader": "main_3d",
+    "solid": false,
+    "offset": [
+        0.0, 0.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.village",
+        "tile.road.fountain"
+    ],
+    "property": "TILE_FOUNTAIN",
+    "model": "tile_fountain.dae",
+    "texture": "tile_fountain.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 16.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

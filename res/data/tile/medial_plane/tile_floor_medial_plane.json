@@ -1,0 +1,23 @@
+{
+    "tags": [
+    	"pallet.medial_plane",
+        "tile.floor.center",
+        "tile.floor.top.left",
+        "tile.floor.top.middle",
+        "tile.floor.top.right",
+        "tile.floor.middle.left",
+        "tile.floor.middle.right",
+        "tile.floor.bottom.left",
+        "tile.floor.bottom.middle",
+        "tile.floor.bottom.right"
+    ],
+    "property": "DEFAULT",
+    "model": "tile_floor_medial_plane.dae",
+    "texture": "tile_floor_medial_plane.png",
+    "shader": "main_3d_nobloom",
+    "solid": false,
+    "offset": [
+        0.0, 0.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.castle_depths",
+        "tile.decoration.illumination.wall"
+    ],
+    "property": "TILE_BRAZIER",
+    "model": "tile_brazier.dae",
+    "texture": "tile_brazier.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 28.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.village",
+        "tile.house.wall.merchant"
+    ],
+    "property": "TILE_HOUSING",
+    "model": "tile_house_wall_sign.dae",
+    "texture": "tile_house_wall_merchant.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 24.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

@@ -1,0 +1,15 @@
+{
+    "tags": [
+    	"pallet.snow_forrest",
+        "tile.floor.middle.right"
+    ],
+    "property": "DEFAULT",
+    "model": "tile_18_snow_forrest.dae",
+    "texture": "tile_18_snow_forrest.png",
+    "shader": "main_3d",
+    "solid": false,
+    "offset": [
+        0.0, 0.5, 0.0
+    ],
+    "material": "DEFAULT"
+}

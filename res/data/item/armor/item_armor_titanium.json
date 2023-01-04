@@ -1,0 +1,37 @@
+{
+	"id": "item.armor.titanium",
+	"name": "Titanium Chestplate",
+	"type": "item.type.armor",
+	"tier": 0,
+	"hp": 0,
+	"atk": 0,
+	"mag": 0,
+	"spd": 0,
+	"def": 5,
+	"res": 4,
+	"mov": 0,
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 2000,
+	"text": [
+		"A strong titanium",
+		"chestplate with",
+		"great protection"
+	],
+	"model": "item_armor_titanium.dae",
+	"texture": "item_armor_titanium.png",
+	"wearable_model_id": "unit_armor_type_0",
+	"wearable_texture_id": "unit_armor_titanium",
+	"material": "SILVER",
+	"recipe": {
+		"cost": 2000,
+		"materials": [
+			{
+				"item": "item.material.bar.titanium",
+				"count": 5
+			}
+		]
+	}
+}

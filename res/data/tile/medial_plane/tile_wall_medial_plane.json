@@ -1,0 +1,31 @@
+{
+    "tags": [
+    	"pallet.medial_plane",
+    	"tile.filler",
+    	"tile.wall.horizontal",
+    	"tile.wall.vertical",
+    	"tile.wall.turn.top.left",
+    	"tile.wall.turn.top.right",
+    	"tile.wall.turn.bottom.left",
+    	"tile.wall.turn.bottom.right",
+    	"tile.wall.junction.bottom",
+    	"tile.wall.junction.top",
+    	"tile.wall.junction.left",
+    	"tile.wall.junction.right",
+    	"tile.wall.cross",
+    	"tile.wall.standalone",
+    	"tile.wall.cap.top",
+    	"tile.wall.cap.bottom",
+    	"tile.wall.cap.left",
+    	"tile.wall.cap.right"
+    ],
+    "property": "DEFAULT",
+    "model": "pixel.dae",
+    "texture": "null.png",
+    "shader": "static_3d",
+    "solid": true,
+    "offset": [
+        0.0, 0.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

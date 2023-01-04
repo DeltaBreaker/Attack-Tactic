@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <created>2021-09-20T19:20:35Z</created>
+    <modified>2021-09-20T19:20:35Z</modified>
+    <revision>1.0</revision>
+  </asset>
+  <library_images>
+    <image id="almyra-diffuse-tex" name="almyra-diffuse-tex">
+      <init_from>almyra_diffuse.png</init_from>
+    </image>
+    <image id="almyra-emissive-tex" name="almyra-emissive-tex">
+      <init_from>almyra_emissive.png</init_from>
+    </image>
+  </library_images>
+  <library_effects>
+    <effect id="almyra-Effect">
+      <profile_COMMON>
+        <newparam sid="almyra-diffuse-surface">
+          <surface type="2D">
+            <init_from>almyra-diffuse-tex</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="almyra-emissive-surface">
+          <surface type="2D">
+            <init_from>almyra-emissive-tex</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="almyra-diffuse-sampler">
+          <sampler2D>
+            <source>almyra-diffuse-surface</source>
+            <wrap_s>CLAMP</wrap_s>
+            <wrap_t>CLAMP</wrap_t>
+            <minfilter>NONE</minfilter>
+            <magfilter>NONE</magfilter>
+          </sampler2D>
+        </newparam>
+        <newparam sid="almyra-emissive-sampler">
+          <sampler2D>
+            <source>almyra-emissive-surface</source>
+            <wrap_s>CLAMP</wrap_s>
+            <wrap_t>CLAMP</wrap_t>
+            <minfilter>NONE</minfilter>
+            <magfilter>NONE</magfilter>
+          </sampler2D>
+        </newparam>
+        <technique sid="phong1">
+          <phong>
+            <emission>
+              <texture texcoord="almyra-tex-bind" texture="almyra-emissive-sampler"/>
+            </emission>
+            <ambient>
+              <color>1.0 1.0 1.0 1.0</color>
+            </ambient>
+            <diffuse>
+              <texture texcoord="almyra-tex-bind" texture="almyra-diffuse-sampler"/>
+            </diffuse>
+            <specular>
+              <color>0.0 0.0 0.0 1.0</color>
+            </specular>
+            <shininess>
+              <float>5.0</float>
+            </shininess>
+            <reflective>
+              <color>1.0 1.0 1.0 1.0</color>
+            </reflective>
+            <reflectivity>
+              <float>0.2</float>
+            </reflectivity>
+            <transparent>
+              <color>1.0 1.0 1.0 1.0</color>
+            </transparent>
+            <transparency>
+              <float>1.0</float>
+            </transparency>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="almyra-Material">
+      <instance_effect url="#almyra-Effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="almyra-Geom" name="almyra-Geom">
+      <mesh>
+        <source id="almyra-Pos">
+          <float_array count="144" id="almyra-Pos-array">-2.0 -7.0 0.5 -2.0 -6.0 0.5 -2.0 -6.0 -0.5 -2.0 -7.0 -0.5 -1.0 -8.0 0.5 -1.0 -7.0 0.5 -1.0 -7.0 -0.5 -1.0 -8.0 -0.5 -1.0 -7.0 -0.5 -1.0 -6.0 -0.5 -1.0 -6.0 0.5 -1.0 -7.0 0.5 2.0 -8.0 -0.5 2.0 -7.0 -0.5 2.0 -7.0 0.5 2.0 -8.0 0.5 -1.0 -8.0 -0.5 2.0 -8.0 -0.5 2.0 -8.0 0.5 -1.0 -8.0 0.5 -2.0 -7.0 -0.5 -1.0 -7.0 -0.5 -1.0 -7.0 0.5 -2.0 -7.0 0.5 -1.0 -7.0 0.5 2.0 -7.0 0.5 2.0 -7.0 -0.5 -1.0 -7.0 -0.5 -2.0 -6.0 0.5 -1.0 -6.0 0.5 -1.0 -6.0 -0.5 -2.0 -6.0 -0.5 -1.0 -7.0 -0.5 2.0 -7.0 -0.5 2.0 -8.0 -0.5 -1.0 -8.0 -0.5 -2.0 -6.0 -0.5 -1.0 -6.0 -0.5 -1.0 -7.0 -0.5 -2.0 -7.0 -0.5 -1.0 -8.0 0.5 2.0 -8.0 0.5 2.0 -7.0 0.5 -1.0 -7.0 0.5 -2.0 -7.0 0.5 -1.0 -7.0 0.5 -1.0 -6.0 0.5 -2.0 -6.0 0.5 </float_array>
+          <technique_common>
+            <accessor count="48" source="#almyra-Pos-array" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="almyra-UV">
+          <float_array count="96" id="almyra-UV-array">0.0 0.984375 0.015625 0.984375 0.015625 1.0 0.0 1.0 0.0 0.984375 0.015625 0.984375 0.015625 1.0 0.0 1.0 0.0 1.0 0.015625 1.0 0.015625 0.984375 0.0 0.984375 0.0 1.0 0.015625 1.0 0.015625 0.984375 0.0 0.984375 0.0 0.90625 0.0 0.953125 0.015625 0.953125 0.015625 0.90625 0.0 1.0 0.015625 1.0 0.015625 0.984375 0.0 0.984375 0.015625 0.828125 0.015625 0.875 0.0 0.875 0.0 0.828125 0.0 0.984375 0.015625 0.984375 0.015625 1.0 0.0 1.0 0.015625 0.75 0.015625 0.796875 0.0 0.796875 0.0 0.75 0.0 0.984375 0.015625 0.984375 0.015625 1.0 0.0 1.0 0.0 0.671875 0.0 0.71875 0.015625 0.71875 0.015625 0.671875 0.0 1.0 0.015625 1.0 0.015625 0.984375 0.0 0.984375 </float_array>
+          <technique_common>
+            <accessor count="48" source="#almyra-UV-array" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="almyra-Normal">
+          <float_array count="18" id="almyra-Normal-array">-1.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 1.0</float_array>
+          <technique_common>
+            <accessor count="6" source="#almyra-Normal-array" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="almyra-Vertices">
+          <input semantic="POSITION" source="#almyra-Pos"/>
+        </vertices>
+        <polylist count="12" material="almyra-Material">
+          <input offset="0" semantic="VERTEX" source="#almyra-Vertices"/>
+          <input offset="1" semantic="TEXCOORD" set="0" source="#almyra-UV"/>
+          <input offset="2" semantic="NORMAL" source="#almyra-Normal"/>
+          <vcount>4 4 4 4 4 4 4 4 4 4 4 4 </vcount>
+          <p>0 0 0 1 1 0 2 2 0 3 3 0 4 4 0 5 5 0 6 6 0 7 7 0 8 8 1 9 9 1 10 10 1 11 11 1 12 12 1 13 13 1 14 14 1 15 15 1 16 16 2 17 17 2 18 18 2 19 19 2 20 20 2 21 21 2 22 22 2 23 23 2 24 24 3 25 25 3 26 26 3 27 27 3 28 28 3 29 29 3 30 30 3 31 31 3 32 32 4 33 33 4 34 34 4 35 35 4 36 36 4 37 37 4 38 38 4 39 39 4 40 40 5 41 41 5 42 42 5 43 43 5 44 44 5 45 45 5 46 46 5 47 47 5 </p>
+        </polylist>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_animations/>
+  <library_visual_scenes>
+    <visual_scene id="DefaultScene">
+      <node id="almyra" name="almyra">
+        <translate>0 0 0</translate>
+        <rotate>0 0 1 0</rotate>
+        <rotate>0 1 0 0</rotate>
+        <rotate>1 0 0 0</rotate>
+        <scale>1 1 1</scale>
+        <instance_geometry url="#almyra-Geom">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="almyra-Material" target="#almyra-Material">
+                <bind_vertex_input input_semantic="TEXCOORD" input_set="0" semantic="almyra-tex-bind"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#DefaultScene"/>
+  </scene>
+</COLLADA>

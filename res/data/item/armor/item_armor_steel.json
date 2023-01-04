@@ -1,0 +1,37 @@
+{
+	"id": "item.armor.steel",
+	"name": "Steel Chestplate",
+	"type": "item.type.armor",
+	"tier": 0,
+	"hp": 0,
+	"atk": 0,
+	"mag": 0,
+	"spd": 0,
+	"def": 4,
+	"res": 3,
+	"mov": 0,
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 1500,
+	"text": [
+		"A strong steel",
+		"chestplate with",
+		"good protection"
+	],
+	"model": "item_armor_steel.dae",
+	"texture": "item_armor_steel.png",
+	"wearable_model_id": "unit_armor_type_0",
+	"wearable_texture_id": "unit_armor_steel",
+	"material": "SILVER",
+	"recipe": {
+		"cost": 1500,
+		"materials": [
+			{
+				"item": "item.material.bar.steel",
+				"count": 5
+			}
+		]
+	}
+}

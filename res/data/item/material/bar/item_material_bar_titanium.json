@@ -1,0 +1,23 @@
+{
+	"id": "item.material.bar.titanium",
+	"name": "Titanium Bar",
+	"type": "item.type.other",
+	"tier": 4,
+	"rate": 0.65,
+	"fish_rate": 0.0,
+	"locations": [
+		"pallet.castle_depths",
+		"pallet.scorched_crater"
+	],
+	"price": 300,
+	"text": [
+		"A short bar made",
+		"from titanium"
+	],
+	"model": "item_material_bar.dae",
+	"texture": "item_material_bar_titanium.png",
+	"material": "SILVER",
+	"recipe": {
+		"cost": -1
+	}
+}

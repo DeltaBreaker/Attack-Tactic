@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.village",
+        "tile.house.sword"
+    ],
+    "property": "TILE_HOUSING_FURNISHING",
+    "model": "tile_sword.dae",
+    "texture": "tile_sword.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 16.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

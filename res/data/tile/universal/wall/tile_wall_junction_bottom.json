@@ -1,0 +1,19 @@
+{
+	"tags": [
+		"pallet.village",
+		"tile.wall_junction_bottom",
+		"pallet.flooded_forrest",
+		"pallet.snow_forrest"
+	],
+	"property": "TILE_COMPOUND",
+	"model": "tile_wall_junction_bottom.dae",
+	"texture": "tile_wall_junction_bottom.png",
+	"shader": "main_3d",
+	"solid": true,
+	"offset": [
+		0.0,
+		16.0,
+		0.0
+	],
+	"material": "DEFAULT"
+}

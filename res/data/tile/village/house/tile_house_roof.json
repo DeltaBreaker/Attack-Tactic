@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.village",
+        "tile.house.roof"
+    ],
+    "property": "TILE_HOUSING_ROOF",
+    "model": "tile_house_roof.dae",
+    "texture": "tile_house_roof.png",
+    "shader": "main_3d_housing",
+    "solid": false,
+    "offset": [
+        0.0, 24.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

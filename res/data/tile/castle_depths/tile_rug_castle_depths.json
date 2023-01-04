@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.castle_depths",
+        "tile.decoration.3x3"
+    ],
+    "property": "TILE_COMPOUND",
+    "model": "tile_rug.dae",
+    "texture": "tile_rug.png",
+    "shader": "main_3d",
+    "solid": false,
+    "offset": [
+        0.0, 8.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

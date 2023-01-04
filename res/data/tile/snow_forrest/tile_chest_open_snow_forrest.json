@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.snow_forrest",
+        "tile.chest.open"
+    ],
+    "property": "TILE_COMPOUND",
+    "model": "tile_chest_open.dae",
+    "texture": "tile_chest_open.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 24.0, -8.0
+    ],
+    "material": "DEFAULT"
+}

@@ -1,0 +1,16 @@
+{
+    "tags": [
+    	"pallet.medial_plane",
+        "tile.floor.hallway.horizontal",
+        "tile.floor.hallway.vertical"
+    ],
+    "property": "DEFAULT",
+    "model": "tile_floor_medial_plane.dae",
+    "texture": "tile_floor_medial_plane.png",
+    "shader": "main_3d_nobloom",
+    "solid": false,
+    "offset": [
+        0.0, 0.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

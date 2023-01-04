@@ -1,0 +1,14 @@
+{
+    "tags": [
+        "tile.air"
+    ],
+    "property": "DEFAULT",
+    "model": "",
+    "texture": "",
+    "shader": "",
+    "solid": false,
+    "offset": [
+        0.0, 0.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

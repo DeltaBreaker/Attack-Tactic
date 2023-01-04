@@ -1,0 +1,31 @@
+[
+	{
+		"text": [
+			"Use the cursor here to",
+			"interact with the world.",
+			"Hover over a unit and",
+			"select them to show",
+			"their range."
+		],
+		"charTime": [
+			8,
+			8,
+			8,
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_almyra",
+				"expression": "portrait_female_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			},
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			}
+		],
+		"highlight": 0
+	}
+]

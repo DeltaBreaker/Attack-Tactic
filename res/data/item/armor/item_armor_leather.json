@@ -1,0 +1,42 @@
+{
+	"id": "item.armor.leather",
+	"name": "Leather Padding",
+	"type": "item.type.armor",
+	"tier": 0,
+	"hp": 0,
+	"atk": 0,
+	"mag": 0,
+	"spd": 0,
+	"def": 2,
+	"res": 2,
+	"mov": 0,
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 250,
+	"text": [
+		"Slack leather",
+		"chestpiece that",
+		"provides minimal",
+		"defense"
+	],
+	"model": "item_armor_leather.dae",
+	"texture": "item_armor_leather.png",
+	"wearable_model_id": "unit_armor_type_0",
+	"wearable_texture_id": "unit_armor_leather",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": 250,
+		"materials": [
+			{
+				"item": "item.material.leather",
+				"count": 5
+			},
+			{
+				"item": "item.material.fibre.plant",
+				"count": 2
+			}
+		]
+	}
+}

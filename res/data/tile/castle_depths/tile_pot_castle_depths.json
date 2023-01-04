@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.castle_depths",
+        "tile.decoration.foliage"
+    ],
+    "property": "TILE_ROTATED_COMPOUND",
+    "model": "tile_pot.dae",
+    "texture": "tile_pot.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 16.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

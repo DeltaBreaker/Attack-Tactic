@@ -1,0 +1,36 @@
+{
+	"id": "item.void",
+	"name": "",
+	"type": "item.type.empty",
+	"tier": 0,
+	"damage_type": "item.damage.physical",
+	"animation": "ITEM_ANIMATION_BASH",
+	"range": 1,
+	"hp": 0,
+	"atk": 0,
+	"mag": 0,
+	"spd": 0,
+	"def": 0,
+	"res": 0,
+	"mov": 0,
+	"abilities": [
+	],
+	"traits": [
+	],
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 0,
+	"text": [
+		""
+	],
+	"model": "",
+	"texture": "",
+	"wearable_model_id": "",
+	"wearable_texture_id": "",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": -1
+	}
+}

@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.seabed_cove",
+        "tile.fortress"
+    ],
+    "property": "TILE_COMPOUND",
+    "model": "tile_fortress.dae",
+    "texture": "tile_fortress.png",
+    "shader": "main_3d",
+    "solid": false,
+    "offset": [
+        0.0, 16.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

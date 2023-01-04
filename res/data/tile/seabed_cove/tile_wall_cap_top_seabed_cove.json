@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.seabed_cove",
+        "tile.wall.cap.top"
+    ],
+    "property": "DEFAULT",
+    "model": "tile_82_seabed_cove.dae",
+    "texture": "tile_82_seabed_cove.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 10.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

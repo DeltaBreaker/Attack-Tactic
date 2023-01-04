@@ -1,0 +1,24 @@
+{
+	"id": "item.material.bar.gold",
+	"name": "Gold Bar",
+	"type": "item.type.other",
+	"tier": 3,
+	"rate": 0.7,
+	"fish_rate": 0.0,
+	"locations": [
+		"pallet.seabed_cove",
+		"pallet.castle_depths",
+		"pallet.scorched_crater"
+	],
+	"price": 250,
+	"text": [
+		"A short bar made",
+		"from gold"
+	],
+	"model": "item_material_bar.dae",
+	"texture": "item_material_bar_gold.png",
+	"material": "GOLD",
+	"recipe": {
+		"cost": -1
+	}
+}

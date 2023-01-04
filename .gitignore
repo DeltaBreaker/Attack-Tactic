@@ -1,3 +1,6 @@
+# Packed game files
+*.pck
+
 # Windows folder files
 *.ini
 

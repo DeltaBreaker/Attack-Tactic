@@ -1,0 +1,44 @@
+{
+	"id": "item.bow.titanium",
+	"name": "Titanium Bow",
+	"type": "item.type.weapon",
+	"tier": 1,
+	"damage_type": "item.damage.physical",
+	"animation": "ITEM_ANIMATION_PIERCE",
+	"range": 3,
+	"hp": 0,
+	"atk": 13,
+	"mag": 0,
+	"spd": 2,
+	"def": 0,
+	"res": 0,
+	"mov": 0,
+	"abilities": [],
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 1500,
+	"text": [
+		"A sturdy bow made",
+		"from titanium"
+	],
+	"model": "item_bow_titanium.dae",
+	"texture": "item_bow_titanium.png",
+	"wearable_model_id": "unit_weapon_bow_type_0",
+	"wearable_texture_id": "unit_weapon_bow_titanium",
+	"material": "SILVER",
+	"recipe": {
+		"cost": 1500,
+		"materials": [
+			{
+				"item": "item.material.bar.titanium",
+				"count": 2
+			},
+			{
+				"item": "item.material.fibre.plant",
+				"count": 2
+			}
+		]
+	}
+}

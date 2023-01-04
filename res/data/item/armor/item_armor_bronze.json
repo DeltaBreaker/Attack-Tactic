@@ -1,0 +1,37 @@
+{
+	"id": "item.armor.bronze",
+	"name": "Bronze Chestplate",
+	"type": "item.type.armor",
+	"tier": 0,
+	"hp": 0,
+	"atk": 0,
+	"mag": 0,
+	"spd": 0,
+	"def": 3,
+	"res": 2,
+	"mov": 0,
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 1000,
+	"text": [
+		"A sturdy bronze",
+		"chestplate with",
+		"adequate support"
+	],
+	"model": "item_armor_bronze.dae",
+	"texture": "item_armor_bronze.png",
+	"wearable_model_id": "unit_armor_type_0",
+	"wearable_texture_id": "unit_armor_bronze",
+	"material": "BRONZE",
+	"recipe": {
+		"cost": 1000,
+		"materials": [
+			{
+				"item": "item.material.bar.bronze",
+				"count": 5
+			}
+		]
+	}
+}

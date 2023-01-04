@@ -1,0 +1,50 @@
+{
+	"id": "item.shield.steel",
+	"name": "Steel Shield",
+	"type": "item.type.weapon",
+	"tier": 0,
+	"damage_type": "item.damage.physical",
+	"animation": "ITEM_ANIMATION_BASH",
+	"range": 1,
+	"hp": 0,
+	"atk": 12,
+	"mag": 0,
+	"spd": -3,
+	"def": 3,
+	"res": 3,
+	"mov": 0,
+	"abilities": [
+		"ITEM_ABILITY_HARDEN"
+	],
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 900,
+	"text": [
+		"A sturdy shield",
+		"made from steel"
+	],
+	"model": "item_shield_steel.dae",
+	"texture": "item_shield_steel.png",
+	"wearable_model_id": "unit_weapon_shield_type_0",
+	"wearable_texture_id": "unit_weapon_shield_steel",
+	"material": "SILVER",
+	"recipe": {
+		"cost": 900,
+		"materials": [
+			{
+				"item": "item.material.bar.steel",
+				"count": 2
+			},
+			{
+				"item": "item.material.fibre.plant",
+				"count": 1
+			},
+			{
+				"item": "item.material.leather",
+				"count": 1
+			}
+		]
+	}
+}

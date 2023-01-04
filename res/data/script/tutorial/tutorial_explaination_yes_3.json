@@ -1,0 +1,51 @@
+[
+	{
+		"text": [
+			"When you go to attack",
+			"these windows at the top",
+			"will show the combat",
+			"results.",
+			"First the unit names.",
+			"Below that it shows",
+			"their health.",
+			"Next it shows the damage",
+			"dealt and how many times",
+			"they attack.",
+			"If theres a chance that",
+			"youll miss then that",
+			"will be shown there too.",
+			"Lastly it shows the",
+			"weapon theyre using."
+		],
+		"charTime": [
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_almyra",
+				"expression": "portrait_female_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			},
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			}
+		],
+		"highlight": 0
+	}
+]

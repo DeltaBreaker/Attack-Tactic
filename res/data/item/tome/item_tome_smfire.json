@@ -1,0 +1,49 @@
+{
+	"id": "item.tome.smfire",
+	"name": "SM Fire",
+	"type": "item.type.weapon",
+	"tier": 0,
+	"damage_type": "item.damage.magic",
+	"animation": "ITEM_ANIMATION_FIRE_SMALL",
+	"range": 2,
+	"hp": 0,
+	"atk": 0,
+	"mag": 5,
+	"spd": 1,
+	"def": 0,
+	"res": 0,
+	"mov": 0,
+	"abilities": [],
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 350,
+	"text": [
+		"A novice tome",
+		"used to summon",
+		"fire"
+	],
+	"model": "item_tome_smfire.dae",
+	"texture": "item_tome_smfire.png",
+	"wearable_model_id": "unit_weapon_tome_type_0",
+	"wearable_texture_id": "unit_weapon_tome_smfire",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": 350,
+		"materials": [
+			{
+				"item": "item.material.wood",
+				"count": 2
+			},
+			{
+				"item": "item.material.fibre.plant",
+				"count": 2
+			},
+			{
+				"item": "item.material.leather",
+				"count": 2
+			}
+		]
+	}
+}

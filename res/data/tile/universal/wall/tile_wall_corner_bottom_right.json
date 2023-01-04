@@ -1,0 +1,19 @@
+{
+	"tags": [
+		"pallet.village",
+		"tile.wall_corner_bottom_right",
+		"pallet.flooded_forrest",
+		"pallet.snow_forrest"
+	],
+	"property": "TILE_COMPOUND",
+	"model": "tile_wall_corner_bottom_right.dae",
+	"texture": "tile_wall_corner_bottom_right.png",
+	"shader": "main_3d",
+	"solid": true,
+	"offset": [
+		0.0,
+		16.0,
+		0.0
+	],
+	"material": "DEFAULT"
+}

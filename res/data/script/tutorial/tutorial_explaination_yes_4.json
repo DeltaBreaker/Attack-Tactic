@@ -1,0 +1,27 @@
+[
+	{
+		"text": [
+			"That should be enough to",
+			"get you started.",
+			"Show em what youve got!"
+		],
+		"charTime": [
+			8,
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_almyra",
+				"expression": "portrait_female_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			},
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			}
+		],
+		"highlight": 0
+	}
+]

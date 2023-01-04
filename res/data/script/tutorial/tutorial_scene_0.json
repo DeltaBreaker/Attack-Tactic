@@ -1,0 +1,142 @@
+[
+	{
+		"text": [
+			"Are you sure thats what",
+			"you want to do&",
+			"Theres so much that",
+			"could go wrong.",
+			"I just want you to stay",
+			"in one piece."
+		],
+		"charTime": [
+			8,
+			8,
+			8,
+			8,
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_almyra",
+				"expression": "portrait_female_eyes_sad",
+				"mouth": "portrait_mouth_annoyed"
+			},
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			}
+		],
+		"highlight": 0
+	},
+	{
+		"text": [
+			"Of course!",
+			"If my dad can do it then",
+			"so can I!",
+			"Ever since I was a kid",
+			"ive always wanted to",
+			"visit all the places he",
+			"told me stories about.",
+			"Theres so much out there",
+			"that I havent seen and",
+			"now I can finally do",
+			"something about it."
+		],
+		"charTime": [
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_almyra",
+				"expression": "portrait_female_eyes_sad",
+				"mouth": "portrait_mouth_annoyed"
+			},
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			}
+		],
+		"highlight": 1
+	},
+	{
+		"text": [
+			"Well if this is really",
+			"what you want then ill",
+			"try and take a more",
+			"supportive stance.",
+			"I dont think theres",
+			"anything I could say to",
+			"change your mind anyways.",
+			"You better let me tag",
+			"along though!",
+			"Someone has to keep you",
+			"out of trouble!"
+		],
+		"charTime": [
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_almyra",
+				"expression": "portrait_female_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			},
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			}
+		],
+		"highlight": 0
+	},
+	{
+		"text": [
+			"Yeah yeah. Very funny.",
+			"Knowing you I dont think",
+			"youre changing your mind",
+			"either."
+		],
+		"charTime": [
+			8,
+			8,
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_almyra",
+				"expression": "portrait_female_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			},
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_annoyed_eyes",
+				"mouth": "portrait_mouth_annoyed"
+			}
+		],
+		"highlight": 1
+	}
+]

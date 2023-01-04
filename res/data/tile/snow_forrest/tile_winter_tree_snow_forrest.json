@@ -1,0 +1,31 @@
+{
+    "tags": [
+    	"pallet.snow_forrest",
+        "tile.wall.horizontal",
+        "tile.wall.vertical",
+        "tile.wall.turn.top.left",
+        "tile.wall.turn.top.right",
+        "tile.wall.turn.bottom.left",
+        "tile.wall.turn.bottom.right",
+        "tile.wall.junction.bottom",
+        "tile.wall.junction.top",
+        "tile.wall.junction.left",
+        "tile.wall.junction.right",
+        "tile.wall.cross",
+        "tile.wall.standalone",
+        "tile.wall.cap.top",
+        "tile.wall.cap.bottom",
+        "tile.wall.cap.left",
+        "tile.wall.cap.right",
+        "tile.filler"
+    ],
+    "property": "DEFAULT",
+    "model": "tile_winter_tree_snow_forrest.dae",
+    "texture": "tile_winter_tree_snow_forrest.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 8.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

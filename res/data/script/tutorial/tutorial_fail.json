@@ -1,0 +1,25 @@
+[
+	{
+		"text": [
+			"That didnt go so well...",
+			"Lets try again."
+		],
+		"charTime": [
+			8,
+			8
+		],
+		"units": [
+		{
+				"portrait": "portrait_almyra",
+				"expression": "portrait_female_eyes_sad",
+				"mouth": "portrait_mouth_grit"
+			},
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_sad_eyes",
+				"mouth": "portrait_mouth_grit"
+			}
+		],
+		"highlight": 0
+	}
+]

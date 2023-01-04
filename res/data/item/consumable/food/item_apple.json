@@ -1,0 +1,25 @@
+{
+	"id": "item.usable.apple",
+	"name": "Apple",
+	"type": "item.type.usable",
+	"tier": 0,
+	"use": "ITEM_USE_HEAL_5",
+	"rate": 1.0,
+	"fish_rate": 0.0,
+	"locations": [
+		"pallet.snow_forrest",
+		"pallet.village",
+		"pallet.flooded_forrest"
+	],
+	"price": 25,
+	"text": [
+		"Restores 5 HP",
+		"to the user"
+	],
+	"model": "item_apple.dae",
+	"texture": "item_apple.png",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": -1
+	}
+}

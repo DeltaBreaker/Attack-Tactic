@@ -1,0 +1,37 @@
+{
+	"id": "item.armor.gold",
+	"name": "Gold Chestplate",
+	"type": "item.type.armor",
+	"tier": 0,
+	"hp": 0,
+	"atk": 0,
+	"mag": 0,
+	"spd": 0,
+	"def": 3,
+	"res": 3,
+	"mov": 0,
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 1200,
+	"text": [
+		"A reflective but",
+		"britle chestplate",
+		"with decent support"
+	],
+	"model": "item_armor_gold.dae",
+	"texture": "item_armor_gold.png",
+	"wearable_model_id": "unit_armor_type_0",
+	"wearable_texture_id": "unit_armor_gold",
+	"material": "GOLD",
+	"recipe": {
+		"cost": 1200,
+		"materials": [
+			{
+				"item": "item.material.bar.gold",
+				"count": 5
+			}
+		]
+	}
+}

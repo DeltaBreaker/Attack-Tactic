@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Class-Path: lib/jar/lwjgl.jar lib/jar/lwjgl-glfw.jar lib/jar/lwjgl-opengl.jar lib/jar/lwjgl-assimp.jar lib/jar/json-simple-1.1.jar lib/jar/flow-noise-1.0.0.jar lib/jar/lwjgl-stb.jar lib/jar/lwjgl-openal.jar lib/jar/jogg-0.0.7.jar jorbis-0.0.15.jar
+Main-Class: io.itch.deltabreaker.core.Startup

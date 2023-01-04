@@ -1,0 +1,15 @@
+{
+    "tags": [
+    	"pallet.snow_forrest",
+		"tile.decoration.foliage"
+    ],
+    "property": "DEFAULT",
+    "model": "tile_flower_snow_forrest.dae",
+    "texture": "tile_flower_snow_forrest_2.png",
+    "shader": "main_3d",
+    "solid": false,
+    "offset": [
+        0.0, 8.0, 0.0
+    ],
+    "material": "DEFAULT"
+}
