@@ -16,10 +16,8 @@ public class ShaderDeferredLighting extends Shader {
 		setUniform("baseImage", sample);
 		setUniform("normalImage", sample + 1);
 		setUniform("positionImage", sample + 2);
-		setUniform("ambiance_intensity", material.ambianceIntensity);
-		setUniform("diffuse_intensity", material.diffuseIntensity);
-		setUniform("specular_intensity", material.specularIntensity);
-		setUniform("shininess", material.shininess);
+		setUniform("materialImage", sample + 3);
+		setUniform("miscImage", sample + 4);
 
 		if (setStaticUniforms) {
 			setStaticUniforms();

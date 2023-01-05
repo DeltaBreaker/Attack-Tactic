@@ -20,13 +20,12 @@ struct PointLight {
 uniform sampler2D baseImage;
 uniform sampler2D normalImage;
 uniform sampler2D positionImage;
+uniform sampler2D materialImage;
+uniform sampler2D miscImage;
+
 uniform PointLight lights[128];
 uniform int lightAmt;
 uniform float gamma;
-uniform float ambiance_intensity;
-uniform float diffuse_intensity;
-uniform float specular_intensity;
-uniform float shininess;
 uniform float corruption;
 uniform float seed;
 uniform vec3 camera_pos;
@@ -36,6 +35,9 @@ vec3 view_dir;
 vec3 norm;
 float kPi = 3.14159265;
 float kEnergyConservation;
+vec3 material;
+float shininess;
+
 
 float rand(vec2 co) {
 	return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
@@ -49,7 +51,7 @@ vec3 getLighting(PointLight light, vec3 fragPos) {
 					+ light.quadratic * (distance * distance));
 
 	// Ambient light
-	vec3 ambiant_light = light.color * ambiance_intensity;
+	vec3 ambiant_light = light.color * material.r;
 
 	// Diffuse light
 	vec3 light_dir =
@@ -57,7 +59,7 @@ vec3 getLighting(PointLight light, vec3 fragPos) {
 					normalize(-light.direction) :
 					normalize(light.position - fragPos);
 	float diff = max(dot(norm, light_dir), 0.0);
-	float diffuse = diff * diffuse_intensity;
+	float diffuse = diff * material.g;
 	vec3 diffuse_light = diffuse * light.color;
 
 	// Specular light
@@ -66,7 +68,7 @@ vec3 getLighting(PointLight light, vec3 fragPos) {
 			* pow(max(dot(norm, reflect_dir), 0.0), shininess);
 
 	spec = diff != 0 ? spec : 0.0;
-	vec3 specular_light = specular_intensity * spec * light.color;
+	vec3 specular_light = material.b * spec * light.color;
 	result = (ambiant_light + diffuse_light + specular_light) * attenuation;
 
 	return result;
@@ -77,8 +79,10 @@ void main() {
 	vec3 fragPos = texture(positionImage, TexCoords).rgb;
 	vec3 normal = texture(normalImage, TexCoords).rgb;
 	vec4 baseColor = texture(baseImage, TexCoords);
-	float shadow = texture(normalImage, TexCoords).a;
-	int bloomCalc = int(texture(positionImage, TexCoords).a);
+	material = texture(materialImage, TexCoords).rgb;
+	float shadow = texture(miscImage, TexCoords).r;
+	int bloomCalc = int(texture(miscImage, TexCoords).g);
+	shininess = texture(miscImage, TexCoords).b;
 
 	// Calculate these once for all lighting calcs
 	view_dir = normalize(camera_pos - fragPos);

@@ -37,7 +37,6 @@ import io.itch.deltabreaker.graphics.shader.ShaderDrawImage;
 import io.itch.deltabreaker.graphics.shader.ShaderGaussianBlur;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3D;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DBloom;
-import io.itch.deltabreaker.graphics.shader.ShaderMain3DCorrupt;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DEnemy;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DHousing;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DLava;

@@ -3,6 +3,8 @@
 out vec4 BaseColor;
 out vec4 Normals;
 out vec4 FragPos;
+out vec4 Material;
+out vec4 Misc;
 out vec4 Depth;
 
 in VS_OUT {
@@ -24,6 +26,10 @@ uniform float shadowAmount;
 uniform float fogPos;
 uniform float depthMultiplier;
 uniform float corruption;
+uniform float ambiance_intensity;
+uniform float diffuse_intensity;
+uniform float specular_intensity;
+uniform float shininess;
 
 float ShadowCalculation(vec4 fragPosLightSpace) {
 	vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
@@ -51,8 +57,10 @@ void main() {
 					* tex_color;
 
 	BaseColor = tex_color * fs_in.shade;
-	Normals = vec4(fs_in.Normal, shadow);
-	FragPos = vec4(fs_in.FragPos, 0);
+	Normals = vec4(fs_in.Normal, 1);
+	FragPos = vec4(fs_in.FragPos, 1);
+	Material = vec4(ambiance_intensity, diffuse_intensity, specular_intensity, 1);
+	Misc = vec4(shadow, 0, shininess, 1);
 
 	Depth = vec4(
 			vec3(1 - ((gl_FragCoord.z / gl_FragCoord.w) * depthMultiplier)),

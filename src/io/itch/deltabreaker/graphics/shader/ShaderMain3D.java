@@ -19,6 +19,10 @@ public class ShaderMain3D extends Shader {
 		setUniform("shadowMap", sample + 1);
 		ResourceManager.textures.get("fog.png").bind(sample + 2);
 		setUniform("fog", sample + 2);
+		setUniform("ambiance_intensity", material.ambianceIntensity);
+		setUniform("diffuse_intensity", material.diffuseIntensity);
+		setUniform("specular_intensity", material.specularIntensity);
+		setUniform("shininess", material.shininess);
 
 		if (setStaticUniforms) {
 			setStaticUniforms();
