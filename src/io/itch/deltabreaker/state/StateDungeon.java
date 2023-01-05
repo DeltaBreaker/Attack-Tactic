@@ -961,6 +961,8 @@ public class StateDungeon extends State {
 		Startup.camera.speedY = 0.125f;
 		Startup.shadowCamera.speedY = 0.125f;
 		Startup.shadowCamera.setRotation(new Vector3f(-60, 0, 0));
+		InputManager.repeatDelay = 10;
+		InputManager.keyTime = 15;
 		Unit.movementSpeed = 1f;
 	}
 

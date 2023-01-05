@@ -37,7 +37,7 @@ public class TileCrystal extends Tile {
 	
 	public void render(boolean staticView) {
 		base.position = position;
-		BatchSorter.add("zzz", property.model, property.texture, (staticView) ? "static_3d" : property.shader,
+		BatchSorter.add("i", property.model, property.texture, (staticView) ? "static_3d" : property.shader,
 				property.material.toString(), Vector3f.add(position, property.offset), rotation, scale,
 				shade, true, staticView);
 		base.render(staticView);
