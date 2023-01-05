@@ -1,24 +1,14 @@
 package io.itch.deltabreaker.graphics.shader;
 
-import org.lwjgl.opengl.GL40;
-
 import io.itch.deltabreaker.core.SettingsManager;
 import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.graphics.Material;
-import io.itch.deltabreaker.graphics.Texture;
 import io.itch.deltabreaker.state.StateManager;
 
 public class ShaderDeferredLighting extends Shader {
-
-	private Texture lightData;
 	
 	public ShaderDeferredLighting(String file) {
 		super(file);
-		try {
-			lightData = new Texture(4096, 1, GL40.GL_RGBA);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
@@ -39,6 +29,8 @@ public class ShaderDeferredLighting extends Shader {
 	public void setStaticUniforms() {
 		setUniform("camera_pos", Startup.camera.position);
 		setUniform("gamma", SettingsManager.gamma);
+		setUniform("corruption", Startup.corruption);
+		setUniform("seed", Startup.seed);
 
 		int lightCount = Math.min(StateManager.currentState.lights.size(), 128);
 		for (int i = 0; i < lightCount; i++) {

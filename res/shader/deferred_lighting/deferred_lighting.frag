@@ -103,9 +103,7 @@ void main() {
 	float brightness = dot(FragColor.rgb, vec3(0.2126, 0.7152, 0.0722));
 
 	// Turn gray scale based on corruption
-	FragColor.rgb = abs(corruption - 1) * FragColor.rgb
-			+ corruption * vec3(dot(FragColor.rgb, vec3(0.299, 0.587, 0.114)))
-					* rand(vec2(seed) * fragPos.xz);
+	FragColor.rgb = abs(corruption - 1) * FragColor.rgb + corruption * vec3(dot(FragColor.rgb, vec3(0.299, 0.587, 0.114))) * rand(vec2(seed) * fragPos.xz);
 	if (brightness > 1 || bloomCalc > 1) {
 		BrightColor = FragColor;
 		BrightColor.rgba = clamp(BrightColor.rgba, 0, 1);
