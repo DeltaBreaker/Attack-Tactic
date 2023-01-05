@@ -38,7 +38,6 @@ import io.itch.deltabreaker.object.item.ItemProperty;
 import io.itch.deltabreaker.object.tile.Tile;
 import io.itch.deltabreaker.state.StateCreatorHub;
 import io.itch.deltabreaker.state.StateDungeon;
-import io.itch.deltabreaker.state.StateHub;
 import io.itch.deltabreaker.state.StateManager;
 import io.itch.deltabreaker.state.StateSplash;
 import io.itch.deltabreaker.state.StateTitle;
@@ -248,7 +247,7 @@ public class Startup implements Runnable {
 //				StateHub.loadMap("house");
 
 //				StateDungeon.loadMap("bridge_test");
-				StateHub.loadMap("title_scene");
+//				StateHub.loadMap("title_scene");
 
 				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
 				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
@@ -257,7 +256,7 @@ public class Startup implements Runnable {
 				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
 
 //				Inventory.saveGame();
-//				StateDungeon.startDungeon(0, "snow_forrest.json", 14, -1932052909105962160L);
+				StateDungeon.startDungeon(0, "scorched_crater.json", 14, -1932052909105962160L);
 //				StateDungeon.startDungeon(0, "seabed_cove.json", 14, new Random().nextLong());
 			}
 

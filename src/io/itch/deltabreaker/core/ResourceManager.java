@@ -37,6 +37,7 @@ import io.itch.deltabreaker.graphics.shader.ShaderDrawImage;
 import io.itch.deltabreaker.graphics.shader.ShaderGaussianBlur;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3D;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DBloom;
+import io.itch.deltabreaker.graphics.shader.ShaderMain3DCrystal;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DEnemy;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DHousing;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DLava;
@@ -417,6 +418,7 @@ public class ResourceManager {
 		new ShaderGaussianBlur("gaussian_blur");
 		new ShaderMain3DBloom("main_3d_bloom");
 		new ShaderMain3D("main_3d");
+		new ShaderMain3DCrystal("main_3d_crystal");
 		new ShaderShadow3D("shadow_3d");
 		new ShaderStatic3D("static_3d");
 		new ShaderMain3DNoBloomTexColor("main_3d_nobloom_texcolor");
