@@ -1,31 +1,25 @@
 package io.itch.deltabreaker.graphics.shader;
 
-import io.itch.deltabreaker.core.ResourceManager;
 import io.itch.deltabreaker.core.SettingsManager;
 import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.graphics.Material;
-import io.itch.deltabreaker.math.Matrix4f;
 import io.itch.deltabreaker.state.StateManager;
 
-public class ShaderMain3DCorrupt extends Shader {
-
-	public ShaderMain3DCorrupt(String file) {
+public class ShaderDeferredLighting extends Shader {
+	
+	public ShaderDeferredLighting(String file) {
 		super(file);
 	}
 
 	@Override
 	public void use(int sample, Material material) {
-		// Object-to-object uniforms
-		setUniform("sampler", sample);
-		setUniform("shadowMap", sample + 1);
-		ResourceManager.textures.get("fog.png").bind(sample + 2);
-		setUniform("fog", sample + 2);
-		setUniform("ambiance_intensity", material.ambianceIntensity);
-		setUniform("diffuse_intensity", material.diffuseIntensity);
-		setUniform("specular_intensity", material.specularIntensity);
-		setUniform("shininess", material.shininess);
-		
-		if(setStaticUniforms) {
+		setUniform("baseImage", sample);
+		setUniform("normalImage", sample + 1);
+		setUniform("positionImage", sample + 2);
+		setUniform("materialImage", sample + 3);
+		setUniform("miscImage", sample + 4);
+
+		if (setStaticUniforms) {
 			setStaticUniforms();
 			setStaticUniforms = false;
 		}
@@ -33,17 +27,11 @@ public class ShaderMain3DCorrupt extends Shader {
 
 	@Override
 	public void setStaticUniforms() {
-		setUniform("proView", Matrix4f.multiply(Startup.camera.getView(), Startup.camera.projection));
-		setUniform("lightProView", Matrix4f.multiply(Startup.shadowCamera.getView(), Startup.shadowCamera.projection));
-		setUniform("seed", Startup.seed);
 		setUniform("camera_pos", Startup.camera.position);
 		setUniform("gamma", SettingsManager.gamma);
-		setUniform("bias", Startup.shadowBias);
-		setUniform("shadowAmount", SettingsManager.shadowIntensity);
-		setUniform("fogPos", Startup.fog);
-		setUniform("depthMultiplier", Startup.depthMultiplier);
+		setUniform("corruption", Startup.corruption);
+		setUniform("seed", Startup.seed);
 
-		// Light variables
 		int lightCount = Math.min(StateManager.currentState.lights.size(), 128);
 		for (int i = 0; i < lightCount; i++) {
 			setUniform("lights[" + i + "].position", StateManager.currentState.lights.get(i).position);
@@ -56,7 +44,7 @@ public class ShaderMain3DCorrupt extends Shader {
 			setUniform("lights[" + i + "].quadratic", StateManager.currentState.lights.get(i).quadratic);
 			setUniform("lights[" + i + "].directional", StateManager.currentState.lights.get(i).direction != null);
 		}
-		setUniform("lightAmt", StateManager.currentState.lights.size());		
+		setUniform("lightAmt", lightCount);
 	}
 
 }

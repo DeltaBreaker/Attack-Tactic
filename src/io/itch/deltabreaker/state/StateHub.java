@@ -160,7 +160,7 @@ public class StateHub extends State {
 		for (Unit u : npcs) {
 			u.render();
 			if (!showIcon && Math.abs(u.locX - Inventory.units.get(0).locX) + Math.abs(u.locY - Inventory.units.get(0).locY) == 1 && hasEvent(u) && noUIOnScreen() && events.size() == 0) {
-				BatchSorter.add("gui_action.dae", "gui_action.png", "main_3d_nobloom", Material.DEFAULT.toString(), Vector3f.add(new Vector3f(u.x, 13 + u.height, u.y), 2, 8 + AdvMath.sin[(int) Startup.universalAge % 360] * 1.5f, -12),
+				BatchSorter.add("gui_action.dae", "gui_action.png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(), Vector3f.add(new Vector3f(u.x, 13 + u.height, u.y), 2, 8 + AdvMath.sin[(int) Startup.universalAge % 360] * 1.5f, -12),
 						Inventory.units.get(0).rotation, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, false);
 			}
 		}

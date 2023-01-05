@@ -18,7 +18,7 @@ public class TileHousingSave extends TileHousingFurnishing {
 
 	public void render(boolean staticView) {
 		super.render(staticView);
-		BatchSorter.add("gui_action.dae", "gui_action.png", "main_3d_nobloom", Material.DEFAULT.toString(),
+		BatchSorter.add("gui_action.dae", "gui_action.png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(),
 				Vector3f.add(position, 0, 30 + AdvMath.sin[(int) Startup.universalAge % 360] * 1.5f, -1), Inventory.units.get(0).rotation, Vector3f.SCALE_HALF,
 				Vector4f.COLOR_BASE, false, false);
 	}

@@ -6,7 +6,7 @@
     "property": "TILE_RESIDUE",
     "model": "tile_floor_medial_plane.dae",
     "texture": "tile_floor_medial_plane.png",
-    "shader": "main_3d_nobloom",
+    "shader": "main_3d_nobloom_texcolor",
     "solid": false,
     "offset": [
         0.0, 0.0, 0.0

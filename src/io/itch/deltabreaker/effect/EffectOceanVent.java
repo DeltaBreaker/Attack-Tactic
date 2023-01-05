@@ -17,7 +17,7 @@ public class EffectOceanVent extends Effect {
 
 	private int spawnTimer = 0;
 	private int spawnRate = 32;
-	
+
 	public EffectOceanVent(Vector3f position) {
 		super(Vector3f.add(position, 0, 0, 0), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
 	}
@@ -53,7 +53,7 @@ public class EffectOceanVent extends Effect {
 
 	@Override
 	public void cleanUp() {
-		
+
 	}
 
 }
@@ -69,7 +69,7 @@ class Bubble {
 	public Vector3f rotation;
 	public Vector3f scale;
 	public Vector4f color;
-	
+
 	public float alpha = 0.6f;
 
 	public Bubble(Vector3f position) {
@@ -87,7 +87,7 @@ class Bubble {
 		rotation.add(new Vector3f(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat()));
 		scale.add(0.0025f);
 		if (alpha > 0) {
-			alpha -= 0.0025;
+			alpha = Math.max(alpha - 0.0025f, 0);
 		} else {
 			remove = true;
 		}
@@ -97,5 +97,5 @@ class Bubble {
 	public void render() {
 		BatchSorter.add("pixel.dae", "pixel.png", "main_3d_bloom", Material.DEFAULT.toString(), Vector3f.div(position, scale), rotation, scale, color, false, false, false);
 	}
-	
+
 }

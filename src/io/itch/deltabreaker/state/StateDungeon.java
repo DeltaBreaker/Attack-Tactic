@@ -878,7 +878,7 @@ public class StateDungeon extends State {
 			cursor.render();
 		}
 		if (phase == 0 && !fishing && !fishingReward && !hideCursor && !freeRoamMode) {
-			BatchSorter.add("marker.dae", "marker.png", "main_3d_nobloom", Material.DEFAULT.toString(), new Vector3f(cursorPos.x * 16, 8.5f + tiles[cursorPos.x][cursorPos.y].getPosition().getY(), cursorPos.y * 16),
+			BatchSorter.add("marker.dae", "marker.png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(), new Vector3f(cursorPos.x * 16, 8.5f + tiles[cursorPos.x][cursorPos.y].getPosition().getY(), cursorPos.y * 16),
 					new Vector3f(0, curRotateInt, 0), Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, false);
 		}
 
@@ -886,7 +886,7 @@ public class StateDungeon extends State {
 		if (Inventory.active.contains(selectedUnit)) {
 			for (int i = 0; i < path.size() - 1; i++) {
 				int direction = getArrowDirection(i);
-				BatchSorter.add("d", "arrow_" + direction + ".dae", "arrow_" + direction + ".png", "main_3d_nobloom", Material.DEFAULT.toString(),
+				BatchSorter.add("d", "arrow_" + direction + ".dae", "arrow_" + direction + ".png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(),
 						new Vector3f(path.get(i).x * 16, 8.5f + tiles[path.get(i).x][path.get(i).y].getPosition().getY(), path.get(i).y * 16), new Vector3f(0, curRotateInt, 0), Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, false);
 			}
 		}

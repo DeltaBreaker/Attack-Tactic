@@ -90,11 +90,14 @@ public class Startup implements Runnable {
 
 	// Used for seperate frame buffers for the bloom effect
 	public int hdrFBO = 0;
-	public int[] colorBuffers = new int[3];
-	public int[] hdrDepthFBO = new int[3];
+	public int[] colorBuffers = new int[2];
+	public int[] hdrDepthFBO = new int[2];
 	public int[] pingPongFBO = new int[2];
 	public int[] pingPongBuffer = new int[2];
 	public boolean resize = false;
+	public int deferFBO = 0;
+	public int[] deferBuffers = new int[6];
+	public int[] deferDepthFBO = new int[6];
 
 	// The variables needed to render full images to the screen
 	// along with the shaders needed for the bloom effect
@@ -103,6 +106,7 @@ public class Startup implements Runnable {
 	private Shader blur;
 	private Shader bloom;
 	private Shader drawImage;
+	private Shader defer;
 
 	public Startup(String[] args) {
 		this.args = args;
@@ -173,6 +177,7 @@ public class Startup implements Runnable {
 			GL40.glBlendFunc(GL40.GL_SRC_ALPHA, GL40.GL_ONE_MINUS_SRC_ALPHA);
 
 			// Create textures used for bloom
+			createDeferBuffer(targetWidth, targetHeight);
 			createHDRBuffer(targetWidth, targetHeight);
 			createPingPongBuffers(width, height);
 
@@ -182,6 +187,7 @@ public class Startup implements Runnable {
 			bloom = ResourceManager.shaders.get("additive_bloom");
 			blur = ResourceManager.shaders.get("gaussian_blur");
 			drawImage = ResourceManager.shaders.get("draw_image");
+			defer = ResourceManager.shaders.get("deferred_lighting");
 
 			ResourceManager.loadModels("res/model");
 			ResourceManager.buildModels();
@@ -249,10 +255,10 @@ public class Startup implements Runnable {
 				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
 				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
 				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
-				
+
 //				Inventory.saveGame();
 //				StateDungeon.startDungeon(0, "snow_forrest.json", 14, -1932052909105962160L);
-//				StateDungeon.startDungeon(0, "flooded_forrest.json", 14, new Random().nextLong());
+//				StateDungeon.startDungeon(0, "seabed_cove.json", 14, new Random().nextLong());
 			}
 
 			GLFW.glfwShowWindow(window);
@@ -295,7 +301,7 @@ public class Startup implements Runnable {
 		}
 	}
 
-	public void tick() {		
+	public void tick() {
 		long time = System.nanoTime();
 		universalAge += 1;
 		seed = new Random().nextFloat();
@@ -389,15 +395,33 @@ public class Startup implements Runnable {
 
 		// Prepare to actually render the scene
 		shadowMapping = false;
+		GL40.glBindFramebuffer(GL40.GL_FRAMEBUFFER, deferFBO);
+		GL40.glViewport(0, 0, targetWidth, targetHeight);
+		GL40.glClear(GL40.GL_DEPTH_BUFFER_BIT);
+
+		GL40.glClearBufferfv(GL40.GL_COLOR, 0, new float[] { screenColor.getX(), screenColor.getY(), screenColor.getZ(), 1 });
+		GL40.glClearBufferfv(GL40.GL_COLOR, 1, new float[] { 0, 1, 0, 1 });
+		GL40.glClearBufferfv(GL40.GL_COLOR, 2, new float[] { camera.position.getX(), 1, camera.position.getZ(), 1 });
+		GL40.glClearBufferfv(GL40.GL_COLOR, 3, new float[] { 0.75f, 1, 1, 1 });
+		GL40.glClearBufferfv(GL40.GL_COLOR, 4, new float[] { 0, 0, 0, 1 });
+		GL40.glClearBufferfv(GL40.GL_COLOR, 5, new float[] { 0, 0, 0, 1 });
+
+		BatchSorter.render();
+
 		GL40.glBindFramebuffer(GL40.GL_FRAMEBUFFER, hdrFBO);
 		GL40.glViewport(0, 0, targetWidth, targetHeight);
 		GL40.glClear(GL40.GL_DEPTH_BUFFER_BIT);
-		
-		GL40.glClearBufferfv(GL40.GL_COLOR, 0, new float[] { screenColor.getX(), screenColor.getY(), screenColor.getZ(), 1 });
-		GL40.glClearBufferfv(GL40.GL_COLOR, 1, new float[] { 0, 0, 0, 0 });
-		GL40.glClearBufferfv(GL40.GL_COLOR, 2, new float[] { 1, 1, 1, 0 });
+		GL40.glClear(GL40.GL_COLOR_BUFFER_BIT);
 
-		BatchSorter.render();
+		defer.bind();
+		defer.use(0, null);
+
+		for (int i = 0; i < deferBuffers.length; i++) {
+			GL40.glActiveTexture(GL40.GL_TEXTURE0 + i);
+			GL40.glBindTexture(GL40.GL_TEXTURE_2D, deferBuffers[i]);
+		}
+
+		renderQuad();
 
 		// This blurs the separate texture created for the bloom effect
 		GL40.glViewport(0, 0, width, height);
@@ -424,14 +448,14 @@ public class Startup implements Runnable {
 			GL40.glActiveTexture(GL40.GL_TEXTURE0 + 1);
 			GL40.glBindTexture(GL40.GL_TEXTURE_2D, pingPongBuffer[0]);
 			GL40.glActiveTexture(GL40.GL_TEXTURE0 + 3);
-			GL40.glBindTexture(GL40.GL_TEXTURE_2D, colorBuffers[2]);
+			GL40.glBindTexture(GL40.GL_TEXTURE_2D, deferBuffers[5]);
 			bloom.bind();
 			bloom.use(0, null);
 		} else {
 			GL40.glBindFramebuffer(GL40.GL_FRAMEBUFFER, 0);
 			GL40.glBindTexture(GL40.GL_TEXTURE_2D, colorBuffers[0]);
 			GL40.glActiveTexture(GL40.GL_TEXTURE0 + 1);
-			GL40.glBindTexture(GL40.GL_TEXTURE_2D, colorBuffers[2]);
+			GL40.glBindTexture(GL40.GL_TEXTURE_2D, deferBuffers[5]);
 			drawImage.bind();
 			drawImage.use(0, null);
 		}
@@ -534,6 +558,7 @@ public class Startup implements Runnable {
 			createPingPongBuffers(width, height);
 			camera.updateProjection(targetWidth, targetHeight);
 			shadowCamera.updateProjection(targetWidth, targetHeight);
+			createDeferBuffer(targetWidth, targetHeight);
 			createHDRBuffer(targetWidth, targetHeight);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -547,6 +572,7 @@ public class Startup implements Runnable {
 
 			camera.updateProjection(targetWidth, targetHeight);
 			shadowCamera.updateProjection(targetWidth, targetHeight);
+			createDeferBuffer(targetWidth, targetHeight);
 			createHDRBuffer(targetWidth, targetHeight);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -577,7 +603,7 @@ public class Startup implements Runnable {
 		GL40.glBindFramebuffer(GL40.GL_FRAMEBUFFER, hdrFBO);
 
 		GL40.glGenTextures(colorBuffers);
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 2; i++) {
 			GL40.glBindTexture(GL40.GL_TEXTURE_2D, colorBuffers[i]);
 			GL40.glTexImage2D(GL40.GL_TEXTURE_2D, 0, GL40.GL_RGBA16F, width, height, 0, GL40.GL_RGBA, GL40.GL_FLOAT, (FloatBuffer) null);
 			GL40.glTexParameteri(GL40.GL_TEXTURE_2D, GL40.GL_TEXTURE_MIN_FILTER, GL40.GL_LINEAR);
@@ -592,7 +618,36 @@ public class Startup implements Runnable {
 			GL40.glFramebufferRenderbuffer(GL40.GL_FRAMEBUFFER, GL40.GL_DEPTH_ATTACHMENT, GL40.GL_RENDERBUFFER, hdrDepthFBO[i]);
 		}
 
-		int[] attachments = { GL40.GL_COLOR_ATTACHMENT0, GL40.GL_COLOR_ATTACHMENT1, GL40.GL_COLOR_ATTACHMENT2 };
+		int[] attachments = { GL40.GL_COLOR_ATTACHMENT0, GL40.GL_COLOR_ATTACHMENT1 };
+		GL40.glDrawBuffers(attachments);
+	}
+
+	// Sets up the two buffers used for the bloom effect
+	private void createDeferBuffer(int width, int height) {
+		GL40.glDeleteFramebuffers(deferFBO);
+		GL40.glDeleteTextures(deferBuffers);
+		GL40.glDeleteRenderbuffers(deferDepthFBO);
+
+		deferFBO = GL40.glGenFramebuffers();
+		GL40.glBindFramebuffer(GL40.GL_FRAMEBUFFER, deferFBO);
+
+		GL40.glGenTextures(deferBuffers);
+		for (int i = 0; i < deferBuffers.length; i++) {
+			GL40.glBindTexture(GL40.GL_TEXTURE_2D, deferBuffers[i]);
+			GL40.glTexImage2D(GL40.GL_TEXTURE_2D, 0, GL40.GL_RGBA16F, width, height, 0, GL40.GL_RGBA, GL40.GL_FLOAT, (FloatBuffer) null);
+			GL40.glTexParameteri(GL40.GL_TEXTURE_2D, GL40.GL_TEXTURE_MIN_FILTER, GL40.GL_LINEAR);
+			GL40.glTexParameteri(GL40.GL_TEXTURE_2D, GL40.GL_TEXTURE_MAG_FILTER, GL40.GL_LINEAR);
+			GL40.glTexParameteri(GL40.GL_TEXTURE_2D, GL40.GL_TEXTURE_WRAP_S, GL40.GL_CLAMP_TO_EDGE);
+			GL40.glTexParameteri(GL40.GL_TEXTURE_2D, GL40.GL_TEXTURE_WRAP_T, GL40.GL_CLAMP_TO_EDGE);
+			GL40.glFramebufferTexture2D(GL40.GL_FRAMEBUFFER, GL40.GL_COLOR_ATTACHMENT0 + i, GL40.GL_TEXTURE_2D, deferBuffers[i], 0);
+
+			deferDepthFBO[i] = GL40.glGenRenderbuffers();
+			GL40.glBindRenderbuffer(GL40.GL_RENDERBUFFER, deferDepthFBO[i]);
+			GL40.glRenderbufferStorage(GL40.GL_RENDERBUFFER, GL40.GL_DEPTH_COMPONENT, width, height);
+			GL40.glFramebufferRenderbuffer(GL40.GL_FRAMEBUFFER, GL40.GL_DEPTH_ATTACHMENT, GL40.GL_RENDERBUFFER, deferDepthFBO[i]);
+		}
+
+		int[] attachments = { GL40.GL_COLOR_ATTACHMENT0, GL40.GL_COLOR_ATTACHMENT1, GL40.GL_COLOR_ATTACHMENT2, GL40.GL_COLOR_ATTACHMENT3, GL40.GL_COLOR_ATTACHMENT4, GL40.GL_COLOR_ATTACHMENT5 };
 		GL40.glDrawBuffers(attachments);
 	}
 
@@ -649,15 +704,15 @@ public class Startup implements Runnable {
 	private static void checkArgs(String[] args) {
 		for (String s : args) {
 			switch (s) {
-			
+
 			case "-log":
 				startLogger();
 				break;
-				
+
 			case "-verbose":
 				SettingsManager.consolePerformacneOutput = true;
 				break;
-				
+
 			}
 		}
 	}

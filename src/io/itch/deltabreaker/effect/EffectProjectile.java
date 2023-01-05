@@ -93,7 +93,7 @@ public class EffectProjectile extends Effect {
 
 	@Override
 	public void render() {
-		BatchSorter.add("z", "pixel.dae", "pixel.png", "main_3d_nobloom", Material.DEFAULT.toString(), position, rotation, scale, color, true, false);
+		BatchSorter.add("z", "pixel.dae", "pixel.png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(), position, rotation, scale, color, true, false);
 	}
 
 	@Override

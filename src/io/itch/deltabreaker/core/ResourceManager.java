@@ -32,16 +32,16 @@ import io.itch.deltabreaker.graphics.Model;
 import io.itch.deltabreaker.graphics.Texture;
 import io.itch.deltabreaker.graphics.shader.Shader;
 import io.itch.deltabreaker.graphics.shader.ShaderAdditiveBloom;
+import io.itch.deltabreaker.graphics.shader.ShaderDeferredLighting;
 import io.itch.deltabreaker.graphics.shader.ShaderDrawImage;
 import io.itch.deltabreaker.graphics.shader.ShaderGaussianBlur;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3D;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DBloom;
-import io.itch.deltabreaker.graphics.shader.ShaderMain3DCorrupt;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DEnemy;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DHousing;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DLava;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DMedial;
-import io.itch.deltabreaker.graphics.shader.ShaderMain3DNoBloom;
+import io.itch.deltabreaker.graphics.shader.ShaderMain3DNoBloomTexColor;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DWater;
 import io.itch.deltabreaker.graphics.shader.ShaderShadow3D;
 import io.itch.deltabreaker.graphics.shader.ShaderStatic3D;
@@ -89,7 +89,8 @@ public class ResourceManager {
 		}
 		SettingsManager.onlineValidation = match;
 
-		System.out.println("[ResourceManager]: Data validated in " + (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
+		System.out.println(
+				"[ResourceManager]: Data validated in " + (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
 	}
 
 	private static String getFileChecksum(MessageDigest digest, File file) throws IOException {
@@ -132,7 +133,8 @@ public class ResourceManager {
 
 				for (File f : list) {
 					if (f.getName().endsWith(".dae")) {
-						AIScene scene = Assimp.aiImportFile(f.getPath(), Assimp.aiProcess_JoinIdenticalVertices | Assimp.aiProcess_Triangulate);
+						AIScene scene = Assimp.aiImportFile(f.getPath(),
+								Assimp.aiProcess_JoinIdenticalVertices | Assimp.aiProcess_Triangulate);
 
 						if (scene == null) {
 							System.err.println("[FileManager]: There was an error loading the model  " + f);
@@ -323,7 +325,8 @@ public class ResourceManager {
 					in.readFully(vertBytes);
 					vertBytes = decompress(vertBytes);
 					for (int v = 0; v < verts; v++) {
-						vertices[v] = ByteBuffer.wrap(new byte[] { vertBytes[v * 4], vertBytes[v * 4 + 1], vertBytes[v * 4 + 2], vertBytes[v * 4 + 3] }).getFloat();
+						vertices[v] = ByteBuffer.wrap(new byte[] { vertBytes[v * 4], vertBytes[v * 4 + 1],
+								vertBytes[v * 4 + 2], vertBytes[v * 4 + 3] }).getFloat();
 					}
 
 					int texs = in.readInt();
@@ -332,7 +335,8 @@ public class ResourceManager {
 					in.readFully(texBytes);
 					texBytes = decompress(texBytes);
 					for (int v = 0; v < texs; v++) {
-						texices[v] = ByteBuffer.wrap(new byte[] { texBytes[v * 4], texBytes[v * 4 + 1], texBytes[v * 4 + 2], texBytes[v * 4 + 3] }).getFloat();
+						texices[v] = ByteBuffer.wrap(new byte[] { texBytes[v * 4], texBytes[v * 4 + 1],
+								texBytes[v * 4 + 2], texBytes[v * 4 + 3] }).getFloat();
 					}
 
 					int normals = in.readInt();
@@ -341,7 +345,8 @@ public class ResourceManager {
 					in.readFully(normalBytes);
 					normalBytes = decompress(normalBytes);
 					for (int v = 0; v < normals; v++) {
-						normalices[v] = ByteBuffer.wrap(new byte[] { normalBytes[v * 4], normalBytes[v * 4 + 1], normalBytes[v * 4 + 2], normalBytes[v * 4 + 3] }).getFloat();
+						normalices[v] = ByteBuffer.wrap(new byte[] { normalBytes[v * 4], normalBytes[v * 4 + 1],
+								normalBytes[v * 4 + 2], normalBytes[v * 4 + 3] }).getFloat();
 					}
 
 					int indis = in.readInt();
@@ -350,7 +355,8 @@ public class ResourceManager {
 					in.readFully(indiBytes);
 					indiBytes = decompress(indiBytes);
 					for (int v = 0; v < indis; v++) {
-						indiices[v] = ByteBuffer.wrap(new byte[] { indiBytes[v * 4], indiBytes[v * 4 + 1], indiBytes[v * 4 + 2], indiBytes[v * 4 + 3] }).getInt();
+						indiices[v] = ByteBuffer.wrap(new byte[] { indiBytes[v * 4], indiBytes[v * 4 + 1],
+								indiBytes[v * 4 + 2], indiBytes[v * 4 + 3] }).getInt();
 					}
 
 					models.put(in.readUTF(), new Model(vertices, texices, normalices, indiices));
@@ -370,7 +376,8 @@ public class ResourceManager {
 				}
 			}
 		}
-		System.out.println("[ResourceManager]: " + models.size() + " models loaded in " + (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
+		System.out.println("[ResourceManager]: " + models.size() + " models loaded in "
+				+ (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
 	}
 
 	public static void loadModelAtlas() {
@@ -412,8 +419,7 @@ public class ResourceManager {
 		new ShaderMain3D("main_3d");
 		new ShaderShadow3D("shadow_3d");
 		new ShaderStatic3D("static_3d");
-		new ShaderMain3DNoBloom("main_3d_nobloom");
-		new ShaderMain3DCorrupt("main_3d_corrupt");
+		new ShaderMain3DNoBloomTexColor("main_3d_nobloom_texcolor");
 		new ShaderMain3DMedial("main_3d_medial");
 		new ShaderMain3DEnemy("main_3d_enemy");
 		new ShaderMain3DHousing("main_3d_housing");
@@ -421,7 +427,9 @@ public class ResourceManager {
 		new ShaderMain3DLava("main_3d_lava");
 		new ShaderStatic3D("static_3d_editor");
 		new ShaderStatic3DCrafting("static_3d_crafting");
-		System.out.println("[ResourceManager]: " + shaders.size() + " shaders loaded in " + (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
+		new ShaderDeferredLighting("deferred_lighting");
+		System.out.println("[ResourceManager]: " + shaders.size() + " shaders loaded in "
+				+ (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
 	}
 
 	public static void loadTextures(String folder) {
@@ -457,7 +465,8 @@ public class ResourceManager {
 			}
 		}
 
-		System.out.println("[ResourceManager]: " + textures.size() + " textures loaded in " + (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
+		System.out.println("[ResourceManager]: " + textures.size() + " textures loaded in "
+				+ (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
 	}
 
 	public static void buildTextures() {
@@ -499,7 +508,8 @@ public class ResourceManager {
 	}
 
 	private static void loadModel(String file, String name) {
-		AIScene scene = Assimp.aiImportFile(file, Assimp.aiProcess_JoinIdenticalVertices | Assimp.aiProcess_Triangulate);
+		AIScene scene = Assimp.aiImportFile(file,
+				Assimp.aiProcess_JoinIdenticalVertices | Assimp.aiProcess_Triangulate);
 
 		if (scene == null) {
 			System.err.println("[FileManager]: There was an error loading the model  " + file);

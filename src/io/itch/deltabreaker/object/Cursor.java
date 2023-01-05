@@ -86,7 +86,7 @@ public class Cursor {
 	}
 
 	public void render() {
-		BatchSorter.add("cursor_" + frame + ".dae", "cursor_" + frame + ".png", (staticView) ? "static_3d" : "main_3d_nobloom", Material.DEFAULT.toString(),
+		BatchSorter.add("cursor_" + frame + ".dae", "cursor_" + frame + ".png", (staticView) ? "static_3d" : "main_3d_nobloom_texcolor", Material.DEFAULT.toString(),
 				Vector3f.add(position, (staticView) ? (float) (Math.sin(Math.toRadians(bob)) * 1.5) : 0, (staticView) ? 0 : (float) (Math.sin(Math.toRadians(bob)) * 1.5), 0), rotation, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false,
 				staticView);
 	}

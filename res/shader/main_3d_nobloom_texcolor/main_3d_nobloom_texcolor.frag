@@ -55,10 +55,10 @@ void main() {
 	tex_color = abs(corruption / 3 - 1) * tex_color + corruption / 3 * texture2D(fog, fs_in.TexCoords + fogPos) * tex_color;
 
 	BaseColor = tex_color * fs_in.shade;
-	Normals = vec4(fs_in.Normal, 1);
-	FragPos = vec4(fs_in.FragPos, 1);
-	Material = vec4(ambiance_intensity, diffuse_intensity, specular_intensity, 1);
-	Misc = vec4(shadow, BaseColor.a, shininess, 1);
+	Normals = vec4(fs_in.Normal, tex_color.a);
+	FragPos = vec4(fs_in.FragPos, tex_color.a);
+	Material = vec4(ambiance_intensity, diffuse_intensity, specular_intensity, tex_color.a);
+	Misc = vec4(shadow, 0, shininess, tex_color.a);
 
 	Depth = vec4(
 			vec3(1 - ((gl_FragCoord.z / gl_FragCoord.w) * depthMultiplier)),
