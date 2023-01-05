@@ -27,6 +27,7 @@ public class BatchSorter {
 				r.render();
 			}
 		});
+		
 		transparentBatches.values().forEach((r) -> {
 			if (r.size > 0) {
 				GL40.glDepthMask(r.ignoreDepth);

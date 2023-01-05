@@ -81,7 +81,7 @@ void main() {
 	vec4 baseColor = texture(baseImage, TexCoords);
 	material = texture(materialImage, TexCoords).rgb;
 	float shadow = texture(miscImage, TexCoords).r;
-	int bloomCalc = int(texture(miscImage, TexCoords).g);
+	float bloomCalc = texture(miscImage, TexCoords).g;
 	shininess = texture(miscImage, TexCoords).b;
 
 	// Calculate these once for all lighting calcs
@@ -106,8 +106,10 @@ void main() {
 	FragColor.rgb = abs(corruption - 1) * FragColor.rgb
 			+ corruption * vec3(dot(FragColor.rgb, vec3(0.299, 0.587, 0.114)))
 					* rand(vec2(seed) * fragPos.xz);
-	if ((brightness > 1 && bloomCalc != 2) || bloomCalc == 1) {
+	if (brightness > 1 || bloomCalc > 1) {
 		BrightColor = FragColor;
+		BrightColor.rgba = clamp(BrightColor.rgba, 0, 1);
+		BrightColor *= (bloomCalc > 1) ? bloomCalc - 1 : bloomCalc;
 	} else {
 		BrightColor = vec4(0, 0, 0, 1);
 	}

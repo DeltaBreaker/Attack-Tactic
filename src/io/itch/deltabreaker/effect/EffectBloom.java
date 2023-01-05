@@ -30,7 +30,7 @@ public class EffectBloom extends Effect {
 
 	@Override
 	public void render() {
-		BatchSorter.add("pixel.dae", "bloom.png", "main_3d_nobloom", Material.DEFAULT.toString(), Vector3f.div(position, Vector3f.div(scale, 8, 8, 8)), rotation, scale, color, false, false, false);
+		BatchSorter.add("a", "pixel.dae", "bloom.png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(), Vector3f.div(position, Vector3f.div(scale, 8, 8, 8)), rotation, scale, color, false, false, false);
 	}
 
 	@Override

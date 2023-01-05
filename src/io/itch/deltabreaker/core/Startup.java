@@ -257,8 +257,8 @@ public class Startup implements Runnable {
 				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
 
 //				Inventory.saveGame();
-//				StateDungeon.startDungeon(0, "snow_forrest.json", 14, -1932052909105962160L);
-				StateDungeon.startDungeon(0, "seabed_cove.json", 14, new Random().nextLong());
+				StateDungeon.startDungeon(0, "seabed_cove.json", 14, -1932052909105962160L);
+//				StateDungeon.startDungeon(0, "seabed_cove.json", 14, new Random().nextLong());
 			}
 
 			GLFW.glfwShowWindow(window);
