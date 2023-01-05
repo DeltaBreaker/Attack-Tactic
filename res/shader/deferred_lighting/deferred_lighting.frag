@@ -23,7 +23,7 @@ uniform sampler2D positionImage;
 uniform sampler2D materialImage;
 uniform sampler2D miscImage;
 
-uniform PointLight lights[128];
+uniform PointLight lights[140];
 uniform int lightAmt;
 uniform float gamma;
 uniform float corruption;
