@@ -5,12 +5,15 @@ import java.util.Random;
 
 import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.graphics.BatchSorter;
+import io.itch.deltabreaker.graphics.Light;
 import io.itch.deltabreaker.graphics.Material;
+import io.itch.deltabreaker.math.AdvMath;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
 import io.itch.deltabreaker.multiprocessing.TaskThread;
 import io.itch.deltabreaker.multiprocessing.WorkerTask;
 import io.itch.deltabreaker.object.tile.Tile;
+import io.itch.deltabreaker.state.StateManager;
 
 public class EffectHealAura extends Effect {
 
@@ -23,9 +26,16 @@ public class EffectHealAura extends Effect {
 
 	public Tile t;
 
+	private Light light;
+	private float age = 0;
+	private float progress = 0.25f;
+	
 	private WorkerTask task = new WorkerTask() {
 		@Override
 		public void tick() {
+			age = Math.min(age + progress, 90);
+			float sin = AdvMath.sin[(int) age];
+			light.color.set(0.5f * sin, 1.5f * sin, 0.5f * sin);
 			if (spawnTimer < spawnRate) {
 				spawnTimer++;
 			} else {
@@ -42,6 +52,8 @@ public class EffectHealAura extends Effect {
 		super(Vector3f.add(Vector3f.mul(t.getPosition(), 0.5f, 0.5f, 0.5f), 0, -6, 0), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
 		this.t = t;
 		this.t.healLogged = true;
+		light = new Light(position, new Vector3f(0, 0, 0), 0f, 0, 0.05f, null);
+		StateManager.currentState.lights.add(light);
 		TaskThread.process(task);
 	}
 
@@ -68,6 +80,7 @@ public class EffectHealAura extends Effect {
 	@Override
 	public void cleanUp() {
 		t.healLogged = false;
+		StateManager.currentState.lights.remove(light);
 		task.finish();
 	}
 
@@ -77,6 +90,8 @@ class HealParticle {
 
 	public boolean remove = false;
 
+	public float age = 0;
+	public float increment;
 	public double loop = 0;
 	public double offset = 0;
 

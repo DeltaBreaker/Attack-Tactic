@@ -6,15 +6,9 @@ out vec4 BrightColor;
 in vec2 TexCoords;
 
 struct PointLight {
-	vec3 position;
-	vec3 color;
-	vec3 direction;
-
-	float constant;
-	float linear;
-	float quadratic;
-
-	bool directional;
+	vec4 position;
+	vec4 color;
+	vec4 direction;
 };
 
 uniform sampler2D baseImage;
@@ -23,7 +17,7 @@ uniform sampler2D positionImage;
 uniform sampler2D materialImage;
 uniform sampler2D miscImage;
 
-uniform PointLight lights[140];
+uniform PointLight lights[300];
 uniform int lightAmt;
 uniform float gamma;
 uniform float corruption;
@@ -45,22 +39,22 @@ float rand(vec2 co) {
 
 vec3 getLighting(PointLight light, vec3 fragPos) {
 	vec3 result = vec3(0);
-	float distance = length(light.position - fragPos);
+	float distance = length(light.position.xyz - fragPos);
 	float attenuation = 1.0
-			/ (light.constant + light.linear * distance
-					+ light.quadratic * (distance * distance));
+			/ (light.position.w + light.color.w * distance
+					+ light.direction.w * (distance * distance));
 
 	// Ambient light
-	vec3 ambiant_light = light.color * material.r;
+	vec3 ambiant_light = light.color.rgb * material.r;
 
 	// Diffuse light
 	vec3 light_dir =
-			(light.directional) ?
-					normalize(-light.direction) :
-					normalize(light.position - fragPos);
+			(length(light.direction.rgb) != 0) ?
+					normalize(-light.direction.rgb) :
+					normalize(light.position.xyz - fragPos);
 	float diff = max(dot(norm, light_dir), 0.0);
 	float diffuse = diff * material.g;
-	vec3 diffuse_light = diffuse * light.color;
+	vec3 diffuse_light = diffuse * light.color.rgb;
 
 	// Specular light
 	vec3 reflect_dir = normalize(light_dir + view_dir);
@@ -68,7 +62,7 @@ vec3 getLighting(PointLight light, vec3 fragPos) {
 			* pow(max(dot(norm, reflect_dir), 0.0), shininess);
 
 	spec = diff != 0 ? spec : 0.0;
-	vec3 specular_light = material.b * spec * light.color;
+	vec3 specular_light = material.b * spec * light.color.rgb;
 	result = (ambiant_light + diffuse_light + specular_light) * attenuation;
 
 	return result;

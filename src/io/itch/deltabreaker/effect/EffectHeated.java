@@ -35,23 +35,25 @@ public class EffectHeated extends Effect {
 
 	@Override
 	public void tick() {
-		if (!die) {
-			if (snowflakes.size() < SPAWN_LIMIT) {
-				if (spawnTimer < spawnRate) {
-					spawnTimer++;
-				} else {
-					spawnTimer = 0;
-					snowflakes.add(new HeatParticle(position, color.copy()));
-					snowflakes.add(new HeatParticle(position, color.copy()));
+		if (SettingsManager.enableFancyWater) {
+			if (!die) {
+				if (snowflakes.size() < SPAWN_LIMIT) {
+					if (spawnTimer < spawnRate) {
+						spawnTimer++;
+					} else {
+						spawnTimer = 0;
+						snowflakes.add(new HeatParticle(position, color.copy()));
+						snowflakes.add(new HeatParticle(position, color.copy()));
+					}
 				}
+			} else if (allParticlesDone()) {
+				remove = true;
 			}
-		} else if (allParticlesDone()) {
-			remove = true;
-		}
-		for (int i = 0; i < snowflakes.size(); i++) {
-			snowflakes.get(i).tick();
-			if (snowflakes.get(i).remove && !die) {
-				snowflakes.get(i).reset(position, color.copy());
+			for (int i = 0; i < snowflakes.size(); i++) {
+				snowflakes.get(i).tick();
+				if (snowflakes.get(i).remove && !die) {
+					snowflakes.get(i).reset(position, color.copy());
+				}
 			}
 		}
 	}
@@ -118,7 +120,7 @@ class HeatParticle {
 	public void reset(Vector3f position, Vector4f color) {
 		remove = false;
 		alpha = 0.6f;
-		
+
 		scale = new Vector3f(0.25f, 0.25f, 0.25f).mul(r.nextFloat() + 0.15f);
 		this.position = new Vector3f(position.getX(), position.getY() + 8, position.getZ());
 		loop = r.nextInt(360);

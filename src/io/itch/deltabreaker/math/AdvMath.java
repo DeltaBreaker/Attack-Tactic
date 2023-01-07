@@ -31,4 +31,14 @@ public class AdvMath {
 		return n;
 	}
 
+	public static float largest(float[] data) {
+		float largest = data[0];
+		for(float f : data) {
+			if(f > largest) {
+				largest = f;
+			}
+		}
+		return largest;
+	}
+	
 }
