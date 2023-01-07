@@ -1,3 +1,6 @@
+# Personal config data
+*.cfg
+
 # Packed game files
 *.pck
 
