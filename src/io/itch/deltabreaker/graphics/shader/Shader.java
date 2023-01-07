@@ -108,6 +108,13 @@ public abstract class Shader {
 		}
 	}
 
+	public void setUniform(String name, float x, float y, float z, float w) {
+		int location = GL40.glGetUniformLocation(programID, name);
+		if (location != -1) {
+			GL40.glUniform4f(location, x, y, z, w);
+		}
+	}
+
 	public void setUniform(String name, int value) {
 		int location = GL40.glGetUniformLocation(programID, name);
 		if (location != -1) {

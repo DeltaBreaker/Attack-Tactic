@@ -92,6 +92,12 @@ public class Texture {
 		built = true;
 	}
 
+	public void setData(float[] data) {
+		GL40.glBindTexture(GL40.GL_TEXTURE_2D, id);
+		GL40.glTexSubImage2D(GL40.GL_TEXTURE_2D, 0, GL40.GL_RGBA, width, height, 0, GL40.GL_RGBA, GL40.GL_FLOAT, data);
+		GL40.glBindTexture(GL40.GL_TEXTURE_2D, 0);
+	}
+	
 	public void bind(int sampler) {
 		if (sampler >= 0 && sampler <= 31) {
 			GL40.glActiveTexture(GL40.GL_TEXTURE0 + sampler);

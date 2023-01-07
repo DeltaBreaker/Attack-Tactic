@@ -17,13 +17,15 @@ import io.itch.deltabreaker.state.StateManager;
 public class EffectLava extends EffectWater {
 
 	private static Vector3f color = new Vector3f(Vector4f.COLOR_LAVA.getX(), Vector4f.COLOR_LAVA.getY(), Vector4f.COLOR_LAVA.getZ());
+	private Effect heated;
 	private Light light;
 
 	public EffectLava(Tile t, Tile[][] tiles, ArrayList<Point> points) {
 		super(t, color, tiles, points);
 		this.t = t;
 
-		StateManager.currentState.effects.add(new EffectHeated(Vector3f.add(Vector3f.div(position, 2, 2, 2), 0, -5, 0), Vector4f.COLOR_LAVA_HEAT));
+		heated = new EffectHeated(Vector3f.add(Vector3f.div(position, 2, 2, 2), 0, -5, 0), Vector4f.COLOR_LAVA_HEAT);
+		StateManager.currentState.effects.add(heated);
 
 		t.setWaterLogged(false);
 		t.setLavaLogged(true);
@@ -65,6 +67,7 @@ public class EffectLava extends EffectWater {
 		StateManager.currentState.lights.remove(light);
 		t.setLavaLogged(false);
 		t.movementPenalty = Math.max(t.movementPenalty - 1, 1);
+		heated.remove = true;
 		task.finish();
 	}
 
