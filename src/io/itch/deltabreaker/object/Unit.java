@@ -176,6 +176,7 @@ public class Unit {
 	}
 
 	public void tick() {
+		unitColor.setW(1f);
 		rotation.set(-Startup.camera.getRotation().getX(), -Startup.camera.getRotation().getY(), -Startup.camera.getRotation().getZ());
 
 		updateStats();
@@ -196,22 +197,22 @@ public class Unit {
 			if (!StateDungeon.getCurrentContext().inCombat) {
 				if (dead) {
 					if (unitColor.getW() > 0) {
-						unitColor.setW(unitColor.getW() - 0.005f);
+						unitColor.setW(Math.max(unitColor.getW() - 0.005f, 0));
 					}
 				} else {
 					if (unitColor.getW() < 1) {
-						unitColor.setW(unitColor.getW() + 0.005f);
+						unitColor.setW(Math.min(unitColor.getW() + 0.005f, 1));
 					}
 				}
 			}
 		} else {
 			if (dead) {
 				if (unitColor.getW() > 0) {
-					unitColor.setW(unitColor.getW() - 0.005f);
+					unitColor.setW(Math.max(unitColor.getW() - 0.005f, 0));
 				}
 			} else {
 				if (unitColor.getW() < 1) {
-					unitColor.setW(unitColor.getW() + 0.005f);
+					unitColor.setW(Math.min(unitColor.getW() + 0.005f, 1));
 				}
 			}
 		}
@@ -402,7 +403,7 @@ public class Unit {
 				bodyColor = Vector4f.mul(this.bodyColor, 0.5f);
 				hairColor = Vector4f.mul(this.hairColor, 0.5f);
 			}
-
+			
 			BatchSorter.add((shader.equals("main_3d_enemy")) ? "zz" : "", "unit_body_" + race + "_" + body + "_" + dir + "_" + frame + ".dae", "unit_body_" + race + "_" + body + "_" + dir + "_" + frame + ".png", shader,
 					Material.DEFAULT.toString(), position, rotation, Vector3f.SCALE_HALF, new Vector4f(bodyColor.getX(), bodyColor.getY(), bodyColor.getZ(), unitColor.getW()), !context.freeRoamMode && unitColor.getW() > 0, false,
 					ignoreDepth);

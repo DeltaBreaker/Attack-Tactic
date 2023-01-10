@@ -586,13 +586,6 @@ enum TileMap {
 		public Tile getTile(TileProperty property, Vector3f position) {
 			return new TileFountain(property, position);
 		}
-	},
-	
-	TILE_HOUSING_SAVE {
-		@Override
-		public Tile getTile(TileProperty property, Vector3f position) {
-			return new TileHousingSave(property, position);
-		}
 	};
 
 	public abstract Tile getTile(TileProperty property, Vector3f position);

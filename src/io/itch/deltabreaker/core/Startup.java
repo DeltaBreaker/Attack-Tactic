@@ -258,7 +258,7 @@ public class Startup implements Runnable {
 				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
 
 //				Inventory.saveGame();
-//				StateDungeon.startDungeon(0, "scorched_crater.json", 14, -1932052909105962160L);
+//				StateDungeon.startDungeon(0, "flooded_forrest.json", 14, -1932052909105962160L);
 //				StateDungeon.startDungeon(0, "seabed_cove.json", 14, new Random().nextLong());
 			}
 
@@ -400,12 +400,12 @@ public class Startup implements Runnable {
 		GL40.glViewport(0, 0, targetWidth, targetHeight);
 		GL40.glClear(GL40.GL_DEPTH_BUFFER_BIT);
 
-		GL40.glClearBufferfv(GL40.GL_COLOR, 0, new float[] { screenColor.getX(), screenColor.getY(), screenColor.getZ(), 1 });
-		GL40.glClearBufferfv(GL40.GL_COLOR, 1, new float[] { 0, 1, 0, 1 });
-		GL40.glClearBufferfv(GL40.GL_COLOR, 2, new float[] { camera.position.getX(), 1, camera.position.getZ(), 1 });
-		GL40.glClearBufferfv(GL40.GL_COLOR, 3, new float[] { 0.75f, 1, 1, 1 });
-		GL40.glClearBufferfv(GL40.GL_COLOR, 4, new float[] { 0, 0, 0, 1 });
-		GL40.glClearBufferfv(GL40.GL_COLOR, 5, new float[] { 0, 0, 0, 1 });
+//		GL40.glClearBufferfv(GL40.GL_COLOR, 0, new float[] { screenColor.getX(), screenColor.getY(), screenColor.getZ(), 1 });
+//		GL40.glClearBufferfv(GL40.GL_COLOR, 1, new float[] { 0, 1, 0, 1 });
+//		GL40.glClearBufferfv(GL40.GL_COLOR, 2, new float[] { camera.position.getX(), 1, camera.position.getZ(), 1 });
+//		GL40.glClearBufferfv(GL40.GL_COLOR, 3, new float[] { 0.75f, 1, 1, 1 });
+//		GL40.glClearBufferfv(GL40.GL_COLOR, 4, new float[] { 0, 0, 0, 1 });
+//		GL40.glClearBufferfv(GL40.GL_COLOR, 5, new float[] { 0, 0, 0, 1 });
 
 		BatchSorter.render();
 

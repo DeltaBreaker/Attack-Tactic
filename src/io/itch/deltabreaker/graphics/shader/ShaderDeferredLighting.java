@@ -1,28 +1,15 @@
 package io.itch.deltabreaker.graphics.shader;
 
-import java.nio.FloatBuffer;
-
-import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL40;
-
 import io.itch.deltabreaker.core.SettingsManager;
 import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.graphics.Light;
 import io.itch.deltabreaker.graphics.Material;
-import io.itch.deltabreaker.graphics.Texture;
 import io.itch.deltabreaker.state.StateManager;
 
 public class ShaderDeferredLighting extends Shader {
-	
-	private Texture lightData;
-	
+		
 	public ShaderDeferredLighting(String file) {
 		super(file);
-		try {
-			lightData = new Texture(4096, 1, GL40.GL_RGBA);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
 	}
 
 	@Override
