@@ -1713,7 +1713,9 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-			enterFreeRoam();
+			Inventory.active.get(0).addItem(ItemProperty.get("item.sword.gold"));
+			Inventory.active.get(0).addItem(ItemProperty.get("item.bow.wood"));
+			Inventory.active.get(0).addItem(ItemProperty.get("item.tome.exfire"));
 			break;
 
 		case HIGHLIGHT:
@@ -1728,16 +1730,21 @@ public class StateDungeon extends State {
 					for (Unit u : enemies) {
 						if (u.locX == cursorPos.x && u.locY == cursorPos.y && tiles[u.locX][u.locY].status > 0) {
 							if (selectedAbility.showCombat) {
-								for (ItemProperty i : selectedUnit.getItemList()) {
-									if (i.type.equals(ItemProperty.TYPE_WEAPON)) {
-										ItemProperty weapon = selectedUnit.weapon;
-										selectedUnit.weapon = i;
-										selectedUnit.removeItem(i);
-										selectedUnit.addItem(weapon);
-										AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
-										break;
+								do {
+									for (ItemProperty i : selectedUnit.getItemList()) {
+										if (i.type.equals(ItemProperty.TYPE_WEAPON)) {
+											ItemProperty weapon = selectedUnit.weapon;
+											selectedUnit.weapon = i;
+											selectedUnit.removeItem(i);
+											selectedUnit.addItem(weapon);
+											AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
+											
+											clearSelectedTiles();
+											highlightTiles(selectedUnit.locX, selectedUnit.locY, 1, i.range + 1, "");
+											break;
+										}
 									}
-								}
+								} while (u.locX == cursorPos.x && u.locY == cursorPos.y && tiles[u.locX][u.locY].status == 0);
 								break;
 							}
 						}
@@ -1752,17 +1759,22 @@ public class StateDungeon extends State {
 					for (Unit u : enemies) {
 						if (u.locX == cursorPos.x && u.locY == cursorPos.y && tiles[u.locX][u.locY].status > 0) {
 							if (selectedAbility.showCombat) {
-								for (int i = selectedUnit.getItemList().size() - 1; i > 0; i--) {
-									ItemProperty item = selectedUnit.getItemList().get(i);
-									if (item.type.equals(ItemProperty.TYPE_WEAPON)) {
-										ItemProperty weapon = selectedUnit.weapon;
-										selectedUnit.weapon = item;
-										selectedUnit.removeItem(item);
-										selectedUnit.addItemInFront(weapon);
-										AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
-										break;
+								do {
+									for (int i = selectedUnit.getItemList().size() - 1; i > 0; i--) {
+										ItemProperty item = selectedUnit.getItemList().get(i);
+										if (item.type.equals(ItemProperty.TYPE_WEAPON)) {
+											ItemProperty weapon = selectedUnit.weapon;
+											selectedUnit.weapon = item;
+											selectedUnit.removeItem(item);
+											selectedUnit.addItemInFront(weapon);
+											AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
+											
+											clearSelectedTiles();
+											highlightTiles(selectedUnit.locX, selectedUnit.locY, 1, item.range + 1, "");
+											break;
+										}
 									}
-								}
+								} while (u.locX == cursorPos.x && u.locY == cursorPos.y && tiles[u.locX][u.locY].status == 0);
 								break;
 							}
 						}
