@@ -62,7 +62,7 @@ public class Inventory {
 		try {
 			DataOutputStream out = new DataOutputStream(new FileOutputStream(file));
 
-			out.writeInt(slot);
+			out.writeByte(slot);
 			out.writeUTF(header);
 			out.writeLong(playtime);
 
@@ -132,6 +132,7 @@ public class Inventory {
 	}
 
 	public static void loadHeaderData() {
+		saveSlots.clear();
 		for (File f : FileManager.getFiles("save")) {
 			if (f.getName().equals("header.dat")) {
 				try {
@@ -218,6 +219,18 @@ public class Inventory {
 		}
 	}
 
+	public static String getHeader(int i) {
+		return saveSlots.get(i).header;
+	}
+	
+	public static byte getSlot(int i) {
+		return saveSlots.get(i).slot;
+	}
+
+	public static long getPlaytime(int i) {
+		return saveSlots.get(i).playtime;
+	}
+	
 }
 
 class HeaderData {
@@ -232,4 +245,8 @@ class HeaderData {
 		this.playtime = playtime;
 	}
 
+	public String getHeader() {
+		return header;
+	}
+	
 }

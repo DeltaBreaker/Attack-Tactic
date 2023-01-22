@@ -18,6 +18,7 @@ import io.itch.deltabreaker.ui.Message;
 import io.itch.deltabreaker.ui.TextBox;
 import io.itch.deltabreaker.ui.menu.MenuChoice;
 import io.itch.deltabreaker.ui.menu.MenuDungeonAction;
+import io.itch.deltabreaker.ui.menu.MenuSave;
 
 public class Event {
 
@@ -74,17 +75,19 @@ public class Event {
 	}
 
 	public boolean canProcessDuringMenu() {
-		String[] args = event.lines[currentLine].split(" ");
-		try {
-			if (!args[0].equals("if") && !args[0].equals("end") && !args[0].startsWith("//")) {
-				return EventCommand.valueOf(args[0]).menuOp;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (currentLine < event.lines.length) {
+			String[] args = event.lines[currentLine].split(" ");
 			try {
-				throw new EventErrorException(currentLine + 1, event.lines[currentLine]);
-			} catch (Exception e2) {
-				e2.printStackTrace();
+				if (!args[0].equals("if") && !args[0].equals("end") && !args[0].startsWith("//")) {
+					return EventCommand.valueOf(args[0]).menuOp;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				try {
+					throw new EventErrorException(currentLine + 1, event.lines[currentLine]);
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
 			}
 		}
 		return false;
@@ -521,6 +524,20 @@ enum EventCommand {
 		public void run(String[] args, Event event) {
 			Unit u = Inventory.loaded.get(args[2]);
 			StateManager.currentState.effects.add(new EffectPause(u, Integer.parseInt(args[1])));
+		}
+	},
+
+	loadheaders(true) {
+		@Override
+		public void run(String[] args, Event event) {
+			Inventory.loadHeaderData();
+		}
+	},
+
+	savemenu(false) {
+		@Override
+		public void run(String[] args, Event event) {
+			StateManager.currentState.menus.add(new MenuSave(new Vector3f(0, 0, -80)));
 		}
 	};
 

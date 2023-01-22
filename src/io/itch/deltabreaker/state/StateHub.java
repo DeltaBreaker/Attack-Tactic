@@ -32,8 +32,10 @@ import io.itch.deltabreaker.graphics.Material;
 import io.itch.deltabreaker.math.AdvMath;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
+import io.itch.deltabreaker.object.Cursor;
 import io.itch.deltabreaker.object.Unit;
 import io.itch.deltabreaker.object.tile.Tile;
+import io.itch.deltabreaker.ui.menu.Menu;
 
 public class StateHub extends State {
 
@@ -94,6 +96,15 @@ public class StateHub extends State {
 				text.remove(0);
 			}
 		}
+
+		if (menus.size() > 0) {
+			menus.get(0).tick();
+			if (!menus.get(0).open && menus.get(0).height <= 16) {
+				menus.remove(0);
+			}
+		}
+		
+		cursor.tick();
 
 		// This sorts the array of effects so that the ones closest get rendered first
 		ArrayList<Effect> sortedEffects = new ArrayList<>();
@@ -160,13 +171,13 @@ public class StateHub extends State {
 		for (Unit u : npcs) {
 			u.render();
 			if (!showIcon && Math.abs(u.locX - Inventory.units.get(0).locX) + Math.abs(u.locY - Inventory.units.get(0).locY) == 1 && hasEvent(u) && noUIOnScreen() && events.size() == 0) {
-				BatchSorter.add("gui_action.dae", "gui_action.png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(), Vector3f.add(new Vector3f(u.x, 13 + u.height, u.y), 2, 8 + AdvMath.sin[(int) Startup.universalAge % 360] * 1.5f, -12),
-						Inventory.units.get(0).rotation, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, false);
+				BatchSorter.add("gui_action.dae", "gui_action.png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(),
+						Vector3f.add(new Vector3f(u.x, 13 + u.height, u.y), 2, 8 + AdvMath.sin[(int) Startup.universalAge % 360] * 1.5f, -12), Inventory.units.get(0).rotation, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, false);
 			}
 		}
-		for(EventScript e : eventList.values()) {
+		for (EventScript e : eventList.values()) {
 			String[] args = e.activator.split(" ");
-			if(args[0].equals(EventScript.ACTIVATOR_ACTION)) {
+			if (args[0].equals(EventScript.ACTIVATOR_ACTION)) {
 				Vector3f position = Vector3f.add(tiles[Integer.parseInt(args[1])][Integer.parseInt(args[2])].getPosition(), 0, 20, 0);
 				BatchSorter.add("gui_action.dae", "gui_action.png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(), Vector3f.add(position, 0, 8 + AdvMath.sin[(int) Startup.universalAge % 360] * 1.5f, -1),
 						Vector3f.DEFAULT_INVERSE_CAMERA_ROTATION, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, false);
@@ -177,6 +188,12 @@ public class StateHub extends State {
 		}
 		if (text.size() > 0) {
 			text.get(0).render();
+		}
+		for (Menu m : menus) {
+			m.render();
+		}
+		if (!hideCursor || (menus.size() > 0 && menus.get(0).open)) {
+			cursor.render();
 		}
 	}
 
@@ -191,6 +208,8 @@ public class StateHub extends State {
 
 		Startup.camera.speedY = 0.125f;
 		Startup.shadowCamera.speedY = 0.125f;
+
+		cursor = new Cursor(Vector3f.EMPTY.copy());
 	}
 
 	public void onExit() {
@@ -370,7 +389,37 @@ public class StateHub extends State {
 		if (Inventory.units.size() > 0) {
 			switch (key) {
 
+			case UP:
+				if (menus.size() > 0) {
+					menus.get(0).move(-1);
+					return;
+				}
+				break;
+
+			case DOWN:
+				if (menus.size() > 0) {
+					menus.get(0).move(1);
+					return;
+				}
+				break;
+
+			case LEFT:
+				if (menus.size() > 0) {
+					return;
+				}
+				break;
+
+			case RIGHT:
+				if (menus.size() > 0) {
+					return;
+				}
+				break;
+
 			case CONFIRM:
+				if(menus.size() != 0) {
+					menus.get(0).action("", null);
+					return;
+				}
 				if (text.size() == 0) {
 					if (!controlLock) {
 						for (Unit u : npcs) {
@@ -383,10 +432,10 @@ public class StateHub extends State {
 								}
 							}
 						}
-						for(EventScript e : eventList.values()) {
+						for (EventScript e : eventList.values()) {
 							String[] args = e.activator.split(" ");
-							if(args[0].equals(EventScript.ACTIVATOR_ACTION)) {
-								if(Math.abs(Integer.parseInt(args[1]) - Inventory.units.get(0).locX) + Math.abs(Integer.parseInt(args[2]) - Inventory.units.get(0).locY) <= 1) {
+							if (args[0].equals(EventScript.ACTIVATOR_ACTION)) {
+								if (Math.abs(Integer.parseInt(args[1]) - Inventory.units.get(0).locX) + Math.abs(Integer.parseInt(args[2]) - Inventory.units.get(0).locY) <= 1) {
 									events.add(new Event(e));
 								}
 							}
@@ -411,12 +460,14 @@ public class StateHub extends State {
 				break;
 
 			case BACK:
-				if (text.size() == 0) {
-					if (!controlLock) {
-
-					}
-				} else {
+				if (menus.size() != 0) {
+					menus.get(0).action("return", null);
+					return;
+				}
+				
+				if (text.size() != 0) {
 					text.get(0).next();
+					return;
 				}
 				break;
 
@@ -433,7 +484,7 @@ public class StateHub extends State {
 			switch (key) {
 
 			case UP:
-				if (!controlLock) {
+				if (!controlLock && menus.size() == 0) {
 					if (Inventory.units.get(0).locY > 0 && isTileWalkable(Inventory.units.get(0).locX, Inventory.units.get(0).locY - 1)) {
 						Inventory.units.get(0).locY--;
 						checkForMovementEvent();
@@ -442,7 +493,7 @@ public class StateHub extends State {
 				break;
 
 			case DOWN:
-				if (!controlLock) {
+				if (!controlLock && menus.size() == 0) {
 					if (Inventory.units.get(0).locY < tiles[0].length - 1 && isTileWalkable(Inventory.units.get(0).locX, Inventory.units.get(0).locY + 1)) {
 						Inventory.units.get(0).locY++;
 						checkForMovementEvent();
@@ -451,7 +502,7 @@ public class StateHub extends State {
 				break;
 
 			case LEFT:
-				if (!controlLock) {
+				if (!controlLock && menus.size() == 0) {
 					if (Inventory.units.get(0).locX > 0 && isTileWalkable(Inventory.units.get(0).locX - 1, Inventory.units.get(0).locY)) {
 						Inventory.units.get(0).locX--;
 						checkForMovementEvent();
@@ -460,7 +511,7 @@ public class StateHub extends State {
 				break;
 
 			case RIGHT:
-				if (!controlLock) {
+				if (!controlLock && menus.size() == 0) {
 					if (Inventory.units.get(0).locX < tiles.length - 1 && isTileWalkable(Inventory.units.get(0).locX + 1, Inventory.units.get(0).locY)) {
 						Inventory.units.get(0).locX++;
 						checkForMovementEvent();
