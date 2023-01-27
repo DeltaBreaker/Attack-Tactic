@@ -1,14 +1,17 @@
 package io.itch.deltabreaker.ui.menu;
 
+import java.io.File;
+
+import io.itch.deltabreaker.core.FileManager;
 import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.core.audio.AudioManager;
-import io.itch.deltabreaker.effect.EffectPoof;
 import io.itch.deltabreaker.graphics.TextRenderer;
+import io.itch.deltabreaker.math.AdvMath;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
 import io.itch.deltabreaker.object.Unit;
-import io.itch.deltabreaker.state.StateDungeon;
+import io.itch.deltabreaker.state.StateHub;
 import io.itch.deltabreaker.state.StateManager;
 import io.itch.deltabreaker.ui.UIBox;
 
@@ -22,24 +25,27 @@ public class MenuSave extends Menu {
 
 	public void tick() {
 		super.tick();
-		if(open) {
+		if (open) {
 			width = 130;
-			openTo = 24 * Inventory.saveSlots.size() + 3;
+			openTo = 24 * AdvMath.inRange(Inventory.saveSlots.size() + 2, 2, 3) + 3;
+			if (options.length - 2 != Inventory.saveSlots.size()) {
+				options = createStringArray();
+			}
 		}
-		
+
 		if (subMenu.size() == 0 && open && StateManager.currentState.status.size() == 0 && StateManager.currentState.itemInfo.size() == 0) {
 			Startup.staticView.targetPosition = new Vector3f(position.getX() / 2 - 1 + width / 4, position.getY() / 2 - openTo / 4, Startup.staticView.position.getZ());
 			StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() - 10, position.getY() - 13 - 24 * Math.min(2, selected), position.getZ() + 4));
 		}
 	}
-	
+
 	public void render() {
 		UIBox.render(position, width, height);
 		for (int i = 0; i < Math.min(3, options.length); i++) {
 			if (i * 24 + 12 < height) {
-				if(i + Math.max(0, selected - 2) < Inventory.saveSlots.size()) {
-					TextRenderer.render(Inventory.getHeader(i + Math.max(0, selected - 4)), Vector3f.add(position, 4, (-i - Math.max(0, selected - options.length)) * 24 - 6, 1), new Vector3f(0, 0, 0), scale, new Vector4f(1, 1, 1, 1), true);
-					long time = Inventory.getPlaytime(i + Math.max(0, selected - 4));
+				if (i + Math.max(0, selected - 2) < Inventory.saveSlots.size()) {
+					TextRenderer.render(Inventory.getHeader(i + Math.max(0, selected - 2)), Vector3f.add(position, 4, (-i - Math.max(0, selected - options.length)) * 24 - 6, 1), new Vector3f(0, 0, 0), scale, new Vector4f(1, 1, 1, 1), true);
+					long time = Inventory.getPlaytime(i + Math.max(0, selected - 2));
 					long minutes = time / 60;
 					long hours = minutes / 60;
 					String playtime = "playtime " + hours + "h " + minutes + "m";
@@ -53,15 +59,56 @@ public class MenuSave extends Menu {
 			subMenu.get(0).render();
 		}
 	}
-	
+
 	@Override
 	public void action(String command, Unit unit) {
 		if (subMenu.size() == 0) {
 			if (!command.equals("return")) {
-				// Open sub menu
-				// Save
-				// Load
-				// Erase
+				switch (options[selected]) {
+
+				case "New":
+					subMenu.add(new Menu(Vector3f.add(position, width + 5, 0, 0), new String[] { "Confirm", "Back" }) {
+						@Override
+						public void action(String command, Unit unit) {
+							if (subMenu.size() == 0) {
+								if (!command.equals("return")) {
+									switch (options[selected]) {
+
+									case "Confirm":
+										long time = System.currentTimeMillis();
+										Inventory.saveHeader(time);
+										Inventory.saveGame(time);
+										Inventory.loadHeaderData();
+										AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+										break;
+
+									case "Back":
+										AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+										break;
+
+									}
+									close();
+								} else {
+									close();
+									AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+								}
+							} else {
+								subMenu.get(0).action(command, unit);
+							}
+						}
+					});
+					break;
+
+				case "Back":
+					close();
+					AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+					break;
+
+				default:
+					subMenu.add(new MenuSaveSub(Vector3f.add(position, width + 5, 0, 0), selected).setParent(this));
+					break;
+
+				}
 			} else {
 				close();
 				AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
@@ -70,10 +117,10 @@ public class MenuSave extends Menu {
 			subMenu.get(0).action(command, unit);
 		}
 	}
-	
+
 	private static String[] createStringArray() {
 		String[] arr = new String[Inventory.saveSlots.size() + 2];
-		for(int i = 0; i < arr.length - 2; i++) {
+		for (int i = 0; i < arr.length - 2; i++) {
 			arr[i] = "";
 		}
 		arr[arr.length - 2] = "New";
@@ -86,4 +133,140 @@ public class MenuSave extends Menu {
 		super.close();
 	}
 	
+	public void closeAll() {
+		StateManager.currentState.cursor.staticView = false;
+		super.closeAll();
+	}
+
+}
+
+class MenuSaveSub extends Menu {
+
+	private int slot;
+
+	public MenuSaveSub(Vector3f position, int slot) {
+		super(position, new String[] { "Save", "Load", "Delete" });
+		this.slot = slot;
+	}
+
+	@Override
+	public void action(String command, Unit unit) {
+		if (subMenu.size() == 0) {
+			if (!command.equals("return")) {
+				switch (options[selected]) {
+
+				case "Save":
+					subMenu.add(new Menu(Vector3f.add(position, width + 5, 0, 0), new String[] { "Confirm", "Back" }) {
+						@Override
+						public void action(String command, Unit unit) {
+							if (subMenu.size() == 0) {
+								if (!command.equals("return")) {
+									switch (options[selected]) {
+
+									case "Confirm":
+										long time = Inventory.getSlot(slot);
+										Inventory.saveHeader(time);
+										Inventory.saveGame(time);
+										Inventory.loadHeaderData();
+										parent.close();
+										AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+										break;
+
+									case "Back":
+										AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+										break;
+
+									}
+									close();
+								} else {
+									close();
+									AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+								}
+							} else {
+								subMenu.get(0).action(command, unit);
+							}
+						}
+					}.setParent(this));
+					break;
+
+				case "Load":
+					subMenu.add(new Menu(Vector3f.add(position, width + 5, 0, 0), new String[] { "Confirm", "Back" }) {
+						@Override
+						public void action(String command, Unit unit) {
+							if (subMenu.size() == 0) {
+								if (!command.equals("return")) {
+									switch (options[selected]) {
+
+									case "Confirm":
+										StateManager.currentState.controlLock = true;
+										StateHub.getCurrentContext().fadeOption = StateHub.ACTION_LOAD;
+										StateHub.getCurrentContext().loadFolder = slot;
+										Startup.screenColorTarget.set(0, 0, 0, 1);
+										closeAll();
+										AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+										break;
+
+									case "Back":
+										AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+										break;
+
+									}
+									close();
+								} else {
+									close();
+									AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+								}
+							} else {
+								subMenu.get(0).action(command, unit);
+							}
+						}
+					}.setParent(this));
+					break;
+
+				case "Delete":
+					subMenu.add(new Menu(Vector3f.add(position, width + 5, 0, 0), new String[] { "Confirm", "Back" }) {
+						@Override
+						public void action(String command, Unit unit) {
+							if (subMenu.size() == 0) {
+								if (!command.equals("return")) {
+									switch (options[selected]) {
+
+									case "Confirm":
+										for (File f : FileManager.getFiles("save/" + Inventory.getSlot(slot))) {
+											f.delete();
+										}
+										new File("save/" + Inventory.getSlot(slot) + "/unit").delete();
+										new File("save/" + Inventory.getSlot(slot)).delete();
+										Inventory.loadHeaderData();
+										parent.close();
+										AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+										break;
+
+									case "Back":
+										AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+										break;
+
+									}
+									close();
+								} else {
+									close();
+									AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+								}
+							} else {
+								subMenu.get(0).action(command, unit);
+							}
+						}
+					}.setParent(this));
+					break;
+
+				}
+			} else {
+				close();
+				AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+			}
+		} else {
+			subMenu.get(0).action(command, unit);
+		}
+	}
+
 }

@@ -4,7 +4,6 @@
 		"controllock true",
 		
 		"fade 1 1 1 1",
-		"init title_bounds 0",
 		"loadunit res/data/map/title_scene/unit/bfce0c80-ebe4-487d-90a1-a869e0c4e8b9.dat",
 		"spawnunit bfce0c80-ebe4-487d-90a1-a869e0c4e8b9 13 32 true true",
 		"loadheaders",
@@ -12,6 +11,10 @@
 		"wait 72",
 		
 		"fade 1 1 1 0",
+		
+		"setheader Humble Beginnings",
+		"setloadmap village_hub",
+		"init title_bounds 0",
 		
 		"controllock false"
 	]

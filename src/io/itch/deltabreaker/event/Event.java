@@ -233,6 +233,13 @@ enum EventCommand {
 		}
 	},
 
+	warpunit(false) {
+		@Override
+		public void run(String[] args, Event event) {
+			Inventory.loaded.get(args[1]).placeAt(Integer.parseInt(args[2]), Integer.parseInt(args[3]));
+		}
+	},
+
 	// Sets the cursor's target position
 	movecursor(false) {
 		@Override
@@ -524,6 +531,27 @@ enum EventCommand {
 		public void run(String[] args, Event event) {
 			Unit u = Inventory.loaded.get(args[2]);
 			StateManager.currentState.effects.add(new EffectPause(u, Integer.parseInt(args[1])));
+		}
+	},
+
+	setheader(true) {
+		@Override
+		public void run(String[] args, Event event) {
+			StringBuilder br = new StringBuilder();
+			for (int i = 0; i < args.length - 1; i++) {
+				if (i != 0) {
+					br.append(" ");
+				}
+				br.append(args[i + 1]);
+			}
+			Inventory.header = br.toString();
+		}
+	},
+
+	setloadmap(true) {
+		@Override
+		public void run(String[] args, Event event) {
+			Inventory.loadMap = args[1];
 		}
 	},
 

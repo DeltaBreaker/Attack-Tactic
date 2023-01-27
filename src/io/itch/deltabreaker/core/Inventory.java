@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 import io.itch.deltabreaker.math.Vector4f;
 import io.itch.deltabreaker.object.Unit;
@@ -29,7 +30,6 @@ public class Inventory {
 	public static String loadMap = "";
 
 	// Header info
-	public static byte slot = 0;
 	public static String header = "";
 	public static long playtime = 0;
 
@@ -52,8 +52,8 @@ public class Inventory {
 		return 0;
 	}
 
-	public static void saveHeader(int slot) {
-		File dir = new File("save/slot_" + slot);
+	public static void saveHeader(long time) {
+		File dir = new File("save/" + time);
 		if (!dir.exists()) {
 			dir.mkdirs();
 		}
@@ -62,7 +62,7 @@ public class Inventory {
 		try {
 			DataOutputStream out = new DataOutputStream(new FileOutputStream(file));
 
-			out.writeByte(slot);
+			out.writeLong(time);
 			out.writeUTF(header);
 			out.writeLong(playtime);
 
@@ -73,8 +73,8 @@ public class Inventory {
 		}
 	}
 
-	public static void saveGame(int slot) {
-		File dir = new File("save/slot_" + slot);
+	public static void saveGame(long time) {
+		File dir = new File("save/" + time);
 		if (!dir.exists()) {
 			dir.mkdirs();
 		}
@@ -106,7 +106,7 @@ public class Inventory {
 			}
 
 			for (Unit u : Inventory.units) {
-				u.saveUnit("save/slot_" + slot + "/unit/" + u.uuid + ".dat");
+				u.saveUnit("save/" + time + "/unit/" + u.uuid + ".dat");
 			}
 
 			out.writeInt(variables.size());
@@ -138,7 +138,7 @@ public class Inventory {
 				try {
 					DataInputStream in = new DataInputStream(new FileInputStream(f));
 
-					byte slot = in.readByte();
+					long slot = in.readLong();
 					String header = in.readUTF();
 					long playtime = in.readLong();
 
@@ -152,13 +152,13 @@ public class Inventory {
 		}
 	}
 
-	public static void loadGame(HeaderData headerData) {
-		File dir = new File("save/slot_" + headerData.slot);
+	public static void loadGame(int slot) {
+		HeaderData headerData = saveSlots.get(slot);
+		File dir = new File("save/" + headerData.slot);
 
 		try {
 			DataInputStream in = new DataInputStream(new FileInputStream(dir + "/game.dat"));
 
-			slot = headerData.slot;
 			header = headerData.header;
 			playtime = headerData.playtime;
 
@@ -223,7 +223,7 @@ public class Inventory {
 		return saveSlots.get(i).header;
 	}
 	
-	public static byte getSlot(int i) {
+	public static long getSlot(int i) {
 		return saveSlots.get(i).slot;
 	}
 
@@ -235,11 +235,11 @@ public class Inventory {
 
 class HeaderData {
 
-	public byte slot;
+	public long slot;
 	public String header;
 	public long playtime;
 
-	public HeaderData(byte slot, String header, long playtime) {
+	public HeaderData(long slot, String header, long playtime) {
 		this.slot = slot;
 		this.header = header;
 		this.playtime = playtime;

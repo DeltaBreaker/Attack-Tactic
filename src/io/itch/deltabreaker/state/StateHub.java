@@ -16,7 +16,6 @@ import io.itch.deltabreaker.core.InputManager;
 import io.itch.deltabreaker.core.InputMapping;
 import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.core.Startup;
-import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.effect.Effect;
 import io.itch.deltabreaker.effect.EffectHealAura;
 import io.itch.deltabreaker.effect.EffectLava;
@@ -42,18 +41,24 @@ public class StateHub extends State {
 
 	public static final String STATE_ID = "state.hub";
 
+	public static final String ACTION_LOAD = "hub.action.load";
+	
+	public String fadeOption = "";
+	public int loadFolder;
+	
 	public HashMap<String, EventScript> eventList = new HashMap<>();
 	public ArrayList<Event> events = new ArrayList<>();
 	public ArrayList<Unit> npcs = new ArrayList<>();
 	public DungeonGenerator dungeon;
 	public Tile filler;
 	public Light overheadLight;
-
+	
 	public StateHub() {
 		super(STATE_ID);
 	}
 
 	public void tick() {
+//		System.out.println(Inventory.units.size() + " | " + Inventory.active.size() + " | " + Inventory.loaded.size());
 		if (Inventory.units.size() > 0) {
 			camX = Inventory.units.get(0).x / 2.0;
 			camY = Inventory.units.get(0).y / 2.0 + 24;
@@ -143,6 +148,17 @@ public class StateHub extends State {
 				if (events.get(0).finished) {
 					events.remove(0);
 				}
+			}
+		}
+				
+		if(Startup.screenColor.equals(Startup.screenColorTarget) && Startup.screenColor.getW() >= 1) {
+			switch(fadeOption) {
+			
+			case ACTION_LOAD:
+				Inventory.loadGame(loadFolder);
+				loadMap(Inventory.loadMap);
+				break;
+			
 			}
 		}
 	}
