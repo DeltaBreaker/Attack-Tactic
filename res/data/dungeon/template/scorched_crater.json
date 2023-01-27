@@ -17,8 +17,6 @@
 	"enemy_count_certain": 1,
 	"enemy_level_reduction": 0,
 	"enemy_level_deviation": 10,
-	"chest_base_count": 1,
-	"chest_level_spacer": 5,
 	"tier": 0,
 	"ai_type_rates": [
 		"0",
@@ -48,6 +46,13 @@
 				1.0,
 				1.0
 			]
+		},
+		{
+			"tag": "dungeon.decoration.chest",
+			"vars": [
+				1.0,
+				5.0
+			]
 		}
 	],
 	"effect_tags": [
@@ -69,6 +74,22 @@
 		{
 			"tag": "dungeon.effect.lava",
 			"vars":[]
+		}
+	],
+	"alt_tags": [
+		{
+			"tag": "dungeon.alt.item.surplus",
+			"vars": [
+				"0.05",
+				"item.usable.coin"
+			]
+		},
+		{
+			"tag": "dungeon.alt.enemy.health.reduce",
+			"vars": [
+				"0.05",
+				"0.5"
+			]
 		}
 	]
 }

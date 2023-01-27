@@ -9,7 +9,6 @@
 	"test_limit": 1024,
 	"room_size_min": 5,
 	"room_size_random": 6,
-	"chest_increase_rate": 0.05,
 	"item_count_random": 3,
 	"item_count_certain": 1,
 	"enemy_room_count_devisor": 2.0,
@@ -18,8 +17,6 @@
 	"enemy_count_certain": 1,
 	"enemy_level_reduction": 0,
 	"enemy_level_deviation": 10,
-	"chest_base_count": 1,
-	"chest_level_spacer": 5,
 	"tier": 0,
 	"ai_type_rates": [
 		"0",
@@ -68,6 +65,13 @@
 			"vars": [
 				1.0
 			]
+		},
+		{
+			"tag": "dungeon.decoration.chest",
+			"vars": [
+				1.0,
+				5.0
+			]
 		}
 	],
 	"effect_tags": [
@@ -80,6 +84,15 @@
 				1.5,
 				0.0009,
 				0.00005
+			]
+		}
+	],
+	"alt_tags": [
+		{
+			"tag": "dungeon.alt.item.surplus",
+			"vars": [
+				"0.05",
+				"item.usable.coin"
 			]
 		}
 	]

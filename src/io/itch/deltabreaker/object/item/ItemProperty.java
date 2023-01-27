@@ -1,10 +1,8 @@
 package io.itch.deltabreaker.object.item;
 
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,11 +58,6 @@ public class ItemProperty implements Cloneable {
 	public static final String ANIMATION_HEX_SMALL = "ITEM_ANIMATION_DARK_SMALL";
 	public static final String ANIMATION_HEX_MID = "ITEM_ANIMATION_DARK_MEDIUM";
 
-	public static final String USE_NONE = "ITEM_USE_NONE";
-	public static final String USE_HEAL_5 = "ITEM_USE_HEAL_5";
-	public static final String USE_HEAL_10 = "ITEM_USE_HEAL_10";
-	public static final String USE_HEAL_20 = "ITEM_USE_HEAL_20";
-
 	public String uuid = UUID.randomUUID().toString();
 
 	// Generic modifiers
@@ -72,7 +65,6 @@ public class ItemProperty implements Cloneable {
 	public String type;
 	public int tier;
 	public double rate;
-	public double fishRate;
 	public int price;
 	public String material;
 	public String model;
@@ -119,7 +111,6 @@ public class ItemProperty implements Cloneable {
 						item.type = (String) jo.get("type");
 						item.tier = Math.toIntExact((long) jo.get("tier"));
 						item.rate = (double) jo.get("rate");
-						item.fishRate = (double) jo.get("fish_rate");
 						item.price = Math.toIntExact((long) jo.get("price"));
 						item.material = (String) jo.get("material");
 						item.model = (String) jo.get("model");
@@ -249,17 +240,6 @@ public class ItemProperty implements Cloneable {
 		ArrayList<ItemProperty> list = new ArrayList<>();
 		for (ItemProperty i : items) {
 			if (((cumulative) ? i.tier <= tier : i.tier == tier) && !i.type.equals(TYPE_EMPTY)) {
-				list.add(i);
-			}
-		}
-		return list.toArray(new ItemProperty[list.size()]);
-	}
-
-	// Returns an array of items with the given tier that can be fished
-	public static ItemProperty[] searchForFishingTier(int tier, ItemProperty[] items, boolean cumulative) {
-		ArrayList<ItemProperty> list = new ArrayList<>();
-		for (ItemProperty i : items) {
-			if (i.fishRate > 0.0 && ((cumulative) ? i.tier <= tier : i.tier == tier) && !i.type.equals(TYPE_EMPTY)) {
 				list.add(i);
 			}
 		}

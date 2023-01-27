@@ -17,8 +17,6 @@
 	"enemy_count_certain": 1,
 	"enemy_level_reduction": 0,
 	"enemy_level_deviation": 10,
-	"chest_base_count": 1,
-	"chest_level_spacer": 5,
 	"tier": 0,
 	"ai_type_rates": [
 		"0",
@@ -48,6 +46,13 @@
 				3.0,
 				0.0
 			]
+		},
+		{
+			"tag": "dungeon.decoration.chest",
+			"vars": [
+				1.0,
+				5.0
+			]
 		}
 	],
 	"effect_tags": [
@@ -65,6 +70,15 @@
 		{
 			"tag": "dungeon.effect.rain",
 			"vars": [
+			]
+		}
+	],
+	"alt_tags": [
+		{
+			"tag": "dungeon.alt.item.surplus",
+			"vars": [
+				"0.05",
+				"item.usable.coin"
 			]
 		}
 	]

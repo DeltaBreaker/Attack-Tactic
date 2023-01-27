@@ -16,6 +16,7 @@ import io.itch.deltabreaker.core.InputManager;
 import io.itch.deltabreaker.core.InputMapping;
 import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.core.Startup;
+import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.effect.Effect;
 import io.itch.deltabreaker.effect.EffectHealAura;
 import io.itch.deltabreaker.effect.EffectLava;
@@ -103,7 +104,7 @@ public class StateHub extends State {
 				menus.remove(0);
 			}
 		}
-		
+
 		cursor.tick();
 
 		// This sorts the array of effects so that the ones closest get rendered first
@@ -385,9 +386,43 @@ public class StateHub extends State {
 		}
 	}
 
+	@SuppressWarnings("incomplete-switch")
 	public void onKeyPress(InputMapping key) {
 		if (Inventory.units.size() > 0) {
 			switch (key) {
+
+			case JOYSTICK:
+				if (noUIOnScreen() && !controlLock) {
+					float[] axes = key.getAxes();
+					Unit u = Inventory.units.get(0);
+					if (u.x == u.locX * 16 && u.y == u.locY * 16) {
+						if (axes[0] > 0.25) {
+							if (u.locY < tiles[0].length - 1 && isTileWalkable(u.locX + 1, u.locY)) {
+								u.locX++;
+								checkForMovementEvent();
+							}
+						}
+						if (axes[0] < -0.25) {
+							if (u.locY > 0 && isTileWalkable(u.locX - 1, u.locY)) {
+								u.locX--;
+								checkForMovementEvent();
+							}
+						}
+						if (axes[1] > 0.25) {
+							if (u.locX < tiles.length - 1 && isTileWalkable(u.locX, u.locY + 1)) {
+								u.locY++;
+								checkForMovementEvent();
+							}
+						}
+						if (axes[1] < -0.25) {
+							if (u.locX > 0 && isTileWalkable(u.locX, u.locY - 1)) {
+								u.locY--;
+								checkForMovementEvent();
+							}
+						}
+					}
+				}
+				break;
 
 			case UP:
 				if (menus.size() > 0) {
@@ -416,7 +451,7 @@ public class StateHub extends State {
 				break;
 
 			case CONFIRM:
-				if(menus.size() != 0) {
+				if (menus.size() != 0) {
 					menus.get(0).action("", null);
 					return;
 				}
@@ -464,7 +499,7 @@ public class StateHub extends State {
 					menus.get(0).action("return", null);
 					return;
 				}
-				
+
 				if (text.size() != 0) {
 					text.get(0).next();
 					return;

@@ -102,7 +102,7 @@ public class Vector4f {
 	}
 
 	public static Vector4f mul(Vector4f bodyColor, float f) {
-		return new Vector4f(bodyColor.getX() * 0.5f, bodyColor.getY() * 0.5f, bodyColor.getZ() * 0.5f, bodyColor.getW() * 0.5f);
+		return new Vector4f(bodyColor.getX() * f, bodyColor.getY() * f, bodyColor.getZ() * f, bodyColor.getW() * f);
 	}
 
 	public float[] getElements() {

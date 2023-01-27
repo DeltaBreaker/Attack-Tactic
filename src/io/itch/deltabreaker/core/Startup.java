@@ -249,7 +249,7 @@ public class Startup implements Runnable {
 //				StateHub.loadMap("house");
 
 //				StateDungeon.loadMap("bridge_test");
-				StateHub.loadMap("title_scene");
+//				StateHub.loadMap("title_scene");
 
 				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
 				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
@@ -266,7 +266,7 @@ public class Startup implements Runnable {
 //				Inventory.loadMap = "title_scene";
 //				Inventory.saveHeader(2);
 //				Inventory.saveGame(2);
-//				StateDungeon.startDungeon(0, "flooded_forrest.json", 14, -1932052909105962160L);
+				StateDungeon.startDungeon(0, "scorched_crater.json", 14, -1932052909105962160L);
 //				StateDungeon.startDungeon(0, "seabed_cove.json", 14, new Random().nextLong());
 			}
 

@@ -6,30 +6,61 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 import io.itch.deltabreaker.ai.AIHandler;
-import io.itch.deltabreaker.builder.dungeon.*;
-import io.itch.deltabreaker.core.*;
-import io.itch.deltabreaker.core.audio.*;
-import io.itch.deltabreaker.effect.*;
-import io.itch.deltabreaker.effect.battle.*;
-import io.itch.deltabreaker.effect.dungeon.*;
+import io.itch.deltabreaker.builder.dungeon.DungeonGenerator;
+import io.itch.deltabreaker.builder.dungeon.DungeonGeneratorRestArea;
+import io.itch.deltabreaker.builder.dungeon.DungeonGeneratorVillage;
+import io.itch.deltabreaker.core.FileManager;
+import io.itch.deltabreaker.core.InputManager;
+import io.itch.deltabreaker.core.InputMapping;
+import io.itch.deltabreaker.core.Inventory;
+import io.itch.deltabreaker.core.PerformanceManager;
+import io.itch.deltabreaker.core.Startup;
+import io.itch.deltabreaker.core.audio.AudioManager;
+import io.itch.deltabreaker.effect.Effect;
+import io.itch.deltabreaker.effect.EffectBurst;
+import io.itch.deltabreaker.effect.EffectEnergize;
+import io.itch.deltabreaker.effect.EffectHealAura;
+import io.itch.deltabreaker.effect.EffectHealthBarDeplete;
+import io.itch.deltabreaker.effect.EffectLava;
+import io.itch.deltabreaker.effect.EffectPoof;
+import io.itch.deltabreaker.effect.EffectText;
+import io.itch.deltabreaker.effect.EffectWater;
+import io.itch.deltabreaker.effect.EffectWaterSplash;
+import io.itch.deltabreaker.effect.battle.EffectBattle;
+import io.itch.deltabreaker.effect.dungeon.EffectDungeonLavaSFX;
+import io.itch.deltabreaker.effect.dungeon.EffectDungeonRain;
+import io.itch.deltabreaker.effect.dungeon.EffectDungeonResidue;
+import io.itch.deltabreaker.effect.dungeon.EffectDungeonSnow;
 import io.itch.deltabreaker.event.Event;
 import io.itch.deltabreaker.event.EventScript;
 import io.itch.deltabreaker.graphics.BatchSorter;
 import io.itch.deltabreaker.graphics.Light;
 import io.itch.deltabreaker.graphics.Material;
 import io.itch.deltabreaker.graphics.TextRenderer;
-import io.itch.deltabreaker.math.*;
+import io.itch.deltabreaker.math.AdvMath;
+import io.itch.deltabreaker.math.Vector3f;
+import io.itch.deltabreaker.math.Vector4f;
 import io.itch.deltabreaker.multiprocessing.TaskThread;
 import io.itch.deltabreaker.multiprocessing.WorkerTask;
 import io.itch.deltabreaker.object.Cursor;
 import io.itch.deltabreaker.object.Unit;
-import io.itch.deltabreaker.object.item.*;
+import io.itch.deltabreaker.object.item.Item;
+import io.itch.deltabreaker.object.item.ItemAbility;
+import io.itch.deltabreaker.object.item.ItemProperty;
+import io.itch.deltabreaker.object.item.ItemUse;
 import io.itch.deltabreaker.object.tile.Tile;
-import io.itch.deltabreaker.ui.*;
-import io.itch.deltabreaker.ui.menu.*;
+import io.itch.deltabreaker.ui.CombatCard;
+import io.itch.deltabreaker.ui.HealingCard;
+import io.itch.deltabreaker.ui.Message;
+import io.itch.deltabreaker.ui.StatusCard;
+import io.itch.deltabreaker.ui.TextBox;
+import io.itch.deltabreaker.ui.UIBox;
+import io.itch.deltabreaker.ui.menu.Menu;
+import io.itch.deltabreaker.ui.menu.MenuDungeonAction;
+import io.itch.deltabreaker.ui.menu.MenuDungeonMain;
+import io.itch.deltabreaker.ui.menu.MenuUnitLevel;
 
 public class StateDungeon extends State {
 
@@ -88,14 +119,6 @@ public class StateDungeon extends State {
 	public int xpFadeWaitTime = 72;
 	private Unit levelUpUnit;
 	private boolean cursorFloat = false;
-
-	// Used for the fishing minigame
-	public boolean fishing = false;
-	public int fishingTimer = 0;
-	public int fishingTime = 0;
-	public int fishingIconTimer = 0;
-	public int fishingIconTime = 144;
-	public boolean fishingReward = false;
 
 	public float alpha = 1;
 	public float alphaTo = 0;
@@ -479,29 +502,6 @@ public class StateDungeon extends State {
 			}
 		}
 
-		// Processes the fishing minigame
-		if (fishing) {
-			selectedUnit.dir = 0;
-			selectedUnit.frame = 1;
-			if (text.size() == 0) {
-				if (fishingTimer < fishingTime) {
-					fishingTimer++;
-				} else {
-					if (fishingIconTimer < fishingIconTime) {
-						fishingIconTimer++;
-					} else {
-						fishingTimer = 0;
-						fishingIconTimer = 0;
-						endFishing(ItemProperty.empty.copy());
-					}
-				}
-			}
-		}
-		if (fishingReward) {
-			selectedUnit.dir = 0;
-			selectedUnit.frame = 2;
-		}
-
 		for (int u = 0; u < enemies.size(); u++) {
 			if (cursorPos.x == enemies.get(u).locX && cursorPos.y == enemies.get(u).locY && enemies.get(u).currentHp > 0) {
 				info = enemies.get(u).name + " " + enemies.get(u).currentHp + "_" + enemies.get(u).hp;
@@ -706,7 +706,7 @@ public class StateDungeon extends State {
 			info += " " + tiles[cursorPos.x][cursorPos.y].getProperty() + " " + cursorPos.x + "x " + cursorPos.y + "y" + " status " + tiles[cursorPos.x][cursorPos.y].status + " mp " + tiles[cursorPos.x][cursorPos.y].movementPenalty;
 		}
 		int lengthTarget = info.length() * 6 + 10;
-		if (info.length() > 0 && phase == 0 && menus.size() == 0 && status.size() == 0 && !combatMode && !inCombat && !fishing && !fishingReward && alpha < 0.1 && alpha == alphaTo && alphaTo != 1 && !hideCursor && !swap) {
+		if (info.length() > 0 && phase == 0 && menus.size() == 0 && status.size() == 0 && !combatMode && !inCombat && alpha < 0.1 && alpha == alphaTo && alphaTo != 1 && !hideCursor && !swap) {
 			Startup.staticView.setPosition(0, 0, 0);
 			if (infoLength < lengthTarget) {
 				infoLength = Math.min(lengthTarget, infoLength + 10);
@@ -874,10 +874,10 @@ public class StateDungeon extends State {
 		if (itemInfo.size() > 0) {
 			itemInfo.get(0).render();
 		}
-		if ((phase == 0 || (menus.size() > 0 && menus.get(0).open)) && (!freeRoamMode || (menus.size() > 0 && menus.get(0).open)) && !fishing && !fishingReward && (!hideCursor || (menus.size() > 0 && menus.get(0).open))) {
+		if ((phase == 0 || (menus.size() > 0 && menus.get(0).open)) && (!freeRoamMode || (menus.size() > 0 && menus.get(0).open)) && (!hideCursor || (menus.size() > 0 && menus.get(0).open))) {
 			cursor.render();
 		}
-		if (phase == 0 && !fishing && !fishingReward && !hideCursor && !freeRoamMode) {
+		if (phase == 0 && !hideCursor && !freeRoamMode) {
 			BatchSorter.add("marker.dae", "marker.png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(), new Vector3f(cursorPos.x * 16, 8.5f + tiles[cursorPos.x][cursorPos.y].getPosition().getY(), cursorPos.y * 16),
 					new Vector3f(0, curRotateInt, 0), Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, false);
 		}
@@ -922,7 +922,7 @@ public class StateDungeon extends State {
 				}
 			}
 		}
-		if (phase == 0 && menus.size() == 0 && status.size() == 0 && !combatMode & !fishing && !fishingReward) {
+		if (phase == 0 && menus.size() == 0 && status.size() == 0 && !combatMode) {
 			UIBox.render(new Vector3f(-infoLength / 2 + 1.5f, 93, -160), infoLength + 1, 17);
 			TextRenderer.render(info.substring(0, AdvMath.inRange((infoLength - 10) / 6, 0, info.length())), new Vector3f(-infoLength / 2 + 6.5f, 88, -159), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, true);
 		}
@@ -946,11 +946,6 @@ public class StateDungeon extends State {
 			Vector3f fadePos = new Vector3f(15 - 15 * percent, 9, -5);
 			BatchSorter.add("fade.dae", "fade.png", "static_3d", Material.MATTE.toString(), fadePos, Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK.copy().setW(0.5f), false, true);
 			BatchSorter.add("fade.dae", "fade.png", "static_3d", Material.MATTE.toString(), Vector3f.add(fadePos, -30 + 15 * percent * 2, -18, 0), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK.copy().setW(0.5f), false, true);
-		}
-		if (fishing && fishingTimer == fishingTime) {
-			BatchSorter.add("exclamation.dae", "exclamation.png", "main_3d", Material.DEFAULT.toString(),
-					new Vector3f(selectedUnit.x + 8, 20 + StateManager.currentState.tiles[selectedUnit.locX][selectedUnit.locY].getPosition().getY(), selectedUnit.y - 8), new Vector3f(-Startup.camera.rotation.getX(), 0, 0),
-					Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, true, false);
 		}
 	}
 
@@ -1262,98 +1257,31 @@ public class StateDungeon extends State {
 	}
 
 	public void refreshUnits() {
-		for (Unit u : Inventory.units) {
+		for (Unit u : Inventory.active) {
 			if (!u.dead) {
 				u.lastWeapon = u.weapon.id;
 				u.unitColor = new Vector4f(1, 1, 1, 1);
 				u.setTurn(true);
+
+				u.currentHp = Math.min(u.hp, u.currentHp + u.hp / 2);
 			}
 		}
 	}
 
-	public void startFishing() {
-		fishing = true;
-		fishingReward = false;
-		fishingTimer = 0;
-		fishingIconTimer = 0;
-		fishingTime = (int) ((new Random().nextInt(7) + 1) * Startup.frameRate);
-	}
-
-	public void endFishing(ItemProperty item) {
-		text.add(new TextBox(new String[][] { new String[] { "you got", "..." } }, new int[][] { new int[] { 6, 96 } }, new String[][] { new String[] {} }, new String[][] { new String[] {} }, new String[][] { new String[] {} },
-				new int[] {}) {
-			@Override
-			public void next() {
-				if (openInt == openTo) {
-					if (currentLine < boxText[currentBlock].length - 1 || charsRevealed < boxText[currentBlock][currentLine].length()) {
-						if (charsRevealed == boxText[currentBlock][currentLine].length()) {
-							charsRevealed = 0;
-							currentLine++;
-						} else {
-							charsRevealed = boxText[currentBlock][currentLine].length();
-						}
-					} else {
-						if (currentBlock < boxText.length - 1) {
-							currentBlock++;
-							charsRevealed = 0;
-							currentLine = 0;
-						} else {
-							close = true;
-							fishing = false;
-							fishingReward = true;
-							effects.add(new EffectWaterSplash(new Vector3f(selectedUnit.x, 10 + StateManager.currentState.tiles[selectedUnit.locX][selectedUnit.locY].getPosition().getY(), selectedUnit.y), true));
-							effects.add(new EffectOpenChest(new Vector3f(selectedUnit.x / 2, 12 + StateManager.currentState.tiles[selectedUnit.locX][selectedUnit.locY].getPosition().getY() / 2, selectedUnit.y / 2), item));
-							text.add(new TextBox(new String[][] { new String[] { (item.type.equals(ItemProperty.TYPE_EMPTY) ? "nothing" : item.name) } }, new int[][] { new int[] { 6 } }, new String[][] { new String[] {} },
-									new String[][] { new String[] {} }, new String[][] { new String[] {} }, new int[] {}) {
-								@Override
-								public void next() {
-									if (openInt == openTo) {
-										if (currentLine < boxText[currentBlock].length - 1 || charsRevealed < boxText[currentBlock][currentLine].length()) {
-											if (charsRevealed == boxText[currentBlock][currentLine].length()) {
-												charsRevealed = 0;
-												currentLine++;
-											} else {
-												charsRevealed = boxText[currentBlock][currentLine].length();
-											}
-										} else {
-											if (currentBlock < boxText.length - 1) {
-												currentBlock++;
-												charsRevealed = 0;
-												currentLine = 0;
-											} else {
-												close = true;
-												fishingReward = false;
-												if (!item.type.equals(ItemProperty.TYPE_EMPTY)) {
-													selectedUnit.addItem(item);
-												}
-												selectedUnit.setTurn(false);
-												clearUnit();
-											}
-										}
-									}
-								}
-							});
-							AudioManager.getSound("loot.ogg").play(AudioManager.defaultMainSFXGain, false);
-						}
-					}
-				}
-			}
-		});
-	}
-
 	public static void startDungeon(int tier, String pattern, int level, long seed) {
 		setUpDungeon(new DungeonGenerator(pattern, level, seed));
+		initUnits();
 	}
 
 	public void progressDungeon() {
 		setUpDungeon((dungeon.baseLevel + 2 < dungeon.getBottomFloor()) ? new DungeonGenerator(dungeon.getPattern(), dungeon.baseLevel + 1, dungeon.seed).start()
 				: new DungeonGeneratorRestArea(dungeon.getPattern(), dungeon.baseLevel + 1, dungeon.seed));
+		refreshUnits();
 	}
 
 	private static void setUpDungeon(DungeonGenerator dungeon) {
 		StateDungeon state = new StateDungeon();
 		StateManager.initState(state);
-		initUnits();
 		StateManager.swapState(STATE_ID);
 
 		state.dungeon = dungeon.start();
@@ -1361,7 +1289,6 @@ public class StateDungeon extends State {
 		state.filler = Tile.getTile(new String[] { state.dungeon.getPalletTag(), Tile.TAG_FILLER }, new Vector3f(-1, -1, -1));
 		state.items = state.dungeon.items;
 
-		initUnits();
 		state.enemies = state.dungeon.enemyPlacements;
 		for (Unit u : state.enemies) {
 			u.prepare();
@@ -1536,7 +1463,7 @@ public class StateDungeon extends State {
 	}
 
 	public boolean noUIOnScreen() {
-		return (text.size() == 0 && menus.size() == 0 && status.size() == 0 && itemInfo.size() == 0 && messages.size() == 0 && !fishing);
+		return (text.size() == 0 && menus.size() == 0 && status.size() == 0 && itemInfo.size() == 0 && messages.size() == 0);
 	}
 
 	public void enterGridMode() {
@@ -1738,7 +1665,7 @@ public class StateDungeon extends State {
 											selectedUnit.removeItem(i);
 											selectedUnit.addItem(weapon);
 											AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
-											
+
 											clearSelectedTiles();
 											highlightTiles(selectedUnit.locX, selectedUnit.locY, 1, i.range + 1, "");
 											break;
@@ -1768,7 +1695,7 @@ public class StateDungeon extends State {
 											selectedUnit.removeItem(item);
 											selectedUnit.addItemInFront(weapon);
 											AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
-											
+
 											clearSelectedTiles();
 											highlightTiles(selectedUnit.locX, selectedUnit.locY, 1, item.range + 1, "");
 											break;
@@ -1805,87 +1732,82 @@ public class StateDungeon extends State {
 					if (status.size() == 0 && itemInfo.size() == 0 && text.size() == 0) {
 						if (menus.size() == 0) {
 							if (phase == 0 && !controlLock) {
-								if (!fishing) {
-									if (!freeRoamMode) {
-										if (!Inventory.active.contains(selectedUnit)) {
-											if (!inCombat) {
-												for (Unit u : Inventory.active) {
-													if (cursorPos.x == u.locX && cursorPos.y == u.locY) {
-														if (u.hasTurn) {
-															clearSelectedTiles();
-															u.select();
-															curRotate = true;
-															AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-															break;
-														}
-													}
-												}
-												for (Unit u : enemies) {
-													if (cursorPos.x == u.locX && cursorPos.y == u.locY) {
-														if (u != selectedUnit) {
-															u.select();
-															curRotate = true;
-															AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-															break;
-														} else {
-															status.add(new StatusCard(new Vector3f(0, 0, -80), selectedUnit));
-															Startup.staticView.position = new Vector3f(126 / 4, -90 / 4 + 1, 0);
-															AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-														}
-													}
-												}
-												if (!Inventory.active.contains(selectedUnit) && !enemies.contains(selectedUnit)) {
-													menus.add(new MenuDungeonMain(new Vector3f(0, 0, -80)));
-												}
-											}
-										} else {
-											if (!combatMode) {
-												boolean notOnUnit = true;
-												for (Unit u : Inventory.active) {
-													if ((u.locX == cursorPos.getX() && u.locY == cursorPos.getY()) && u != selectedUnit) {
-														notOnUnit = false;
+								if (!freeRoamMode) {
+									if (!Inventory.active.contains(selectedUnit)) {
+										if (!inCombat) {
+											for (Unit u : Inventory.active) {
+												if (cursorPos.x == u.locX && cursorPos.y == u.locY) {
+													if (u.hasTurn) {
+														clearSelectedTiles();
+														u.select();
+														curRotate = true;
+														AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 														break;
 													}
 												}
-												if (path.size() > 0 && notOnUnit) {
-													selectedUnit.move(path);
-													curRotate = true;
-													clearSelectedTiles();
-													highlightTiles(path.get(0).x, path.get(0).y, 1, selectedUnit.weapon.range + 1, "");
-													menus.add(new MenuDungeonAction(new Vector3f(0, 0, -80), selectedUnit, this));
+											}
+											for (Unit u : enemies) {
+												if (cursorPos.x == u.locX && cursorPos.y == u.locY) {
+													if (u != selectedUnit) {
+														u.select();
+														curRotate = true;
+														AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+														break;
+													} else {
+														status.add(new StatusCard(new Vector3f(0, 0, -80), selectedUnit));
+														Startup.staticView.position = new Vector3f(126 / 4, -90 / 4 + 1, 0);
+														AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+													}
+												}
+											}
+											if (!Inventory.active.contains(selectedUnit) && !enemies.contains(selectedUnit)) {
+												menus.add(new MenuDungeonMain(new Vector3f(0, 0, -80)));
+											}
+										}
+									} else {
+										if (!combatMode) {
+											boolean notOnUnit = true;
+											for (Unit u : Inventory.active) {
+												if ((u.locX == cursorPos.getX() && u.locY == cursorPos.getY()) && u != selectedUnit) {
+													notOnUnit = false;
+													break;
+												}
+											}
+											if (path.size() > 0 && notOnUnit) {
+												selectedUnit.move(path);
+												curRotate = true;
+												clearSelectedTiles();
+												highlightTiles(path.get(0).x, path.get(0).y, 1, selectedUnit.weapon.range + 1, "");
+												menus.add(new MenuDungeonAction(new Vector3f(0, 0, -80), selectedUnit, this));
+											}
+										} else {
+											if (selectedAbility.target.equals(ItemAbility.TARGET_ENEMY)) {
+												for (Unit u : enemies) {
+													if (cursorPos.x == u.locX && cursorPos.y == u.locY && tiles[cursorPos.x][cursorPos.y].range > 0 && selectedAbility.followUp(u, this)) {
+														combatMode = false;
+														clearSelectedTiles();
+														curRotate = true;
+														AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+													}
 												}
 											} else {
-												if (selectedAbility.target.equals(ItemAbility.TARGET_ENEMY)) {
-													for (Unit u : enemies) {
-														if (cursorPos.x == u.locX && cursorPos.y == u.locY && tiles[cursorPos.x][cursorPos.y].range > 0 && selectedAbility.followUp(u, this)) {
-															combatMode = false;
-															clearSelectedTiles();
-															curRotate = true;
-															AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-														}
-													}
-												} else {
-													for (Unit u : Inventory.active) {
-														if (cursorPos.x == u.locX && cursorPos.y == u.locY && u != selectedUnit && tiles[cursorPos.x][cursorPos.y].range > 0 && selectedAbility.followUp(u, this)) {
-															combatMode = false;
-															clearSelectedTiles();
-															curRotate = true;
-															AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-														}
+												for (Unit u : Inventory.active) {
+													if (cursorPos.x == u.locX && cursorPos.y == u.locY && u != selectedUnit && tiles[cursorPos.x][cursorPos.y].range > 0 && selectedAbility.followUp(u, this)) {
+														combatMode = false;
+														clearSelectedTiles();
+														curRotate = true;
+														AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 													}
 												}
 											}
 										}
-									} else if (!caught) {
-										selectedUnit = Inventory.active.get(0);
-										selectedUnit.path.add(new Point(selectedUnit.locX, selectedUnit.locY));
-										menus.add(new MenuDungeonAction(new Vector3f(0, 0, -80), Inventory.active.get(0), this));
 									}
-								} else {
-									ItemProperty[] items = ItemProperty.searchForFishingTier(dungeon.getTier(), ItemProperty.getItemList(), true);
-									int item = new Random().nextInt(items.length);
-									endFishing((fishingTimer == fishingTime && new Random().nextFloat() < items[item].fishRate) ? items[item].copy() : ItemProperty.get("item.void"));
+								} else if (!caught) {
+									selectedUnit = Inventory.active.get(0);
+									selectedUnit.path.add(new Point(selectedUnit.locX, selectedUnit.locY));
+									menus.add(new MenuDungeonAction(new Vector3f(0, 0, -80), Inventory.active.get(0), this));
 								}
+
 							}
 						} else if (!menuLock) {
 							menus.get(0).action("", selectedUnit);
@@ -1902,7 +1824,7 @@ public class StateDungeon extends State {
 			if (alpha < 0.95) {
 				if (messages.size() == 0) {
 					if (text.size() == 0) {
-						if (!controlLock && !fishing) {
+						if (!controlLock) {
 							if (status.size() == 0) {
 								if (itemInfo.size() == 0) {
 									if (menus.size() == 0) {

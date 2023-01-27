@@ -75,17 +75,6 @@ public class MenuDungeonAction extends Menu {
 						// Laeve dungeon here
 						break;
 
-					case "Fish":
-						if (context.selectedUnit.getItemList().size() < 5) {
-							context.startFishing();
-							context.clearSelectedTiles();
-							close();
-							AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-						} else {
-							AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
-						}
-						break;
-
 					case "Chest":
 						// Removes the key from units inventory
 						for (int i = 0; i < unit.getItemList().size(); i++) {
@@ -252,10 +241,6 @@ public class MenuDungeonAction extends Menu {
 					options.add(ItemAbility.valueOf(s).toString());
 				}
 			}
-		}
-
-		if (StateManager.currentState.tiles[xPos][yPos].isWaterLogged()) {
-			options.add("Fish");
 		}
 
 		// Check for keys in units inventory and then chests around the unit
