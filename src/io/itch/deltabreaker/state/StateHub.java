@@ -58,7 +58,6 @@ public class StateHub extends State {
 	}
 
 	public void tick() {
-//		System.out.println(Inventory.units.size() + " | " + Inventory.active.size() + " | " + Inventory.loaded.size());
 		if (Inventory.units.size() > 0) {
 			camX = Inventory.units.get(0).x / 2.0;
 			camY = Inventory.units.get(0).y / 2.0 + 24;
@@ -579,7 +578,6 @@ public class StateHub extends State {
 			String[] parts = e.activator.split(" ");
 			if (parts[0].equals(EventScript.ACTIVATOR_WAIT) && Integer.parseInt(parts[1]) == Inventory.units.get(0).locX && Integer.parseInt(parts[2]) == Inventory.units.get(0).locY) {
 				events.add(new Event(e));
-				System.out.println(e.activator);
 			}
 		}
 	}

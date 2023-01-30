@@ -14,7 +14,7 @@
 		
 		"setheader Humble Beginnings",
 		"setloadmap village_hub",
-		"init title_bounds 0",
+		"init hub_state 0",
 		
 		"controllock false"
 	]
