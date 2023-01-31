@@ -1781,7 +1781,9 @@ public class StateDungeon extends State {
 												menus.add(new MenuDungeonAction(new Vector3f(0, 0, -80), selectedUnit, this));
 											}
 										} else {
-											if (selectedAbility.target.equals(ItemAbility.TARGET_ENEMY)) {
+											switch (selectedAbility.target) {
+
+											case ItemAbility.TARGET_ENEMY:
 												for (Unit u : enemies) {
 													if (cursorPos.x == u.locX && cursorPos.y == u.locY && tiles[cursorPos.x][cursorPos.y].range > 0 && selectedAbility.followUp(u, this)) {
 														combatMode = false;
@@ -1790,7 +1792,9 @@ public class StateDungeon extends State {
 														AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 													}
 												}
-											} else {
+												break;
+
+											case ItemAbility.TARGET_UNIT:
 												for (Unit u : Inventory.active) {
 													if (cursorPos.x == u.locX && cursorPos.y == u.locY && u != selectedUnit && tiles[cursorPos.x][cursorPos.y].range > 0 && selectedAbility.followUp(u, this)) {
 														combatMode = false;
@@ -1799,6 +1803,17 @@ public class StateDungeon extends State {
 														AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 													}
 												}
+												break;
+
+											default:
+												if (selectedAbility.followUp(selectedUnit, this)) {
+													combatMode = false;
+													clearSelectedTiles();
+													curRotate = true;
+													AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+												}
+												break;
+
 											}
 										}
 									}

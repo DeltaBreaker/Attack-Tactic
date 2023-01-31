@@ -652,7 +652,7 @@ public class DungeonGenerator {
 	}
 
 	public void generateItems() {
-		ItemProperty[] items = ItemProperty.searchForTier(pattern.tier, ItemProperty.searchForLocation(pattern.palletTag, ItemProperty.getItemList()), true);
+		ItemProperty[] items = ItemProperty.searchForTier(pattern.tier, ItemProperty.searchForLocation(pattern.palletTag, ItemProperty.getItemList()), false);
 		for (int i = 0; i < rooms.size(); i++) {
 			int drops = r.nextInt(pattern.itemCountRandom) + pattern.itemCountCertain;
 
@@ -1138,7 +1138,7 @@ public class DungeonGenerator {
 			}
 		}
 
-		items.add(new Item(Vector3f.add(tiles[x][y].getPosition(), 0, 16, 0), ItemProperty.searchForType(ItemProperty.TYPE_KEY_CHEST, ItemProperty.getItemList(), true)[0].copy()));
+		items.add(new Item(Vector3f.add(tiles[x][y].getPosition(), 0, 16, 0), ItemProperty.searchForType(ItemProperty.TYPE_KEY_CHEST, ItemProperty.getItemList(), false)[0].copy()));
 	}
 
 	public void generateChestKey() {

@@ -1,6 +1,7 @@
 package io.itch.deltabreaker.object.item;
 
 import io.itch.deltabreaker.core.Inventory;
+import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.effect.EffectBuff;
 import io.itch.deltabreaker.effect.EffectPoof;
 import io.itch.deltabreaker.effect.EffectText;
@@ -741,6 +742,72 @@ public enum ItemAbility {
 		}
 	},
 
+	ITEM_ABILITY_WARP("Warp", "target.none", false, false, true, false) {
+
+		@Override
+		public boolean isUnlocked(ItemProperty item) {
+			return true;
+		}
+
+		@Override
+		public boolean use(Unit u, StateDungeon context) {
+			context.combatMode = true;
+			return true;
+		}
+
+		@Override
+		public boolean followUp(Unit u, StateDungeon context) {
+			if (context.isTileAvailable(context.cursorPos.x, context.cursorPos.y)) {
+				u.setTurn(false);
+				u.placeAt(context.cursorPos.x, context.cursorPos.y);
+				u.height = StateManager.currentState.tiles[(int) Math.round(u.x / 16.0)][(int) Math.round(u.y / 16.0)].getPosition().getY();
+				context.effects.add(new EffectPoof(new Vector3f(u.x, u.height + 13, u.y + 2)));
+				AudioManager.getSound("warp.ogg").play(AudioManager.defaultMainSFXGain, false);
+				context.clearSelectedTiles();
+				context.clearUnit();
+				return true;
+			}
+			AudioManager.getSound("invalid.ogg").play(AudioManager.defaultMainSFXGain, false);
+			return false;
+		}
+
+		@Override
+		public void onHit(StateDungeon context) {
+
+		}
+
+		@Override
+		public void onRetaliation(StateDungeon context) {
+
+		}
+
+		@Override
+		public int[] calculateAttackingDamage(Unit attacker, Unit defender, boolean ignoreRange) {
+			return null;
+		}
+
+		@Override
+		public int[] calculateDefendingDamage(Unit attacker, Unit defender, boolean ignoreRange) {
+			return null;
+		}
+
+		@Override
+		public int calculateHealing(Unit healer, Unit healed) {
+			return 0;
+		}
+
+		@Override
+		public int[] getStats() {
+			return null;
+		}
+
+		@Override
+		public void onCombatEnd(Unit unit, StateDungeon context) {
+
+		}
+
+	},
+
 	ITEM_ABILITY_WEAK_POINT("Weak Point", "target.enemy", true, false, true, false) {
 
 		@Override
@@ -1133,7 +1200,7 @@ public enum ItemAbility {
 			// Empty
 		}
 	},
-	
+
 	ITEM_ABILITY_XPGAIN_10("Growth", "target.none", false, false, false, false) {
 
 		@Override

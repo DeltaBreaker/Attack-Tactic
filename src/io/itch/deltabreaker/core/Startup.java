@@ -253,11 +253,11 @@ public class Startup implements Runnable {
 //				StateDungeon.loadMap("bridge_test");
 //				StateHub.loadMap("title_scene");
 
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.STANDARD_DUNGEON));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.STANDARD_DUNGEON));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.STANDARD_DUNGEON));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.STANDARD_DUNGEON));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.STANDARD_DUNGEON));
+				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.STANDARD_DUNGEON));
+				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.STANDARD_DUNGEON));
+				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.STANDARD_DUNGEON));
+				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.STANDARD_DUNGEON));
+				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.tank.magic"), AIType.STANDARD_DUNGEON));
 
 //				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
 //				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
@@ -269,7 +269,7 @@ public class Startup implements Runnable {
 //				Inventory.saveHeader(2);
 //				Inventory.saveGame(2);
 //				StateDungeon.startDungeon(0, "scorched_crater.json", 14, -1932052909105962160L);
-				StateDungeon.startDungeon(0, "seabed_cove.json", 14, new Random().nextLong());
+				StateDungeon.startDungeon(0, "castle_depths.json", 14, new Random().nextLong());
 			}
 
 			GLFW.glfwShowWindow(window);
