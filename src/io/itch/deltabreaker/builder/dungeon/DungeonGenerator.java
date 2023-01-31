@@ -646,7 +646,7 @@ public class DungeonGenerator {
 					value = r.nextFloat();
 				}
 				enemyPlacements.add(Unit.randomCombatUnit(this.rooms.get(room).x + x, this.rooms.get(room).y + y, new Vector4f(1, 1, 1, 1), pattern.tier * 10 - pattern.enemyLevelReduction, pattern.enemyLevelDeviation,
-						Unit.GROWTH_PROFILES[r.nextInt(Unit.GROWTH_PROFILES.length)], types[type]));
+						Unit.GROWTH_PROFILES.get(pattern.getRandomProfile()), types[type]));
 			}
 		}
 	}
@@ -688,27 +688,27 @@ public class DungeonGenerator {
 			switch (pattern.altTags[p]) {
 
 			case TAG_ALT_ITEM_SURPLUS:
-				if(r.nextFloat() < Float.parseFloat(pattern.altVariables[p][0])) {
-					for(Item i : items) {
+				if (r.nextFloat() < Float.parseFloat(pattern.altVariables[p][0])) {
+					for (Item i : items) {
 						i.item = ItemProperty.get(pattern.altVariables[p][1]);
 					}
 				}
 				break;
 
 			case TAG_ALT_ENEMY_NONE:
-				if(r.nextFloat() < Float.parseFloat(pattern.altVariables[p][0])) {
+				if (r.nextFloat() < Float.parseFloat(pattern.altVariables[p][0])) {
 					enemyPlacements.clear();
 				}
 				break;
-				
+
 			case TAG_ALT_ENEMY_HEALTH_REDUCE:
-				if(r.nextFloat() < Float.parseFloat(pattern.altVariables[p][0])) {
-					for(Unit u : enemyPlacements) {
+				if (r.nextFloat() < Float.parseFloat(pattern.altVariables[p][0])) {
+					for (Unit u : enemyPlacements) {
 						u.baseHp *= Float.parseFloat(pattern.altVariables[p][1]);
 					}
 				}
 				break;
-				
+
 			}
 		}
 	}
@@ -1311,10 +1311,19 @@ public class DungeonGenerator {
 						}
 					}
 
+					JSONArray profileList = (JSONArray) jo.get("unit_profiles");
+					String[] profileNames = new String[profileList.size()];
+					float[] profileValues = new float[profileList.size()];
+					for(int i = 0; i < profileList.size(); i++) {
+						JSONObject profile = (JSONObject) profileList.get(i);
+						profileNames[i] = (String) profile.get("name");
+						profileValues[i] = (float) ((double) profile.get("rate"));
+					}
+					
 					patterns.put(f.getName(),
 							new GenerationPattern(f.getName(), name, palletTag, maxDepth, levelScaler, baseWorldSize, worldSizeScaler, perlinPersistance, testLimit, roomSizeMin, roomSizeRandom, itemCountRandom, itemCountCertain,
 									enemyRoomCountDevisor, enemyRoomCountRandomDevisor, enemyCountRandom, enemyCountCertain, enemyLevelReduction, enemyLevelDeviation, decorTags, decorVariables, effectTags, effectVariables, altTags,
-									altVariables, aiTypeRates, screenColors, tier));
+									altVariables, aiTypeRates, profileNames, profileValues, screenColors, tier));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -1526,12 +1535,14 @@ class GenerationPattern {
 	public String[] altTags;
 	public String[][] altVariables;
 	public float[] aiRates;
+	public String[] profileNames;
+	public float[] profileValues;
 	public float[] screenColor;
 	public int tier;
 
 	public GenerationPattern(String pattern, String name, String palletTag, int maxDepth, double levelScaler, int baseWorldSize, double worldSizeScaler, float perlinPersistance, int testLimit, int roomSizeMin, int roomSizeRandom,
 			int itemCountRandom, int itemCountCertain, double enemyRoomCountDevisor, double enemyRoomCountRandomDevisor, int enemyCountRandom, int enemyCountCertain, int enemyLevelReduction, int enemyLevelDeviation, String[] decorationTags,
-			double[][] decorationVariables, String[] effectTags, double[][] effectVariables, String[] altTags, String[][] altVariables, float[] aiRates, float[] screenColor, int tier) {
+			double[][] decorationVariables, String[] effectTags, double[][] effectVariables, String[] altTags, String[][] altVariables, float[] aiRates, String[] profileNames, float[] profileValues, float[] screenColor, int tier) {
 		this.pattern = pattern;
 		this.name = name;
 		this.palletTag = palletTag;
@@ -1558,8 +1569,21 @@ class GenerationPattern {
 		this.altTags = altTags;
 		this.altVariables = altVariables;
 		this.aiRates = aiRates;
+		this.profileNames = profileNames;
+		this.profileValues = profileValues;
 		this.screenColor = screenColor;
 		this.tier = tier;
+	}
+
+	public String getRandomProfile() {
+		int n = new Random().nextInt(profileNames.length);
+		float r = new Random().nextFloat();
+		while (r > profileValues[n]) {
+			n = new Random().nextInt(profileNames.length);
+			r = new Random().nextFloat();
+		}
+		
+		return profileNames[n];
 	}
 
 }

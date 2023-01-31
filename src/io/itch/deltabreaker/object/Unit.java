@@ -8,10 +8,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import io.itch.deltabreaker.ai.AIHandler;
@@ -45,14 +47,9 @@ public class Unit {
 	public static final String STATUS_POISON = "unit.status.poison";
 	public static final String STATUS_SLEEP = "unit.status.sleep";
 
-	public static final float[] GROWTH_STRENGTH = { 0.75f, 1.0f, 0.25f, 0.75f, 1.0f, 0.5f };
-	public static final float[] GROWTH_MAGIC = { 0.75f, 0.25f, 1.0f, 0.75f, 0.5f, 1.0f };
-	public static final float[] GROWTH_TANK = { 1.0f, 0.5f, 0.5f, 0.5f, 1.0f, 1.0f };
-	public static final float[] GROWTH_BALANCE = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
-	public static final float[][] GROWTH_PROFILES = { GROWTH_STRENGTH, GROWTH_MAGIC, GROWTH_TANK };
-
 	public static ArrayList<String> names = new ArrayList<>();
-
+	public static HashMap<String, float[]> GROWTH_PROFILES = new HashMap<>();
+	
 	public static float movementSpeed = 1f;
 
 	public Vector3f position = new Vector3f(0, 0, 0);
@@ -1018,7 +1015,7 @@ public class Unit {
 		} else {
 			System.out.println("[Unit]: File " + file + " was not found");
 		}
-		return randomCombatUnit(x, y, new Vector4f(1, 1, 1, 1), 1, 0, GROWTH_BALANCE, AIType.STANDARD_DUNGEON);
+		return randomCombatUnit(x, y, new Vector4f(1, 1, 1, 1), 1, 0, new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f }, AIType.STANDARD_DUNGEON);
 	}
 
 	public static void loadNames(String file) {
@@ -1044,6 +1041,30 @@ public class Unit {
 			names[i] = units[i].name;
 		}
 		return names;
+	}
+
+	public static void loadProfiles(String file) {
+		File f = new File(file);
+		if (f.exists()) {
+			try {
+				JSONArray ja = (JSONArray) new JSONParser().parse(new FileReader(f));
+
+				for (int i = 0; i < ja.size(); i++) {
+					JSONObject profile = (JSONObject) ja.get(i);
+					
+					JSONArray data = (JSONArray) profile.get("values");
+					float[] values = new float[data.size()];
+					for(int j = 0; j < data.size(); j++) {
+						values[j] = (float) ((double) data.get(j));
+					}
+					
+					GROWTH_PROFILES.put((String) profile.get("name"), values);
+				}
+				System.out.println("[Unit]: Loaded profile data with " + GROWTH_PROFILES.size() + " profiles");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }

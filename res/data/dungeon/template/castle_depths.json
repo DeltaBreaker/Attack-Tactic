@@ -19,10 +19,32 @@
 	"enemy_level_deviation": 10,
 	"tier": 0,
 	"ai_type_rates": [
-		"0",
-		"1",
-		"0",
-		"0"
+		"0.0",
+		"1.0",
+		"0.0",
+		"0.0"
+	],
+	"unit_profiles": [
+		{
+			"name": "unit.profile.strength",
+			"rate": 1.0
+		},
+		{
+			"name": "unit.profile.magic",
+			"rate": 1.0
+		},
+		{
+			"name": "unit.profile.tank.attack",
+			"rate": 1.0
+		},
+		{
+			"name": "unit.profile.tank.magic",
+			"rate": 1.0
+		},
+		{
+			"name": "unit.profile.balance",
+			"rate": 1.0
+		}
 	],
 	"screen_color": [
 		"0.0",

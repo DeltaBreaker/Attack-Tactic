@@ -1,0 +1,57 @@
+[
+	{
+		"name": "unit.profile.strength",
+		"values": [
+			0.75,
+			1.0,
+			0.25,
+			0.75,
+			1.0,
+			0.5
+		]
+	},
+	{
+		"name": "unit.profile.magic",
+		"values": [
+			0.75,
+			0.25,
+			1.0,
+			0.75,
+			0.5,
+			1.0
+		]
+	},
+	{
+		"name": "unit.profile.tank.attack",
+		"values": [
+			1.0,
+			0.5,
+			0.25,
+			0.5,
+			1.0,
+			0.75
+		]
+	},
+	{
+		"name": "unit.profile.tank.magic",
+		"values": [
+			1.0,
+			0.25,
+			0.5,
+			0.5,
+			0.75,
+			1.0
+		]
+	},
+	{
+		"name": "unit.profile.balance",
+		"values": [
+			1.0,
+			1.0,
+			1.0,
+			1.0,
+			1.0,
+			1.0
+		]
+	}
+]
