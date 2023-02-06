@@ -1,7 +1,7 @@
 {
 	"window": "Attack Tactic", 
 	"title": "attack tactic",
-	"title_icon": "item_gloves_leather",
 	"splash_icon": "axia_splash",
-	"splash_text": "deltabreaker"
+	"splash_text": "deltabreaker",
+	"initial_map": "village_hub"
 }

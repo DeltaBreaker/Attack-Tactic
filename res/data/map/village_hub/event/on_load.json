@@ -2,15 +2,32 @@
 	"activator": "event.activator.map.load",
 	"script": [
 		"controllock true",
-		
-		"fade 1 1 1 1",
-		"warpunit bfce0c80-ebe4-487d-90a1-a869e0c4e8b9 13 32",
 		"loadheaders",
 		
-		"wait 72",
+		"fade 1 1 1 1",
 		
+		"init hub_entry 0",
+		"if hub_entry 0",
+		"loadunit res/data/map/village_hub/unit/bfce0c80-ebe4-487d-90a1-a869e0c4e8b9.dat",
+		"spawnunit bfce0c80-ebe4-487d-90a1-a869e0c4e8b9 13 32 true true",
+		"set hub_entry 1",
+		"end",
+		
+		"if hub_entry 1",
+		"warpunit bfce0c80-ebe4-487d-90a1-a869e0c4e8b9 13 32",
+		"end",
+		
+		"wait 72",
 		"fade 1 1 1 0",
 		
-		"controllock false"
+		"controllock false",
+		
+		"init hub_state 0",
+		"init load_state 0",
+		
+		"if load_state 0",
+		"setheader Humble Beginnings",
+		"setloadmap village_hub",
+		"end"
 	]
 }

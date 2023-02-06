@@ -964,6 +964,9 @@ public class StateDungeon extends State {
 	@Override
 	public void onExit() {
 		task.finish();
+		for (Effect e : effects) {
+			e.cleanUp();
+		}
 	}
 
 	private int getArrowDirection(int i) {

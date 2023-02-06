@@ -3,7 +3,6 @@ package io.itch.deltabreaker.effect.dungeon;
 import java.util.ArrayList;
 import java.util.Random;
 
-import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.effect.Effect;
 import io.itch.deltabreaker.graphics.BatchSorter;
@@ -53,7 +52,7 @@ public class EffectDungeonResidue extends Effect {
 		if (!AudioManager.getSound("medial_plane.ogg").isPlaying()) {
 			AudioManager.getSound("medial_plane.ogg").play(0, true);
 		}
-		AudioManager.getSound("medial_plane.ogg").fade(AudioManager.defaultSubSFXGain, 144);
+		AudioManager.getSound("medial_plane.ogg").fade(AudioManager.defaultSubSFXGain, 144, true);
 	}
 
 	@Override
@@ -110,7 +109,7 @@ public class EffectDungeonResidue extends Effect {
 	@Override
 	public void cleanUp() {
 		task.finish();
-		AudioManager.getSound("medial_plane.ogg").fade(0, 144);
+		AudioManager.getSound("medial_plane.ogg").fade(0, 144, true);
 	}
 
 }

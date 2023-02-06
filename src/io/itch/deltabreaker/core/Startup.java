@@ -7,7 +7,6 @@ import java.nio.FloatBuffer;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
-import java.util.UUID;
 
 import javax.swing.JOptionPane;
 
@@ -39,7 +38,6 @@ import io.itch.deltabreaker.object.item.ItemProperty;
 import io.itch.deltabreaker.object.tile.Tile;
 import io.itch.deltabreaker.state.StateCreatorHub;
 import io.itch.deltabreaker.state.StateDungeon;
-import io.itch.deltabreaker.state.StateHub;
 import io.itch.deltabreaker.state.StateManager;
 import io.itch.deltabreaker.state.StateSplash;
 import io.itch.deltabreaker.state.StateTitle;
@@ -240,24 +238,24 @@ public class Startup implements Runnable {
 					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.STANDARD_DUNGEON));
 					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.STANDARD_DUNGEON));
 					StateDungeon.startDungeon(0, args[0], 0, new Random().nextLong());
-					break;
+//					break;
 
 				}
 			} else {
 //				StateManager.swapState(StateSplash.STATE_ID);
-//				StateManager.swapState(StateTitle.STATE_ID);
+				StateManager.swapState(StateTitle.STATE_ID);
 
 //				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_BALANCE, AIType.STANDARD_DUNGEON));
 //				StateHub.loadMap("house");
 
 //				StateDungeon.loadMap("bridge_test");
-//				StateHub.loadMap("title_scene");
+//				StateHub.loadMap("village_hub");
 
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.STANDARD_DUNGEON));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.STANDARD_DUNGEON));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.STANDARD_DUNGEON));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.STANDARD_DUNGEON));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.tank.magic"), AIType.STANDARD_DUNGEON));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.STANDARD_DUNGEON));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.STANDARD_DUNGEON));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.STANDARD_DUNGEON));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.STANDARD_DUNGEON));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.tank.magic"), AIType.STANDARD_DUNGEON));
 
 //				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
 //				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
@@ -268,8 +266,8 @@ public class Startup implements Runnable {
 //				Inventory.loadMap = "title_scene";
 //				Inventory.saveHeader(2);
 //				Inventory.saveGame(2);
-//				StateDungeon.startDungeon(0, "scorched_crater.json", 14, -1932052909105962160L);
-				StateDungeon.startDungeon(0, "castle_depths.json", 14, new Random().nextLong());
+//				StateDungeon.startDungeon(0, "snow_forrest.json", 14, -1932052909105962160L);
+//				StateDungeon.startDungeon(0, "castle_depths.json", 14, new Random().nextLong());
 			}
 
 			GLFW.glfwShowWindow(window);
@@ -303,6 +301,7 @@ public class Startup implements Runnable {
 				StateTitle.titleIcon = (String) jo.get("title_icon");
 				StateSplash.splashIcon = (String) jo.get("splash_icon");
 				StateSplash.text = (String) jo.get("splash_text");
+				Inventory.loadMap = (String) jo.get("initial_map");
 			} else {
 				throw new MissingMetaFileException("Missing meta file in location: " + f.getPath());
 			}
@@ -410,12 +409,12 @@ public class Startup implements Runnable {
 		GL40.glViewport(0, 0, targetWidth, targetHeight);
 		GL40.glClear(GL40.GL_DEPTH_BUFFER_BIT);
 
-//		GL40.glClearBufferfv(GL40.GL_COLOR, 0, new float[] { screenColor.getX(), screenColor.getY(), screenColor.getZ(), 1 });
-//		GL40.glClearBufferfv(GL40.GL_COLOR, 1, new float[] { 0, 1, 0, 1 });
-//		GL40.glClearBufferfv(GL40.GL_COLOR, 2, new float[] { camera.position.getX(), 1, camera.position.getZ(), 1 });
-//		GL40.glClearBufferfv(GL40.GL_COLOR, 3, new float[] { 0.75f, 1, 1, 1 });
-//		GL40.glClearBufferfv(GL40.GL_COLOR, 4, new float[] { 0, 0, 0, 1 });
-//		GL40.glClearBufferfv(GL40.GL_COLOR, 5, new float[] { 0, 0, 0, 1 });
+		GL40.glClearBufferfv(GL40.GL_COLOR, 0, new float[] { screenColor.getX(), screenColor.getY(), screenColor.getZ(), 1 });
+		GL40.glClearBufferfv(GL40.GL_COLOR, 1, new float[] { 0, 1, 0, 1 });
+		GL40.glClearBufferfv(GL40.GL_COLOR, 2, new float[] { camera.position.getX(), 1, camera.position.getZ(), 1 });
+		GL40.glClearBufferfv(GL40.GL_COLOR, 3, new float[] { 0.75f, 1, 1, 1 });
+		GL40.glClearBufferfv(GL40.GL_COLOR, 4, new float[] { 0, 0, 0, 1 });
+		GL40.glClearBufferfv(GL40.GL_COLOR, 5, new float[] { 0, 0, 0, 1 });
 
 		BatchSorter.render();
 

@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.TreeMap;
 
 import io.itch.deltabreaker.math.Vector4f;
 import io.itch.deltabreaker.object.Unit;
@@ -105,6 +104,9 @@ public class Inventory {
 				unitsDir.mkdirs();
 			}
 
+			for(File f : FileManager.getFiles("save/" + time + "/unit")) {
+				f.delete();
+			}
 			for (Unit u : Inventory.units) {
 				u.saveUnit("save/" + time + "/unit/" + u.uuid + ".dat");
 			}

@@ -50,7 +50,7 @@ public class EffectDungeonRain extends Effect {
 		if (!AudioManager.getSound("rain.ogg").isPlaying()) {
 			AudioManager.getSound("rain.ogg").play(0, true);
 		}
-		AudioManager.getSound("rain.ogg").fade(AudioManager.defaultSubSFXGain, 144);
+		AudioManager.getSound("rain.ogg").fade(AudioManager.defaultSubSFXGain, 144, true);
 	}
 
 	public void tick() {
@@ -106,7 +106,7 @@ public class EffectDungeonRain extends Effect {
 	@Override
 	public void cleanUp() {
 		snowflakes.clear();
-		AudioManager.getSound("rain.ogg").fade(0, 144);
+		AudioManager.getSound("rain.ogg").fade(0, 144, true);
 	}
 
 }

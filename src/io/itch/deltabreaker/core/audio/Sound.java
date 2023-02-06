@@ -15,7 +15,8 @@ public class Sound {
 	private int sourceId;
 
 	private boolean isPlaying = false;
-
+	private boolean stopAfterFade = true;
+	
 	private float gain = AudioManager.defaultGain;
 	private float targetGain = gain;
 	private float gainSpeed = 0;
@@ -84,9 +85,10 @@ public class Sound {
 		}
 	}
 
-	public void fade(float target, int time) {
+	public void fade(float target, int time, boolean stopAfterFade) {
 		targetGain = target;
 		gainSpeed = (target - gain) / time;
+		this.stopAfterFade = stopAfterFade;
 	}
 
 	public void setVolume(float gain) {
@@ -104,7 +106,7 @@ public class Sound {
 			}
 			AL10.alSourcef(sourceId, AL10.AL_GAIN, gain);
 			
-			if(gain == 0) {
+			if(gain == 0 && stopAfterFade) {
 				stop();
 			}
 		}

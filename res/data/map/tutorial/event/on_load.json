@@ -2,12 +2,11 @@
 	"activator": "event.activator.map.load",
 	"script": [
 		"loadunit res/data/map/tutorial/unit/ffc6dde5-9d4a-414a-a4a3-875fac2c8dc2.dat",
-		"loadunit res/data/map/tutorial/unit/bfce0c80-ebe4-487d-90a1-a869e0c4e8b9.dat",
 		"loadunit res/data/map/tutorial/unit/40c0f0de-5b7f-4d33-9b56-9108482203b2.dat",
 		"loadunit res/data/map/tutorial/unit/439d9dda-5c0b-49f2-affa-a698d0e95386.dat",
 		"loadunit res/data/map/tutorial/unit/1020c9b4-2ff0-402e-89b8-5d1a6c12ba71.dat",
 		
-		"spawnunit bfce0c80-ebe4-487d-90a1-a869e0c4e8b9 5 3 true true",
+		"warpunit bfce0c80-ebe4-487d-90a1-a869e0c4e8b9 5 3",
 		"spawnunit ffc6dde5-9d4a-414a-a4a3-875fac2c8dc2 3 3 true true",
 		
 		"controllock true",

@@ -5,6 +5,7 @@ import java.util.Random;
 
 import io.itch.deltabreaker.builder.dungeon.DungeonGenerator;
 import io.itch.deltabreaker.core.InputMapping;
+import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.effect.Effect;
 import io.itch.deltabreaker.effect.dungeon.EffectDungeonLavaSFX;
@@ -13,7 +14,6 @@ import io.itch.deltabreaker.effect.dungeon.EffectDungeonResidue;
 import io.itch.deltabreaker.effect.dungeon.EffectDungeonSnow;
 import io.itch.deltabreaker.graphics.BatchSorter;
 import io.itch.deltabreaker.graphics.Light;
-import io.itch.deltabreaker.graphics.Material;
 import io.itch.deltabreaker.graphics.TextRenderer;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
@@ -21,9 +21,13 @@ import io.itch.deltabreaker.object.Cursor;
 import io.itch.deltabreaker.object.tile.Tile;
 import io.itch.deltabreaker.ui.Message;
 import io.itch.deltabreaker.ui.menu.Menu;
+import io.itch.deltabreaker.ui.menu.MenuTitle;
 
 public class StateTitle extends State {
 
+	public static final String OPTION_NEW = "title.option.new";
+	public static final String OPTION_LOAD = "title.option.load";
+	
 	public static final String STATE_ID = "state.title";
 	public static final String[] OPTIONS = { "start", "options", "quit" };
 
@@ -53,9 +57,9 @@ public class StateTitle extends State {
 	private double optionsRotSpeed = 6;
 	private double optionGlow = 0;
 	private double optionGlowSpeed = 1;
-	private float fadeSpeed = 0.005f;
-	public boolean fade = false;
-	public String stateSwap;
+	
+	public String fadeOption;
+	public int loadMap;
 
 	public StateTitle() {
 		super(STATE_ID);
@@ -65,15 +69,18 @@ public class StateTitle extends State {
 	public void tick() {
 		Startup.shadowCamera.targetPosition.set(Startup.camera.position.getX(), 80 + tiles[(int) (camX / 16)][(int) (camX / 16)].getPosition().getY() / 2, Startup.camera.position.getZ());
 		overheadLight.position.set(Startup.shadowCamera.position.getX(), Startup.shadowCamera.position.getY() + 48, Startup.shadowCamera.position.getZ());
-		if (fade) {
-			if (Startup.screenColor.getW() == 0) {
-				switch (stateSwap) {
-
-				default:
-					StateDungeon.startDungeon(0, stateSwap, 0, new Random().nextLong());
-					break;
-
-				}
+		if (Startup.screenColor.getW() == 1 && Startup.screenColorTarget.getW() == 1) {
+			switch(fadeOption) {
+			
+			case OPTION_NEW:
+				StateHub.loadMap(Inventory.loadMap);
+				break;
+			
+			case OPTION_LOAD:
+				Inventory.loadGame(loadMap);
+				StateHub.loadMap(Inventory.loadMap);
+				break;
+				
 			}
 		}
 		if (hideMenu) {
@@ -215,6 +222,7 @@ public class StateTitle extends State {
 
 	@Override
 	public void onEnter() {
+		Inventory.loadHeaderData();
 		String[] tagArray = DungeonGenerator.getPalletTags();
 		String palletTag = tagArray[new Random().nextInt(tagArray.length)];
 
@@ -257,11 +265,13 @@ public class StateTitle extends State {
 
 		Startup.screenColor.setW(1);
 		Startup.screenColorTarget.setW(0);
-		Startup.transitionSpeed = fadeSpeed;
 	}
 
 	public void onExit() {
 		StateManager.initState(new StateTitle());
+		for (Effect e : effects) {
+			e.cleanUp();
+		}
 	}
 
 	public static void swapToMenu() {
@@ -301,7 +311,7 @@ public class StateTitle extends State {
 			case DungeonGenerator.TAG_EFFECT_LAVA:
 				effects.add(new EffectDungeonLavaSFX());
 				break;
-				
+
 			}
 		}
 	}
@@ -339,6 +349,7 @@ public class StateTitle extends State {
 
 				case "start":
 					hideMenu = true;
+					menus.add(new MenuTitle(new Vector3f(0, 0, -80)));
 					break;
 
 				}
@@ -358,11 +369,15 @@ public class StateTitle extends State {
 	}
 
 	private boolean canOperateMainUI() {
-		return !fade && !hideMenu;
+		return Startup.screenColor.getW() == 0 && !hideMenu && menus.size() == 0;
 	}
 
 	private boolean canOperateSubUI() {
-		return !fade && menus.size() > 0 && messages.size() == 0;
+		return Startup.screenColor.getW() == 0 && menus.size() > 0 && messages.size() == 0;
+	}
+
+	public static StateTitle getCurrentContext() {
+		return (StateTitle) StateManager.currentState;
 	}
 
 }
