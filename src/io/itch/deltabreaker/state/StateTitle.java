@@ -3,10 +3,13 @@ package io.itch.deltabreaker.state;
 import java.util.ArrayList;
 import java.util.Random;
 
+import org.lwjgl.glfw.GLFW;
+
 import io.itch.deltabreaker.builder.dungeon.DungeonGenerator;
 import io.itch.deltabreaker.core.InputMapping;
 import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.core.Startup;
+import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.effect.Effect;
 import io.itch.deltabreaker.effect.dungeon.EffectDungeonLavaSFX;
 import io.itch.deltabreaker.effect.dungeon.EffectDungeonRain;
@@ -21,13 +24,14 @@ import io.itch.deltabreaker.object.Cursor;
 import io.itch.deltabreaker.object.tile.Tile;
 import io.itch.deltabreaker.ui.Message;
 import io.itch.deltabreaker.ui.menu.Menu;
+import io.itch.deltabreaker.ui.menu.MenuOptions;
 import io.itch.deltabreaker.ui.menu.MenuTitle;
 
 public class StateTitle extends State {
 
 	public static final String OPTION_NEW = "title.option.new";
 	public static final String OPTION_LOAD = "title.option.load";
-	
+
 	public static final String STATE_ID = "state.title";
 	public static final String[] OPTIONS = { "start", "options", "quit" };
 
@@ -57,7 +61,7 @@ public class StateTitle extends State {
 	private double optionsRotSpeed = 6;
 	private double optionGlow = 0;
 	private double optionGlowSpeed = 1;
-	
+
 	public String fadeOption;
 	public int loadMap;
 
@@ -70,17 +74,17 @@ public class StateTitle extends State {
 		Startup.shadowCamera.targetPosition.set(Startup.camera.position.getX(), 80 + tiles[(int) (camX / 16)][(int) (camX / 16)].getPosition().getY() / 2, Startup.camera.position.getZ());
 		overheadLight.position.set(Startup.shadowCamera.position.getX(), Startup.shadowCamera.position.getY() + 48, Startup.shadowCamera.position.getZ());
 		if (Startup.screenColor.getW() == 1 && Startup.screenColorTarget.getW() == 1) {
-			switch(fadeOption) {
-			
+			switch (fadeOption) {
+
 			case OPTION_NEW:
 				StateHub.loadMap(Inventory.loadMap);
 				break;
-			
+
 			case OPTION_LOAD:
 				Inventory.loadGame(loadMap);
 				StateHub.loadMap(Inventory.loadMap);
 				break;
-				
+
 			}
 		}
 		if (hideMenu) {
@@ -321,8 +325,9 @@ public class StateTitle extends State {
 		switch (key) {
 
 		case UP:
-			if (selected < OPTIONS.length - 1 && canOperateMainUI()) {
-				selected++;
+			if (selected > 0 && canOperateMainUI()) {
+				selected--;
+				AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 			}
 			if (canOperateSubUI()) {
 				menus.get(0).move(-1);
@@ -330,8 +335,9 @@ public class StateTitle extends State {
 			break;
 
 		case DOWN:
-			if (selected > 0 && canOperateMainUI()) {
-				selected--;
+			if (selected < OPTIONS.length - 1 && canOperateMainUI()) {
+				selected++;
+				AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 			}
 			if (canOperateSubUI()) {
 				menus.get(0).move(1);
@@ -352,6 +358,15 @@ public class StateTitle extends State {
 					menus.add(new MenuTitle(new Vector3f(0, 0, -80)));
 					break;
 
+				case "options":
+					hideMenu = true;
+					menus.add(new MenuOptions(new Vector3f(0, 0, -80)));
+					break;
+					
+				case "quit":
+					GLFW.glfwSetWindowShouldClose(Startup.thread.window, true);
+					break;
+
 				}
 			}
 			break;
@@ -366,6 +381,25 @@ public class StateTitle extends State {
 
 		}
 
+	}
+
+	@SuppressWarnings("incomplete-switch")
+	public void onKeyRepeat(InputMapping key) {
+		switch (key) {
+
+		case LEFT:
+			if (canOperateSubUI()) {
+				menus.get(0).action("left", null);
+			}
+			break;
+
+		case RIGHT:
+			if (canOperateSubUI()) {
+				menus.get(0).action("right", null);
+			}
+			break;
+
+		}
 	}
 
 	private boolean canOperateMainUI() {

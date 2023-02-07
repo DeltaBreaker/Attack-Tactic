@@ -140,9 +140,7 @@ public class MenuTitle extends Menu {
 
 	private void prepareClose() {
 		Startup.staticView.setTargetPosition(0, 0, 0);
-		StateManager.currentState.cursor.staticView = false;
 		StateTitle.getCurrentContext().hideMenu = false;
-		StateManager.currentState.cursor.staticView = false;
 	}
 	
 }

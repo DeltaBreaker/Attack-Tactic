@@ -316,26 +316,7 @@ public class SettingsManager {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				GLFW.glfwSetWindowAttrib(Startup.thread.window, GLFW.GLFW_DECORATED, (fullscreenBox.isSelected()) ? GLFW.GLFW_FALSE : GLFW.GLFW_TRUE);
-				if (fullscreenBox.isSelected()) {
-					storedRes.setSize(Startup.width, Startup.height);
-					int[] x = new int[1];
-					int[] y = new int[1];
-					GLFW.glfwGetWindowPos(Startup.thread.window, x, y);
-					storedPos.setLocation(x[0], y[0]);
-
-					GLFW.glfwSetWindowPos(Startup.thread.window, 0, 0);
-					GLFWVidMode vid = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
-					GLFW.glfwSetWindowSize(Startup.thread.window, vid.width(), vid.height());
-					Startup.thread.resize = true;
-					
-					fullscreen = true;
-				} else {
-					GLFW.glfwSetWindowPos(Startup.thread.window, (int) storedPos.getX(), (int) storedPos.getY());
-					GLFW.glfwSetWindowSize(Startup.thread.window, storedRes.width, storedRes.height);
-					Startup.thread.resize = true;
-					
-					fullscreen = false;
-				}
+				SettingsManager.setFullscreen(fullscreenBox.isSelected());
 			}
 		});
 		frame.add(fullscreenBox);
@@ -425,4 +406,27 @@ public class SettingsManager {
 		frame.setVisible(!frame.isVisible());
 	}
 
+	public static void setFullscreen(boolean isFullscreen) {
+		if (isFullscreen) {
+			storedRes.setSize(Startup.width, Startup.height);
+			int[] x = new int[1];
+			int[] y = new int[1];
+			GLFW.glfwGetWindowPos(Startup.thread.window, x, y);
+			storedPos.setLocation(x[0], y[0]);
+
+			GLFW.glfwSetWindowPos(Startup.thread.window, 0, 0);
+			GLFWVidMode vid = GLFW.glfwGetVideoMode(GLFW.glfwGetPrimaryMonitor());
+			GLFW.glfwSetWindowSize(Startup.thread.window, vid.width(), vid.height());
+			Startup.thread.resize = true;
+			
+			fullscreen = true;
+		} else {
+			GLFW.glfwSetWindowPos(Startup.thread.window, (int) storedPos.getX(), (int) storedPos.getY());
+			GLFW.glfwSetWindowSize(Startup.thread.window, storedRes.width, storedRes.height);
+			Startup.thread.resize = true;
+			
+			fullscreen = false;
+		}
+	}
+	
 }
