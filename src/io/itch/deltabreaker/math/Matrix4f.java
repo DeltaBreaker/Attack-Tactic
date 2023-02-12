@@ -19,24 +19,17 @@ public class Matrix4f {
 		if (elements != null) {
 			this.elements = elements;
 		}
+		created++;
 	}
 
 	public static Matrix4f identity() {
 		Matrix4f result;
 		if (matrixReserve.size() == 0) {
 			result = new Matrix4f(null);
-//			System.out.println("new " + System.currentTimeMillis());
-			created++;
-			
-//			if(created > 5000) {
-//				new Exception().printStackTrace();
-//			}
-
 		} else {
 			result = matrixReserve.get(matrixReserve.size() - 1);
 			matrixReserve.remove(matrixReserve.size() - 1);
 			Arrays.fill(result.elements, 0);
-//			System.out.println("reuse " + System.currentTimeMillis());
 			reused++;
 		}
 

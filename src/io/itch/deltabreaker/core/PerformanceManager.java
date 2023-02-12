@@ -44,6 +44,9 @@ public class PerformanceManager implements Runnable {
 	public long maxMemory = 1;
 	public long freeMemory = 0;
 
+	public int mat4Created = 0;
+	public int mat4Reused = 0;
+	
 	public boolean running = true;
 
 	private Runtime runtime;
@@ -100,11 +103,8 @@ public class PerformanceManager implements Runnable {
 				g.drawString("Loaded Unit Count: " + Inventory.loaded.size(), 400, 75);
 				g.drawString("Performance History: " + (int) (historyTotal * 10000) / 10000.0, 400, 95);
 				
-				g.drawString("Created: " + Matrix4f.created, 400, 120);
-				g.drawString("Reused: " + Matrix4f.reused, 400, 140);
-
-				Matrix4f.created = 0;
-				Matrix4f.reused = 0;
+				g.drawString("Mat4 Created: " + mat4Created, 400, 135);
+				g.drawString("Mat4 Reused: " + mat4Reused, 400, 155);
 				
 				int memUse = (int) Math.round((((double) freeMemory / maxMemory) * 360));
 				g.fillArc(200, 175, 150, 150, 0, memUse);
@@ -168,11 +168,17 @@ public class PerformanceManager implements Runnable {
 				maxMemory = runtime.maxMemory() / 1048576;
 				freeMemory = runtime.freeMemory() / 1048576;
 				
+				mat4Created = Matrix4f.created;
+				mat4Reused = Matrix4f.reused;
+				Matrix4f.created = 0;
+				Matrix4f.reused = 0;
+				
 				if (SettingsManager.consolePerformacneOutput) {
 					System.out.println("[PerformanceManager]: TPS: " + (int) ups + " | FPS: " + (int) fps + " | TT: " + tt + "ms | RT: " + rt + "ms | Memory Usage: " + (int) (((double) freeMemory / maxMemory) * 10000) / 100.0 + "% of "
 							+ maxMemory + "MB" + " | Light Count: " + StateManager.currentState.lights.size() + " | Resolution: " + Startup.width + " x " + Startup.height + " - " + Startup.targetWidth + " x " + Startup.targetHeight
 							+ " | Performance History: " + (int) (historyTotal * 10000) / 10000.0);
 					System.out.println("[PerformanceManager]: EDUPS: " + (int) edups + " | EDUT: " + edut + "ms" + " | Task Count: " + TaskThread.taskCount());
+					System.out.println("[PerformanceManager]: Mat4 Created: " + mat4Created + " | Mat4 Reused: " + mat4Reused);
 				}
 
 				if (historyTotal < 0.000001 && checkForCrash) {
