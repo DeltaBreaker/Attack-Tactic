@@ -20,7 +20,11 @@ public class ShaderShadow3D extends Shader {
 
 	@Override
 	public void setStaticUniforms() {
-		setUniform("proView", Matrix4f.multiply(Startup.shadowCamera.getView(), Startup.shadowCamera.projection));
+		Matrix4f view = Startup.shadowCamera.getView();
+		Matrix4f proView = Matrix4f.multiply(view, Startup.shadowCamera.projection);
+		Matrix4f.release(view);
+		setUniform("proView", proView);
+		Matrix4f.release(proView);
 	}
 
 }

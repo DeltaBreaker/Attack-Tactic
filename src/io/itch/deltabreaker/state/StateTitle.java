@@ -220,7 +220,9 @@ public class StateTitle extends State {
 			}
 		}
 
-		cursor.render();
+		if (!hideCursor) {
+			cursor.render();
+		}
 
 	}
 
@@ -362,7 +364,7 @@ public class StateTitle extends State {
 					hideMenu = true;
 					menus.add(new MenuOptions(new Vector3f(0, 0, -80)));
 					break;
-					
+
 				case "quit":
 					GLFW.glfwSetWindowShouldClose(Startup.thread.window, true);
 					break;

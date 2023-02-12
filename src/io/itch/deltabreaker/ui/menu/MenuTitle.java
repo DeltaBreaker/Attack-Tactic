@@ -80,6 +80,7 @@ public class MenuTitle extends Menu {
 										AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 										closeAll();
 										StateTitle.getCurrentContext().hideMenu = true;
+										StateTitle.getCurrentContext().hideCursor = true;
 										break;
 
 									case "Back":
@@ -96,7 +97,7 @@ public class MenuTitle extends Menu {
 								subMenu.get(0).action(command, unit);
 							}
 						}
-					});
+					}.setParent(this));
 					break;
 
 				case "Back":
@@ -175,6 +176,7 @@ class MenuTitleSub extends Menu {
 										Startup.screenColorTarget.setW(1);
 										closeAll();
 										StateTitle.getCurrentContext().hideMenu = true;
+										StateTitle.getCurrentContext().hideCursor = true;
 										AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 										break;
 

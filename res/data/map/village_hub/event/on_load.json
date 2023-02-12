@@ -19,15 +19,22 @@
 		
 		"wait 72",
 		"fade 1 1 1 0",
+		"wait 144",
+		
+		"init new_game_start_pep 0",
+		"if new_game_start_pep 0",
+		"script new_game_start_pep.json",
+		"set new_game_start_pep 1",
+		"end",
 		
 		"controllock false",
-		
 		"init hub_state 0",
 		"init load_state 0",
 		
 		"if load_state 0",
 		"setheader Humble Beginnings",
 		"setloadmap village_hub",
+		"set load_state 1",
 		"end"
 	]
 }

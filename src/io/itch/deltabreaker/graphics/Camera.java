@@ -71,11 +71,15 @@ public class Camera {
 	}
 
 	public void updateProjection(int width, int height) {
+		Matrix4f.release(projection);
 		projection = Matrix4f.projection(fov, (float) width / (float) height, distance, range);
 	}
 
 	public void updatePlanes() {
-		projectionView = Matrix4f.multiply(getView(), projection);
+		Matrix4f.release(projectionView);
+		Matrix4f view = getView();
+		projectionView = Matrix4f.multiply(view, projection);
+		Matrix4f.release(view);
 		frustumPlanes[0].set(projectionView.get(0, 3) + projectionView.get(0, 0), projectionView.get(1, 3) + projectionView.get(1, 0), projectionView.get(2, 3) + projectionView.get(2, 0),
 				projectionView.get(3, 3) + projectionView.get(3, 0));
 		frustumPlanes[1].set(projectionView.get(0, 3) - projectionView.get(0, 0), projectionView.get(1, 3) - projectionView.get(1, 0), projectionView.get(2, 3) - projectionView.get(2, 0),

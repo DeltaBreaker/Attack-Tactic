@@ -84,7 +84,9 @@ public class EffectHeated extends Effect {
 
 	@Override
 	public void cleanUp() {
-
+		for (HeatParticle p : snowflakes) {
+			Matrix4f.release(p.precalc);
+		}
 	}
 
 }

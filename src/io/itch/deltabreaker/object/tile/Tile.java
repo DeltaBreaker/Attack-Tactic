@@ -231,6 +231,7 @@ public class Tile {
 	}
 
 	public void updateMatrix() {
+		Matrix4f.release(precalc);
 		precalc = Matrix4f.transform(Vector3f.add(this.position, property.offset), rotation, scale);
 	}
 
@@ -252,7 +253,7 @@ public class Tile {
 	}
 
 	public void cleanUp() {
-
+		Matrix4f.release(precalc);
 	}
 
 	public static void loadProperties(String file) {

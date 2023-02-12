@@ -93,10 +93,12 @@ class MenuOptionsVideo extends Menu {
 				if (command.equals("left") && SettingsManager.resScaling > 0.25) {
 					SettingsManager.resScaling = (float) (Math.round(Math.max(SettingsManager.resScaling - 0.05, 0.25) * 100.0) / 100.0);
 					update();
+					AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 				}
 				if (command.equals("right") && SettingsManager.resScaling < 1) {
 					SettingsManager.resScaling = (float) (Math.round(Math.min(SettingsManager.resScaling + 0.05, 1) * 100.0) / 100.0);
 					update();
+					AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 				}
 				break;
 
@@ -104,10 +106,12 @@ class MenuOptionsVideo extends Menu {
 				if (command.equals("left") && SettingsManager.vignetteRadius > 0.75) {
 					SettingsManager.vignetteRadius = (float) Math.max(SettingsManager.vignetteRadius - 0.05, 0.75);
 					update();
+					AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 				}
 				if (command.equals("right") && SettingsManager.vignetteRadius < 1.75) {
 					SettingsManager.vignetteRadius = (float) Math.min(SettingsManager.vignetteRadius + 0.05, 1.75);
 					update();
+					AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 				}
 				break;
 
@@ -115,10 +119,12 @@ class MenuOptionsVideo extends Menu {
 				if (command.equals("left") && SettingsManager.bloomFidelity > 2) {
 					SettingsManager.bloomFidelity--;
 					update();
+					AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 				}
 				if (command.equals("right") && SettingsManager.bloomFidelity < 10) {
 					SettingsManager.bloomFidelity++;
 					update();
+					AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 				}
 				break;
 
@@ -131,26 +137,31 @@ class MenuOptionsVideo extends Menu {
 		case 0:
 			SettingsManager.setFullscreen(!SettingsManager.fullscreen);
 			update();
+			AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 			break;
 
 		case 3:
 			SettingsManager.enableFXAA = !SettingsManager.enableFXAA;
 			update();
+			AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 			break;
 
 		case 4:
 			SettingsManager.enableBloom = !SettingsManager.enableBloom;
 			update();
+			AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 			break;
 
 		case 6:
 			SettingsManager.enableFancyWater = !SettingsManager.enableFancyWater;
 			update();
+			AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 			break;
 
 		case 7:
 			SettingsManager.enableFancyRain = !SettingsManager.enableFancyRain;
 			update();
+			AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 			break;
 
 		}
@@ -193,10 +204,12 @@ class MenuOptionsAudio extends Menu {
 				if (command.equals("left") && AudioManager.defaultMusicGain > 0) {
 					AudioManager.defaultMusicGain = (float) (Math.round(Math.max(AudioManager.defaultMusicGain - 0.1, 0) * 100.0) / 100.0);
 					update();
+					AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 				}
 				if (command.equals("right") && AudioManager.defaultMusicGain < 1) {
 					AudioManager.defaultMusicGain = (float) (Math.round(Math.min(AudioManager.defaultMusicGain + 0.1, 1) * 100.0) / 100.0);
 					update();
+					AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 				}
 				break;
 
@@ -204,10 +217,12 @@ class MenuOptionsAudio extends Menu {
 				if (command.equals("left") && AudioManager.defaultMainSFXGain > 0) {
 					AudioManager.defaultMainSFXGain = (float) (Math.round(Math.max(AudioManager.defaultMainSFXGain - 0.1, 0) * 100.0) / 100.0);
 					update();
+					AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 				}
 				if (command.equals("right") && AudioManager.defaultMainSFXGain < 1) {
 					AudioManager.defaultMainSFXGain = (float) (Math.round(Math.min(AudioManager.defaultMainSFXGain + 0.1, 1) * 100.0) / 100.0);
 					update();
+					AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 				}
 				break;
 
@@ -215,10 +230,12 @@ class MenuOptionsAudio extends Menu {
 				if (command.equals("left") && AudioManager.defaultSubSFXGain > 0) {
 					AudioManager.defaultSubSFXGain = (float) (Math.round(Math.max(AudioManager.defaultSubSFXGain - 0.1, 0) * 100.0) / 100.0);
 					update();
+					AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 				}
 				if (command.equals("right") && AudioManager.defaultSubSFXGain < 1) {
 					AudioManager.defaultSubSFXGain = (float) (Math.round(Math.min(AudioManager.defaultSubSFXGain + 0.1, 1) * 100.0) / 100.0);
 					update();
+					AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 				}
 				break;
 
@@ -226,10 +243,12 @@ class MenuOptionsAudio extends Menu {
 				if (command.equals("left") && AudioManager.defaultBattleSFXGain > 0) {
 					AudioManager.defaultBattleSFXGain = (float) (Math.round(Math.max(AudioManager.defaultBattleSFXGain - 0.1, 0) * 100.0) / 100.0);
 					update();
+					AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 				}
 				if (command.equals("right") && AudioManager.defaultBattleSFXGain < 1) {
 					AudioManager.defaultBattleSFXGain = (float) (Math.round(Math.min(AudioManager.defaultBattleSFXGain + 0.1, 1) * 100.0) / 100.0);
 					update();
+					AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 				}
 				break;
 

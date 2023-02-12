@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import org.lwjgl.opengl.GL11;
 
+import io.itch.deltabreaker.math.Matrix4f;
 import io.itch.deltabreaker.multiprocessing.TaskThread;
 import io.itch.deltabreaker.state.StateManager;
 
@@ -98,7 +99,13 @@ public class PerformanceManager implements Runnable {
 				g.drawString("Effect Count: " + StateManager.currentState.effects.size(), 400, 55);
 				g.drawString("Loaded Unit Count: " + Inventory.loaded.size(), 400, 75);
 				g.drawString("Performance History: " + (int) (historyTotal * 10000) / 10000.0, 400, 95);
+				
+				g.drawString("Created: " + Matrix4f.created, 400, 120);
+				g.drawString("Reused: " + Matrix4f.reused, 400, 140);
 
+				Matrix4f.created = 0;
+				Matrix4f.reused = 0;
+				
 				int memUse = (int) Math.round((((double) freeMemory / maxMemory) * 360));
 				g.fillArc(200, 175, 150, 150, 0, memUse);
 

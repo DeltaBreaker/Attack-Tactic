@@ -37,8 +37,18 @@ public class ShaderMain3DEnemy extends Shader {
 
 	@Override
 	public void setStaticUniforms() {
-		setUniform("proView", Matrix4f.multiply(Startup.camera.getView(), Startup.camera.projection));
-		setUniform("lightProView", Matrix4f.multiply(Startup.shadowCamera.getView(), Startup.shadowCamera.projection));
+		Matrix4f view = Startup.camera.getView();
+		Matrix4f proView = Matrix4f.multiply(view, Startup.camera.projection);
+		Matrix4f.release(view);
+		setUniform("proView", proView);
+		Matrix4f.release(proView);
+		
+		view = Startup.shadowCamera.getView();
+		proView = Matrix4f.multiply(view, Startup.shadowCamera.projection);
+		Matrix4f.release(view);
+		setUniform("lightProView", proView);
+		Matrix4f.release(proView);
+		
 		setUniform("seed", Startup.seed);
 		setUniform("bias", Startup.shadowBias);
 		setUniform("shadowAmount", SettingsManager.shadowIntensity);

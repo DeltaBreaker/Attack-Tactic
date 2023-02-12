@@ -3,6 +3,7 @@ package io.itch.deltabreaker.graphics.shader;
 import io.itch.deltabreaker.core.SettingsManager;
 import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.graphics.Material;
+import io.itch.deltabreaker.math.Matrix4f;
 import io.itch.deltabreaker.ui.CraftingHUD;
 
 public class ShaderStatic3DCrafting extends Shader {
@@ -24,10 +25,16 @@ public class ShaderStatic3DCrafting extends Shader {
 
 	@Override
 	public void setStaticUniforms() {
-		setUniform("view", Startup.staticView.getView());
+		Matrix4f view = Startup.staticView.getView();
+		setUniform("view", view);
+		Matrix4f.release(view);
+		
+		view = Startup.shadowCamera.getView();
+		setUniform("lightView", view);
+		Matrix4f.release(view);
+		
 		setUniform("projection", Startup.staticView.projection);
 		setUniform("camera_pos", Startup.staticView.position);
-		setUniform("lightView", Startup.shadowCamera.getView());
 		setUniform("lightProjection", Startup.shadowCamera.projection);
 		setUniform("gamma", SettingsManager.gamma);
 		setUniform("resolution", Startup.width, Startup.height);

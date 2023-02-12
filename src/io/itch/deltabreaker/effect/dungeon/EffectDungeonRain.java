@@ -66,6 +66,7 @@ public class EffectDungeonRain extends Effect {
 		for (int i = 0; i < snowflakes.size(); i++) {
 			snowflakes.get(i).tick();
 			if (snowflakes.get(i).remove) {
+				Matrix4f.release(snowflakes.get(i).precalc);
 				snowflakes.remove(i);
 				i--;
 			}

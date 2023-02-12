@@ -341,7 +341,8 @@ class RenderSpec {
 	public ArrayList<Vector4f> shades = new ArrayList<>();
 
 	public ArrayList<Matrix4f> precalc = new ArrayList<>();
-
+	public ArrayList<Matrix4f> created = new ArrayList<>();
+	
 	public RenderSpec(String model, String texture, String shader, String material, boolean shadow, boolean ignoreDepth) {
 		this.model = model;
 		this.texture = texture;
@@ -352,7 +353,9 @@ class RenderSpec {
 	}
 
 	public void add(Vector3f position, Vector3f rotation, Vector3f scale, Vector4f shade) {
-		precalc.add(Matrix4f.transform(position, rotation, scale));
+		Matrix4f result = Matrix4f.transform(position, rotation, scale);
+		precalc.add(result);
+		created.add(result);
 		shades.add(shade);
 		size++;
 	}
@@ -377,6 +380,10 @@ class RenderSpec {
 	public void clear() {
 		size = 0;
 		precalc.clear();
+		for(Matrix4f m : created) {
+			Matrix4f.release(m);
+		}
+		created.clear();
 		shades.clear();
 	}
 
@@ -405,6 +412,7 @@ class LiquidRenderSpec extends RenderSpec {
 	}
 
 	public void clear() {
+		super.clear();
 		size = 0;
 		shades.clear();
 	}
