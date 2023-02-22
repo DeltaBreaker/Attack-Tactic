@@ -266,7 +266,7 @@ public class Startup implements Runnable {
 //				Inventory.loadMap = "title_scene";
 //				Inventory.saveHeader(2);
 //				Inventory.saveGame(2);
-				StateDungeon.startDungeon(0, "scorched_crater.json", 14, -1932052909105962160L);
+				StateDungeon.startDungeon(0, "seabed_cove.json", 14, -1932052909105962160L);
 //				StateDungeon.startDungeon(0, "scorched_crater.json", 14, new Random().nextLong());
 			}
 

@@ -1,5 +1,6 @@
 package io.itch.deltabreaker.effect.battle;
 
+import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.effect.Effect;
 import io.itch.deltabreaker.math.Vector3f;
 
@@ -12,6 +13,7 @@ public abstract class EffectBattle extends Effect {
 
 	public EffectBattle(Vector3f position, Vector3f rotation) {
 		super(position, rotation, new Vector3f(0.5f, 0.5f, 0.5f));
+		Startup.camera.shake(1.5f, 0, 1.5f);
 	}
 
 	public void tick() {

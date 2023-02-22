@@ -1643,9 +1643,7 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-			Inventory.active.get(0).addItem(ItemProperty.get("item.sword.gold"));
-			Inventory.active.get(0).addItem(ItemProperty.get("item.bow.wood"));
-			Inventory.active.get(0).addItem(ItemProperty.get("item.tome.exfire"));
+			Startup.camera.shake(1.5f, 0, 1.5f);
 			break;
 
 		case HIGHLIGHT:
@@ -1714,18 +1712,26 @@ public class StateDungeon extends State {
 			break;
 
 		case UP:
-			if (status.size() == 0) {
-				if (menus.size() > 0 && !menuLock) {
-					menus.get(0).move(-1);
-				}
+			if (status.size() > 0) {
+				return;
+			}
+			if(menuLock) {
+				return;
+			}
+			if (menus.size() > 0) {
+				menus.get(0).move(-1);
 			}
 			break;
 
 		case DOWN:
 			if (status.size() == 0) {
-				if (menus.size() > 0 && !menuLock) {
-					menus.get(0).move(1);
-				}
+				return;
+			}
+			if(menuLock) {
+				return;
+			}
+			if (menus.size() > 0) {
+				menus.get(0).move(1);
 			}
 			break;
 
