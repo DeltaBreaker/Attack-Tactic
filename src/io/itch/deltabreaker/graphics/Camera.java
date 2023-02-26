@@ -2,6 +2,7 @@ package io.itch.deltabreaker.graphics;
 
 import java.util.Random;
 
+import io.itch.deltabreaker.core.SettingsManager;
 import io.itch.deltabreaker.math.Matrix4f;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
@@ -23,7 +24,7 @@ public class Camera {
 	public Vector3f position;
 	public Vector3f rotation;
 	public Vector3f shake = new Vector3f(0);
-	
+
 	public Matrix4f projection;
 	public Matrix4f projectionView;
 	private Vector4f[] frustumPlanes = new Vector4f[FRUST_PLANES];
@@ -50,18 +51,18 @@ public class Camera {
 		position = moveToTarget(position, targetPosition, speedX, speedY, speedZ);
 		rotation = moveToTarget(rotation, targetRotation, rotateSpeed, rotateSpeed, rotateSpeed);
 		updatePlanes();
-		
-		if(shake.getX() > 0) {
+
+		if (shake.getX() > 0) {
 			int x = new Random().nextInt(Math.max(1, (int) (shake.getX() * 200)));
 			position.add((x - shake.getX() * 100) / 100.0f, 0, 0);
 			shake.setX(Math.max(0, shake.getX() - shakeRecovery));
 		}
-		if(shake.getY() > 0) {
+		if (shake.getY() > 0) {
 			int y = new Random().nextInt(Math.max(1, (int) (shake.getY() * 200)));
 			position.add(0, (y - shake.getY() * 100) / 100.0f, 0);
 			shake.setY(Math.max(0, shake.getY() - shakeRecovery));
 		}
-		if(shake.getZ() > 0) {
+		if (shake.getZ() > 0) {
 			int z = new Random().nextInt(Math.max(1, (int) (shake.getZ() * 200)));
 			position.add(0, 0, (z - shake.getZ() * 100) / 100.0f);
 			shake.setZ(Math.max(0, shake.getZ() - shakeRecovery));
@@ -95,13 +96,15 @@ public class Camera {
 		projection = Matrix4f.projection(fov, (float) width / (float) height, distance, range);
 	}
 
-	public void shake(float x, float y, float z, float...shakeRecovery) {
-		shake.set(x, y, z);
-		if(shakeRecovery.length > 0) {
-			this.shakeRecovery = shakeRecovery[0];
+	public void shake(float x, float y, float z, float... shakeRecovery) {
+		if (SettingsManager.enableShake) {
+			shake.set(x, y, z);
+			if (shakeRecovery.length > 0) {
+				this.shakeRecovery = shakeRecovery[0];
+			}
 		}
 	}
-	
+
 	public void updatePlanes() {
 		Matrix4f.release(projectionView);
 		Matrix4f view = getView();

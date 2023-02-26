@@ -1643,7 +1643,9 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-			Startup.camera.shake(1.5f, 0, 1.5f);
+			for(Unit u : enemies) {
+				u.addItem(ItemProperty.get("item.usable.magma.stone"));
+			}
 			break;
 
 		case HIGHLIGHT:

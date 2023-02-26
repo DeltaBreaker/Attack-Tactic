@@ -529,6 +529,7 @@ public class StateHub extends State {
 
 	}
 
+	@SuppressWarnings("incomplete-switch")
 	public void onKeyRepeat(InputMapping key) {
 		if (Inventory.units.size() > 0) {
 			switch (key) {

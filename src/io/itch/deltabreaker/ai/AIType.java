@@ -29,7 +29,7 @@ public enum AIType {
 			if (!u.getStatus().equals(Unit.STATUS_SLEEP)) {
 				int fitness = 0;
 
-				// Gets a list of the bestcombat results which show what unit to attack and what
+				// Gets a list of the best combat results which show what unit to attack and what
 				// ability to use
 				CombatResult[] results = getBestCombatResults(u, context, false, true);
 				for (CombatResult r : results) {
@@ -38,7 +38,7 @@ public enum AIType {
 						context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
 						parent.currentPath = context.getPath(positions[0].x, positions[0].y);
 						parent.attackTarget = r.unit;
-						parent.attackAbility = ItemAbility.ITEM_ABILITY_ATTACK;
+						parent.attackAbility = r.ability;
 						parent.currentOption = "attack";
 
 						fitness = (r.damage >= r.unit.currentHp) ? 9999 : r.damage;
@@ -119,7 +119,7 @@ public enum AIType {
 						context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
 						parent.currentPath = context.getPath(positions[0].x, positions[0].y);
 						parent.attackTarget = r.unit;
-						parent.attackAbility = ItemAbility.ITEM_ABILITY_ATTACK;
+						parent.attackAbility = r.ability;
 						parent.currentOption = "attack";
 
 						fitness = (r.damage >= r.unit.currentHp) ? 9999 : r.damage;
@@ -196,7 +196,7 @@ public enum AIType {
 						context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
 						parent.currentPath = context.getPath(positions[0].x, positions[0].y);
 						parent.attackTarget = r.unit;
-						parent.attackAbility = ItemAbility.ITEM_ABILITY_ATTACK;
+						parent.attackAbility = r.ability;
 						parent.currentOption = "attack";
 
 						fitness = (r.damage >= r.unit.currentHp) ? 9999 : r.damage;
@@ -281,7 +281,7 @@ public enum AIType {
 					Point[] positions = getBestValidAttackPositions(u, r.unit, context);
 					if (positions.length > 0) {
 						parent.attackTarget = r.unit;
-						parent.attackAbility = ItemAbility.ITEM_ABILITY_ATTACK;
+						parent.attackAbility = r.ability;
 						parent.currentOption = "attack";
 
 						fitness = (r.damage >= r.unit.currentHp) ? 9999 : r.damage;

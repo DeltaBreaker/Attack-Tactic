@@ -173,7 +173,6 @@ public class Unit {
 	}
 
 	public void tick() {
-		unitColor.setW(1f);
 		rotation.set(-Startup.camera.getRotation().getX(), -Startup.camera.getRotation().getY(), -Startup.camera.getRotation().getZ());
 
 		updateStats();

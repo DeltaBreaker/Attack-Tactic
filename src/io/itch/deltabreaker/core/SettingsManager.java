@@ -34,6 +34,7 @@ public class SettingsManager {
 	public static boolean enableFancyWater = true;
 	public static boolean enableFancyRain = true;
 	public static boolean fullscreen = false;
+	public static boolean enableShake = true;
 
 	public static float gamma = 0.81f;
 	public static float vignetteRadius = 1.05f;
@@ -49,7 +50,7 @@ public class SettingsManager {
 	public static float outlineTolerance = -0.4f;
 	public static float outlineThickness = 1f;
 	
-	// These arent saved
+	// These aren't saved
 	public static Dimension storedRes = new Dimension(1280, 720);
 	public static Point storedPos = new Point(0, 0);
 
@@ -96,6 +97,8 @@ public class SettingsManager {
 		config.setProperty("sfx_main_gain", "" + AudioManager.defaultMainSFXGain);
 		config.setProperty("sfx_sub_gain", "" + AudioManager.defaultSubSFXGain);
 		config.setProperty("sfx_battle_gain", "" + AudioManager.defaultBattleSFXGain);
+
+		config.setProperty("enable_camera_shake", "" + enableShake);
 		
 		try {
 			config.store(new FileOutputStream(f), "Game Settings");
@@ -139,6 +142,8 @@ public class SettingsManager {
 				AudioManager.defaultMainSFXGain = Float.parseFloat((String) config.get("sfx_main_gain"));
 				AudioManager.defaultSubSFXGain = Float.parseFloat((String) config.get("sfx_sub_gain"));
 				AudioManager.defaultBattleSFXGain = Float.parseFloat((String) config.get("sfx_battle_gain"));
+				
+				enableShake = Boolean.parseBoolean((String) config.getProperty("enable_camera_shake"));
 				
 				System.out.println("[SettingsManager]: Settings file loaded");
 			} catch (Exception e) {
@@ -335,6 +340,21 @@ public class SettingsManager {
 			}
 		});
 		frame.add(outlineBox);
+		
+		JLabel shakeLabel = new JLabel("Camera Shake");
+		shakeLabel.setBounds(150, 240, 100, 20);
+		frame.add(shakeLabel);
+
+		JCheckBox shakeBox = new JCheckBox("shakes");
+		shakeBox.setBounds(150, 260, 20, 20);
+		shakeBox.setSelected(enableShake);
+		shakeBox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				enableShake = shakeBox.isSelected();
+			}
+		});
+		frame.add(shakeBox);
 		
 		JLabel bloomFidelityLabel = new JLabel("Bloom Fidelity");
 		bloomFidelityLabel.setBounds(250, 0, 100, 20);

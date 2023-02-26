@@ -16,7 +16,7 @@ import io.itch.deltabreaker.ui.menu.MenuDungeonSteal;
 public enum ItemAbility {
 
 	// The standard attack
-	ITEM_ABILITY_ATTACK("Attack", "target.enemy", true, false, true, false) {
+	ITEM_ABILITY_ATTACK("Attack", "target.enemy", true, false, true, false, false) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -111,7 +111,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_USE_ITEM_ALLY("", "target.unit", false, false, true, false) {
+	ITEM_ABILITY_USE_ITEM_ALLY("", "target.unit", false, false, true, false, false) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -166,7 +166,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_USE_ITEM_ENEMY("", "target.enemy", false, false, true, false) {
+	ITEM_ABILITY_USE_ITEM_ENEMY("", "target.enemy", false, false, true, false, false) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -221,7 +221,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_SWAP("Swap", "target.unit", false, false, true, false) {
+	ITEM_ABILITY_SWAP("Swap", "target.unit", false, false, true, false, true) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -285,7 +285,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_STEAL("Steal", "target.enemy", false, false, true, false) {
+	ITEM_ABILITY_STEAL("Steal", "target.enemy", false, false, true, false, true) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -353,7 +353,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_LOCKSMITH("Locksmith", "target.none", false, false, false, false) {
+	ITEM_ABILITY_LOCKSMITH("Locksmith", "target.none", false, false, false, false, true) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -407,7 +407,7 @@ public enum ItemAbility {
 	},
 
 	// The standard attack
-	ITEM_ABILITY_DISARM("Disarm", "target.enemy", true, false, true, false) {
+	ITEM_ABILITY_DISARM("Disarm", "target.enemy", true, false, true, false, true) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -511,7 +511,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_FORTIFIED("Fortified", "target.none", false, false, false, true) {
+	ITEM_ABILITY_FORTIFIED("Fortified", "target.none", false, false, false, true, true) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -564,7 +564,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_SHELTER("Shelter", "target.none", false, false, false, false) {
+	ITEM_ABILITY_SHELTER("Shelter", "target.none", false, false, false, false, true) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -623,7 +623,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_HARDEN("Harden", "target.none", false, false, true, false) {
+	ITEM_ABILITY_HARDEN("Harden", "target.none", false, false, true, false, true) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -684,7 +684,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_HEAL_10("Heal", "target.unit", false, true, true, false) {
+	ITEM_ABILITY_HEAL_10("Heal", "target.unit", false, true, true, false, false) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -742,7 +742,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_WARP("Warp", "target.none", false, false, true, false) {
+	ITEM_ABILITY_WARP("Warp", "target.none", false, false, true, false, false) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -808,7 +808,7 @@ public enum ItemAbility {
 
 	},
 
-	ITEM_ABILITY_WEAK_POINT("Weak Point", "target.enemy", true, false, true, false) {
+	ITEM_ABILITY_WEAK_POINT("Weak Point", "target.enemy", true, false, true, false, true) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -903,7 +903,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_ATTACK_POISON("Toxic Cut", "target.enemy", true, false, true, false) {
+	ITEM_ABILITY_ATTACK_POISON("Toxic Cut", "target.enemy", true, false, true, false, true) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -998,7 +998,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_ATTACK_SLEEP("Tranq Cut", "target.enemy", true, false, true, false) {
+	ITEM_ABILITY_ATTACK_SLEEP("Tranq Cut", "target.enemy", true, false, true, false, true) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -1095,7 +1095,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_BRUTE("Brute", "target.none", false, false, false, true) {
+	ITEM_ABILITY_BRUTE("Brute", "target.none", false, false, false, true, true) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -1148,7 +1148,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_REFLECT("Reflect", "target.none", false, false, false, false) {
+	ITEM_ABILITY_REFLECT("Reflect", "target.none", false, false, false, false, true) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -1201,7 +1201,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_XPGAIN_10("Growth", "target.none", false, false, false, false) {
+	ITEM_ABILITY_XPGAIN_10("Growth", "target.none", false, false, false, false, true) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -1254,13 +1254,14 @@ public enum ItemAbility {
 		}
 	};
 
-	ItemAbility(String name, String target, boolean showCombat, boolean showHealing, boolean activated, boolean hasStats) {
+	ItemAbility(String name, String target, boolean showCombat, boolean showHealing, boolean activated, boolean hasStats, boolean canInherit) {
 		this.name = name;
 		this.target = target;
 		this.showCombat = showCombat;
 		this.showHealing = showHealing;
 		this.activated = activated;
 		this.hasStats = hasStats;
+		this.canInherit = canInherit;
 	}
 
 	@Override
@@ -1306,6 +1307,7 @@ public enum ItemAbility {
 	public boolean showHealing;
 	public boolean activated;
 	public boolean hasStats;
+	public boolean canInherit;
 
 	public static ItemAbility getAbilityFromName(String name) {
 		for (ItemAbility values : values()) {

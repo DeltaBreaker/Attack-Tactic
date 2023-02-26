@@ -1,7 +1,5 @@
 package io.itch.deltabreaker.state;
 
-import org.lwjgl.glfw.GLFW;
-
 import io.itch.deltabreaker.core.InputMapping;
 import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.core.audio.AudioManager;

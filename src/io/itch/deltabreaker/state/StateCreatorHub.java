@@ -9,8 +9,6 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import org.lwjgl.glfw.GLFW;
-
 import io.itch.deltabreaker.builder.dungeon.DungeonGenerator;
 import io.itch.deltabreaker.builder.dungeon.DungeonGeneratorVillage;
 import io.itch.deltabreaker.core.InputMapping;
@@ -665,6 +663,7 @@ public class StateCreatorHub extends State {
 		}
 	}
 
+	@SuppressWarnings("incomplete-switch")
 	public void onKeyRelease(InputMapping key) {
 		switch (key) {
 
