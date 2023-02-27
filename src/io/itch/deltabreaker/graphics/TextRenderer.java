@@ -11,7 +11,7 @@ public class TextRenderer {
 		char[] string = text.toLowerCase().toCharArray();
 		for (int i = 0; i < string.length; i++) {
 			if (ALLOWED.contains("" + string[i])) {
-				BatchSorter.add(string[i] + ".dae", string[i] + ".png", (staticView) ? "static_3d" : "main_3d_nobloom_texcolor", Material.DEFAULT.toString(), Vector3f.add(position, i * 6, 0, 0), Vector3f.add(rotation, 0, 180, 0), scale, color,
+				BatchSorter.add(string[i] + ".dae", string[i] + ".png", (staticView) ? "static_3d" : "main_3d_nobloom", Material.DEFAULT.toString(), Vector3f.add(position, i * 6, 0, 0), Vector3f.add(rotation, 0, 180, 0), scale, color,
 						false, staticView);
 			}
 		}
@@ -21,7 +21,7 @@ public class TextRenderer {
 		char[] string = text.toLowerCase().toCharArray();
 		for (int i = 0; i < string.length; i++) {
 			if (ALLOWED.contains("" + string[i])) {
-				BatchSorter.add(priority, string[i] + ".dae", string[i] + ".png", (staticView) ? "static_3d" : "main_3d_nobloom_texcolor", Material.DEFAULT.toString(), Vector3f.add(position, i * 6, 0, 0), Vector3f.add(rotation, 0, 180, 0), scale,
+				BatchSorter.add(priority, string[i] + ".dae", string[i] + ".png", (staticView) ? "static_3d" : "main_3d_nobloom", Material.DEFAULT.toString(), Vector3f.add(position, i * 6, 0, 0), Vector3f.add(rotation, 0, 180, 0), scale,
 						color, false, staticView);
 			}
 		}

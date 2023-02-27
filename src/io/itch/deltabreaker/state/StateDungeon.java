@@ -29,6 +29,7 @@ import io.itch.deltabreaker.effect.EffectText;
 import io.itch.deltabreaker.effect.EffectWater;
 import io.itch.deltabreaker.effect.EffectWaterSplash;
 import io.itch.deltabreaker.effect.battle.EffectBattle;
+import io.itch.deltabreaker.effect.battle.EffectCoupDeGrace;
 import io.itch.deltabreaker.effect.dungeon.EffectDungeonLavaSFX;
 import io.itch.deltabreaker.effect.dungeon.EffectDungeonRain;
 import io.itch.deltabreaker.effect.dungeon.EffectDungeonResidue;
@@ -1643,9 +1644,7 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-			for(Unit u : enemies) {
-				u.addItem(ItemProperty.get("item.usable.magma.stone"));
-			}
+			effects.add(new EffectCoupDeGrace(false, Inventory.active.get(0)));
 			break;
 
 		case HIGHLIGHT:
@@ -1726,7 +1725,7 @@ public class StateDungeon extends State {
 			break;
 
 		case DOWN:
-			if (status.size() == 0) {
+			if (status.size() > 0) {
 				return;
 			}
 			if(menuLock) {

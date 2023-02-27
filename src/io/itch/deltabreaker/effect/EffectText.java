@@ -26,7 +26,7 @@ public class EffectText extends Effect {
 		if (color.getW() <= 0) {
 			remove = true;
 		} else {
-			color.setW(color.getW() - 0.005f);
+			color.setW(Math.max(0, color.getW() - 0.005f));
 		}
 		loop += 1.5f;
 		position.setY(position.getY() + 0.05f);
@@ -36,11 +36,11 @@ public class EffectText extends Effect {
 	public void render() {
 		float alpha = color.getW();
 		float angle = (float) Math.sin(Math.toRadians(loop)) * 3;
-		TextRenderer.render("zz", text, Vector3f.add(Vector3f.mul(position, 2, 2, 2), angle, 0, 0), ROTATION, scale, color, false);
-		TextRenderer.render("zz", text, Vector3f.add(Vector3f.mul(position, 2, 2, 2), -1 + angle, -0.75f, 0), ROTATION, scale, new Vector4f(0, 0, 0, alpha), false);
-		TextRenderer.render("zz", text, Vector3f.add(Vector3f.mul(position, 2, 2, 2), 1 + angle, -0.75f, 0), ROTATION, scale, new Vector4f(0, 0, 0, alpha), false);
-		TextRenderer.render("zz", text, Vector3f.add(Vector3f.mul(position, 2, 2, 2), angle, -0.25f, -0.75f), ROTATION, scale, new Vector4f(0, 0, 0, alpha), false);
-		TextRenderer.render("zz", text, Vector3f.add(Vector3f.mul(position, 2, 2, 2), angle, -1.25f, 0.75f), ROTATION, scale, new Vector4f(0, 0, 0, alpha), false);
+		TextRenderer.render("zzz", text, Vector3f.add(Vector3f.mul(position, 2, 2, 2), angle, 0, 0), ROTATION, scale, color, false);
+		TextRenderer.render("zzz", text, Vector3f.add(Vector3f.mul(position, 2, 2, 2), -1 + angle, -0.75f, 0), ROTATION, scale, new Vector4f(0, 0, 0, alpha), false);
+		TextRenderer.render("zzz", text, Vector3f.add(Vector3f.mul(position, 2, 2, 2), 1 + angle, -0.75f, 0), ROTATION, scale, new Vector4f(0, 0, 0, alpha), false);
+		TextRenderer.render("zzz", text, Vector3f.add(Vector3f.mul(position, 2, 2, 2), angle, -0.25f, -0.75f), ROTATION, scale, new Vector4f(0, 0, 0, alpha), false);
+		TextRenderer.render("zzz", text, Vector3f.add(Vector3f.mul(position, 2, 2, 2), angle, -1.25f, 0.75f), ROTATION, scale, new Vector4f(0, 0, 0, alpha), false);
 	}
 
 	@Override

@@ -42,6 +42,7 @@ import io.itch.deltabreaker.graphics.shader.ShaderMain3DEnemy;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DHousing;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DLava;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DMedial;
+import io.itch.deltabreaker.graphics.shader.ShaderMain3DNoBloom;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DNoBloomTexColor;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DWater;
 import io.itch.deltabreaker.graphics.shader.ShaderShadow3D;
@@ -421,6 +422,7 @@ public class ResourceManager {
 		new ShaderMain3DCrystal("main_3d_crystal");
 		new ShaderShadow3D("shadow_3d");
 		new ShaderStatic3D("static_3d");
+		new ShaderMain3DNoBloom("main_3d_nobloom");
 		new ShaderMain3DNoBloomTexColor("main_3d_nobloom_texcolor");
 		new ShaderMain3DMedial("main_3d_medial");
 		new ShaderMain3DEnemy("main_3d_enemy");
