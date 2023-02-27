@@ -95,6 +95,9 @@ public class EffectCoupDeGrace extends EffectBattle {
 			remove = true;
 			unit.poseLock = false;
 			unit.setTurn(false);
+			StateManager.currentState.controlLock = false;
+			StateManager.currentState.hideCursor = false;
+			StateDungeon.getCurrentContext().hideInfo = false;
 		}
 	}
 

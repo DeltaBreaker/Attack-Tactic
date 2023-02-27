@@ -5,6 +5,7 @@ import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.effect.EffectBuff;
 import io.itch.deltabreaker.effect.EffectPoof;
 import io.itch.deltabreaker.effect.EffectText;
+import io.itch.deltabreaker.effect.battle.EffectCoupDeGrace;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
 import io.itch.deltabreaker.object.Unit;
@@ -768,6 +769,70 @@ public enum ItemAbility {
 				return true;
 			}
 			AudioManager.getSound("invalid.ogg").play(AudioManager.defaultMainSFXGain, false);
+			return false;
+		}
+
+		@Override
+		public void onHit(StateDungeon context) {
+
+		}
+
+		@Override
+		public void onRetaliation(StateDungeon context) {
+
+		}
+
+		@Override
+		public int[] calculateAttackingDamage(Unit attacker, Unit defender, boolean ignoreRange) {
+			return null;
+		}
+
+		@Override
+		public int[] calculateDefendingDamage(Unit attacker, Unit defender, boolean ignoreRange) {
+			return null;
+		}
+
+		@Override
+		public int calculateHealing(Unit healer, Unit healed) {
+			return 0;
+		}
+
+		@Override
+		public int[] getStats() {
+			return null;
+		}
+
+		@Override
+		public void onCombatEnd(Unit unit, StateDungeon context) {
+
+		}
+
+	},
+
+	ITEM_ABILITY_IMMOLATION("Immolation", "target.none", false, false, true, false, false) {
+
+		@Override
+		public boolean isUnlocked(ItemProperty item) {
+			return true;
+		}
+
+		@Override
+		public boolean use(Unit u, StateDungeon context) {
+			if (u.currentHp > 1) {
+				StateDungeon.getCurrentContext().clearSelectedTiles();
+				StateManager.currentState.controlLock = true;
+				StateManager.currentState.hideCursor = true;
+				StateDungeon.getCurrentContext().hideInfo = true;
+				AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+				StateManager.currentState.effects.add(new EffectCoupDeGrace(u.dir == 0, u));
+				return true;
+			}
+			AudioManager.getSound("invalid.ogg").play(AudioManager.defaultMainSFXGain, false);
+			return false;
+		}
+
+		@Override
+		public boolean followUp(Unit u, StateDungeon context) {
 			return false;
 		}
 

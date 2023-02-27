@@ -120,7 +120,8 @@ public class StateDungeon extends State {
 	public int xpFadeWaitTime = 72;
 	private Unit levelUpUnit;
 	private boolean cursorFloat = false;
-
+	public boolean hideInfo = false;
+	
 	public float alpha = 1;
 	public float alphaTo = 0;
 	public int action = ACTION_PROGRESS;
@@ -761,6 +762,10 @@ public class StateDungeon extends State {
 				Startup.camera.targetPosition.setZ((float) camY);
 				Startup.camera.targetPosition.setY(42 + (tiles[cursorPos.x][cursorPos.y].getPosition().getY() / 2));
 			}
+		}
+		
+		if(hideInfo) {
+			info = "";
 		}
 	}
 
