@@ -1649,7 +1649,10 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-			effects.add(new EffectCoupDeGrace(false, Inventory.active.get(0)));
+			for(Unit u : enemies) {
+				u.currentHp /= 2;
+				u.addItem(ItemProperty.get("item.usable.cheese"));
+			}
 			break;
 
 		case HIGHLIGHT:
