@@ -1,10 +1,18 @@
 package io.itch.deltabreaker.ai;
 
 import java.awt.Point;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.TreeMap;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import io.itch.deltabreaker.core.FileManager;
 import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.object.Unit;
 import io.itch.deltabreaker.object.item.Item;
@@ -13,155 +21,65 @@ import io.itch.deltabreaker.object.item.ItemProperty;
 import io.itch.deltabreaker.object.item.ItemUse;
 import io.itch.deltabreaker.state.StateDungeon;
 
-public enum AIType {
+public class AIType {
 
-	// This pattern will roam until units are in its range
-	STANDARD_DUNGEON("Explorer") {
-		@Override
-		public void run(Unit u, AIHandler parent, StateDungeon context) {
-			// Set default option to wait
-			parent.currentOption = "wait";
+	private static HashMap<String, AIType> aiList = new HashMap<>();
 
-			// Equip best weapon
-			equipBestWeapon(u);
-
-			// Prevevents movement if asleep
-			if (!u.getStatus().equals(Unit.STATUS_SLEEP)) {
-				int fitness = 0;
-
-				// Get attack options
-				checkForAttackFitness(u, parent, context, fitness, true);
-
-				// Move if able to heal
-				fitness = checkForHealingFitness(u, parent, context, fitness, true);
-
-				// Get default action if still set to wait
-				DefaultActionType.ROAM.getAction(u, parent, context);
-			}
-
-			parent.gettingPath = false;
-		}
-
-		@Override
-		public Point getFreeRoamLocation(Unit u, StateDungeon context) {
-			return getDefaultRoamLocation(u, context);
-		}
-	},
-
-	// This pattern will not move until it has something to attack
-	STANDARD_MAP("Fighter") {
-		@Override
-		public void run(Unit u, AIHandler parent, StateDungeon context) {
-			// Set default option to wait
-			parent.currentOption = "wait";
-
-			// Equip best weapon
-			equipBestWeapon(u);
-
-			// Prevevents movement if asleep
-			if (!u.getStatus().equals(Unit.STATUS_SLEEP)) {
-				int fitness = 0;
-
-				// Get attack options
-				checkForAttackFitness(u, parent, context, fitness, true);
-
-				// Move if able to heal
-				fitness = checkForHealingFitness(u, parent, context, fitness, true);
-
-				// Get default action if still set to wait
-				DefaultActionType.IDLE.getAction(u, parent, context);
-			}
-
-			parent.gettingPath = false;
-		}
-
-		@Override
-		public Point getFreeRoamLocation(Unit u, StateDungeon context) {
-			return getDefaultRoamLocation(u, context);
-		}
-	},
-
-	// This pattern will pursue whoever it deals the most damage to if no one is in
-	// range
-	TARGETING("Pursuing") {
-		@Override
-		public void run(Unit u, AIHandler parent, StateDungeon context) {
-			// Set default option to wait
-			parent.currentOption = "wait";
-
-			// Equip best weapon
-			equipBestWeapon(u);
-
-			// Prevevents movement if asleep
-			if (!u.getStatus().equals(Unit.STATUS_SLEEP)) {
-				int fitness = 0;
-
-				// Get attack options
-				checkForAttackFitness(u, parent, context, fitness, true);
-
-				// Move if able to heal
-				fitness = checkForHealingFitness(u, parent, context, fitness, true);
-
-				// Get default action if still set to wait
-				DefaultActionType.PURSUE.getAction(u, parent, context);
-			}
-
-			parent.gettingPath = false;
-		}
-
-		@Override
-		public Point getFreeRoamLocation(Unit u, StateDungeon context) {
-			return getDefaultRoamLocation(u, context);
-		}
-	},
-
-	// This pattern will not move ever
-	UNMOVING("Defender") {
-		@Override
-		public void run(Unit u, AIHandler parent, StateDungeon context) {
-			// Set default option to wait
-			parent.currentOption = "wait";
-
-			// Equip best weapon
-			equipBestWeapon(u);
-
-			// Prevevents movement if asleep
-			if (!u.getStatus().equals(Unit.STATUS_SLEEP)) {
-				int fitness = 0;
-
-				// Get attack options
-				checkForAttackFitness(u, parent, context, fitness, false);
-
-				// Move if able to heal
-				fitness = checkForHealingFitness(u, parent, context, fitness, false);
-
-				// Get default action if still set to wait
-				DefaultActionType.IDLE.getAction(u, parent, context);
-			}
-
-			parent.gettingPath = false;
-		}
-
-		@Override
-		public Point getFreeRoamLocation(Unit u, StateDungeon context) {
-			return getDefaultRoamLocation(u, context);
-		}
-	};
-
+	private String file;
 	private String name;
-
-	private AIType(String name) {
+	private boolean canMove;
+	private boolean canHeal;
+	private String actionType;
+	
+	public AIType(String file, String name, boolean canMove, boolean canHeal, String actionType) {
+		this.file = file;
 		this.name = name;
+		this.canMove = canMove;
+		this.canHeal = canHeal;
+		this.actionType = actionType;
 	}
 
-	@Override
-	public String toString() {
+	public String getFile() {
+		return file;
+	}
+
+	public String getName() {
 		return name;
 	}
 
-	public abstract Point getFreeRoamLocation(Unit u, StateDungeon context);
+	public static AIType[] values() {
+		return aiList.values().toArray(new AIType[aiList.size()]);
+	}
 
-	public abstract void run(Unit u, AIHandler parent, StateDungeon context);
+	public static AIType get(String name) {
+		return aiList.get(name);
+	}
+
+	public void run(Unit u, AIHandler parent, StateDungeon context) {
+		// Set default option to wait
+		parent.currentOption = "wait";
+
+		// Equip best weapon
+		equipBestWeapon(u);
+
+		// Prevevents movement if asleep
+		if (!u.getStatus().equals(Unit.STATUS_SLEEP)) {
+			int fitness = 0;
+
+			// Get attack options
+			checkForAttackFitness(u, parent, context, fitness, canMove);
+
+			// Move if able to heal
+			if (canHeal) {
+				fitness = checkForHealingFitness(u, parent, context, fitness, canMove);
+			}
+						
+			// Get default action if still set to wait
+			DefaultActionType.valueOf(actionType).getAction(u, parent, context);
+		}
+
+		parent.gettingPath = false;
+	}
 
 	// Gets a list of the best combat results which show what unit to attack and
 	// what ability to use
@@ -363,7 +281,7 @@ public enum AIType {
 		return !context.tiles[x][y].isSolid();
 	}
 
-	private static Point getDefaultRoamLocation(Unit u, StateDungeon context) {
+	public Point getDefaultRoamLocation(Unit u, StateDungeon context) {
 		Unit target = Inventory.active.get(0);
 
 		boolean direction = new Random().nextBoolean();
@@ -419,11 +337,11 @@ public enum AIType {
 	}
 
 	public static String[] getNameList() {
-		String[] names = new String[values().length];
-		for (int i = 0; i < names.length; i++) {
-			names[i] = values()[i].name;
+		ArrayList<String> aiNames = new ArrayList<>();
+		for (AIType ai : aiList.values()) {
+			aiNames.add(ai.name);
 		}
-		return names;
+		return aiNames.toArray(new String[aiNames.size()]);
 	}
 
 	public static int checkForHealingFitness(Unit u, AIHandler parent, StateDungeon context, int fitness, boolean canMove) {
@@ -512,6 +430,34 @@ public enum AIType {
 
 			u.updateStats();
 		}
+	}
+
+	public static void loadAITypes(String folder) {
+		File dir = new File(folder);
+		if (dir.exists()) {
+			for (File f : FileManager.getFiles(folder)) {
+				try {
+					JSONObject jo = (JSONObject) new JSONParser().parse(new FileReader(f));
+					
+					String name = (String) jo.get("name");
+					boolean canMove = (boolean) jo.get("can_move");
+					boolean canHeal = (boolean) jo.get("can_heal");
+					String actionType = (String) jo.get("default_action");
+					
+					aiList.put(f.getName(), new AIType(f.getName(), name, canMove, canHeal, actionType));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			System.out.println("[AIType]: AI types loaded with size " + aiList.size());
+		}
+	}
+
+	public static AIType getDefault() {
+		for(AIType ai : aiList.values()) {
+			return ai;
+		}
+		return null;
 	}
 
 }

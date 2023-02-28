@@ -1,0 +1,6 @@
+{
+	"name": "Soldier",
+	"can_move": true,
+	"can_heal": true,
+	"default_action": "PURSUE"
+}

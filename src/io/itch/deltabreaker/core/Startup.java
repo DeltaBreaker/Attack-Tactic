@@ -203,6 +203,7 @@ public class Startup implements Runnable {
 			ItemProperty.loadItems("res/data/item");
 			Unit.loadNames("res/data/unit/names.json");
 			Unit.loadProfiles("res/data/unit/profiles.json");
+			AIType.loadAITypes("res/data/ai");
 			ResourceManager.loadStates();
 			ResourceManager.validateData();
 
@@ -232,11 +233,11 @@ public class Startup implements Runnable {
 					break;
 
 				default:
-					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.STANDARD_DUNGEON));
-					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.STANDARD_DUNGEON));
-					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.STANDARD_DUNGEON));
-					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.STANDARD_DUNGEON));
-					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.STANDARD_DUNGEON));
+					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.get("standard_dungeon.json")));
+					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.get("standard_dungeon.json")));
+					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.get("standard_dungeon.json")));
+					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.get("standard_dungeon.json")));
+					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.get("standard_dungeon.json")));
 					StateDungeon.startDungeon(0, args[0], 0, new Random().nextLong());
 //					break;
 
@@ -245,23 +246,23 @@ public class Startup implements Runnable {
 //				StateManager.swapState(StateSplash.STATE_ID);
 //				StateManager.swapState(StateTitle.STATE_ID);
 
-//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_BALANCE, AIType.STANDARD_DUNGEON));
+//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_BALANCE, AIType.get("standard_dungeon.json")));
 //				StateHub.loadMap("house");
 
 //				StateDungeon.loadMap("bridge_test");
 //				StateHub.loadMap("village_hub");
 
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.STANDARD_DUNGEON));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.STANDARD_DUNGEON));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.STANDARD_DUNGEON));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.STANDARD_DUNGEON));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.tank.magic"), AIType.STANDARD_DUNGEON));
+				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
+				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
+				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
+				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
+				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.tank.magic"), AIType.get("standard_dungeon.json")));
 
-//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
-//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
-//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
-//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
-//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
+//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
+//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
+//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
+//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
+//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
 //				Inventory.header = "Humble Beginnings";
 //				Inventory.loadMap = "title_scene";
 //				Inventory.saveHeader(2);

@@ -1,0 +1,6 @@
+{
+	"name": "Unmoving",
+	"can_move": false,
+	"can_heal": true,
+	"default_action": "IDLE"
+}

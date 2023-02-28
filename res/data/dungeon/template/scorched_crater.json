@@ -19,10 +19,10 @@
 	"enemy_level_deviation": 10,
 	"tier": 0,
 	"ai_type_rates": [
-		"0",
-		"1",
-		"0",
-		"0"
+		{
+			"name": "standard_dungeon.json",
+			"rate": 1.0
+		}
 	],
 	"unit_profiles": [
 		{

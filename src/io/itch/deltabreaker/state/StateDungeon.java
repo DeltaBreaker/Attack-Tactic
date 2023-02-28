@@ -29,7 +29,6 @@ import io.itch.deltabreaker.effect.EffectText;
 import io.itch.deltabreaker.effect.EffectWater;
 import io.itch.deltabreaker.effect.EffectWaterSplash;
 import io.itch.deltabreaker.effect.battle.EffectBattle;
-import io.itch.deltabreaker.effect.battle.EffectCoupDeGrace;
 import io.itch.deltabreaker.effect.dungeon.EffectDungeonLavaSFX;
 import io.itch.deltabreaker.effect.dungeon.EffectDungeonRain;
 import io.itch.deltabreaker.effect.dungeon.EffectDungeonResidue;
@@ -1556,7 +1555,7 @@ public class StateDungeon extends State {
 
 	public void processFreeRoamMovement() {
 		for (Unit u : enemies) {
-			Point p = u.AIPattern.getFreeRoamLocation(u, this);
+			Point p = u.AIPattern.getDefaultRoamLocation(u, this);
 			u.locX = p.x;
 			u.locY = p.y;
 

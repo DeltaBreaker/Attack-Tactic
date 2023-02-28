@@ -112,7 +112,7 @@ public class Unit {
 	public int hair = 0;
 	public Vector4f hairColor = new Vector4f(1, 1, 1, 1);
 
-	public AIType AIPattern = AIType.STANDARD_DUNGEON;
+	public AIType AIPattern;
 
 	// Stats
 
@@ -170,6 +170,8 @@ public class Unit {
 		this.uuid = uuid;
 
 		Inventory.loaded.put(uuid, this);
+		
+		AIPattern = AIType.getDefault();
 	}
 
 	public void tick() {
@@ -950,7 +952,7 @@ public class Unit {
 			out.writeUTF(accessory.id);
 			out.writeUTF(accessory.uuid);
 
-			out.writeUTF(AIPattern.name());
+			out.writeUTF(AIPattern.getFile());
 
 			out.flush();
 			out.close();
@@ -1006,7 +1008,7 @@ public class Unit {
 			u.currentHp = u.baseHp + u.weapon.hp + u.armor.hp + u.offsetHp + u.accessory.hp;
 			u.lastWeapon = u.weapon.id;
 
-			u.AIPattern = AIType.valueOf(in.readUTF());
+			u.AIPattern = AIType.get(in.readUTF());
 
 			in.close();
 
@@ -1014,7 +1016,7 @@ public class Unit {
 		} else {
 			System.out.println("[Unit]: File " + file + " was not found");
 		}
-		return randomCombatUnit(x, y, new Vector4f(1, 1, 1, 1), 1, 0, new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f }, AIType.STANDARD_DUNGEON);
+		return randomCombatUnit(x, y, new Vector4f(1, 1, 1, 1), 1, 0, new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f }, AIType.get("standard_dungeon.json"));
 	}
 
 	public static void loadNames(String file) {

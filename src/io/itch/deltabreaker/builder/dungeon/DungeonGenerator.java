@@ -638,15 +638,14 @@ public class DungeonGenerator {
 				}
 
 				// Chooses an AI type based on given values
-				AIType[] types = AIType.values();
-				int type = r.nextInt(types.length);
+				int type = r.nextInt(pattern.aiTypes.length);
 				float value = r.nextFloat();
 				while (value > pattern.aiRates[type]) {
-					type = r.nextInt(types.length);
+					type = r.nextInt(pattern.aiTypes.length);
 					value = r.nextFloat();
 				}
 				enemyPlacements.add(Unit.randomCombatUnit(this.rooms.get(room).x + x, this.rooms.get(room).y + y, new Vector4f(1, 1, 1, 1), pattern.tier * 10 - pattern.enemyLevelReduction, pattern.enemyLevelDeviation,
-						Unit.GROWTH_PROFILES.get(pattern.getRandomProfile()), types[type]));
+						Unit.GROWTH_PROFILES.get(pattern.getRandomProfile()), AIType.get(pattern.aiTypes[type])));
 			}
 		}
 	}
@@ -1264,9 +1263,12 @@ public class DungeonGenerator {
 					int tier = Math.toIntExact((long) jo.get("tier"));
 
 					JSONArray aiRates = (JSONArray) jo.get("ai_type_rates");
+					String[] aiTypes = new String[aiRates.size()];
 					float[] aiTypeRates = new float[aiRates.size()];
 					for (int i = 0; i < aiTypeRates.length; i++) {
-						aiTypeRates[i] = Float.parseFloat((String) aiRates.get(i));
+						JSONObject ai = (JSONObject) aiRates.get(i);
+						aiTypes[i] = (String) ai.get("name");
+						aiTypeRates[i] = (float) (double) ai.get("rate");
 					}
 
 					JSONArray screen = (JSONArray) jo.get("screen_color");
@@ -1323,7 +1325,7 @@ public class DungeonGenerator {
 					patterns.put(f.getName(),
 							new GenerationPattern(f.getName(), name, palletTag, maxDepth, levelScaler, baseWorldSize, worldSizeScaler, perlinPersistance, testLimit, roomSizeMin, roomSizeRandom, itemCountRandom, itemCountCertain,
 									enemyRoomCountDevisor, enemyRoomCountRandomDevisor, enemyCountRandom, enemyCountCertain, enemyLevelReduction, enemyLevelDeviation, decorTags, decorVariables, effectTags, effectVariables, altTags,
-									altVariables, aiTypeRates, profileNames, profileValues, screenColors, tier));
+									altVariables, aiTypes, aiTypeRates, profileNames, profileValues, screenColors, tier));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -1534,6 +1536,7 @@ class GenerationPattern {
 	public double[][] effectVariables;
 	public String[] altTags;
 	public String[][] altVariables;
+	public String[] aiTypes;
 	public float[] aiRates;
 	public String[] profileNames;
 	public float[] profileValues;
@@ -1542,7 +1545,7 @@ class GenerationPattern {
 
 	public GenerationPattern(String pattern, String name, String palletTag, int maxDepth, double levelScaler, int baseWorldSize, double worldSizeScaler, float perlinPersistance, int testLimit, int roomSizeMin, int roomSizeRandom,
 			int itemCountRandom, int itemCountCertain, double enemyRoomCountDevisor, double enemyRoomCountRandomDevisor, int enemyCountRandom, int enemyCountCertain, int enemyLevelReduction, int enemyLevelDeviation, String[] decorationTags,
-			double[][] decorationVariables, String[] effectTags, double[][] effectVariables, String[] altTags, String[][] altVariables, float[] aiRates, String[] profileNames, float[] profileValues, float[] screenColor, int tier) {
+			double[][] decorationVariables, String[] effectTags, double[][] effectVariables, String[] altTags, String[][] altVariables, String[] aiTypes, float[] aiRates, String[] profileNames, float[] profileValues, float[] screenColor, int tier) {
 		this.pattern = pattern;
 		this.name = name;
 		this.palletTag = palletTag;
@@ -1568,6 +1571,7 @@ class GenerationPattern {
 		this.effectVariables = effectVariables;
 		this.altTags = altTags;
 		this.altVariables = altVariables;
+		this.aiTypes = aiTypes;
 		this.aiRates = aiRates;
 		this.profileNames = profileNames;
 		this.profileValues = profileValues;

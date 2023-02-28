@@ -21,7 +21,7 @@ public class MenuCreatorUnit extends Menu {
 	private Vector3f cursorPos;
 
 	public MenuCreatorUnit(Vector3f position, Unit unit) {
-		super(position, new String[] { "Edit", "Equipment", unit.AIPattern.toString(), "Export", "Import" });
+		super(position, new String[] { "Edit", "Equipment", unit.AIPattern.getName(), "Export", "Import" });
 		this.unit = unit;
 		cursorPos = Vector3f.add(StateManager.currentState.cursor.position, 0, 0, 0);
 		StateManager.currentState.cursor.warpLocation(Vector3f.add(position, 0, -9, 0));
@@ -29,7 +29,7 @@ public class MenuCreatorUnit extends Menu {
 	}
 
 	public void tick() {
-		options[2] = unit.AIPattern.toString();
+		options[2] = unit.AIPattern.getName();
 		super.tick();
 	}
 

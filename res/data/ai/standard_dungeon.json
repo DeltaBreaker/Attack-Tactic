@@ -1,0 +1,6 @@
+{
+	"name": "Explorer",
+	"can_move": true,
+	"can_heal": true,
+	"default_action": "ROAM"
+}
