@@ -144,10 +144,25 @@ public class AIHandler {
 								}
 								break;
 
-							case "item":
+							case "item_use":
 								context.selectedItem = itemUse;
 								context.selectedUnit = context.enemies.get(currentUnit);
 								ItemUse.valueOf(itemUse.use).use(attackTarget, context);
+
+								if (currentUnit < context.enemies.size() - 1) {
+									currentUnit++;
+									gettingPath = true;
+									waitTimer = 0;
+								} else {
+									doneProcessing = true;
+								}
+								break;
+								
+							case "item_followup":
+								context.selectedItem = itemUse;
+								context.selectedUnit = context.enemies.get(currentUnit);
+								ItemUse.valueOf(itemUse.use).use(attackTarget, context);
+								ItemUse.valueOf(itemUse.use).followUp(attackTarget, context);
 
 								if (currentUnit < context.enemies.size() - 1) {
 									currentUnit++;
