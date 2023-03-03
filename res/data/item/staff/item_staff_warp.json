@@ -2,7 +2,7 @@
 	"id": "item.staff.warp",
 	"name": "Warp Staff",
 	"type": "item.type.weapon",
-	"tier": 0,
+	"tier": 1,
 	"damage_type": "item.damage.physical",
 	"animation": "ITEM_ANIMATION_BASH",
 	"range": 1,

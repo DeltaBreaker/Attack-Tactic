@@ -1276,7 +1276,7 @@ public class StateDungeon extends State {
 		}
 	}
 
-	public static void startDungeon(int tier, String pattern, int level, long seed) {
+	public static void startDungeon(String pattern, int level, long seed) {
 		setUpDungeon(new DungeonGenerator(pattern, level, seed));
 		initUnits();
 	}

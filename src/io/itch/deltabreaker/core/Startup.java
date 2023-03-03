@@ -238,7 +238,7 @@ public class Startup implements Runnable {
 					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.get("standard_dungeon.json")));
 					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.get("standard_dungeon.json")));
 					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.get("standard_dungeon.json")));
-					StateDungeon.startDungeon(0, args[0], 0, new Random().nextLong());
+					StateDungeon.startDungeon(args[0], 0, new Random().nextLong());
 //					break;
 
 				}
@@ -267,8 +267,8 @@ public class Startup implements Runnable {
 //				Inventory.loadMap = "title_scene";
 //				Inventory.saveHeader(2);
 //				Inventory.saveGame(2);
-				StateDungeon.startDungeon(0, "seabed_cove.json", 14, -1932052909105962160L);
-//				StateDungeon.startDungeon(0, "scorched_crater.json", 14, new Random().nextLong());
+				StateDungeon.startDungeon("snow_forrest.json", 14, -1932052909105962160L);
+//				StateDungeon.startDungeon("scorched_crater.json", 14, new Random().nextLong());
 			}
 
 			GLFW.glfwShowWindow(window);
