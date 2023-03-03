@@ -11,8 +11,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
+import java.util.HashMap;
 import java.util.List;
-import java.util.TreeMap;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterOutputStream;
 
@@ -57,33 +57,33 @@ import io.itch.deltabreaker.state.StateUnitCreator;
 
 public class ResourceManager {
 
-	public static final String META_HASH = "-744041322";
+	public static final String META_HASH = "1676318575";
 	public static String currentHash = "";
 
-	public static TreeMap<String, Model> models = new TreeMap<>();
-	public static TreeMap<String, Shader> shaders = new TreeMap<>();
-	public static TreeMap<String, Texture> textures = new TreeMap<>();
+	public static HashMap<String, Model> models = new HashMap<>();
+	public static HashMap<String, Shader> shaders = new HashMap<>();
+	public static HashMap<String, Texture> textures = new HashMap<>();
 
 	public static void validateData() {
 		long time = System.nanoTime();
-		String megaHash = "";
+		StringBuilder megaHash = new StringBuilder("");
 
 		try {
 			List<File> list = FileManager.getFiles("res/data");
 			for (File f : list) {
 				if (!f.isDirectory()) {
 					MessageDigest shaDigest = MessageDigest.getInstance("SHA-256");
-					megaHash += getFileChecksum(shaDigest, f);
+					megaHash.append(getFileChecksum(shaDigest, f));
 				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
-		megaHash = "" + megaHash.hashCode();
-		System.out.println("[ResourceManager]: Current hash " + megaHash + " with meta hash of " + META_HASH);
+		currentHash = "" + megaHash.toString().hashCode();
+		System.out.println("[ResourceManager]: Current hash " + currentHash + " with meta hash of " + META_HASH);
 
-		boolean match = META_HASH.equals("" + megaHash);
+		boolean match = META_HASH.equals("" + currentHash);
 		if (match) {
 			System.out.println("[ResourceManager]: Approved for online features");
 		} else {

@@ -946,6 +946,7 @@ public enum ItemAbility {
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
 			context.combatMode = true;
+			context.clearSelectedTiles();
 			return true;
 		}
 
@@ -953,6 +954,7 @@ public enum ItemAbility {
 		public boolean followUp(Unit u, StateDungeon context) {
 			if (context.isTileAvailable(context.cursorPos.x, context.cursorPos.y)) {
 				u.setTurn(false);
+				context.effects.add(new EffectPoof(new Vector3f(u.x, u.height + 13, u.y + 2)));
 				u.placeAt(context.cursorPos.x, context.cursorPos.y);
 				u.height = StateManager.currentState.tiles[(int) Math.round(u.x / 16.0)][(int) Math.round(u.y / 16.0)].getPosition().getY();
 				context.effects.add(new EffectPoof(new Vector3f(u.x, u.height + 13, u.y + 2)));
