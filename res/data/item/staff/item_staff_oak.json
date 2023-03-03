@@ -22,9 +22,9 @@
 	],
 	"price": 200,
 	"text": [
-		"Restores 10 HP",
-		"to user and",
-		"nearby allies"
+		"An olf branch",
+		"with a faint",
+		"magic aura"
 	],
 	"model": "item_staff_oak.dae",
 	"texture": "item_staff_oak.png",

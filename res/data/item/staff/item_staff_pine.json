@@ -27,7 +27,7 @@
 		"with a subtle",
 		"magic aura"
 	],
-	"model": "item_staff_pine.dae",
+	"model": "item_staff_oak.dae",
 	"texture": "item_staff_pine.png",
 	"wearable_model_id": "unit_weapon_staff_type_0",
 	"wearable_texture_id": "unit_weapon_staff_pine",

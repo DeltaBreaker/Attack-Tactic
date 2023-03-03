@@ -1650,8 +1650,8 @@ public class StateDungeon extends State {
 		case MISC:
 			for(Unit u : Inventory.active) {
 				u.applyStatus(Unit.STATUS_POISON);
-				u.addItem(ItemProperty.get("item.usable.dart.tranq"));
-				u.addItem(ItemProperty.get("item.usable.dart.poison"));
+				u.addItem(ItemProperty.get("item.staff.warp"));
+				u.addItem(ItemProperty.get("item.staff.blaze"));
 				u.addItem(ItemProperty.get("item.usable.pebble"));
 				u.addItem(ItemProperty.get("item.usable.magma.stone"));
 			}

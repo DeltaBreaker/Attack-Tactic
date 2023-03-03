@@ -1,0 +1,49 @@
+{
+	"id": "item.staff.blaze",
+	"name": "Blaze Staff",
+	"type": "item.type.weapon",
+	"tier": 0,
+	"damage_type": "item.damage.physical",
+	"animation": "ITEM_ANIMATION_BASH",
+	"range": 1,
+	"hp": 0,
+	"atk": 3,
+	"mag": 0,
+	"spd": 0,
+	"def": 0,
+	"res": 0,
+	"mov": 0,
+	"abilities": [
+		"ITEM_ABILITY_HEAL_30",
+		"ITEM_ABILITY_CURE",
+		"ITEM_ABILITY_IMMOLATION"
+	],
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 1100,
+	"text": [
+		"A warm staff",
+		"topped with a",
+		"red gem"
+	],
+	"model": "item_staff_blaze.dae",
+	"texture": "item_staff_blaze.png",
+	"wearable_model_id": "unit_weapon_staff_type_1",
+	"wearable_texture_id": "unit_weapon_staff_blaze",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": 1100,
+		"materials": [
+			{
+				"item": "item.material.bar.wood",
+				"count": 6
+			},
+			{
+				"item": "item.material.gem.ruby",
+				"count": 3
+			}
+		]
+	}
+}

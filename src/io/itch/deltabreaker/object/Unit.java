@@ -393,7 +393,10 @@ public class Unit {
 			String shader = (StateManager.currentState.STATE_ID == StateDungeon.STATE_ID && context.freeRoamMode && context.enemies.contains(this)) ? "main_3d_enemy" : "main_3d";
 			boolean ignoreDepth = (unitColor.getW() < 1) ? true : false;
 
-			weapon = ItemProperty.get("item.staff.pine");
+			weapon = ItemProperty.get("item.staff.blaze");
+			
+			body = 0;
+			dir = 0;
 			
 			// Change color if unit has acted
 			Vector4f bodyColor = this.bodyColor;
