@@ -3,6 +3,7 @@ package io.itch.deltabreaker.object.item;
 import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.effect.EffectBuff;
+import io.itch.deltabreaker.effect.EffectEnergize;
 import io.itch.deltabreaker.effect.EffectPoof;
 import io.itch.deltabreaker.effect.EffectText;
 import io.itch.deltabreaker.effect.battle.EffectCoupDeGrace;
@@ -685,7 +686,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_HEAL_10("Heal", "target.unit", false, true, true, false, false) {
+	ITEM_ABILITY_HEAL_10("S Heal", "target.unit", false, true, true, false, false) {
 
 		@Override
 		public boolean isUnlocked(ItemProperty item) {
@@ -700,11 +701,15 @@ public enum ItemAbility {
 
 		@Override
 		public boolean followUp(Unit u, StateDungeon context) {
-			u.heal(calculateHealing(context.selectedUnit, u));
-			context.selectedUnit.setTurn(false);
-			context.clearSelectedTiles();
-			context.clearUnit();
-			return true;
+			if (u.currentHp < u.hp) {
+				u.heal(calculateHealing(context.selectedUnit, u));
+				context.selectedUnit.setTurn(false);
+				context.clearSelectedTiles();
+				context.clearUnit();
+				return true;
+			}
+			AudioManager.getSound("invalid.ogg").play(AudioManager.defaultMainSFXGain, false);
+			return false;
 		}
 
 		@Override
@@ -720,6 +725,194 @@ public enum ItemAbility {
 		@Override
 		public int calculateHealing(Unit healer, Unit healed) {
 			return 10;
+		}
+
+		@Override
+		public int[] getStats() {
+			return null;
+		}
+
+		@Override
+		public void onCombatEnd(Unit unit, StateDungeon context) {
+			// Empty
+		}
+
+		@Override
+		public void onHit(StateDungeon context) {
+			// Empty
+		}
+
+		@Override
+		public void onRetaliation(StateDungeon context) {
+			// Empty
+		}
+	},
+
+	ITEM_ABILITY_HEAL_20("M Heal", "target.unit", false, true, true, false, false) {
+
+		@Override
+		public boolean isUnlocked(ItemProperty item) {
+			return true;
+		}
+
+		@Override
+		public boolean use(Unit u, StateDungeon context) {
+			context.combatMode = true;
+			return true;
+		}
+
+		@Override
+		public boolean followUp(Unit u, StateDungeon context) {
+			if (u.currentHp < u.hp) {
+				u.heal(calculateHealing(context.selectedUnit, u));
+				context.selectedUnit.setTurn(false);
+				context.clearSelectedTiles();
+				context.clearUnit();
+				return true;
+			}
+			AudioManager.getSound("invalid.ogg").play(AudioManager.defaultMainSFXGain, false);
+			return false;
+		}
+
+		@Override
+		public int[] calculateAttackingDamage(Unit attacker, Unit defender, boolean ignoreRange) {
+			return null;
+		}
+
+		@Override
+		public int[] calculateDefendingDamage(Unit attacker, Unit defender, boolean ignoreRange) {
+			return null;
+		}
+
+		@Override
+		public int calculateHealing(Unit healer, Unit healed) {
+			return 20;
+		}
+
+		@Override
+		public int[] getStats() {
+			return null;
+		}
+
+		@Override
+		public void onCombatEnd(Unit unit, StateDungeon context) {
+			// Empty
+		}
+
+		@Override
+		public void onHit(StateDungeon context) {
+			// Empty
+		}
+
+		@Override
+		public void onRetaliation(StateDungeon context) {
+			// Empty
+		}
+	},
+
+	ITEM_ABILITY_HEAL_30("L Heal", "target.unit", false, true, true, false, false) {
+
+		@Override
+		public boolean isUnlocked(ItemProperty item) {
+			return true;
+		}
+
+		@Override
+		public boolean use(Unit u, StateDungeon context) {
+			context.combatMode = true;
+			return true;
+		}
+
+		@Override
+		public boolean followUp(Unit u, StateDungeon context) {
+			if (u.currentHp < u.hp) {
+				u.heal(calculateHealing(context.selectedUnit, u));
+				context.selectedUnit.setTurn(false);
+				context.clearSelectedTiles();
+				context.clearUnit();
+				return true;
+			}
+			AudioManager.getSound("invalid.ogg").play(AudioManager.defaultMainSFXGain, false);
+			return false;
+		}
+
+		@Override
+		public int[] calculateAttackingDamage(Unit attacker, Unit defender, boolean ignoreRange) {
+			return null;
+		}
+
+		@Override
+		public int[] calculateDefendingDamage(Unit attacker, Unit defender, boolean ignoreRange) {
+			return null;
+		}
+
+		@Override
+		public int calculateHealing(Unit healer, Unit healed) {
+			return 30;
+		}
+
+		@Override
+		public int[] getStats() {
+			return null;
+		}
+
+		@Override
+		public void onCombatEnd(Unit unit, StateDungeon context) {
+			// Empty
+		}
+
+		@Override
+		public void onHit(StateDungeon context) {
+			// Empty
+		}
+
+		@Override
+		public void onRetaliation(StateDungeon context) {
+			// Empty
+		}
+	},
+
+	ITEM_ABILITY_CURE("Cure", "target.unit", false, false, true, false, false) {
+
+		@Override
+		public boolean isUnlocked(ItemProperty item) {
+			return true;
+		}
+
+		@Override
+		public boolean use(Unit u, StateDungeon context) {
+			context.combatMode = true;
+			return true;
+		}
+
+		@Override
+		public boolean followUp(Unit u, StateDungeon context) {
+			if (!u.getStatus().equals("")) {
+				u.clearStatus();
+				StateManager.currentState.effects.add(new EffectEnergize(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y), new Vector4f(0.5f, 1f, 0.5f, 1f)));
+				context.selectedUnit.setTurn(false);
+				context.clearSelectedTiles();
+				context.clearUnit();
+				return true;
+			}
+
+			AudioManager.getSound("invalid.ogg").play(AudioManager.defaultMainSFXGain, false);
+			return false;
+		}
+
+		@Override
+		public int[] calculateAttackingDamage(Unit attacker, Unit defender, boolean ignoreRange) {
+			return null;
+		}
+
+		@Override
+		public int[] calculateDefendingDamage(Unit attacker, Unit defender, boolean ignoreRange) {
+			return null;
+		}
+
+		@Override
+		public int calculateHealing(Unit healer, Unit healed) {
+			return 0;
 		}
 
 		@Override
@@ -873,6 +1066,7 @@ public enum ItemAbility {
 
 	},
 
+	// Adds half of enemy def as damage but with 1/3rd attack
 	ITEM_ABILITY_WEAK_POINT("Weak Point", "target.enemy", true, false, true, false, true) {
 
 		@Override

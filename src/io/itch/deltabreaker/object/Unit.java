@@ -49,7 +49,7 @@ public class Unit {
 
 	public static ArrayList<String> names = new ArrayList<>();
 	public static HashMap<String, float[]> GROWTH_PROFILES = new HashMap<>();
-	
+
 	public static float movementSpeed = 1f;
 
 	public Vector3f position = new Vector3f(0, 0, 0);
@@ -170,7 +170,7 @@ public class Unit {
 		this.uuid = uuid;
 
 		Inventory.loaded.put(uuid, this);
-		
+
 		AIPattern = AIType.getDefault();
 	}
 
@@ -344,7 +344,7 @@ public class Unit {
 				}
 			}
 		}
-		
+
 		float height = StateManager.currentState.tiles[(int) Math.round(x / 16.0)][(int) Math.round(y / 16.0)].getPosition().getY();
 		if (this.height < height) {
 			this.height = Math.min(this.height + fallSpeed, height);
@@ -359,7 +359,7 @@ public class Unit {
 		} else if (body > 0) {
 			offset = 1;
 		}
-		
+
 		hairPosition.set(x, 13 + offset * 0.5f + this.height, y - offset * 0.9f);
 		armorPosition.set(x, 13 + this.height + 0.3f, y + 0.2f);
 		weaponPosition.set(x, 13 + this.height + 0.65f, y + 0.3f);
@@ -392,6 +392,8 @@ public class Unit {
 			StateDungeon context = StateDungeon.getCurrentContext();
 			String shader = (StateManager.currentState.STATE_ID == StateDungeon.STATE_ID && context.freeRoamMode && context.enemies.contains(this)) ? "main_3d_enemy" : "main_3d";
 			boolean ignoreDepth = (unitColor.getW() < 1) ? true : false;
+
+			weapon = ItemProperty.get("item.staff.pine");
 			
 			// Change color if unit has acted
 			Vector4f bodyColor = this.bodyColor;
@@ -402,7 +404,7 @@ public class Unit {
 				bodyColor = Vector4f.mul(this.bodyColor, 0.5f);
 				hairColor = Vector4f.mul(this.hairColor, 0.5f);
 			}
-			
+
 			BatchSorter.add((shader.equals("main_3d_enemy")) ? "zz" : "", "unit_body_" + race + "_" + body + "_" + dir + "_" + frame + ".dae", "unit_body_" + race + "_" + body + "_" + dir + "_" + frame + ".png", shader,
 					Material.DEFAULT.toString(), position, rotation, Vector3f.SCALE_HALF, new Vector4f(bodyColor.getX(), bodyColor.getY(), bodyColor.getZ(), unitColor.getW()), !context.freeRoamMode && unitColor.getW() > 0, false,
 					ignoreDepth);
@@ -574,15 +576,8 @@ public class Unit {
 		return status;
 	}
 
-	public void setTurn(boolean ready) {
-		if (!ready && status.equals(STATUS_POISON)) {
-			hurt((int) Math.round(hp / 10.0));
-			statusTimer--;
-		}
-		if (ready && status.equals(STATUS_SLEEP)) {
-			statusTimer--;
-		}
-		if (statusTimer <= 0) {
+	public void clearStatus() {
+		if (!status.equals("")) {
 			switch (status) {
 
 			case STATUS_POISON:
@@ -597,6 +592,19 @@ public class Unit {
 
 			statusEffect.die = true;
 			status = "";
+		}
+	}
+
+	public void setTurn(boolean ready) {
+		if (!ready && status.equals(STATUS_POISON)) {
+			hurt((int) Math.round(hp / 10.0));
+			statusTimer--;
+		}
+		if (ready && status.equals(STATUS_SLEEP)) {
+			statusTimer--;
+		}
+		if (statusTimer <= 0) {
+			clearStatus();
 		}
 		if (!ready || !status.equals(STATUS_SLEEP)) {
 			hasTurn = ready;
@@ -1053,13 +1061,13 @@ public class Unit {
 
 				for (int i = 0; i < ja.size(); i++) {
 					JSONObject profile = (JSONObject) ja.get(i);
-					
+
 					JSONArray data = (JSONArray) profile.get("values");
 					float[] values = new float[data.size()];
-					for(int j = 0; j < data.size(); j++) {
+					for (int j = 0; j < data.size(); j++) {
 						values[j] = (float) ((double) data.get(j));
 					}
-					
+
 					GROWTH_PROFILES.put((String) profile.get("name"), values);
 				}
 				System.out.println("[Unit]: Loaded profile data with " + GROWTH_PROFILES.size() + " profiles");
