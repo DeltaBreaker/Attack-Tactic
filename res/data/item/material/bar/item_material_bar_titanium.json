@@ -2,7 +2,7 @@
 	"id": "item.material.bar.titanium",
 	"name": "Titanium Bar",
 	"type": "item.type.other",
-	"tier": 4,
+	"tier": 1,
 	"rate": 0.65,
 	"fish_rate": 0.0,
 	"locations": [

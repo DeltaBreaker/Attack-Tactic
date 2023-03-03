@@ -2,7 +2,7 @@
 	"id": "item.material.bar.gold",
 	"name": "Gold Bar",
 	"type": "item.type.other",
-	"tier": 3,
+	"tier": 1,
 	"rate": 0.7,
 	"fish_rate": 0.0,
 	"locations": [
