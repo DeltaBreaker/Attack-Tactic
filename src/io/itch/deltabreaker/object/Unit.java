@@ -344,6 +344,7 @@ public class Unit {
 				}
 			}
 		}
+		
 		float height = StateManager.currentState.tiles[(int) Math.round(x / 16.0)][(int) Math.round(y / 16.0)].getPosition().getY();
 		if (this.height < height) {
 			this.height = Math.min(this.height + fallSpeed, height);
@@ -358,10 +359,10 @@ public class Unit {
 		} else if (body > 0) {
 			offset = 1;
 		}
-		hairPosition.set(x, 13 + offset * 0.7f + this.height, y - offset * 0.75f);
-
+		
+		hairPosition.set(x, 13 + offset * 0.5f + this.height, y - offset * 0.9f);
 		armorPosition.set(x, 13 + this.height + 0.3f, y + 0.2f);
-		weaponPosition.set(x, 13 + height + 0.65f, y + 0.4f);
+		weaponPosition.set(x, 13 + this.height + 0.65f, y + 0.3f);
 	}
 
 	public void updateStats() {
