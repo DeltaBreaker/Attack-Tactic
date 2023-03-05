@@ -186,14 +186,14 @@ public class StateHub extends State {
 		boolean showIcon = false;
 		for (Unit u : npcs) {
 			u.render();
-			if (!showIcon && Math.abs(u.locX - Inventory.units.get(0).locX) + Math.abs(u.locY - Inventory.units.get(0).locY) == 1 && hasEvent(u) && noUIOnScreen() && events.size() == 0) {
+			if (!showIcon && hasEvent(u) && noUIOnScreen() && events.size() == 0) {
 				BatchSorter.add("gui_action.dae", "gui_action.png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(),
 						Vector3f.add(new Vector3f(u.x, 13 + u.height, u.y), 2, 8 + AdvMath.sin[(int) Startup.universalAge % 360] * 1.5f, -12), Inventory.units.get(0).rotation, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, false);
 			}
 		}
 		for (EventScript e : eventList.values()) {
 			String[] args = e.activator.split(" ");
-			if (args[0].equals(EventScript.ACTIVATOR_ACTION)) {
+			if (args[0].equals(EventScript.ACTIVATOR_ACTION) && args.length == 3) {
 				Vector3f position = Vector3f.add(tiles[Integer.parseInt(args[1])][Integer.parseInt(args[2])].getPosition(), 0, 20, 0);
 				BatchSorter.add("gui_action.dae", "gui_action.png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(), Vector3f.add(position, 0, 8 + AdvMath.sin[(int) Startup.universalAge % 360] * 1.5f, -1),
 						Vector3f.DEFAULT_INVERSE_CAMERA_ROTATION, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, false);
@@ -484,7 +484,7 @@ public class StateHub extends State {
 						}
 						for (EventScript e : eventList.values()) {
 							String[] args = e.activator.split(" ");
-							if (args[0].equals(EventScript.ACTIVATOR_ACTION)) {
+							if (args[0].equals(EventScript.ACTIVATOR_ACTION) && args.length == 3) {
 								if (Math.abs(Integer.parseInt(args[1]) - Inventory.units.get(0).locX) + Math.abs(Integer.parseInt(args[2]) - Inventory.units.get(0).locY) <= 1) {
 									events.add(new Event(e));
 								}

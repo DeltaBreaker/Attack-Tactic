@@ -17,6 +17,16 @@
 		"warpunit bfce0c80-ebe4-487d-90a1-a869e0c4e8b9 13 32",
 		"end",
 		
+		"init parent_state 0",
+		"if parent_state 0",
+		"loadunit res/data/map/village_hub/unit/a0da0e0a-6b0d-4d94-91e2-53880f64b2f7.dat",
+		"loadunit res/data/map/village_hub/unit/92b9efeb-b5e8-49c3-b04f-abf29843650c.dat",
+		"spawnunit a0da0e0a-6b0d-4d94-91e2-53880f64b2f7 17 40 false true",
+		"spawnunit 92b9efeb-b5e8-49c3-b04f-abf29843650c 21 32 false true",
+		"poselock a0da0e0a-6b0d-4d94-91e2-53880f64b2f7 true",
+		"poselock 92b9efeb-b5e8-49c3-b04f-abf29843650c true",
+		"end",
+		
 		"wait 72",
 		"fade 1 1 1 0",
 		"wait 144",
