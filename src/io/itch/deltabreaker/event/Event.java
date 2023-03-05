@@ -28,50 +28,57 @@ public class Event {
 	public int waitTimer = 0;
 	public int waitTime = 0;
 	public boolean skip = false;
+	public boolean continuous = false;
 
 	public Event(EventScript event) {
 		this.event = event;
 	}
 
 	public void tick() {
-		if (!finished) {
-			if (waitTimer == waitTime) {
-				if (currentLine < event.lines.length) {
-					try {
-						String[] args = getUnitOnActivatorLocation(event.lines[currentLine]).split(" ");
-						switch (args[0]) {
-
-						case "if":
-							skip = Inventory.variables.containsKey(args[1]) && Inventory.variables.get(args[1]) != Integer.parseInt(args[2]);
-							break;
-
-						case "end":
-							skip = false;
-							break;
-
-						default:
-							if (!skip && !args[0].startsWith("//")) {
-								EventCommand.valueOf(args[0]).run(args, this);
-							}
-							break;
-
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
+		do {
+			if (!finished) {
+				if (waitTimer == waitTime) {
+					if (currentLine < event.lines.length) {
 						try {
-							throw new EventErrorException(currentLine + 1, event.lines[currentLine]);
-						} catch (Exception e2) {
-							e2.printStackTrace();
+							String[] args = getUnitOnActivatorLocation(event.lines[currentLine]).split(" ");
+							switch (args[0]) {
+
+							case "if":
+								skip = Inventory.variables.containsKey(args[1]) && Inventory.variables.get(args[1]) != Integer.parseInt(args[2]);
+								break;
+
+							case "end":
+								skip = false;
+								break;
+
+							case "continuous":
+								continuous = Boolean.parseBoolean(args[1]);
+								break;
+
+							default:
+								if (!skip && !args[0].startsWith("//")) {
+									EventCommand.valueOf(args[0]).run(args, this);
+								}
+								break;
+
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							try {
+								throw new EventErrorException(currentLine + 1, event.lines[currentLine]);
+							} catch (Exception e2) {
+								e2.printStackTrace();
+							}
 						}
+						currentLine++;
+					} else {
+						finished = true;
 					}
-					currentLine++;
 				} else {
-					finished = true;
+					waitTimer++;
 				}
-			} else {
-				waitTimer++;
 			}
-		}
+		} while (continuous && !finished);
 	}
 
 	public boolean canProcessDuringMenu() {

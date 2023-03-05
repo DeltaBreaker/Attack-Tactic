@@ -3,7 +3,9 @@
 	"script": [
 		"controllock true",
 		
-		"if parent_state 0",
+		"init david_action_state 0",
+		
+		"if david_action_state 0",
 		"script david_first_interaction.json",
 		"end",
 		
