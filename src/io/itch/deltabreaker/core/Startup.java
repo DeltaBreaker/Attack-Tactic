@@ -203,6 +203,8 @@ public class Startup implements Runnable {
 			Tile.loadProperties("res/data/tile");
 			ItemProperty.loadItems("res/data/item");
 			Unit.loadNames("res/data/unit/names.json");
+			Unit.loadProfiles("res/data/unit/profiles.json");
+			AIType.loadAITypes("res/data/ai");
 			ResourceManager.loadStates();
 			ResourceManager.validateData();
 
@@ -232,34 +234,42 @@ public class Startup implements Runnable {
 					break;
 
 				default:
-					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
-					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
-					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
-					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
-					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
-					StateDungeon.startDungeon(0, args[0], 0, new Random().nextLong());
-					break;
+					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.get("standard_dungeon.json")));
+					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.get("standard_dungeon.json")));
+					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.get("standard_dungeon.json")));
+					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.get("standard_dungeon.json")));
+					Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.balance"), AIType.get("standard_dungeon.json")));
+					StateDungeon.startDungeon(args[0], 0, new Random().nextLong());
+//					break;
 
 				}
 			} else {
 //				StateManager.swapState(StateSplash.STATE_ID);
 //				StateManager.swapState(StateTitle.STATE_ID);
 
-//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_BALANCE, AIType.STANDARD_DUNGEON));
+//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_BALANCE, AIType.get("standard_dungeon.json")));
 //				StateHub.loadMap("house");
 
 //				StateDungeon.loadMap("bridge_test");
-				StateHub.loadMap("title_scene");
+				StateHub.loadMap("village_hub");
 
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.STANDARD_DUNGEON));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.tank.magic"), AIType.get("standard_dungeon.json")));
 
-//				Inventory.saveGame();
-//				StateDungeon.startDungeon(0, "scorched_crater.json", 14, -1932052909105962160L);
-//				StateDungeon.startDungeon(0, "seabed_cove.json", 14, new Random().nextLong());
+//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
+//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
+//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
+//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
+//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
+//				Inventory.header = "Humble Beginnings";
+//				Inventory.loadMap = "title_scene";
+//				Inventory.saveHeader(2);
+//				Inventory.saveGame(2);
+//				StateDungeon.startDungeon("snow_forrest.json", 14, -1932052909105962160L);
+//				StateDungeon.startDungeon("scorched_crater.json", 14, new Random().nextLong());
 			}
 
 			GLFW.glfwShowWindow(window);
@@ -293,6 +303,7 @@ public class Startup implements Runnable {
 				StateTitle.titleIcon = (String) jo.get("title_icon");
 				StateSplash.splashIcon = (String) jo.get("splash_icon");
 				StateSplash.text = (String) jo.get("splash_text");
+				Inventory.loadMap = (String) jo.get("initial_map");
 			} else {
 				throw new MissingMetaFileException("Missing meta file in location: " + f.getPath());
 			}
@@ -467,7 +478,7 @@ public class Startup implements Runnable {
 		BatchSorter.renderStatic();
 
 		// Used to fade the screen
-		ResourceManager.models.get("fade.dae").render(Vector3f.SCREEN_POSITION, Vector3f.EMPTY, Vector3f.SCALE_FULL, ResourceManager.textures.get("fade.png"), ResourceManager.shaders.get("static_3d"), Material.MATTE, screenColor, false);
+		ResourceManager.models.get("fade.dae").render(Vector3f.add(staticView.position, Vector3f.SCREEN_POSITION), Vector3f.EMPTY, Vector3f.SCALE_FULL, ResourceManager.textures.get("fade.png"), ResourceManager.shaders.get("static_3d"), Material.MATTE, screenColor, false);
 
 		GLFW.glfwSwapBuffers(window);
 		performanceManager.renders++;

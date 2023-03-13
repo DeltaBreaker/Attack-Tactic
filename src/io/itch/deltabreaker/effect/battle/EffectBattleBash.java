@@ -2,6 +2,7 @@ package io.itch.deltabreaker.effect.battle;
 
 import java.util.ArrayList;
 
+import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.graphics.BatchSorter;
 import io.itch.deltabreaker.graphics.Light;
@@ -25,6 +26,7 @@ public class EffectBattleBash extends EffectBattle {
 		light = new Light(Vector3f.mul(this.position.add(new Vector3f(0, 1, 0)), new Vector3f(0.5f, 0.5f, 0.5f)),
 				new Vector3f(2f, 2f, 2f), 1.5f, 1f, 0.035f, null);
 		this.dir = dir;
+		Startup.camera.shake(1.5f, 0, 1.5f);
 		AudioManager.getSound("battle_shield_0.ogg").play(AudioManager.defaultBattleSFXGain, false);
 	}
 

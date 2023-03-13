@@ -1,0 +1,20 @@
+[
+	{
+		"text": [
+			"I should go in from",
+			"the front..."
+		],
+		"charTime": [
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			}
+		],
+		"highlight": 0
+	}
+]

@@ -1,0 +1,22 @@
+{
+	"id": "item.material.gem.obyx",
+	"name": "Onyx",
+	"type": "item.type.other",
+	"tier": 1,
+	"rate": 0.5,
+	"fish_rate": 0.0,
+	"locations": [
+		"pallet.castle_depths"
+	],
+	"price": 400,
+	"text": [
+		"A dark gray",
+		"colored gem"
+	],
+	"model": "item_material_gem.dae",
+	"texture": "item_material_onyx.png",
+	"material": "SILVER",
+	"recipe": {
+		"cost": -1
+	}
+}

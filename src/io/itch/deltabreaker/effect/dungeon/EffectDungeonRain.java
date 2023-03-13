@@ -50,7 +50,7 @@ public class EffectDungeonRain extends Effect {
 		if (!AudioManager.getSound("rain.ogg").isPlaying()) {
 			AudioManager.getSound("rain.ogg").play(0, true);
 		}
-		AudioManager.getSound("rain.ogg").fade(AudioManager.defaultSubSFXGain, 144);
+		AudioManager.getSound("rain.ogg").fade(AudioManager.defaultSubSFXGain, 144, true);
 	}
 
 	public void tick() {
@@ -66,6 +66,7 @@ public class EffectDungeonRain extends Effect {
 		for (int i = 0; i < snowflakes.size(); i++) {
 			snowflakes.get(i).tick();
 			if (snowflakes.get(i).remove) {
+				Matrix4f.release(snowflakes.get(i).precalc);
 				snowflakes.remove(i);
 				i--;
 			}
@@ -106,7 +107,7 @@ public class EffectDungeonRain extends Effect {
 	@Override
 	public void cleanUp() {
 		snowflakes.clear();
-		AudioManager.getSound("rain.ogg").fade(0, 144);
+		AudioManager.getSound("rain.ogg").fade(0, 144, true);
 	}
 
 }

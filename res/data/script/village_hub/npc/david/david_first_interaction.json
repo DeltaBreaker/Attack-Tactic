@@ -1,0 +1,70 @@
+[
+	{
+		"text": [
+			"Good morning dad!"
+		],
+		"charTime": [
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			}
+		],
+		"highlight": 0
+	},
+	{
+		"text": [
+			"Morning Allan.",
+			"Go ahead and visit the",
+			"guild a little early.",
+			"Your mother and I will",
+			"be there shortly."
+		],
+		"charTime": [
+			8,
+			8,
+			8,
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			},
+			{
+				"portrait": "portrait_david",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			}
+		],
+		"highlight": 1
+	},
+	{
+		"text": [
+			"Sure thing!",
+			"Ill see you there."
+		],
+		"charTime": [
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			},
+			{
+				"portrait": "portrait_david",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			}
+		],
+		"highlight": 0
+	}
+]

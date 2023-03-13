@@ -25,17 +25,19 @@ public class EffectProjectile extends Effect {
 	private Vector3f distance;
 	private boolean bounce = false;
 	private Vector3f bounceRotation = new Vector3f(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat());
-
+	private int damage;
+	
 	private int type;
 
 	private Vector4f color;
 
-	public EffectProjectile(Unit u, Unit target, int type) {
+	public EffectProjectile(Unit u, Unit target, int type, int damage) {
 		super(new Vector3f(u.x, 13 + u.height, u.y), Vector3f.EMPTY.copy(), Vector3f.SCALE_FULL);
 		distance = Vector3f.sub(new Vector3f(target.x, 13 + target.height, target.y), position);
 		origin = position.copy();
 		this.target = target;
 		this.type = type;
+		this.damage = damage;
 
 		color = COLORS[type].copy();
 	}
@@ -46,23 +48,23 @@ public class EffectProjectile extends Effect {
 			progress++;
 		} else {
 			if (!bounce) {
-				if (target.accessory.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT)) {
+				if (target.accessory.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT) || target.weapon.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT)) {
 					origin = Vector3f.mul(position, 2);
 					distance = new Vector3f((8 + new Random().nextInt(8)) * ((new Random().nextBoolean()) ? 1 : -1), 0, (8 + new Random().nextInt(8)) * ((new Random().nextBoolean()) ? 1 : -1));
 					bounce = true;
 					progress = 0;
 					height = 8;
-					
+
 					AudioManager.getSound("projectile_deflect.ogg").play(AudioManager.defaultMainSFXGain, false);
 				} else {
 					switch (type) {
 
 					case 0:
-						target.hurt(5);
+						target.hurt(damage);
 						break;
 
 					case 1:
-						target.hurt(10);
+						target.hurt(damage);
 						break;
 
 					case 2:

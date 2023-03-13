@@ -42,6 +42,10 @@ public class DungeonGenerator {
 	public static final String TAG_DECORATION_CHEST = "dungeon.decoration.chest";
 	public static final String TAG_DECORATION_WALL = "dungeon.decoration.wall";
 
+	public static final String TAG_ALT_ITEM_SURPLUS = "dungeon.alt.item.surplus";
+	public static final String TAG_ALT_ENEMY_NONE = "dungeon.alt.enemy.none";
+	public static final String TAG_ALT_ENEMY_HEALTH_REDUCE = "dungeon.alt.enemy.health.reduce";
+
 	// Used to apply in-game effects and set certain objects, such as the overhead
 	// light
 	public static final String TAG_LIGHT_MAIN = "dungeon.light.main";
@@ -73,7 +77,6 @@ public class DungeonGenerator {
 	private int level;
 
 	// Public results
-//	public String patternName;
 	public Tile[][] tiles;
 	public Plane noise;
 	public Rectangle startRoom;
@@ -635,21 +638,20 @@ public class DungeonGenerator {
 				}
 
 				// Chooses an AI type based on given values
-				AIType[] types = AIType.values();
-				int type = r.nextInt(types.length);
+				int type = r.nextInt(pattern.aiTypes.length);
 				float value = r.nextFloat();
 				while (value > pattern.aiRates[type]) {
-					type = r.nextInt(types.length);
+					type = r.nextInt(pattern.aiTypes.length);
 					value = r.nextFloat();
 				}
 				enemyPlacements.add(Unit.randomCombatUnit(this.rooms.get(room).x + x, this.rooms.get(room).y + y, new Vector4f(1, 1, 1, 1), pattern.tier * 10 - pattern.enemyLevelReduction, pattern.enemyLevelDeviation,
-						Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], types[type]));
+						Unit.GROWTH_PROFILES.get(pattern.getRandomProfile()), AIType.get(pattern.aiTypes[type])));
 			}
 		}
 	}
 
 	public void generateItems() {
-		ItemProperty[] items = ItemProperty.searchForTier(pattern.tier, ItemProperty.searchForLocation(pattern.palletTag, ItemProperty.getItemList()), true);
+		ItemProperty[] items = ItemProperty.searchForTier(pattern.tier, ItemProperty.searchForLocation(pattern.palletTag, ItemProperty.getItemList()), false);
 		for (int i = 0; i < rooms.size(); i++) {
 			int drops = r.nextInt(pattern.itemCountRandom) + pattern.itemCountCertain;
 
@@ -680,20 +682,32 @@ public class DungeonGenerator {
 		}
 	}
 
-	public void generateChests() {
-		int chests = pattern.chestBaseCount + level / pattern.chestLevelSpacer;
-		for (int i = 0; i < chests; i++) {
-			int tries = 0;
-			int x = r.nextInt(tiles.length);
-			int y = r.nextInt(tiles[0].length);
-			while ((tiles[x][y].containsTag(Tile.TAG_STAIRS) || tiles[x][y].isSolid() || !tiles[x][y].containsTag(Tile.TAG_FLOOR_CENTER)) && tries < pattern.testLimit) {
-				x = r.nextInt(tiles.length);
-				y = r.nextInt(tiles[0].length);
-				tries++;
-			}
-			if (tries < pattern.testLimit) {
-				tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_CHEST_CLOSED }, Vector3f.div(tiles[x][y].getPosition(), new Vector3f(16, 16, 16)));
-				generateChestKey();
+	public void alterDungeon() {
+		for (int p = 0; p < pattern.altTags.length; p++) {
+			switch (pattern.altTags[p]) {
+
+			case TAG_ALT_ITEM_SURPLUS:
+				if (r.nextFloat() < Float.parseFloat(pattern.altVariables[p][0])) {
+					for (Item i : items) {
+						i.item = ItemProperty.get(pattern.altVariables[p][1]);
+					}
+				}
+				break;
+
+			case TAG_ALT_ENEMY_NONE:
+				if (r.nextFloat() < Float.parseFloat(pattern.altVariables[p][0])) {
+					enemyPlacements.clear();
+				}
+				break;
+
+			case TAG_ALT_ENEMY_HEALTH_REDUCE:
+				if (r.nextFloat() < Float.parseFloat(pattern.altVariables[p][0])) {
+					for (Unit u : enemyPlacements) {
+						u.baseHp *= Float.parseFloat(pattern.altVariables[p][1]);
+					}
+				}
+				break;
+
 			}
 		}
 	}
@@ -701,6 +715,24 @@ public class DungeonGenerator {
 	public void generateDecor() {
 		for (int p = 0; p < pattern.decorationTags.length; p++) {
 			switch (pattern.decorationTags[p]) {
+
+			case TAG_DECORATION_CHEST:
+				int chests = (int) (pattern.decorationVariables[p][0] + level / pattern.decorationVariables[p][1]);
+				for (int i = 0; i < chests; i++) {
+					int tries = 0;
+					int x = r.nextInt(tiles.length);
+					int y = r.nextInt(tiles[0].length);
+					while ((tiles[x][y].containsTag(Tile.TAG_STAIRS) || tiles[x][y].isSolid() || !tiles[x][y].containsTag(Tile.TAG_FLOOR_CENTER)) && tries < pattern.testLimit) {
+						x = r.nextInt(tiles.length);
+						y = r.nextInt(tiles[0].length);
+						tries++;
+					}
+					if (tries < pattern.testLimit) {
+						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_CHEST_CLOSED }, Vector3f.div(tiles[x][y].getPosition(), new Vector3f(16, 16, 16)));
+						generateChestKey();
+					}
+				}
+				break;
 
 			case TAG_DECORATION_WALL:
 				ArrayList<Integer> placedRooms = new ArrayList<>();
@@ -922,7 +954,7 @@ public class DungeonGenerator {
 						if (attempts < pattern.testLimit) {
 							tiles[rooms.get(room).x + x][rooms.get(room).y + y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_DECORATION_ILLUMINATION_FLOOR },
 									Vector3f.div(tiles[rooms.get(room).x + x][rooms.get(room).y + y].getPosition(), new Vector3f(16, 16, 16)));
-	
+
 						}
 					}
 					placedRooms.add(room);
@@ -1092,7 +1124,7 @@ public class DungeonGenerator {
 			isOnItem = false;
 
 			highlightTiles(x, y, tiles.length * tiles[0].length, 1);
-			if (getPath(startRoom.x + new Random().nextInt(startRoom.width), startRoom.y + new Random().nextInt(startRoom.height)).size() > 0) {
+			if (getPath(startRoom.x + r.nextInt(startRoom.width), startRoom.y + r.nextInt(startRoom.height)).size() > 0) {
 				hasPath = true;
 			}
 			clearSelectedTiles();
@@ -1105,7 +1137,7 @@ public class DungeonGenerator {
 			}
 		}
 
-		items.add(new Item(Vector3f.add(tiles[x][y].getPosition(), 0, 16, 0), ItemProperty.searchForType(ItemProperty.TYPE_KEY_CHEST, ItemProperty.getItemList(), true)[0].copy()));
+		items.add(new Item(Vector3f.add(tiles[x][y].getPosition(), 0, 16, 0), ItemProperty.searchForType(ItemProperty.TYPE_KEY_CHEST, ItemProperty.getItemList(), false)[0].copy()));
 	}
 
 	public void generateChestKey() {
@@ -1133,7 +1165,7 @@ public class DungeonGenerator {
 			}
 		}
 
-		items.add(new Item(Vector3f.add(tiles[x][y].getPosition(), 0, 16, 0), ItemProperty.searchForType(ItemProperty.TYPE_KEY_CHEST, ItemProperty.getItemList(), true)[0].copy()));
+		items.add(new Item(Vector3f.add(tiles[x][y].getPosition(), 0, 16, 0), ItemProperty.searchForType(ItemProperty.TYPE_KEY_CHEST, ItemProperty.getItemList(), false)[0].copy()));
 	}
 
 	public void generateStairs() {
@@ -1163,6 +1195,7 @@ public class DungeonGenerator {
 					y.updateMatrix();
 				}
 			}
+			alterDungeon();
 			System.out.println("[DungeonGeneration]: Generation completed in: " + (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
 			System.out.println("[DungeonGeneration]: Dungeon generated with seed: " + seed);
 		} catch (Exception e) {
@@ -1227,14 +1260,15 @@ public class DungeonGenerator {
 					int enemyCountCertain = Math.toIntExact((long) jo.get("enemy_count_certain"));
 					int enemyLevelReduction = Math.toIntExact((long) jo.get("enemy_level_reduction"));
 					int enemyLevelDeviation = Math.toIntExact((long) jo.get("enemy_level_deviation"));
-					int chestBaseCount = Math.toIntExact((long) jo.get("chest_base_count"));
-					int chestLevelSpacer = Math.toIntExact((long) jo.get("chest_level_spacer"));
 					int tier = Math.toIntExact((long) jo.get("tier"));
 
 					JSONArray aiRates = (JSONArray) jo.get("ai_type_rates");
+					String[] aiTypes = new String[aiRates.size()];
 					float[] aiTypeRates = new float[aiRates.size()];
 					for (int i = 0; i < aiTypeRates.length; i++) {
-						aiTypeRates[i] = Float.parseFloat((String) aiRates.get(i));
+						JSONObject ai = (JSONObject) aiRates.get(i);
+						aiTypes[i] = (String) ai.get("name");
+						aiTypeRates[i] = (float) (double) ai.get("rate");
 					}
 
 					JSONArray screen = (JSONArray) jo.get("screen_color");
@@ -1267,10 +1301,31 @@ public class DungeonGenerator {
 						}
 					}
 
+					JSONArray altTagList = (JSONArray) jo.get("alt_tags");
+					String[] altTags = new String[altTagList.size()];
+					String[][] altVariables = new String[altTagList.size()][];
+					for (int i = 0; i < altTagList.size(); i++) {
+						altTags[i] = (String) ((JSONObject) altTagList.get(i)).get("tag");
+						JSONArray altVariablesList = (JSONArray) ((JSONObject) altTagList.get(i)).get("vars");
+						altVariables[i] = new String[altVariablesList.size()];
+						for (int j = 0; j < altVariablesList.size(); j++) {
+							altVariables[i][j] = (String) altVariablesList.get(j);
+						}
+					}
+
+					JSONArray profileList = (JSONArray) jo.get("unit_profiles");
+					String[] profileNames = new String[profileList.size()];
+					float[] profileValues = new float[profileList.size()];
+					for(int i = 0; i < profileList.size(); i++) {
+						JSONObject profile = (JSONObject) profileList.get(i);
+						profileNames[i] = (String) profile.get("name");
+						profileValues[i] = (float) ((double) profile.get("rate"));
+					}
+					
 					patterns.put(f.getName(),
 							new GenerationPattern(f.getName(), name, palletTag, maxDepth, levelScaler, baseWorldSize, worldSizeScaler, perlinPersistance, testLimit, roomSizeMin, roomSizeRandom, itemCountRandom, itemCountCertain,
-									enemyRoomCountDevisor, enemyRoomCountRandomDevisor, enemyCountRandom, enemyCountCertain, enemyLevelReduction, enemyLevelDeviation, decorTags, decorVariables, effectTags, effectVariables, aiTypeRates,
-									screenColors, chestBaseCount, chestLevelSpacer, tier));
+									enemyRoomCountDevisor, enemyRoomCountRandomDevisor, enemyCountRandom, enemyCountCertain, enemyLevelReduction, enemyLevelDeviation, decorTags, decorVariables, effectTags, effectVariables, altTags,
+									altVariables, aiTypes, aiTypeRates, profileNames, profileValues, screenColors, tier));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -1479,15 +1534,18 @@ class GenerationPattern {
 	public double[][] decorationVariables;
 	public String[] effectTags;
 	public double[][] effectVariables;
+	public String[] altTags;
+	public String[][] altVariables;
+	public String[] aiTypes;
 	public float[] aiRates;
+	public String[] profileNames;
+	public float[] profileValues;
 	public float[] screenColor;
-	public int chestBaseCount;
-	public int chestLevelSpacer;
 	public int tier;
 
 	public GenerationPattern(String pattern, String name, String palletTag, int maxDepth, double levelScaler, int baseWorldSize, double worldSizeScaler, float perlinPersistance, int testLimit, int roomSizeMin, int roomSizeRandom,
 			int itemCountRandom, int itemCountCertain, double enemyRoomCountDevisor, double enemyRoomCountRandomDevisor, int enemyCountRandom, int enemyCountCertain, int enemyLevelReduction, int enemyLevelDeviation, String[] decorationTags,
-			double[][] decorationVariables, String[] effectTags, double[][] effectVariables, float[] aiRates, float[] screenColor, int chestBaseCount, int chestLevelSpacer, int tier) {
+			double[][] decorationVariables, String[] effectTags, double[][] effectVariables, String[] altTags, String[][] altVariables, String[] aiTypes, float[] aiRates, String[] profileNames, float[] profileValues, float[] screenColor, int tier) {
 		this.pattern = pattern;
 		this.name = name;
 		this.palletTag = palletTag;
@@ -1511,11 +1569,25 @@ class GenerationPattern {
 		this.decorationVariables = decorationVariables;
 		this.effectTags = effectTags;
 		this.effectVariables = effectVariables;
+		this.altTags = altTags;
+		this.altVariables = altVariables;
+		this.aiTypes = aiTypes;
 		this.aiRates = aiRates;
+		this.profileNames = profileNames;
+		this.profileValues = profileValues;
 		this.screenColor = screenColor;
-		this.chestBaseCount = chestBaseCount;
-		this.chestLevelSpacer = chestLevelSpacer;
 		this.tier = tier;
+	}
+
+	public String getRandomProfile() {
+		int n = new Random().nextInt(profileNames.length);
+		float r = new Random().nextFloat();
+		while (r > profileValues[n]) {
+			n = new Random().nextInt(profileNames.length);
+			r = new Random().nextFloat();
+		}
+		
+		return profileNames[n];
 	}
 
 }

@@ -57,7 +57,7 @@ public class EffectLava extends EffectWater {
 			} else {
 				Vector3f position = Vector3f.add(this.position, 0,
 						heights[0][0] + noise[0][0] * height * AdvMath.sin[(int) (Startup.universalAge + (this.position.getX()) * spacingDevisor + (this.position.getZ()) * spacingDevisor) % AdvMath.values], 0);
-				BatchSorter.add("z", "pixel.dae", "pixel.png", "main_3d_bloom", Material.DEFAULT.toString(), Vector3f.div(Vector3f.add(position, 0, 6, 0), Vector3f.SCALE_16X), Vector3f.EMPTY, Vector3f.SCALE_8X, Vector4f.COLOR_LAVA, false, false);
+				BatchSorter.add("z", "pixel.dae", "pixel.png", "main_3d_bloom", Material.DEFAULT.toString(), Vector3f.div(Vector3f.add(position, 0, 6, 0), Vector3f.SCALE_16X), Vector3f.EMPTY, Vector3f.SCALE_8X, Vector4f.mul(Vector4f.COLOR_LAVA, new Vector4f(0.5f, 0.5f, 0.5f, 1)), false, false);
 			}
 		}
 	}

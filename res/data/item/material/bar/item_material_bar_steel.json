@@ -2,7 +2,7 @@
 	"id": "item.material.bar.steel",
 	"name": "Steel Bar",
 	"type": "item.type.other",
-	"tier": 2,
+	"tier": 0,
 	"rate": 0.75,
 	"fish_rate": 0.0,
 	"locations": [

@@ -1,0 +1,6 @@
+{
+	"activator": "event.activator.action 15 31",
+	"script": [
+		"savemenu"
+	]
+}

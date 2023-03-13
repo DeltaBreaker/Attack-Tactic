@@ -1,10 +1,18 @@
 package io.itch.deltabreaker.ai;
 
 import java.awt.Point;
+import java.io.File;
+import java.io.FileReader;
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.TreeMap;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import io.itch.deltabreaker.core.FileManager;
 import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.object.Unit;
 import io.itch.deltabreaker.object.item.Item;
@@ -13,353 +21,133 @@ import io.itch.deltabreaker.object.item.ItemProperty;
 import io.itch.deltabreaker.object.item.ItemUse;
 import io.itch.deltabreaker.state.StateDungeon;
 
-public enum AIType {
+public class AIType {
 
-	// This pattern will roam until units are in its range
-	STANDARD_DUNGEON("Explorer") {
-		@Override
-		public void run(Unit u, AIHandler parent, StateDungeon context) {
-			// Set default option to wait
-			parent.currentOption = "wait";
+	private static HashMap<String, AIType> aiList = new HashMap<>();
 
-			// Equip best weapon
-			equipBestWeapon(u);
-
-			// Prevevents movement if asleep
-			if (!u.getStatus().equals(Unit.STATUS_SLEEP)) {
-				int fitness = 0;
-
-				// Gets a list of the bestcombat results which show what unit to attack and what
-				// ability to use
-				CombatResult[] results = getBestCombatResults(u, context, false, true);
-				for (CombatResult r : results) {
-					Point[] positions = getBestValidAttackPositions(u, r.unit, context);
-					if (positions.length > 0) {
-						context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
-						parent.currentPath = context.getPath(positions[0].x, positions[0].y);
-						parent.attackTarget = r.unit;
-						parent.attackAbility = ItemAbility.ITEM_ABILITY_ATTACK;
-						parent.currentOption = "attack";
-
-						fitness = (r.damage >= r.unit.currentHp) ? 9999 : r.damage;
-						break;
-					}
-				}
-
-				// If you can heal more damage than you deal you will heal instead. If would-be
-				// combat is fatal, healing is the highest priority
-				for (ItemProperty i : u.getItemList()) {
-					if (i.use != null && ItemUse.valueOf(i.use) != null) {
-						int healing = Math.min(u.hp - u.currentHp, ItemUse.valueOf(i.use).calculateHealing(u, context));
-						if (healing > 0 && healing >= fitness) {
-							Point[] positions = getBestValidDefensePositions(u, context);
-							if (positions.length > 0) {
-								context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
-								parent.currentPath = context.getPath(positions[0].x, positions[0].y);
-								parent.itemUse = i;
-								parent.attackTarget = u;
-								parent.currentOption = "item";
-
-								fitness = healing;
-
-								int[] sustain = parent.attackAbility.calculateDefendingDamage(u, parent.attackTarget, true);
-								if (parent.currentOption.equals("attack") && sustain[0] * sustain[1] >= u.currentHp) {
-									fitness = 9999;
-								}
-								break;
-							}
-						}
-					}
-				}
-
-				// Get a roaming position if no combat options are available
-				if (parent.currentOption.equals("wait")) {
-					Point[] positions = getBestValidRoamingPositions(u, context);
-					context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
-					parent.currentPath = context.getPath(positions[0].x, positions[0].y);
-
-					for (String s : u.weapon.abilities) {
-						if (shouldUseAbility(u, context, ItemAbility.valueOf(s))) {
-							parent.currentOption = "ability";
-							parent.attackAbility = ItemAbility.valueOf(s);
-						}
-					}
-				}
-			}
-
-			parent.gettingPath = false;
-		}
-
-		@Override
-		public Point getFreeRoamLocation(Unit u, StateDungeon context) {
-			return getDefaultRoamLocation(u, context);
-		}
-	},
-
-	// This pattern will not move until it has something to attack
-	STANDARD_MAP("Fighter") {
-		@Override
-		public void run(Unit u, AIHandler parent, StateDungeon context) {
-			// Set default option to wait
-			parent.currentOption = "wait";
-
-			// Equip best weapon
-			equipBestWeapon(u);
-
-			// Prevevents movement if asleep
-			if (!u.getStatus().equals(Unit.STATUS_SLEEP)) {
-				int fitness = 0;
-
-				// Gets a list of the bestcombat results which show what unit to attack and what
-				// ability to use
-				CombatResult[] results = getBestCombatResults(u, context, false, true);
-				for (CombatResult r : results) {
-					Point[] positions = getBestValidAttackPositions(u, r.unit, context);
-					if (positions.length > 0) {
-						context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
-						parent.currentPath = context.getPath(positions[0].x, positions[0].y);
-						parent.attackTarget = r.unit;
-						parent.attackAbility = ItemAbility.ITEM_ABILITY_ATTACK;
-						parent.currentOption = "attack";
-
-						fitness = (r.damage >= r.unit.currentHp) ? 9999 : r.damage;
-						break;
-					}
-				}
-
-				// If you can heal more damage than you deal you will heal instead. If would-be
-				// combat is fatal, healing is the highest priority
-				for (ItemProperty i : u.getItemList()) {
-					if (i.use != null && ItemUse.valueOf(i.use) != null) {
-						int healing = Math.min(u.hp - u.currentHp, ItemUse.valueOf(i.use).calculateHealing(u, context));
-						if (healing > 0 && healing >= fitness) {
-							Point[] positions = getBestValidDefensePositions(u, context);
-							if (positions.length > 0) {
-								context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
-								parent.currentPath = context.getPath(positions[0].x, positions[0].y);
-								parent.itemUse = i;
-								parent.attackTarget = u;
-								parent.currentOption = "item";
-
-								fitness = healing;
-
-								int[] sustain = parent.attackAbility.calculateDefendingDamage(u, parent.attackTarget, true);
-								if (parent.currentOption.equals("attack") && sustain[0] * sustain[1] >= u.currentHp) {
-									fitness = 9999;
-								}
-								break;
-							}
-						}
-					}
-				}
-			}
-
-			if (parent.currentOption.equals("wait")) {
-				for (String s : u.weapon.abilities) {
-					if (shouldUseAbility(u, context, ItemAbility.valueOf(s))) {
-						parent.currentOption = "ability";
-						parent.attackAbility = ItemAbility.valueOf(s);
-					}
-				}
-			}
-
-			parent.gettingPath = false;
-		}
-
-		@Override
-		public Point getFreeRoamLocation(Unit u, StateDungeon context) {
-			return getDefaultRoamLocation(u, context);
-		}
-	},
-
-	// This pattern will pursue whoever it deals the most damage to if no one is in
-	// range
-	TARGETING("Pursuing") {
-		@Override
-		public void run(Unit u, AIHandler parent, StateDungeon context) {
-			// Set default option to wait
-			parent.currentOption = "wait";
-
-			// Equip best weapon
-			equipBestWeapon(u);
-
-			// Prevevents movement if asleep
-			if (!u.getStatus().equals(Unit.STATUS_SLEEP)) {
-				int fitness = 0;
-
-				// Gets a list of the bestcombat results which show what unit to attack and what
-				// ability to use
-				CombatResult[] results = getBestCombatResults(u, context, false, true);
-				for (CombatResult r : results) {
-					Point[] positions = getBestValidAttackPositions(u, r.unit, context);
-					if (positions.length > 0) {
-						context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
-						parent.currentPath = context.getPath(positions[0].x, positions[0].y);
-						parent.attackTarget = r.unit;
-						parent.attackAbility = ItemAbility.ITEM_ABILITY_ATTACK;
-						parent.currentOption = "attack";
-
-						fitness = (r.damage >= r.unit.currentHp) ? 9999 : r.damage;
-						break;
-					}
-				}
-
-				// If you can heal more damage than you deal you will heal instead. If would-be
-				// combat is fatal, healing is the highest priority
-				for (ItemProperty i : u.getItemList()) {
-					if (i.use != null && ItemUse.valueOf(i.use) != null) {
-						int healing = Math.min(u.hp - u.currentHp, ItemUse.valueOf(i.use).calculateHealing(u, context));
-						if (healing > 0 && healing >= fitness) {
-							Point[] positions = getBestValidDefensePositions(u, context);
-							if (positions.length > 0) {
-								context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
-								parent.currentPath = context.getPath(positions[0].x, positions[0].y);
-								parent.itemUse = i;
-								parent.attackTarget = u;
-								parent.currentOption = "item";
-
-								fitness = healing;
-
-								int[] sustain = parent.attackAbility.calculateDefendingDamage(u, parent.attackTarget, true);
-								if (parent.currentOption.equals("attack") && sustain[0] * sustain[1] >= u.currentHp) {
-									fitness = 9999;
-								}
-								break;
-							}
-						}
-					}
-				}
-
-				// Get a roaming position if no combat options are available
-				if (parent.currentOption.equals("wait")) {
-					results = getBestCombatResults(u, context, true, true);
-					for (CombatResult r : results) {
-						Point[] positions = getBestValidPursuingPositions(u, r.unit, context);
-						if (positions.length > 0) {
-							context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
-							parent.currentPath = context.getPath(positions[0].x, positions[0].y);
-							break;
-						}
-					}
-
-					for (String s : u.weapon.abilities) {
-						if (shouldUseAbility(u, context, ItemAbility.valueOf(s))) {
-							parent.currentOption = "ability";
-							parent.attackAbility = ItemAbility.valueOf(s);
-						}
-					}
-				}
-			}
-
-			parent.gettingPath = false;
-		}
-
-		@Override
-		public Point getFreeRoamLocation(Unit u, StateDungeon context) {
-			return getDefaultRoamLocation(u, context);
-		}
-	},
-
-	// This pattern will not move ever
-	UNMOVING("Defender") {
-		@Override
-		public void run(Unit u, AIHandler parent, StateDungeon context) {
-			// Set default option to wait
-			parent.currentOption = "wait";
-
-			// Equip best weapon
-			equipBestWeapon(u);
-
-			// Prevevents movement if asleep
-			if (!u.getStatus().equals(Unit.STATUS_SLEEP)) {
-				int fitness = 0;
-
-				// Gets a list of the bestcombat results which show what unit to attack and what
-				// ability to use
-				CombatResult[] results = getBestCombatResults(u, context, false, false);
-				for (CombatResult r : results) {
-					Point[] positions = getBestValidAttackPositions(u, r.unit, context);
-					if (positions.length > 0) {
-						parent.attackTarget = r.unit;
-						parent.attackAbility = ItemAbility.ITEM_ABILITY_ATTACK;
-						parent.currentOption = "attack";
-
-						fitness = (r.damage >= r.unit.currentHp) ? 9999 : r.damage;
-						break;
-					}
-				}
-
-				// If you can heal more damage than you deal you will heal instead. If would-be
-				// combat is fatal, healing is the highest priority
-				for (ItemProperty i : u.getItemList()) {
-					if (i.use != null && ItemUse.valueOf(i.use) != null) {
-						int healing = Math.min(u.hp - u.currentHp, ItemUse.valueOf(i.use).calculateHealing(u, context));
-						if (healing > 0 && healing >= fitness) {
-							Point[] positions = getBestValidDefensePositions(u, context);
-							if (positions.length > 0) {
-								context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
-								parent.currentPath = context.getPath(positions[0].x, positions[0].y);
-								parent.itemUse = i;
-								parent.attackTarget = u;
-								parent.currentOption = "item";
-
-								fitness = healing;
-
-								int[] sustain = parent.attackAbility.calculateDefendingDamage(u, parent.attackTarget, true);
-								if (parent.currentOption.equals("attack") && sustain[0] * sustain[1] >= u.currentHp) {
-									fitness = 9999;
-								}
-								break;
-							}
-						}
-					}
-				}
-
-				if (parent.currentOption.equals("wait")) {
-					for (String s : u.weapon.abilities) {
-						if (shouldUseAbility(u, context, ItemAbility.valueOf(s))) {
-							parent.currentOption = "ability";
-							parent.attackAbility = ItemAbility.valueOf(s);
-						}
-					}
-				}
-			}
-
-			parent.gettingPath = false;
-		}
-
-		@Override
-		public Point getFreeRoamLocation(Unit u, StateDungeon context) {
-			return getDefaultRoamLocation(u, context);
-		}
-	};
-
+	private String file;
 	private String name;
+	private boolean canMove;
+	private boolean canUseHealItems;
+	private boolean canUseOffenseItems;
+	private String actionType;
 
-	private AIType(String name) {
+	public AIType(String file, String name, boolean canMove, boolean canUseHealItems, boolean canUseOffenseItems, String actionType) {
+		this.file = file;
 		this.name = name;
+		this.canMove = canMove;
+		this.canUseHealItems = canUseHealItems;
+		this.canUseOffenseItems = canUseOffenseItems;
+		this.actionType = actionType;
 	}
 
-	@Override
-	public String toString() {
+	public String getFile() {
+		return file;
+	}
+
+	public String getName() {
 		return name;
 	}
 
-	public abstract Point getFreeRoamLocation(Unit u, StateDungeon context);
+	public static AIType[] values() {
+		return aiList.values().toArray(new AIType[aiList.size()]);
+	}
 
-	public abstract void run(Unit u, AIHandler parent, StateDungeon context);
+	public static AIType get(String name) {
+		return aiList.get(name);
+	}
 
-	private static Point[] getBestValidAttackPositions(Unit attacker, Unit defender, StateDungeon context) {
+	public void run(Unit u, AIHandler parent, StateDungeon context) {
+		// Set default option to wait
+		parent.currentOption = "wait";
+
+		// Equip best weapon
+		equipBestWeapon(u);
+
+		// Prevents movement if asleep
+		if (!u.getStatus().equals(Unit.STATUS_SLEEP)) {
+			int fitness = 0;
+
+			// Get attack options
+			fitness = checkForAttackFitness(u, parent, context, fitness, canMove);
+
+			// Move if able to heal
+			if (canUseHealItems) {
+				fitness = checkForHealingItemFitness(u, parent, context, fitness, canMove);
+			}
+
+			if (canUseOffenseItems) {
+				fitness = checkForOffenseItemFitness(u, parent, context, fitness, canMove);
+			}
+
+			// Get default action if still set to wait
+			DefaultActionType.valueOf(actionType).getAction(u, parent, context);
+		}
+
+		parent.gettingPath = false;
+	}
+
+	public static int checkForOffenseItemFitness(Unit u, AIHandler parent, StateDungeon context, int fitness, boolean canMove) {
+		for (ItemProperty i : u.getItemList()) {
+			for (Unit target : Inventory.active) {
+				int itemFitness = ItemUse.valueOf(i.use).calculateDamage(target, context);
+				if (itemFitness > fitness) {
+					Point[] positions = getBestValidAttackPositions(u, target, context, canMove, ItemUse.valueOf(i.use).getRange(u, context) - 1);
+					if (positions.length > 0) {
+						if (canMove) {
+							context.clearSelectedTiles();
+							context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
+							parent.currentPath = context.getPath(positions[0].x, positions[0].y);
+							context.clearSelectedTiles();
+						}
+						parent.itemUse = i;
+						parent.attackTarget = target;
+						parent.currentOption = "item_followup";
+						fitness = itemFitness;
+					}
+				}
+			}
+		}
+		return fitness;
+	}
+
+	// Gets a list of the best combat results which show what unit to attack and
+	// what ability to use
+	public static int checkForAttackFitness(Unit u, AIHandler parent, StateDungeon context, int fitness, boolean canMove) {
+		CombatResult[] results = getBestCombatResults(u, context, false, canMove);
+		for (CombatResult r : results) {
+			Point[] positions = getBestValidAttackPositions(u, r.unit, context, canMove, u.weapon.range);
+			if (positions.length > 0) {
+				int attackFitness = (r.damage >= r.unit.currentHp) ? 9999 : r.damage;
+				if (attackFitness > fitness) {
+					if (canMove) {
+						context.clearSelectedTiles();
+						context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
+						parent.currentPath = context.getPath(positions[0].x, positions[0].y);
+						context.clearSelectedTiles();
+					}
+					parent.attackTarget = r.unit;
+					parent.attackAbility = r.ability;
+					parent.currentOption = "attack";
+
+					return attackFitness;
+				}
+			}
+		}
+		return fitness;
+	}
+
+	private static Point[] getBestValidAttackPositions(Unit attacker, Unit defender, StateDungeon context, boolean canMove, int range) {
 		TreeMap<Integer, Point> points = new TreeMap<>(Collections.reverseOrder());
 
 		context.clearSelectedTiles();
-		context.highlightTiles(attacker.locX, attacker.locY, attacker.movement, attacker.weapon.range, "enemy");
+		context.highlightTiles(attacker.locX, attacker.locY, (canMove) ? attacker.movement : 2, range, "enemy");
 
 		for (int x = 0; x < context.tiles.length; x++) {
 			for (int y = 0; y < context.tiles[x].length; y++) {
 				if (context.tiles[x][y].status > 1) {
 					if (isTileOpen(context, attacker, x, y)) {
-						if (attacker.weapon.range >= (Math.abs(defender.locX - x) + Math.abs(defender.locY - y))) {
+						if (range >= (Math.abs(defender.locX - x) + Math.abs(defender.locY - y))) {
 							int fitness = context.tiles[x][y].defense + (int) (context.tiles[x][y].getPosition().getY() - context.tiles[defender.locX][defender.locY].getPosition().getY()) / 4;
 							if (defender.weapon.range < (Math.abs(defender.locX - x) + Math.abs(defender.locY - y))) {
 								int[] damage = ItemAbility.ITEM_ABILITY_ATTACK.calculateDefendingDamage(attacker, defender, true);
@@ -377,13 +165,13 @@ public enum AIType {
 		return points.values().toArray(new Point[points.size()]);
 	}
 
-	private static Point[] getBestValidDefensePositions(Unit attacker, StateDungeon context) {
+	private static Point[] getBestValidDefensePositions(Unit attacker, StateDungeon context, boolean canMove) {
 		TreeMap<Integer, Point> points = new TreeMap<>(Collections.reverseOrder());
 
 		for (int x = 0; x < context.tiles.length; x++) {
 			for (int y = 0; y < context.tiles[x].length; y++) {
 				context.clearSelectedTiles();
-				context.highlightTiles(attacker.locX, attacker.locY, attacker.movement, attacker.weapon.range, "enemy");
+				context.highlightTiles(attacker.locX, attacker.locY, (canMove) ? attacker.movement : 2, attacker.weapon.range, "enemy");
 
 				if (context.tiles[x][y].status > 1) {
 					if (isTileOpen(context, attacker, x, y)) {
@@ -408,7 +196,7 @@ public enum AIType {
 		return points.values().toArray(new Point[points.size()]);
 	}
 
-	private static Point[] getBestValidRoamingPositions(Unit unit, StateDungeon context) {
+	public static Point[] getBestValidRoamingPositions(Unit unit, StateDungeon context) {
 		TreeMap<Float, Point> points = new TreeMap<>(Collections.reverseOrder());
 
 		context.clearSelectedTiles();
@@ -437,7 +225,7 @@ public enum AIType {
 
 	}
 
-	private static Point[] getBestValidPursuingPositions(Unit unit, Unit target, StateDungeon context) {
+	public static Point[] getBestValidPursuingPositions(Unit unit, Unit target, StateDungeon context) {
 		TreeMap<Float, Point> points = new TreeMap<>();
 
 		context.clearSelectedTiles();
@@ -466,7 +254,7 @@ public enum AIType {
 
 	}
 
-	private static CombatResult[] getBestCombatResults(Unit attacker, StateDungeon context, boolean ignoreRange, boolean canMove) {
+	public static CombatResult[] getBestCombatResults(Unit attacker, StateDungeon context, boolean ignoreRange, boolean canMove) {
 		TreeMap<Integer, CombatResult> results = new TreeMap<>(Collections.reverseOrder());
 
 		context.clearSelectedTiles();
@@ -525,7 +313,7 @@ public enum AIType {
 		return !context.tiles[x][y].isSolid();
 	}
 
-	private static Point getDefaultRoamLocation(Unit u, StateDungeon context) {
+	public Point getDefaultRoamLocation(Unit u, StateDungeon context) {
 		Unit target = Inventory.active.get(0);
 
 		boolean direction = new Random().nextBoolean();
@@ -568,7 +356,7 @@ public enum AIType {
 	}
 
 	// This returns whether a unit should use an ability or not (non-combat)
-	private static boolean shouldUseAbility(Unit unit, StateDungeon context, ItemAbility ability) {
+	public static boolean shouldUseAbility(Unit unit, StateDungeon context, ItemAbility ability) {
 		switch (ability) {
 
 		case ITEM_ABILITY_HARDEN:
@@ -581,11 +369,43 @@ public enum AIType {
 	}
 
 	public static String[] getNameList() {
-		String[] names = new String[values().length];
-		for (int i = 0; i < names.length; i++) {
-			names[i] = values()[i].name;
+		ArrayList<String> aiNames = new ArrayList<>();
+		for (AIType ai : aiList.values()) {
+			aiNames.add(ai.name);
 		}
-		return names;
+		return aiNames.toArray(new String[aiNames.size()]);
+	}
+
+	public static int checkForHealingItemFitness(Unit u, AIHandler parent, StateDungeon context, int fitness, boolean canMove) {
+		// If you can heal more damage than you deal you will heal instead. If would-be
+		// combat is fatal, healing is the highest priority
+		for (ItemProperty i : u.getItemList()) {
+			if (i.use != null && ItemUse.valueOf(i.use) != null) {
+				int healing = Math.min(u.hp - u.currentHp, ItemUse.valueOf(i.use).calculateHealing(u, context));
+				if (healing > 0 && healing > fitness) {
+					Point[] positions = getBestValidDefensePositions(u, context, canMove);
+					if (positions.length > 0) {
+						context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
+						parent.currentPath = context.getPath(positions[0].x, positions[0].y);
+						context.clearSelectedTiles();
+						parent.itemUse = i;
+						parent.attackTarget = u;
+						parent.currentOption = "item_use";
+
+						fitness = healing;
+
+						if (parent.currentOption.equals("attack")) {
+							int[] sustain = parent.attackAbility.calculateDefendingDamage(u, parent.attackTarget, true);
+							if (sustain[0] * sustain[1] >= u.currentHp) {
+								fitness = 9999;
+							}
+						}
+						return fitness;
+					}
+				}
+			}
+		}
+		return fitness;
 	}
 
 	public static void equipBestWeapon(Unit u) {
@@ -647,6 +467,35 @@ public enum AIType {
 		}
 	}
 
+	public static void loadAITypes(String folder) {
+		File dir = new File(folder);
+		if (dir.exists()) {
+			for (File f : FileManager.getFiles(folder)) {
+				try {
+					JSONObject jo = (JSONObject) new JSONParser().parse(new FileReader(f));
+
+					String name = (String) jo.get("name");
+					boolean canMove = (boolean) jo.get("can_move");
+					boolean canUseHealItems = (boolean) jo.get("can_use_heal_items");
+					boolean canUseOffenseItems = (boolean) jo.get("can_use_offense_items");
+					String actionType = (String) jo.get("default_action");
+
+					aiList.put(f.getName(), new AIType(f.getName(), name, canMove, canUseHealItems, canUseOffenseItems, actionType));
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+			System.out.println("[AIType]: AI types loaded with size " + aiList.size());
+		}
+	}
+
+	public static AIType getDefault() {
+		for (AIType ai : aiList.values()) {
+			return ai;
+		}
+		return null;
+	}
+
 }
 
 class CombatResult {
@@ -662,5 +511,69 @@ class CombatResult {
 		this.damage = damage;
 		this.sustain = sustain;
 	}
+
+}
+
+enum DefaultActionType {
+
+	ROAM {
+		@Override
+		public void getAction(Unit u, AIHandler parent, StateDungeon context) {
+			// Get a roaming position if no combat options are available
+			if (parent.currentOption.equals("wait")) {
+				Point[] positions = AIType.getBestValidRoamingPositions(u, context);
+				context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
+				parent.currentPath = context.getPath(positions[0].x, positions[0].y);
+
+				for (String s : u.weapon.abilities) {
+					if (AIType.shouldUseAbility(u, context, ItemAbility.valueOf(s))) {
+						parent.currentOption = "ability";
+						parent.attackAbility = ItemAbility.valueOf(s);
+					}
+				}
+			}
+		}
+	},
+
+	PURSUE {
+		@Override
+		public void getAction(Unit u, AIHandler parent, StateDungeon context) {
+			// Get a roaming position if no combat options are available
+			if (parent.currentOption.equals("wait")) {
+				CombatResult[] results = AIType.getBestCombatResults(u, context, true, true);
+				for (CombatResult r : results) {
+					Point[] positions = AIType.getBestValidPursuingPositions(u, r.unit, context);
+					if (positions.length > 0) {
+						context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
+						parent.currentPath = context.getPath(positions[0].x, positions[0].y);
+						break;
+					}
+				}
+
+				for (String s : u.weapon.abilities) {
+					if (AIType.shouldUseAbility(u, context, ItemAbility.valueOf(s))) {
+						parent.currentOption = "ability";
+						parent.attackAbility = ItemAbility.valueOf(s);
+					}
+				}
+			}
+		}
+	},
+
+	IDLE {
+		@Override
+		public void getAction(Unit u, AIHandler parent, StateDungeon context) {
+			if (parent.currentOption.equals("wait")) {
+				for (String s : u.weapon.abilities) {
+					if (AIType.shouldUseAbility(u, context, ItemAbility.valueOf(s))) {
+						parent.currentOption = "ability";
+						parent.attackAbility = ItemAbility.valueOf(s);
+					}
+				}
+			}
+		}
+	};
+
+	public abstract void getAction(Unit u, AIHandler parent, StateDungeon context);
 
 }

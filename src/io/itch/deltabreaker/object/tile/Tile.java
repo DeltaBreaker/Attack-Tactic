@@ -231,6 +231,7 @@ public class Tile {
 	}
 
 	public void updateMatrix() {
+		Matrix4f.release(precalc);
 		precalc = Matrix4f.transform(Vector3f.add(this.position, property.offset), rotation, scale);
 	}
 
@@ -252,7 +253,7 @@ public class Tile {
 	}
 
 	public void cleanUp() {
-
+		Matrix4f.release(precalc);
 	}
 
 	public static void loadProperties(String file) {
@@ -585,13 +586,6 @@ enum TileMap {
 		@Override
 		public Tile getTile(TileProperty property, Vector3f position) {
 			return new TileFountain(property, position);
-		}
-	},
-	
-	TILE_HOUSING_SAVE {
-		@Override
-		public Tile getTile(TileProperty property, Vector3f position) {
-			return new TileHousingSave(property, position);
 		}
 	};
 

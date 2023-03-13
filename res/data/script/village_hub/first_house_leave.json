@@ -1,0 +1,40 @@
+[
+	{
+		"text": [
+			"Alright time to go meet",
+			"up with everyone at the",
+			"guild."
+		],
+		"charTime": [
+			8,
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			}
+		],
+		"highlight": 0
+	},
+	{
+		"text": [
+			"Almyra better not be",
+			"late again..."
+		],
+		"charTime": [
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_annoyed_eyes",
+				"mouth": "portrait_mouth_annoyed"
+			}
+		],
+		"highlight": 0
+	}
+]

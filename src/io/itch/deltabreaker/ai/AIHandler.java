@@ -144,24 +144,25 @@ public class AIHandler {
 								}
 								break;
 
-							case "item":
-								if (context.enemies.get(currentUnit).hasTurn) {
-									for (int i = 0; i < context.items.size(); i++) {
-										if (context.items.get(i).locX == context.enemies.get(currentUnit).locX && context.items.get(i).locY == context.enemies.get(currentUnit).locY) {
-											int overflow = context.enemies.get(currentUnit).addItem(context.items.get(i).item);
-											if (overflow == 0) {
-												StateManager.currentState.effects.add(new EffectPoof(Vector3f.add(new Vector3f(context.enemies.get(currentUnit).locX * 16, 20, context.enemies.get(currentUnit).locY * 16), 0,
-														StateManager.currentState.tiles[context.enemies.get(currentUnit).locX][context.enemies.get(currentUnit).locY].getPosition().getY(), 0)));
-												context.items.remove(i);
-											}
-											break;
-										}
-									}
-								}
-
+							case "item_use":
 								context.selectedItem = itemUse;
 								context.selectedUnit = context.enemies.get(currentUnit);
 								ItemUse.valueOf(itemUse.use).use(attackTarget, context);
+
+								if (currentUnit < context.enemies.size() - 1) {
+									currentUnit++;
+									gettingPath = true;
+									waitTimer = 0;
+								} else {
+									doneProcessing = true;
+								}
+								break;
+								
+							case "item_followup":
+								context.selectedItem = itemUse;
+								context.selectedUnit = context.enemies.get(currentUnit);
+								ItemUse.valueOf(itemUse.use).use(attackTarget, context);
+								ItemUse.valueOf(itemUse.use).followUp(attackTarget, context);
 
 								if (currentUnit < context.enemies.size() - 1) {
 									currentUnit++;

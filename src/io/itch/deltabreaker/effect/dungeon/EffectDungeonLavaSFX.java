@@ -11,7 +11,7 @@ public class EffectDungeonLavaSFX extends Effect {
 		if (!AudioManager.getSound("lava.ogg").isPlaying()) {
 			AudioManager.getSound("lava.ogg").play(0, true);
 		}
-		AudioManager.getSound("lava.ogg").fade(AudioManager.defaultSubSFXGain, 144);
+		AudioManager.getSound("lava.ogg").fade(AudioManager.defaultSubSFXGain, 144, true);
 	}
 
 	@Override
@@ -26,7 +26,7 @@ public class EffectDungeonLavaSFX extends Effect {
 
 	@Override
 	public void cleanUp() {
-		AudioManager.getSound("lava.ogg").fade(0, 144);
+		AudioManager.getSound("lava.ogg").fade(0, 144, true);
 	}
 
 }

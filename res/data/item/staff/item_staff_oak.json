@@ -14,7 +14,7 @@
 	"res": 0,
 	"mov": 0,
 	"abilities": [
-		"ITEM_ABILITY_HEAL_10"	
+		"ITEM_ABILITY_HEAL_10"
 	],
 	"rate": 0.0,
 	"fish_rate": 0.0,
@@ -22,9 +22,9 @@
 	],
 	"price": 200,
 	"text": [
-		"Restores 10 HP",
-		"to user and",
-		"nearby allies"
+		"An olf branch",
+		"with a faint",
+		"magic aura"
 	],
 	"model": "item_staff_oak.dae",
 	"texture": "item_staff_oak.png",

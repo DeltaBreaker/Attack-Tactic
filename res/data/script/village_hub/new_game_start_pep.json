@@ -1,0 +1,28 @@
+[
+	{
+		"text": [
+			"Todays the day.",
+			"One last mission and I",
+			"can finally be admitted",
+			"into the guild...",
+			"Phew...",
+			"You can do this!"
+		],
+		"charTime": [
+			8,
+			8,
+			8,
+			8,
+			16,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			}
+		],
+		"highlight": 0
+	}
+]

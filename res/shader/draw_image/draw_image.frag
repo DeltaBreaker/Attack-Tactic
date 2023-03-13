@@ -24,7 +24,6 @@ uniform float width;
 uniform float height;
 uniform bool enableOutline;
 
-uniform float vx_offset;
 uniform float rt_w; // GeeXLab built-in
 uniform float rt_h; // GeeXLab built-in
 uniform float FXAA_SPAN_MAX = 8.0;

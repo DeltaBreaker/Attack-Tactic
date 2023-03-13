@@ -17,14 +17,34 @@
 	"enemy_count_certain": 1,
 	"enemy_level_reduction": 0,
 	"enemy_level_deviation": 10,
-	"chest_base_count": 1,
-	"chest_level_spacer": 5,
 	"tier": 0,
 	"ai_type_rates": [
-		"0",
-		"1",
-		"0",
-		"0"
+		{
+			"name": "standard_dungeon.json",
+			"rate": 1.0
+		}
+	],
+	"unit_profiles": [
+		{
+			"name": "unit.profile.strength",
+			"rate": 1.0
+		},
+		{
+			"name": "unit.profile.magic",
+			"rate": 1.0
+		},
+		{
+			"name": "unit.profile.tank.attack",
+			"rate": 1.0
+		},
+		{
+			"name": "unit.profile.tank.magic",
+			"rate": 1.0
+		},
+		{
+			"name": "unit.profile.balance",
+			"rate": 1.0
+		}
 	],
 	"screen_color": [
 		"0.0",
@@ -47,6 +67,13 @@
 				1.0,
 				1.0
 			]
+		},
+		{
+			"tag": "dungeon.decoration.chest",
+			"vars": [
+				1.0,
+				5.0
+			]
 		}
 	],
 	"effect_tags": [
@@ -64,6 +91,15 @@
 		{
 			"tag": "dungeon.effect.snow",
 			"vars": [
+			]
+		}
+	],
+	"alt_tags": [
+		{
+			"tag": "dungeon.alt.item.surplus",
+			"vars": [
+				"0.05",
+				"item.usable.coin"
 			]
 		}
 	]

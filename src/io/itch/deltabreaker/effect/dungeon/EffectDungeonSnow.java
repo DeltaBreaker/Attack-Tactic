@@ -37,7 +37,7 @@ public class EffectDungeonSnow extends Effect {
 		if (!AudioManager.getSound("wind.ogg").isPlaying()) {
 			AudioManager.getSound("wind.ogg").play(0, true);
 		}
-		AudioManager.getSound("wind.ogg").fade(AudioManager.defaultSubSFXGain, 144);
+		AudioManager.getSound("wind.ogg").fade(AudioManager.defaultSubSFXGain, 144, true);
 	}
 
 	public void tick() {
@@ -99,7 +99,7 @@ public class EffectDungeonSnow extends Effect {
 	@Override
 	public void cleanUp() {
 		snowflakes.clear();
-		AudioManager.getSound("wind.ogg").fade(0, 144);
+		AudioManager.getSound("wind.ogg").fade(0, 144, true);
 	}
 
 }

@@ -193,6 +193,7 @@ class WaterBlock {
 	public WaterBlock(Vector3f position, Vector3f scale) {
 		Matrix4f precalc = Matrix4f.transform(position, Vector3f.EMPTY, scale);
 		renderPosition = new Vector4f(precalc.get(3, 0), precalc.get(3, 1), precalc.get(3, 2), precalc.get(3, 3));
+		Matrix4f.release(precalc);
 	}
 
 }

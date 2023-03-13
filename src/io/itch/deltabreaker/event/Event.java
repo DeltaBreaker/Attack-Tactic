@@ -18,6 +18,7 @@ import io.itch.deltabreaker.ui.Message;
 import io.itch.deltabreaker.ui.TextBox;
 import io.itch.deltabreaker.ui.menu.MenuChoice;
 import io.itch.deltabreaker.ui.menu.MenuDungeonAction;
+import io.itch.deltabreaker.ui.menu.MenuSave;
 
 public class Event {
 
@@ -27,64 +28,73 @@ public class Event {
 	public int waitTimer = 0;
 	public int waitTime = 0;
 	public boolean skip = false;
+	public boolean continuous = false;
 
 	public Event(EventScript event) {
 		this.event = event;
 	}
 
 	public void tick() {
-		if (!finished) {
-			if (waitTimer == waitTime) {
-				if (currentLine < event.lines.length) {
-					try {
-						String[] args = getUnitOnActivatorLocation(event.lines[currentLine]).split(" ");
-						switch (args[0]) {
-
-						case "if":
-							skip = Inventory.variables.containsKey(args[1]) && Inventory.variables.get(args[1]) != Integer.parseInt(args[2]);
-							break;
-
-						case "end":
-							skip = false;
-							break;
-
-						default:
-							if (!skip && !args[0].startsWith("//")) {
-								EventCommand.valueOf(args[0]).run(args, this);
-							}
-							break;
-
-						}
-					} catch (Exception e) {
-						e.printStackTrace();
+		do {
+			if (!finished) {
+				if (waitTimer == waitTime) {
+					if (currentLine < event.lines.length) {
 						try {
-							throw new EventErrorException(currentLine + 1, event.lines[currentLine]);
-						} catch (Exception e2) {
-							e2.printStackTrace();
+							String[] args = getUnitOnActivatorLocation(event.lines[currentLine]).split(" ");
+							switch (args[0]) {
+
+							case "if":
+								skip = Inventory.variables.containsKey(args[1]) && Inventory.variables.get(args[1]) != Integer.parseInt(args[2]);
+								break;
+
+							case "end":
+								skip = false;
+								break;
+
+							case "continuous":
+								continuous = Boolean.parseBoolean(args[1]);
+								break;
+
+							default:
+								if (!skip && !args[0].startsWith("//")) {
+									EventCommand.valueOf(args[0]).run(args, this);
+								}
+								break;
+
+							}
+						} catch (Exception e) {
+							e.printStackTrace();
+							try {
+								throw new EventErrorException(currentLine + 1, event.lines[currentLine]);
+							} catch (Exception e2) {
+								e2.printStackTrace();
+							}
 						}
+						currentLine++;
+					} else {
+						finished = true;
 					}
-					currentLine++;
 				} else {
-					finished = true;
+					waitTimer++;
 				}
-			} else {
-				waitTimer++;
 			}
-		}
+		} while (continuous && !finished);
 	}
 
 	public boolean canProcessDuringMenu() {
-		String[] args = event.lines[currentLine].split(" ");
-		try {
-			if (!args[0].equals("if") && !args[0].equals("end") && !args[0].startsWith("//")) {
-				return EventCommand.valueOf(args[0]).menuOp;
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (currentLine < event.lines.length) {
+			String[] args = event.lines[currentLine].split(" ");
 			try {
-				throw new EventErrorException(currentLine + 1, event.lines[currentLine]);
-			} catch (Exception e2) {
-				e2.printStackTrace();
+				if (!args[0].equals("if") && !args[0].equals("end") && !args[0].startsWith("//")) {
+					return EventCommand.valueOf(args[0]).menuOp;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				try {
+					throw new EventErrorException(currentLine + 1, event.lines[currentLine]);
+				} catch (Exception e2) {
+					e2.printStackTrace();
+				}
 			}
 		}
 		return false;
@@ -227,6 +237,13 @@ enum EventCommand {
 				// Account for the hub here
 				Inventory.loaded.get(args[1]).setLocation(Integer.parseInt(args[2]), Integer.parseInt(args[3]));
 			}
+		}
+	},
+
+	warpunit(false) {
+		@Override
+		public void run(String[] args, Event event) {
+			Inventory.loaded.get(args[1]).placeAt(Integer.parseInt(args[2]), Integer.parseInt(args[3]));
 		}
 	},
 
@@ -521,6 +538,41 @@ enum EventCommand {
 		public void run(String[] args, Event event) {
 			Unit u = Inventory.loaded.get(args[2]);
 			StateManager.currentState.effects.add(new EffectPause(u, Integer.parseInt(args[1])));
+		}
+	},
+
+	setheader(true) {
+		@Override
+		public void run(String[] args, Event event) {
+			StringBuilder br = new StringBuilder();
+			for (int i = 0; i < args.length - 1; i++) {
+				if (i != 0) {
+					br.append(" ");
+				}
+				br.append(args[i + 1]);
+			}
+			Inventory.header = br.toString();
+		}
+	},
+
+	setloadmap(true) {
+		@Override
+		public void run(String[] args, Event event) {
+			Inventory.loadMap = args[1];
+		}
+	},
+
+	loadheaders(true) {
+		@Override
+		public void run(String[] args, Event event) {
+			Inventory.loadHeaderData();
+		}
+	},
+
+	savemenu(false) {
+		@Override
+		public void run(String[] args, Event event) {
+			StateManager.currentState.menus.add(new MenuSave(new Vector3f(0, 0, -80)));
 		}
 	};
 

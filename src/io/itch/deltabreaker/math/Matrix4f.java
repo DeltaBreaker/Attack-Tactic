@@ -1,5 +1,6 @@
 package io.itch.deltabreaker.math;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Matrix4f {
@@ -9,14 +10,28 @@ public class Matrix4f {
 	public static final int SIZE = 4;
 	private float[] elements = new float[SIZE * SIZE];
 
+	private static ArrayList<Matrix4f> matrixReserve = new ArrayList<>();
+
+	public static int created = 0;
+	public static int reused = 0;
+	
 	public Matrix4f(float[] elements) {
 		if (elements != null) {
 			this.elements = elements;
 		}
+		created++;
 	}
 
 	public static Matrix4f identity() {
-		Matrix4f result = new Matrix4f(null);
+		Matrix4f result;
+		if (matrixReserve.size() == 0) {
+			result = new Matrix4f(null);
+		} else {
+			result = matrixReserve.get(matrixReserve.size() - 1);
+			matrixReserve.remove(matrixReserve.size() - 1);
+			Arrays.fill(result.elements, 0);
+			reused++;
+		}
 
 		result.set(0, 0, 1);
 		result.set(1, 1, 1);
@@ -24,6 +39,12 @@ public class Matrix4f {
 		result.set(3, 3, 1);
 
 		return result;
+	}
+
+	public static void release(Matrix4f value) {
+		if (value != null) {
+			matrixReserve.add(value);
+		}
 	}
 
 	public float[] fliped() {
@@ -180,10 +201,29 @@ public class Matrix4f {
 		Matrix4f scaleMatrix = Matrix4f.scale(scale);
 
 		if (rotation.total() == 0) {
-			return multiply(translationMatrix, scaleMatrix);
+			Matrix4f result = multiply(translationMatrix, scaleMatrix);
+			release(translationMatrix);
+			release(scaleMatrix);
+			return result;
 		} else {
-			Matrix4f rotationMatrix = multiply(rotateX(rotation.getX()), multiply(rotateY(rotation.getY()), rotateZ(rotation.getZ())));
-			return multiply(rotationMatrix, multiply(translationMatrix, scaleMatrix));
+			Matrix4f rotY = rotateY(rotation.getY());
+			Matrix4f rotZ = rotateZ(rotation.getZ());
+			Matrix4f rotYZ = multiply(rotY, rotZ);
+			release(rotY);
+			release(rotZ);
+
+			Matrix4f rotX = rotateX(rotation.getX());
+			Matrix4f rotationMatrix = multiply(rotX, rotYZ);
+			release(rotX);
+			release(rotYZ);
+
+			Matrix4f transScale = multiply(translationMatrix, scaleMatrix);
+			Matrix4f result = multiply(rotationMatrix, transScale);
+			release(transScale);
+			release(translationMatrix);
+			release(scaleMatrix);
+			release(rotationMatrix);
+			return result;
 		}
 	}
 
@@ -197,16 +237,6 @@ public class Matrix4f {
 			float[] rotationMatrix = multiplyArray(rotateArrayX(rotation.getX()), multiplyArray(rotateArrayY(rotation.getY()), rotateArrayZ(rotation.getZ())));
 			return multiplyArray(rotationMatrix, multiplyArray(translationMatrix, scaleMatrix));
 		}
-	}
-
-	public Matrix4f transpose() {
-		Matrix4f transpose = identity();
-		for (int x = 0; x < 4; x++) {
-			for (int y = 0; y < 4; y++) {
-				transpose.set(y, x, get(x, y));
-			}
-		}
-		return this;
 	}
 
 	public static Matrix4f projection(float fov, float aspect, float near, float far) {
@@ -225,30 +255,28 @@ public class Matrix4f {
 		return result;
 	}
 
-	public static Matrix4f ortho(float b, float t, float l, float r, float n, float f) {
-		Matrix4f result = Matrix4f.identity();
-
-		result.set(0, 0,  2 / (r - l)); 
-	    result.set(1, 1,  2 / (t - b)); 
-	    result.set(2, 2,  -2 / (f - n)); 
-	    result.set(3, 0,  -(r + l) / (r - l)); 
-	    result.set(3, 1,  -(t + b) / (t - b)); 
-	    result.set(3, 2,  -(f + n) / (f - n)); 
-	    result.set(3, 3, 1); 
-		
-		return result;
-	}
-	
 	public static Matrix4f view(Vector3f position, Vector3f rotation) {
 		Vector3f negative = new Vector3f(-position.getX(), -position.getY(), -position.getZ());
 		Matrix4f translationMatrix = Matrix4f.translate(negative);
 
-		Matrix4f rotationMatrix = multiply(rotateZ(rotation.getZ()), multiply(rotateY(rotation.getY()), rotateX(rotation.getX())));
-
 		if (rotation.total() == 0) {
 			return translationMatrix;
 		} else {
-			return multiply(translationMatrix, rotationMatrix);
+			Matrix4f rotX = rotateX(rotation.getX());
+			Matrix4f rotY = rotateY(rotation.getY());
+			Matrix4f rotYX = multiply(rotY, rotX);
+			release(rotX);
+			release(rotY);
+
+			Matrix4f rotZ = rotateZ(rotation.getZ());
+			Matrix4f rotationMatrix = multiply(rotZ, rotYX);
+			release(rotZ);
+			release(rotYX);
+
+			Matrix4f result = multiply(translationMatrix, rotationMatrix);
+			release(translationMatrix);
+			release(rotationMatrix);
+			return result;
 		}
 
 	}
@@ -316,7 +344,7 @@ public class Matrix4f {
 	public void set(int location, float value) {
 		elements[location] = value;
 	}
-	
+
 	public float[] getAll() {
 		return elements;
 	}

@@ -1,0 +1,14 @@
+{
+	"activator": "event.activator.action 92b9efeb-b5e8-49c3-b04f-abf29843650c",
+	"script": [
+		"controllock true",
+		
+		"init ciel_action_state 0",
+		
+		"if ciel_action_state 0",
+		"script ciel_first_interaction.json",
+		"end",
+		
+		"controllock false"
+	]
+}

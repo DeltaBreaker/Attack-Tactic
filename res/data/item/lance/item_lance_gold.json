@@ -1,0 +1,44 @@
+{
+	"id": "item.lance.gold",
+	"name": "Gold Lance",
+	"type": "item.type.weapon",
+	"tier": 1,
+	"damage_type": "item.damage.physical",
+	"animation": "ITEM_ANIMATION_SLASH",
+	"range": 1,
+	"hp": 0,
+	"atk": 10,
+	"mag": 0,
+	"spd": 0,
+	"def": 0,
+	"res": 0,
+	"mov": 1,
+	"abilities": [],
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 1250,
+	"text": [
+		"A sturdy lance",
+		"made from gold"
+	],
+	"model": "item_lance_1.dae",
+	"texture": "item_lance_gold.png",
+	"wearable_model_id": "unit_weapon_lance_type_0",
+	"wearable_texture_id": "unit_weapon_lance_gold",
+	"material": "GOLD",
+	"recipe": {
+		"cost": 1250,
+		"materials": [
+			{
+				"item": "item.material.fibre.plant",
+				"count": 1
+			},
+			{
+				"item": "item.material.bar.gold",
+				"count": 3
+			}
+		]
+	}
+}

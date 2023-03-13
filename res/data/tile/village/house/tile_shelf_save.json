@@ -3,7 +3,7 @@
         "pallet.village",
         "tile.house.shelf.save"
     ],
-    "property": "TILE_HOUSING_SAVE",
+    "property": "TILE_HOUSING",
     "model": "tile_shelf_save.dae",
     "texture": "tile_shelf_save.png",
     "shader": "main_3d",

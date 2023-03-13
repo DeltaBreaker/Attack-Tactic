@@ -2,7 +2,7 @@
 	"id": "item.armor.titanium",
 	"name": "Titanium Chestplate",
 	"type": "item.type.armor",
-	"tier": 0,
+	"tier": 1,
 	"hp": 0,
 	"atk": 0,
 	"mag": 0,

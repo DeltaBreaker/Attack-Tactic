@@ -1,0 +1,72 @@
+[
+	{
+		"text": [
+			"Good morning mom!"
+		],
+		"charTime": [
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			}
+		],
+		"highlight": 0
+	},
+	{
+		"text": [
+			"Oh good morning Allan.",
+			"Good luck on your final",
+			"mission today!",
+			"Ill be at the guild",
+			"later with your father",
+			"to see you off."
+		],
+		"charTime": [
+			8,
+			8,
+			8,
+			8,
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			},
+			{
+				"portrait": "portrait_ciel",
+				"expression": "portrait_female_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			}
+		],
+		"highlight": 1
+	},
+	{
+		"text": [
+			"Thank you!",
+			"Ill do my best!"
+		],
+		"charTime": [
+			8,
+			8
+		],
+		"units": [
+			{
+				"portrait": "portrait_allan",
+				"expression": "portrait_male_0_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			},
+			{
+				"portrait": "portrait_ciel",
+				"expression": "portrait_female_happy_eyes",
+				"mouth": "portrait_mouth_happy"
+			}
+		],
+		"highlight": 0
+	}
+]

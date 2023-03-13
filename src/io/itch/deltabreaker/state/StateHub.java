@@ -32,20 +32,27 @@ import io.itch.deltabreaker.graphics.Material;
 import io.itch.deltabreaker.math.AdvMath;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
+import io.itch.deltabreaker.object.Cursor;
 import io.itch.deltabreaker.object.Unit;
 import io.itch.deltabreaker.object.tile.Tile;
+import io.itch.deltabreaker.ui.menu.Menu;
 
 public class StateHub extends State {
 
 	public static final String STATE_ID = "state.hub";
 
+	public static final String ACTION_LOAD = "hub.action.load";
+	
+	public String fadeOption = "";
+	public int loadFolder;
+	
 	public HashMap<String, EventScript> eventList = new HashMap<>();
 	public ArrayList<Event> events = new ArrayList<>();
 	public ArrayList<Unit> npcs = new ArrayList<>();
 	public DungeonGenerator dungeon;
 	public Tile filler;
 	public Light overheadLight;
-
+	
 	public StateHub() {
 		super(STATE_ID);
 	}
@@ -95,6 +102,15 @@ public class StateHub extends State {
 			}
 		}
 
+		if (menus.size() > 0) {
+			menus.get(0).tick();
+			if (!menus.get(0).open && menus.get(0).height <= 16) {
+				menus.remove(0);
+			}
+		}
+
+		cursor.tick();
+
 		// This sorts the array of effects so that the ones closest get rendered first
 		ArrayList<Effect> sortedEffects = new ArrayList<>();
 		int size = effects.size();
@@ -133,6 +149,17 @@ public class StateHub extends State {
 				}
 			}
 		}
+				
+		if(Startup.screenColor.equals(Startup.screenColorTarget) && Startup.screenColor.getW() >= 1) {
+			switch(fadeOption) {
+			
+			case ACTION_LOAD:
+				Inventory.loadGame(loadFolder);
+				loadMap(Inventory.loadMap);
+				break;
+			
+			}
+		}
 	}
 
 	public void render() {
@@ -159,9 +186,17 @@ public class StateHub extends State {
 		boolean showIcon = false;
 		for (Unit u : npcs) {
 			u.render();
-			if (!showIcon && Math.abs(u.locX - Inventory.units.get(0).locX) + Math.abs(u.locY - Inventory.units.get(0).locY) == 1 && hasEvent(u) && noUIOnScreen() && events.size() == 0) {
-				BatchSorter.add("gui_action.dae", "gui_action.png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(), Vector3f.add(new Vector3f(u.x, 13 + u.height, u.y), 2, 8 + AdvMath.sin[(int) Startup.universalAge % 360] * 1.5f, -12),
-						Inventory.units.get(0).rotation, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, false);
+			if (!showIcon && hasEvent(u) && noUIOnScreen() && events.size() == 0) {
+				BatchSorter.add("gui_action.dae", "gui_action.png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(),
+						Vector3f.add(new Vector3f(u.x, 13 + u.height, u.y), 2, 8 + AdvMath.sin[(int) Startup.universalAge % 360] * 1.5f, -12), Inventory.units.get(0).rotation, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, false);
+			}
+		}
+		for (EventScript e : eventList.values()) {
+			String[] args = e.activator.split(" ");
+			if (args[0].equals(EventScript.ACTIVATOR_ACTION) && args.length == 3) {
+				Vector3f position = Vector3f.add(tiles[Integer.parseInt(args[1])][Integer.parseInt(args[2])].getPosition(), 0, 20, 0);
+				BatchSorter.add("gui_action.dae", "gui_action.png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(), Vector3f.add(position, 0, 8 + AdvMath.sin[(int) Startup.universalAge % 360] * 1.5f, -1),
+						Vector3f.DEFAULT_INVERSE_CAMERA_ROTATION, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, false);
 			}
 		}
 		for (Effect e : effects) {
@@ -169,6 +204,12 @@ public class StateHub extends State {
 		}
 		if (text.size() > 0) {
 			text.get(0).render();
+		}
+		for (Menu m : menus) {
+			m.render();
+		}
+		if (!hideCursor || (menus.size() > 0 && menus.get(0).open)) {
+			cursor.render();
 		}
 	}
 
@@ -183,6 +224,8 @@ public class StateHub extends State {
 
 		Startup.camera.speedY = 0.125f;
 		Startup.shadowCamera.speedY = 0.125f;
+
+		cursor = new Cursor(Vector3f.EMPTY.copy());
 	}
 
 	public void onExit() {
@@ -358,11 +401,75 @@ public class StateHub extends State {
 		}
 	}
 
+	@SuppressWarnings("incomplete-switch")
 	public void onKeyPress(InputMapping key) {
 		if (Inventory.units.size() > 0) {
 			switch (key) {
 
+			case JOYSTICK:
+				if (noUIOnScreen() && !controlLock) {
+					float[] axes = key.getAxes();
+					Unit u = Inventory.units.get(0);
+					if (u.x == u.locX * 16 && u.y == u.locY * 16) {
+						if (axes[0] > 0.25) {
+							if (u.locY < tiles[0].length - 1 && isTileWalkable(u.locX + 1, u.locY)) {
+								u.locX++;
+								checkForMovementEvent();
+							}
+						}
+						if (axes[0] < -0.25) {
+							if (u.locY > 0 && isTileWalkable(u.locX - 1, u.locY)) {
+								u.locX--;
+								checkForMovementEvent();
+							}
+						}
+						if (axes[1] > 0.25) {
+							if (u.locX < tiles.length - 1 && isTileWalkable(u.locX, u.locY + 1)) {
+								u.locY++;
+								checkForMovementEvent();
+							}
+						}
+						if (axes[1] < -0.25) {
+							if (u.locX > 0 && isTileWalkable(u.locX, u.locY - 1)) {
+								u.locY--;
+								checkForMovementEvent();
+							}
+						}
+					}
+				}
+				break;
+
+			case UP:
+				if (menus.size() > 0) {
+					menus.get(0).move(-1);
+					return;
+				}
+				break;
+
+			case DOWN:
+				if (menus.size() > 0) {
+					menus.get(0).move(1);
+					return;
+				}
+				break;
+
+			case LEFT:
+				if (menus.size() > 0) {
+					return;
+				}
+				break;
+
+			case RIGHT:
+				if (menus.size() > 0) {
+					return;
+				}
+				break;
+
 			case CONFIRM:
+				if (menus.size() != 0) {
+					menus.get(0).action("", null);
+					return;
+				}
 				if (text.size() == 0) {
 					if (!controlLock) {
 						for (Unit u : npcs) {
@@ -372,6 +479,14 @@ public class StateHub extends State {
 									if (activator[0].equals(EventScript.ACTIVATOR_ACTION) && activator[1].equals(u.uuid)) {
 										events.add(new Event(e));
 									}
+								}
+							}
+						}
+						for (EventScript e : eventList.values()) {
+							String[] args = e.activator.split(" ");
+							if (args[0].equals(EventScript.ACTIVATOR_ACTION) && args.length == 3) {
+								if (Math.abs(Integer.parseInt(args[1]) - Inventory.units.get(0).locX) + Math.abs(Integer.parseInt(args[2]) - Inventory.units.get(0).locY) <= 1) {
+									events.add(new Event(e));
 								}
 							}
 						}
@@ -395,12 +510,14 @@ public class StateHub extends State {
 				break;
 
 			case BACK:
-				if (text.size() == 0) {
-					if (!controlLock) {
+				if (menus.size() != 0) {
+					menus.get(0).action("return", null);
+					return;
+				}
 
-					}
-				} else {
+				if (text.size() != 0) {
 					text.get(0).next();
+					return;
 				}
 				break;
 
@@ -412,12 +529,13 @@ public class StateHub extends State {
 
 	}
 
+	@SuppressWarnings("incomplete-switch")
 	public void onKeyRepeat(InputMapping key) {
 		if (Inventory.units.size() > 0) {
 			switch (key) {
 
 			case UP:
-				if (!controlLock) {
+				if (!controlLock && menus.size() == 0) {
 					if (Inventory.units.get(0).locY > 0 && isTileWalkable(Inventory.units.get(0).locX, Inventory.units.get(0).locY - 1)) {
 						Inventory.units.get(0).locY--;
 						checkForMovementEvent();
@@ -426,7 +544,7 @@ public class StateHub extends State {
 				break;
 
 			case DOWN:
-				if (!controlLock) {
+				if (!controlLock && menus.size() == 0) {
 					if (Inventory.units.get(0).locY < tiles[0].length - 1 && isTileWalkable(Inventory.units.get(0).locX, Inventory.units.get(0).locY + 1)) {
 						Inventory.units.get(0).locY++;
 						checkForMovementEvent();
@@ -435,7 +553,7 @@ public class StateHub extends State {
 				break;
 
 			case LEFT:
-				if (!controlLock) {
+				if (!controlLock && menus.size() == 0) {
 					if (Inventory.units.get(0).locX > 0 && isTileWalkable(Inventory.units.get(0).locX - 1, Inventory.units.get(0).locY)) {
 						Inventory.units.get(0).locX--;
 						checkForMovementEvent();
@@ -444,7 +562,7 @@ public class StateHub extends State {
 				break;
 
 			case RIGHT:
-				if (!controlLock) {
+				if (!controlLock && menus.size() == 0) {
 					if (Inventory.units.get(0).locX < tiles.length - 1 && isTileWalkable(Inventory.units.get(0).locX + 1, Inventory.units.get(0).locY)) {
 						Inventory.units.get(0).locX++;
 						checkForMovementEvent();
@@ -461,7 +579,6 @@ public class StateHub extends State {
 			String[] parts = e.activator.split(" ");
 			if (parts[0].equals(EventScript.ACTIVATOR_WAIT) && Integer.parseInt(parts[1]) == Inventory.units.get(0).locX && Integer.parseInt(parts[2]) == Inventory.units.get(0).locY) {
 				events.add(new Event(e));
-				System.out.println(e.activator);
 			}
 		}
 	}

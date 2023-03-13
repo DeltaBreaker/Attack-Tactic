@@ -41,6 +41,16 @@ public enum ItemUse {
 		public int calculateHealing(Unit u, StateDungeon context) {
 			return 5;
 		}
+
+		@Override
+		public int calculateDamage(Unit u, StateDungeon context) {
+			return 0;
+		}
+		
+		@Override
+		public int getRange(Unit u, StateDungeon context) {
+			return 0;
+		}
 	},
 
 	ITEM_USE_HEAL_10(true) {
@@ -68,6 +78,16 @@ public enum ItemUse {
 		@Override
 		public int calculateHealing(Unit u, StateDungeon context) {
 			return 10;
+		}
+
+		@Override
+		public int calculateDamage(Unit u, StateDungeon context) {
+			return 0;
+		}
+		
+		@Override
+		public int getRange(Unit u, StateDungeon context) {
+			return 0;
 		}
 	},
 
@@ -97,6 +117,16 @@ public enum ItemUse {
 		public int calculateHealing(Unit u, StateDungeon context) {
 			return 20;
 		}
+
+		@Override
+		public int calculateDamage(Unit u, StateDungeon context) {
+			return 0;
+		}
+		
+		@Override
+		public int getRange(Unit u, StateDungeon context) {
+			return 0;
+		}
 	},
 
 	ITEM_USE_PEBBLE(false) {
@@ -107,7 +137,7 @@ public enum ItemUse {
 			context.selectedAbility.use(u, context);
 
 			context.clearSelectedTiles();
-			context.highlightTiles(u.locX, u.locY, 0, 6, "");
+			context.highlightTiles(u.locX, u.locY, 0, getRange(u, context), "");
 		}
 
 		@Override
@@ -119,7 +149,7 @@ public enum ItemUse {
 
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
-			context.effects.add(new EffectProjectile(context.selectedUnit, u, 0));
+			context.effects.add(new EffectProjectile(context.selectedUnit, u, 0, calculateDamage(context.selectedUnit, context)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -128,6 +158,17 @@ public enum ItemUse {
 		@Override
 		public int calculateHealing(Unit u, StateDungeon context) {
 			return 0;
+		}
+
+		@Override
+		public int calculateDamage(Unit u, StateDungeon context) {
+			boolean hasReflect = u.weapon.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT) || u.accessory.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT);
+			return (hasReflect) ? 0 : 5;
+		}
+		
+		@Override
+		public int getRange(Unit u, StateDungeon context) {
+			return 6;
 		}
 	},
 
@@ -139,7 +180,7 @@ public enum ItemUse {
 			context.selectedAbility.use(u, context);
 
 			context.clearSelectedTiles();
-			context.highlightTiles(u.locX, u.locY, 0, 6, "");
+			context.highlightTiles(u.locX, u.locY, 0, getRange(u, context), "");
 		}
 
 		@Override
@@ -151,7 +192,7 @@ public enum ItemUse {
 
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
-			context.effects.add(new EffectProjectile(context.selectedUnit, u, 1));
+			context.effects.add(new EffectProjectile(context.selectedUnit, u, 1, calculateDamage(context.selectedUnit, context)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -160,6 +201,17 @@ public enum ItemUse {
 		@Override
 		public int calculateHealing(Unit u, StateDungeon context) {
 			return 0;
+		}
+
+		@Override
+		public int calculateDamage(Unit u, StateDungeon context) {
+			boolean hasReflect = u.weapon.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT) || u.accessory.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT);
+			return (hasReflect) ? 0 : 10;
+		}
+		
+		@Override
+		public int getRange(Unit u, StateDungeon context) {
+			return 6;
 		}
 	},
 
@@ -171,7 +223,7 @@ public enum ItemUse {
 			context.selectedAbility.use(u, context);
 
 			context.clearSelectedTiles();
-			context.highlightTiles(u.locX, u.locY, 0, 4, "");
+			context.highlightTiles(u.locX, u.locY, 0, getRange(u, context), "");
 		}
 
 		@Override
@@ -183,7 +235,7 @@ public enum ItemUse {
 
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
-			context.effects.add(new EffectProjectile(context.selectedUnit, u, 2));
+			context.effects.add(new EffectProjectile(context.selectedUnit, u, 2, calculateDamage(context.selectedUnit, context)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -192,6 +244,17 @@ public enum ItemUse {
 		@Override
 		public int calculateHealing(Unit u, StateDungeon context) {
 			return 0;
+		}
+
+		@Override
+		public int calculateDamage(Unit u, StateDungeon context) {
+			boolean hasReflect = u.weapon.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT) || u.accessory.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT);
+			return (hasReflect || !u.getStatus().equals("")) ? 0 : u.currentHp;
+		}
+		
+		@Override
+		public int getRange(Unit u, StateDungeon context) {
+			return 4;
 		}
 	},
 
@@ -203,7 +266,7 @@ public enum ItemUse {
 			context.selectedAbility.use(u, context);
 
 			context.clearSelectedTiles();
-			context.highlightTiles(u.locX, u.locY, 0, 4, "");
+			context.highlightTiles(u.locX, u.locY, 0, getRange(u, context), "");
 		}
 
 		@Override
@@ -215,7 +278,7 @@ public enum ItemUse {
 
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
-			context.effects.add(new EffectProjectile(context.selectedUnit, u, 3));
+			context.effects.add(new EffectProjectile(context.selectedUnit, u, 3, calculateDamage(context.selectedUnit, context)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -224,6 +287,17 @@ public enum ItemUse {
 		@Override
 		public int calculateHealing(Unit u, StateDungeon context) {
 			return 0;
+		}
+
+		@Override
+		public int calculateDamage(Unit u, StateDungeon context) {
+			boolean hasReflect = u.weapon.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT) || u.accessory.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT);
+			return (hasReflect || !u.getStatus().equals("")) ? 0 : u.atk;
+		}
+		
+		@Override
+		public int getRange(Unit u, StateDungeon context) {
+			return 4;
 		}
 	},
 
@@ -257,7 +331,17 @@ public enum ItemUse {
 		public int calculateHealing(Unit u, StateDungeon context) {
 			return 0;
 		}
-	},;
+
+		@Override
+		public int calculateDamage(Unit u, StateDungeon context) {
+			return 0;
+		}
+		
+		@Override
+		public int getRange(Unit u, StateDungeon context) {
+			return 0;
+		}
+	};
 
 	public boolean canUseFreeRoam;
 
@@ -268,7 +352,11 @@ public enum ItemUse {
 	public abstract void afterAnimation(Unit u, StateDungeon context);
 
 	public abstract int calculateHealing(Unit u, StateDungeon context);
+	
+	public abstract int calculateDamage(Unit u, StateDungeon context);
 
+	public abstract int getRange(Unit u, StateDungeon context);
+	
 	private ItemUse(boolean canUseFreeRoam) {
 		this.canUseFreeRoam = canUseFreeRoam;
 	}

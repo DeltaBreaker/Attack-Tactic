@@ -103,7 +103,9 @@ public class Model {
 			GL40.glVertexAttribDivisor(3, 1);
 
 			GL40.glBindBuffer(GL40.GL_ARRAY_BUFFER, modelID);
-			GL40.glBufferData(GL40.GL_ARRAY_BUFFER, createFloatBuffer(Matrix4f.transform(position, rotation, scale).getAll()), GL40.GL_DYNAMIC_DRAW);
+			Matrix4f result = Matrix4f.transform(position, rotation, scale);
+			GL40.glBufferData(GL40.GL_ARRAY_BUFFER, createFloatBuffer(result.getAll()), GL40.GL_DYNAMIC_DRAW);
+			Matrix4f.release(result);
 
 			int size = 16;
 			for (int i = 0; i < 4; i++) {

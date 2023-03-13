@@ -1,0 +1,49 @@
+{
+	"id": "item.staff.warp",
+	"name": "Warp Staff",
+	"type": "item.type.weapon",
+	"tier": 1,
+	"damage_type": "item.damage.physical",
+	"animation": "ITEM_ANIMATION_BASH",
+	"range": 1,
+	"hp": 0,
+	"atk": 2,
+	"mag": 0,
+	"spd": 0,
+	"def": 0,
+	"res": 0,
+	"mov": 0,
+	"abilities": [
+		"ITEM_ABILITY_HEAL_30",
+		"ITEM_ABILITY_CURE",
+		"ITEM_ABILITY_WARP"
+	],
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 700,
+	"text": [
+		"A crystal staff",
+		"topped with an",
+		"azure gem"
+	],
+	"model": "item_staff_warp.dae",
+	"texture": "item_staff_warp.png",
+	"wearable_model_id": "unit_weapon_staff_type_1",
+	"wearable_texture_id": "unit_weapon_staff_warp",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": 700,
+		"materials": [
+			{
+				"item": "item.material.bar.wood",
+				"count": 6
+			},
+			{
+				"item": "item.material.gem.sapphire",
+				"count": 1
+			}
+		]
+	}
+}

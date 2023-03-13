@@ -1,11 +1,9 @@
 package io.itch.deltabreaker.effect;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.graphics.BatchSorter;
-import io.itch.deltabreaker.graphics.Light;
 import io.itch.deltabreaker.graphics.Material;
 import io.itch.deltabreaker.math.AdvMath;
 import io.itch.deltabreaker.math.Vector3f;

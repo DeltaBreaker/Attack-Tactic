@@ -1,0 +1,7 @@
+{
+	"name": "Explorer",
+	"can_move": true,
+	"can_use_heal_items": true,
+	"can_use_offense_items": true,
+	"default_action": "ROAM"
+}

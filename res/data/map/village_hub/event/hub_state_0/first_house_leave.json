@@ -1,0 +1,14 @@
+{
+	"activator": "event.activator.wait 18 45",
+	"script": [
+		"init first_house_leave 0",
+		"if first_house_leave 0",
+		"controllock true",
+		"script first_house_leave.json",
+		"wait 0",
+		"controllock false",
+		"set first_house_leave 1",
+		"end",
+		"disable"
+	]
+}

@@ -8,10 +8,12 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.UUID;
 
 import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import io.itch.deltabreaker.ai.AIHandler;
@@ -45,13 +47,8 @@ public class Unit {
 	public static final String STATUS_POISON = "unit.status.poison";
 	public static final String STATUS_SLEEP = "unit.status.sleep";
 
-	public static final float[] GROWTH_STRENGTH = { 0.75f, 1.0f, 0.25f, 0.75f, 1.0f, 0.5f };
-	public static final float[] GROWTH_MAGIC = { 0.75f, 0.25f, 1.0f, 0.75f, 0.5f, 1.0f };
-	public static final float[] GROWTH_TANK = { 1.0f, 0.5f, 0.5f, 0.5f, 1.0f, 1.0f };
-	public static final float[] GROWTH_BALANCE = { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f };
-	public static final float[][] GROWTH_PROFILES = { GROWTH_STRENGTH, GROWTH_MAGIC, GROWTH_TANK };
-
 	public static ArrayList<String> names = new ArrayList<>();
+	public static HashMap<String, float[]> GROWTH_PROFILES = new HashMap<>();
 
 	public static float movementSpeed = 1f;
 
@@ -115,7 +112,7 @@ public class Unit {
 	public int hair = 0;
 	public Vector4f hairColor = new Vector4f(1, 1, 1, 1);
 
-	public AIType AIPattern = AIType.STANDARD_DUNGEON;
+	public AIType AIPattern;
 
 	// Stats
 
@@ -173,6 +170,8 @@ public class Unit {
 		this.uuid = uuid;
 
 		Inventory.loaded.put(uuid, this);
+
+		AIPattern = AIType.getDefault();
 	}
 
 	public void tick() {
@@ -196,22 +195,22 @@ public class Unit {
 			if (!StateDungeon.getCurrentContext().inCombat) {
 				if (dead) {
 					if (unitColor.getW() > 0) {
-						unitColor.setW(unitColor.getW() - 0.005f);
+						unitColor.setW(Math.max(unitColor.getW() - 0.005f, 0));
 					}
 				} else {
 					if (unitColor.getW() < 1) {
-						unitColor.setW(unitColor.getW() + 0.005f);
+						unitColor.setW(Math.min(unitColor.getW() + 0.005f, 1));
 					}
 				}
 			}
 		} else {
 			if (dead) {
 				if (unitColor.getW() > 0) {
-					unitColor.setW(unitColor.getW() - 0.005f);
+					unitColor.setW(Math.max(unitColor.getW() - 0.005f, 0));
 				}
 			} else {
 				if (unitColor.getW() < 1) {
-					unitColor.setW(unitColor.getW() + 0.005f);
+					unitColor.setW(Math.min(unitColor.getW() + 0.005f, 1));
 				}
 			}
 		}
@@ -345,6 +344,7 @@ public class Unit {
 				}
 			}
 		}
+
 		float height = StateManager.currentState.tiles[(int) Math.round(x / 16.0)][(int) Math.round(y / 16.0)].getPosition().getY();
 		if (this.height < height) {
 			this.height = Math.min(this.height + fallSpeed, height);
@@ -359,10 +359,10 @@ public class Unit {
 		} else if (body > 0) {
 			offset = 1;
 		}
-		hairPosition.set(x, 13 + offset * 0.7f + this.height, y - offset * 0.75f);
 
+		hairPosition.set(x, 13 + offset * 0.5f + this.height, y - offset * 0.9f);
 		armorPosition.set(x, 13 + this.height + 0.3f, y + 0.2f);
-		weaponPosition.set(x, 13 + height + 0.65f, y + 0.4f);
+		weaponPosition.set(x, 13 + this.height + 0.65f, y + 0.3f);
 	}
 
 	public void updateStats() {
@@ -378,13 +378,13 @@ public class Unit {
 			}
 		}
 
-		hp = Math.max(1, baseHp + weapon.hp + armor.hp + offsetHp + accessory.hp + abilityStats[0]);
-		atk = Math.max(0, baseAtk + weapon.atk + armor.atk + offsetAtk + accessory.atk + abilityStats[1]);
-		mag = Math.max(0, baseMag + weapon.mag + armor.mag + offsetMag + accessory.mag + abilityStats[2]);
-		spd = Math.max(0, baseSpd + weapon.spd + armor.spd + offsetSpd + accessory.spd + abilityStats[3]);
-		def = Math.max(0, baseDef + weapon.def + armor.def + offsetDef + accessory.def + abilityStats[4]);
-		res = Math.max(0, baseRes + weapon.res + armor.res + offsetRes + accessory.res + abilityStats[5]);
-		movement = Math.max(1, baseMovement + weapon.mov + armor.mov + accessory.mov + abilityStats[6]);
+		hp = Math.min(99, Math.max(1, baseHp + weapon.hp + armor.hp + offsetHp + accessory.hp + abilityStats[0]));
+		atk = Math.min(60, Math.max(0, baseAtk + weapon.atk + armor.atk + offsetAtk + accessory.atk + abilityStats[1]));
+		mag = Math.min(60, Math.max(0, baseMag + weapon.mag + armor.mag + offsetMag + accessory.mag + abilityStats[2]));
+		spd = Math.min(60, Math.max(0, baseSpd + weapon.spd + armor.spd + offsetSpd + accessory.spd + abilityStats[3]));
+		def = Math.min(60, Math.max(0, baseDef + weapon.def + armor.def + offsetDef + accessory.def + abilityStats[4]));
+		res = Math.min(60, Math.max(0, baseRes + weapon.res + armor.res + offsetRes + accessory.res + abilityStats[5]));
+		movement = Math.min(20, Math.max(1, baseMovement + weapon.mov + armor.mov + accessory.mov + abilityStats[6]));
 	}
 
 	public void render() {
@@ -392,7 +392,7 @@ public class Unit {
 			StateDungeon context = StateDungeon.getCurrentContext();
 			String shader = (StateManager.currentState.STATE_ID == StateDungeon.STATE_ID && context.freeRoamMode && context.enemies.contains(this)) ? "main_3d_enemy" : "main_3d";
 			boolean ignoreDepth = (unitColor.getW() < 1) ? true : false;
-
+			
 			// Change color if unit has acted
 			Vector4f bodyColor = this.bodyColor;
 			Vector4f hairColor = this.hairColor;
@@ -574,15 +574,8 @@ public class Unit {
 		return status;
 	}
 
-	public void setTurn(boolean ready) {
-		if (!ready && status.equals(STATUS_POISON)) {
-			hurt((int) Math.round(hp / 10.0));
-			statusTimer--;
-		}
-		if (ready && status.equals(STATUS_SLEEP)) {
-			statusTimer--;
-		}
-		if (statusTimer <= 0) {
+	public void clearStatus() {
+		if (!status.equals("")) {
 			switch (status) {
 
 			case STATUS_POISON:
@@ -597,6 +590,19 @@ public class Unit {
 
 			statusEffect.die = true;
 			status = "";
+		}
+	}
+
+	public void setTurn(boolean ready) {
+		if (!ready && status.equals(STATUS_POISON)) {
+			hurt((int) Math.round(hp / 10.0));
+			statusTimer--;
+		}
+		if (ready && status.equals(STATUS_SLEEP)) {
+			statusTimer--;
+		}
+		if (statusTimer <= 0) {
+			clearStatus();
 		}
 		if (!ready || !status.equals(STATUS_SLEEP)) {
 			hasTurn = ready;
@@ -953,7 +959,7 @@ public class Unit {
 			out.writeUTF(accessory.id);
 			out.writeUTF(accessory.uuid);
 
-			out.writeUTF(AIPattern.name());
+			out.writeUTF(AIPattern.getFile());
 
 			out.flush();
 			out.close();
@@ -1009,7 +1015,7 @@ public class Unit {
 			u.currentHp = u.baseHp + u.weapon.hp + u.armor.hp + u.offsetHp + u.accessory.hp;
 			u.lastWeapon = u.weapon.id;
 
-			u.AIPattern = AIType.valueOf(in.readUTF());
+			u.AIPattern = AIType.get(in.readUTF());
 
 			in.close();
 
@@ -1017,7 +1023,7 @@ public class Unit {
 		} else {
 			System.out.println("[Unit]: File " + file + " was not found");
 		}
-		return randomCombatUnit(x, y, new Vector4f(1, 1, 1, 1), 1, 0, GROWTH_BALANCE, AIType.STANDARD_DUNGEON);
+		return randomCombatUnit(x, y, new Vector4f(1, 1, 1, 1), 1, 0, new float[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f }, AIType.get("standard_dungeon.json"));
 	}
 
 	public static void loadNames(String file) {
@@ -1043,6 +1049,30 @@ public class Unit {
 			names[i] = units[i].name;
 		}
 		return names;
+	}
+
+	public static void loadProfiles(String file) {
+		File f = new File(file);
+		if (f.exists()) {
+			try {
+				JSONArray ja = (JSONArray) new JSONParser().parse(new FileReader(f));
+
+				for (int i = 0; i < ja.size(); i++) {
+					JSONObject profile = (JSONObject) ja.get(i);
+
+					JSONArray data = (JSONArray) profile.get("values");
+					float[] values = new float[data.size()];
+					for (int j = 0; j < data.size(); j++) {
+						values[j] = (float) ((double) data.get(j));
+					}
+
+					GROWTH_PROFILES.put((String) profile.get("name"), values);
+				}
+				System.out.println("[Unit]: Loaded profile data with " + GROWTH_PROFILES.size() + " profiles");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 }
