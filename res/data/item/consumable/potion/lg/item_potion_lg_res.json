@@ -1,0 +1,30 @@
+{
+	"id": "item.usable.potion.lg.res",
+	"name": "LG RES Potion",
+	"type": "item.type.usable",
+	"tier": 3,
+	"use": "ITEM_USE_POTION_LG_RES",
+	"rate": 0.01,
+	"fish_rate": 0.0,
+	"locations": [
+		"pallet.snow_forrest",
+		"pallet.village",
+		"pallet.flooded_forrest",
+		"pallet.seabed_cove",
+		"pallet.scorched_crater",
+		"pallet.medial_plane",
+		"pallet.castle_depths"
+	],
+	"price": 2000,
+	"text": [
+		"A large potion",
+		"able to boost",
+		"RES by 4"
+	],
+	"model": "item_potion_lg.dae",
+	"texture": "item_potion_lg_res.png",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": -1
+	}
+}

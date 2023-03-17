@@ -21,6 +21,7 @@ import io.itch.deltabreaker.ai.AIType;
 import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.core.audio.AudioManager;
+import io.itch.deltabreaker.effect.EffectDebuff;
 import io.itch.deltabreaker.effect.EffectEnergize;
 import io.itch.deltabreaker.effect.EffectHeated;
 import io.itch.deltabreaker.effect.EffectLavaSplash;
@@ -392,7 +393,7 @@ public class Unit {
 			StateDungeon context = StateDungeon.getCurrentContext();
 			String shader = (StateManager.currentState.STATE_ID == StateDungeon.STATE_ID && context.freeRoamMode && context.enemies.contains(this)) ? "main_3d_enemy" : "main_3d";
 			boolean ignoreDepth = (unitColor.getW() < 1) ? true : false;
-			
+
 			// Change color if unit has acted
 			Vector4f bodyColor = this.bodyColor;
 			Vector4f hairColor = this.hairColor;
@@ -555,6 +556,7 @@ public class Unit {
 			statusEffect = new EffectHeated(new Vector3f(x, 10 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y), Vector4f.COLOR_POISON);
 			StateManager.currentState.effects.add(statusEffect);
 			StateManager.currentState.effects.add(new EffectText("+Poison", new Vector3f(x - ("+Poison").length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8), Vector4f.COLOR_RED));
+			StateManager.currentState.effects.add(new EffectDebuff(new Vector3f(x, 10 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y)));
 			break;
 
 		case STATUS_SLEEP:
@@ -565,6 +567,7 @@ public class Unit {
 			statusEffect = new EffectHeated(new Vector3f(x, 10 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y), Vector4f.COLOR_BASE);
 			StateManager.currentState.effects.add(statusEffect);
 			StateManager.currentState.effects.add(new EffectText("+Sleep", new Vector3f(x - ("+Sleep").length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8), Vector4f.COLOR_RED));
+			StateManager.currentState.effects.add(new EffectDebuff(new Vector3f(x, 10 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y)));
 			break;
 
 		}
