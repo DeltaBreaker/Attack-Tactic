@@ -21,7 +21,7 @@
 		"able to boost",
 		"ATK by 3"
 	],
-	"model": "item_potion_atk.dae",
+	"model": "item_potion_md.dae",
 	"texture": "item_potion_md_atk.png",
 	"material": "DEFAULT",
 	"recipe": {

@@ -1649,12 +1649,12 @@ public class StateDungeon extends State {
 
 		case MISC:
 			for(Unit u : Inventory.active) {
-				u.addItem(ItemProperty.get("item.usable.potion.xs.hp"));
-				u.addItem(ItemProperty.get("item.usable.potion.xs.atk"));
-				u.addItem(ItemProperty.get("item.usable.potion.xs.mag"));
-				u.addItem(ItemProperty.get("item.usable.potion.xs.spd"));
-				u.addItem(ItemProperty.get("item.usable.potion.xs.def"));
-				u.addItem(ItemProperty.get("item.usable.potion.xs.res"));
+				u.addItem(ItemProperty.get("item.usable.potion.lg.hp"));
+				u.addItem(ItemProperty.get("item.usable.potion.lg.atk"));
+				u.addItem(ItemProperty.get("item.usable.potion.lg.mag"));
+				u.addItem(ItemProperty.get("item.usable.potion.lg.spd"));
+				u.addItem(ItemProperty.get("item.usable.potion.lg.def"));
+				u.addItem(ItemProperty.get("item.usable.potion.lg.res"));
 			}
 			break;
 
