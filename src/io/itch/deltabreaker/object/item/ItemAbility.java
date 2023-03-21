@@ -14,6 +14,7 @@ import io.itch.deltabreaker.state.StateDungeon;
 import io.itch.deltabreaker.state.StateManager;
 import io.itch.deltabreaker.ui.Message;
 import io.itch.deltabreaker.ui.menu.MenuDungeonSteal;
+import io.itch.deltabreaker.ui.menu.MenuTrade;
 
 public enum ItemAbility {
 
@@ -113,6 +114,65 @@ public enum ItemAbility {
 		}
 	},
 
+	ITEM_ABILITY_TRADE("Trade", "target.unit", false, false, true, false, false) {
+
+		@Override
+		public boolean isUnlocked(ItemProperty item) {
+			return true;
+		}
+
+		@Override
+		public boolean use(Unit u, StateDungeon context) {
+			context.clearSelectedTiles();
+			context.highlightTiles(u.locX, u.locY, 2, 1, "");
+			context.combatMode = true;
+			return true;
+		}
+
+		@Override
+		public boolean followUp(Unit u, StateDungeon context) {
+			context.clearSelectedTiles();
+			StateManager.currentState.menus.add(new MenuTrade(new Vector3f(0, 0, -80), context.selectedUnit, u));
+			context.clearUnit();
+			return true;
+		}
+
+		@Override
+		public int[] calculateAttackingDamage(Unit atk, Unit def, boolean ignoreRange) {
+			return null;
+		}
+
+		@Override
+		public int[] calculateDefendingDamage(Unit atk, Unit def, boolean ignoreRange) {
+			return null;
+		}
+
+		@Override
+		public int calculateHealing(Unit healer, Unit healed) {
+			return 0;
+		}
+
+		@Override
+		public int[] getStats() {
+			return null;
+		}
+
+		@Override
+		public void onCombatEnd(Unit unit, StateDungeon context) {
+			// Empty
+		}
+
+		@Override
+		public void onHit(StateDungeon context) {
+			// Empty
+		}
+
+		@Override
+		public void onRetaliation(StateDungeon context) {
+			// Empty
+		}
+	},
+	
 	ITEM_ABILITY_USE_ITEM_ALLY("", "target.unit", false, false, true, false, false) {
 
 		@Override

@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import io.itch.deltabreaker.ai.AIHandler;
 import io.itch.deltabreaker.builder.dungeon.DungeonGenerator;
@@ -1649,7 +1650,18 @@ public class StateDungeon extends State {
 
 		case MISC:
 			for (Unit u : Inventory.active) {
-				u.weapon.abilities = new String[] { "ITEM_ABILITY_STEAL" };
+				boolean x = new Random().nextBoolean();
+				if (x) {
+					u.addItem(ItemProperty.get("item.usable.potion.lg.hp"));
+					u.addItem(ItemProperty.get("item.usable.potion.lg.atk"));
+					u.addItem(ItemProperty.get("item.usable.potion.lg.mag"));
+					u.addItem(ItemProperty.get("item.sword.bronze"));
+				} else {
+					u.addItem(ItemProperty.get("item.usable.potion.lg.spd"));
+					u.addItem(ItemProperty.get("item.usable.potion.lg.def"));
+					u.addItem(ItemProperty.get("item.usable.potion.lg.res"));
+					u.addItem(ItemProperty.get("item.sword.gold"));
+				}
 			}
 			for (Unit u : enemies) {
 				u.addItem(ItemProperty.get("item.usable.potion.lg.hp"));

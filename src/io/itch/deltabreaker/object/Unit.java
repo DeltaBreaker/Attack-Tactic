@@ -802,6 +802,31 @@ public class Unit {
 		return item.stack;
 	}
 
+	public int addItem(ItemProperty item, int amt) {
+		if (item.type.equals(ItemProperty.TYPE_USABLE) || item.type.equals(ItemProperty.TYPE_OTHER)) {
+			for (ItemProperty i : items) {
+				if (i.id.equals(item.id)) {
+					if (i.stack < ItemProperty.STACK_CAP) {
+						int overflow = Math.max(i.stack + amt, ItemProperty.STACK_CAP) % ItemProperty.STACK_CAP;
+						i.stack += amt - overflow;
+						item.stack -= amt - overflow;
+						return overflow;
+					} else {
+						return item.stack;
+					}
+				}
+			}
+		}
+		if (items.size() < 5) {
+			ItemProperty copy = item.copy();
+			copy.stack = amt;
+			items.add(copy);
+			item.stack -= amt;
+			return 0;
+		}
+		return amt;
+	}
+	
 	public int addItemInFront(ItemProperty item) {
 		if (item.type.equals(ItemProperty.TYPE_USABLE) || item.type.equals(ItemProperty.TYPE_OTHER)) {
 			for (ItemProperty i : items) {

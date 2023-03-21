@@ -5,7 +5,6 @@ import java.util.Random;
 
 import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.core.audio.AudioManager;
-import io.itch.deltabreaker.effect.EffectOpenChest;
 import io.itch.deltabreaker.effect.EffectText;
 import io.itch.deltabreaker.graphics.BatchSorter;
 import io.itch.deltabreaker.graphics.TextRenderer;
