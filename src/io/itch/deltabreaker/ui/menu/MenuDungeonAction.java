@@ -1,7 +1,6 @@
 package io.itch.deltabreaker.ui.menu;
 
 import java.awt.Dimension;
-import java.awt.Point;
 import java.util.ArrayList;
 
 import io.itch.deltabreaker.core.Inventory;

@@ -3,6 +3,7 @@ package io.itch.deltabreaker.effect;
 import java.util.ArrayList;
 import java.util.Random;
 
+import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.graphics.BatchSorter;
 import io.itch.deltabreaker.graphics.Material;
 import io.itch.deltabreaker.graphics.Light;
@@ -24,6 +25,7 @@ public class EffectEnergize extends Effect {
 		this.color = color.copy();
 		light = new Light(Vector3f.div(position, 2, 2, 2), new Vector3f(color.getX() * 3, color.getY() * 3, color.getZ() * 3), 1.5f, 1.5f, 0.05f, null);
 		StateManager.currentState.lights.add(light);
+		AudioManager.getSound("buff.ogg").play(AudioManager.defaultSubSFXGain, false);
 	}
 
 	@Override

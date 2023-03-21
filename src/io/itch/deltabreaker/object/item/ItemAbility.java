@@ -1075,6 +1075,7 @@ public enum ItemAbility {
 		public boolean use(Unit u, StateDungeon context) {
 			if (u.currentHp > 1) {
 				StateDungeon.getCurrentContext().clearSelectedTiles();
+				StateDungeon.getCurrentContext().clearUnit();
 				StateManager.currentState.controlLock = true;
 				StateManager.currentState.hideCursor = true;
 				StateDungeon.getCurrentContext().hideInfo = true;

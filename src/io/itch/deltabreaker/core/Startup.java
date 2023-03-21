@@ -38,7 +38,6 @@ import io.itch.deltabreaker.object.item.ItemProperty;
 import io.itch.deltabreaker.object.tile.Tile;
 import io.itch.deltabreaker.state.StateCreatorHub;
 import io.itch.deltabreaker.state.StateDungeon;
-import io.itch.deltabreaker.state.StateHub;
 import io.itch.deltabreaker.state.StateManager;
 import io.itch.deltabreaker.state.StateSplash;
 import io.itch.deltabreaker.state.StateTitle;
@@ -268,8 +267,8 @@ public class Startup implements Runnable {
 //				Inventory.loadMap = "title_scene";
 //				Inventory.saveHeader(2);
 //				Inventory.saveGame(2);
-//				StateDungeon.startDungeon("snow_forrest.json", 14, -1932052909105962160L);
-				StateDungeon.startDungeon("flooded_forrest.json", 14, new Random().nextLong());
+				StateDungeon.startDungeon("seabed_cove.json", 14, -1932052909105962160L);
+//				StateDungeon.startDungeon("flooded_forrest.json", 14, new Random().nextLong());
 			}
 
 			GLFW.glfwShowWindow(window);
