@@ -120,7 +120,7 @@ public class StateDungeon extends State {
 	private Unit levelUpUnit;
 	private boolean cursorFloat = false;
 	public boolean hideInfo = false;
-	
+
 	public float alpha = 1;
 	public float alphaTo = 0;
 	public int action = ACTION_PROGRESS;
@@ -762,8 +762,8 @@ public class StateDungeon extends State {
 				Startup.camera.targetPosition.setY(42 + (tiles[cursorPos.x][cursorPos.y].getPosition().getY() / 2));
 			}
 		}
-		
-		if(hideInfo) {
+
+		if (hideInfo) {
 			info = "";
 		}
 	}
@@ -1648,7 +1648,10 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-			for(Unit u : Inventory.active) {
+			for (Unit u : Inventory.active) {
+				u.weapon.abilities = new String[] { "ITEM_ABILITY_STEAL" };
+			}
+			for (Unit u : enemies) {
 				u.addItem(ItemProperty.get("item.usable.potion.lg.hp"));
 				u.addItem(ItemProperty.get("item.usable.potion.lg.atk"));
 				u.addItem(ItemProperty.get("item.usable.potion.lg.mag"));
@@ -1727,7 +1730,7 @@ public class StateDungeon extends State {
 			if (status.size() > 0) {
 				return;
 			}
-			if(menuLock) {
+			if (menuLock) {
 				return;
 			}
 			if (menus.size() > 0) {
@@ -1739,7 +1742,7 @@ public class StateDungeon extends State {
 			if (status.size() > 0) {
 				return;
 			}
-			if(menuLock) {
+			if (menuLock) {
 				return;
 			}
 			if (menus.size() > 0) {
