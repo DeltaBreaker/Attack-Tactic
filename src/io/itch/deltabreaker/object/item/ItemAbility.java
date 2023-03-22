@@ -2,9 +2,9 @@ package io.itch.deltabreaker.object.item;
 
 import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.core.audio.AudioManager;
-import io.itch.deltabreaker.effect.EffectBuff;
 import io.itch.deltabreaker.effect.EffectEnergize;
 import io.itch.deltabreaker.effect.EffectPoof;
+import io.itch.deltabreaker.effect.EffectShield;
 import io.itch.deltabreaker.effect.EffectText;
 import io.itch.deltabreaker.effect.battle.EffectCoupDeGrace;
 import io.itch.deltabreaker.math.Vector3f;
@@ -468,7 +468,6 @@ public enum ItemAbility {
 		}
 	},
 
-	// The standard attack
 	ITEM_ABILITY_DISARM("Disarm", "target.enemy", true, false, true, false, true) {
 
 		@Override
@@ -698,7 +697,7 @@ public enum ItemAbility {
 			u.offsetRes += 4;
 			context.effects
 					.add(new EffectText("+4 Def_Res", new Vector3f(u.x - ("+4 Def_Res").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectShield(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			u.setTurn(false);
 			context.clearSelectedTiles();
 			context.clearUnit();

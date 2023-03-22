@@ -1651,7 +1651,7 @@ public class StateDungeon extends State {
 		case MISC:
 			for (Unit u : Inventory.active) {
 				u.setTurn(true);
-				u.weapon = ItemProperty.get("item.tome.smdark");
+				u.weapon.abilities = new String[] { "ITEM_ABILITY_HARDEN" };
 				boolean x = new Random().nextBoolean();
 				if (x) {
 					u.addItem(ItemProperty.get("item.usable.potion.lg.hp"));
@@ -1666,6 +1666,7 @@ public class StateDungeon extends State {
 				}
 			}
 			for (Unit u : enemies) {
+				u.weapon.abilities = new String[] { "ITEM_ABILITY_HARDEN" };
 				u.addItem(ItemProperty.get("item.usable.potion.lg.hp"));
 				u.addItem(ItemProperty.get("item.usable.potion.lg.atk"));
 				u.addItem(ItemProperty.get("item.usable.potion.lg.mag"));
