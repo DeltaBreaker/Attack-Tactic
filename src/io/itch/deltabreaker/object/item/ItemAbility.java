@@ -124,7 +124,7 @@ public enum ItemAbility {
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
 			context.clearSelectedTiles();
-			context.highlightTiles(u.locX, u.locY, 2, 1, "");
+			context.highlightTiles(u.locX, u.locY, 1, 1, "");
 			context.combatMode = true;
 			return true;
 		}

@@ -2,7 +2,7 @@
 	"id": "item.tome.exfire",
 	"name": "EX Fire",
 	"type": "item.type.weapon",
-	"tier": 1,
+	"tier": 0,
 	"damage_type": "item.damage.magic",
 	"animation": "ITEM_ANIMATION_FIRE_MEDIUM",
 	"range": 2,

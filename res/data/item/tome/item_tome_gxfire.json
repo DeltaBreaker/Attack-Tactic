@@ -1,15 +1,15 @@
 {
-	"id": "item.tome.smdark",
-	"name": "SM Dark",
+	"id": "item.tome.gxfire",
+	"name": "GX Fire",
 	"type": "item.type.weapon",
-	"tier": 0,
+	"tier": 1,
 	"damage_type": "item.damage.magic",
-	"animation": "ITEM_ANIMATION_DARK_SMALL",
+	"animation": "ITEM_ANIMATION_FIRE_LARGE",
 	"range": 2,
 	"hp": 0,
 	"atk": 0,
-	"mag": 6,
-	"spd": 0,
+	"mag": 10,
+	"spd": 2,
 	"def": 0,
 	"res": 0,
 	"mov": 0,
@@ -18,19 +18,19 @@
 	"fish_rate": 0.0,
 	"locations": [
 	],
-	"price": 350,
+	"price": 900,
 	"text": [
-		"A novice tome",
-		"used to summon",
-		"dark magic"
+		"An intermediate",
+		"tome used to",
+		"summon fire"
 	],
-	"model": "item_tome_smdark.dae",
-	"texture": "item_tome_smdark.png",
+	"model": "item_tome_gxfire.dae",
+	"texture": "item_tome_gxfire.png",
 	"wearable_model_id": "unit_weapon_tome_type_0",
-	"wearable_texture_id": "unit_weapon_tome_smdark",
+	"wearable_texture_id": "unit_weapon_tome_gxfire",
 	"material": "DEFAULT",
 	"recipe": {
-		"cost": 500,
+		"cost": 900,
 		"materials": [
 			{
 				"item": "item.material.wood",
@@ -43,6 +43,10 @@
 			{
 				"item": "item.material.leather",
 				"count": 2
+			},
+			{
+				"item": "item.material.gem.ruby",
+				"count": 1
 			}
 		]
 	}

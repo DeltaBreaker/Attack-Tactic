@@ -1,14 +1,14 @@
 {
-	"id": "item.tome.smdark",
-	"name": "SM Dark",
+	"id": "item.tome.gxdark",
+	"name": "GX Dark",
 	"type": "item.type.weapon",
-	"tier": 0,
+	"tier": 1,
 	"damage_type": "item.damage.magic",
-	"animation": "ITEM_ANIMATION_DARK_SMALL",
+	"animation": "ITEM_ANIMATION_DARK_LARGE",
 	"range": 2,
 	"hp": 0,
 	"atk": 0,
-	"mag": 6,
+	"mag": 12,
 	"spd": 0,
 	"def": 0,
 	"res": 0,
@@ -18,19 +18,19 @@
 	"fish_rate": 0.0,
 	"locations": [
 	],
-	"price": 350,
+	"price": 900,
 	"text": [
-		"A novice tome",
-		"used to summon",
-		"dark magic"
+		"An intermediate",
+		"tome used to",
+		"summon darkness"
 	],
-	"model": "item_tome_smdark.dae",
-	"texture": "item_tome_smdark.png",
+	"model": "item_tome_gxdark.dae",
+	"texture": "item_tome_gxdark.png",
 	"wearable_model_id": "unit_weapon_tome_type_0",
-	"wearable_texture_id": "unit_weapon_tome_smdark",
+	"wearable_texture_id": "unit_weapon_tome_gxdark",
 	"material": "DEFAULT",
 	"recipe": {
-		"cost": 500,
+		"cost": 900,
 		"materials": [
 			{
 				"item": "item.material.wood",
@@ -43,6 +43,10 @@
 			{
 				"item": "item.material.leather",
 				"count": 2
+			},
+			{
+				"item": "item.material.gem.onyx",
+				"count": 1
 			}
 		]
 	}
