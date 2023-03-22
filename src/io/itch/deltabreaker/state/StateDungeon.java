@@ -1650,7 +1650,8 @@ public class StateDungeon extends State {
 
 		case MISC:
 			for (Unit u : Inventory.active) {
-				u.weapon.abilities = new String[] { "ITEM_ABILITY_IMMOLATION" };
+				u.setTurn(true);
+				u.weapon = ItemProperty.get("item.tome.smdark");
 				boolean x = new Random().nextBoolean();
 				if (x) {
 					u.addItem(ItemProperty.get("item.usable.potion.lg.hp"));
