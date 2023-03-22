@@ -380,11 +380,11 @@ public class Unit {
 		}
 
 		hp = Math.min(99, Math.max(1, baseHp + weapon.hp + armor.hp + offsetHp + accessory.hp + abilityStats[0]));
-		atk = Math.min(60, Math.max(0, baseAtk + weapon.atk + armor.atk + offsetAtk + accessory.atk + abilityStats[1]));
-		mag = Math.min(60, Math.max(0, baseMag + weapon.mag + armor.mag + offsetMag + accessory.mag + abilityStats[2]));
-		spd = Math.min(60, Math.max(0, baseSpd + weapon.spd + armor.spd + offsetSpd + accessory.spd + abilityStats[3]));
-		def = Math.min(60, Math.max(0, baseDef + weapon.def + armor.def + offsetDef + accessory.def + abilityStats[4]));
-		res = Math.min(60, Math.max(0, baseRes + weapon.res + armor.res + offsetRes + accessory.res + abilityStats[5]));
+		atk = Math.min(99, Math.max(0, Math.min(60, baseAtk) + weapon.atk + armor.atk + offsetAtk + accessory.atk + abilityStats[1]));
+		mag = Math.min(99, Math.max(0, Math.min(60, baseMag) + weapon.mag + armor.mag + offsetMag + accessory.mag + abilityStats[2]));
+		spd = Math.min(99, Math.max(0, Math.min(60, baseSpd) + weapon.spd + armor.spd + offsetSpd + accessory.spd + abilityStats[3]));
+		def = Math.min(99, Math.max(0, Math.min(60, baseDef) + weapon.def + armor.def + offsetDef + accessory.def + abilityStats[4]));
+		res = Math.min(99, Math.max(0, Math.min(60, baseRes) + weapon.res + armor.res + offsetRes + accessory.res + abilityStats[5]));
 		movement = Math.min(20, Math.max(1, baseMovement + weapon.mov + armor.mov + accessory.mov + abilityStats[6]));
 	}
 

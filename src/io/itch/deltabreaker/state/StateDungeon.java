@@ -432,6 +432,7 @@ public class StateDungeon extends State {
 						int nextLength = (int) Math.min(displayXP + xpGainSpeed, displayXPTarget);
 						if (currentLength != nextLength) {
 							effects.add(new EffectHealthBarDeplete(new Vector3f(displayXP - 47.5f, -45, -79), new Vector4f(ItemProperty.colorList[1], 1)));
+							AudioManager.getSound("xp.ogg").playWithoutReset(AudioManager.defaultSubSFXGain, false);
 						}
 						displayXP = Math.min(displayXP + xpGainSpeed, displayXPTarget);
 						if (displayXP == displayXPTarget) {
@@ -1651,7 +1652,7 @@ public class StateDungeon extends State {
 		case MISC:
 			for (Unit u : Inventory.active) {
 				u.setTurn(true);
-				u.weapon.abilities = new String[] { "ITEM_ABILITY_HARDEN" };
+				u.weapon.mag = 99;
 				boolean x = new Random().nextBoolean();
 				if (x) {
 					u.addItem(ItemProperty.get("item.usable.potion.lg.hp"));
