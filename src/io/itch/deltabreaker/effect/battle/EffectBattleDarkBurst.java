@@ -23,7 +23,7 @@ public class EffectBattleDarkBurst extends EffectBattle {
 		light = new Light(Vector3f.mul(this.position.add(new Vector3f(0, 1, 0)), new Vector3f(0.5f, 0.5f, 0.5f)),
 				new Vector3f(0.384f, 0f, 0.45f).mul(8), 1f, 0.002f, 0.035f, null);
 		StateManager.currentState.lights.add(light);
-		AudioManager.getSound("battle_dark_small.ogg").play(AudioManager.defaultBattleSFXGain, false);
+		AudioManager.getSound("battle_dark_small_1.ogg").play(AudioManager.defaultBattleSFXGain, false);
 	}
 
 	public void tick() {
