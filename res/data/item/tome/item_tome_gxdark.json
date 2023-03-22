@@ -1,0 +1,53 @@
+{
+	"id": "item.tome.gxdark",
+	"name": "GX Dark",
+	"type": "item.type.weapon",
+	"tier": 1,
+	"damage_type": "item.damage.magic",
+	"animation": "ITEM_ANIMATION_DARK_LARGE",
+	"range": 2,
+	"hp": 0,
+	"atk": 0,
+	"mag": 12,
+	"spd": 0,
+	"def": 0,
+	"res": 0,
+	"mov": 0,
+	"abilities": [],
+	"rate": 0.0,
+	"fish_rate": 0.0,
+	"locations": [
+	],
+	"price": 900,
+	"text": [
+		"An intermediate",
+		"tome used to",
+		"summon darkness"
+	],
+	"model": "item_tome_gxdark.dae",
+	"texture": "item_tome_gxdark.png",
+	"wearable_model_id": "unit_weapon_tome_type_0",
+	"wearable_texture_id": "unit_weapon_tome_gxdark",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": 900,
+		"materials": [
+			{
+				"item": "item.material.wood",
+				"count": 2
+			},
+			{
+				"item": "item.material.fibre.plant",
+				"count": 2
+			},
+			{
+				"item": "item.material.leather",
+				"count": 2
+			},
+			{
+				"item": "item.material.gem.onyx",
+				"count": 1
+			}
+		]
+	}
+}

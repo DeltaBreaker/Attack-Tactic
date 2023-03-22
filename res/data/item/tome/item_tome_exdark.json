@@ -2,7 +2,7 @@
 	"id": "item.tome.exdark",
 	"name": "EX Dark",
 	"type": "item.type.weapon",
-	"tier": 1,
+	"tier": 0,
 	"damage_type": "item.damage.magic",
 	"animation": "ITEM_ANIMATION_DARK_MEDIUM",
 	"range": 2,
@@ -30,7 +30,7 @@
 	"wearable_texture_id": "unit_weapon_tome_exdark",
 	"material": "DEFAULT",
 	"recipe": {
-		"cost": 800,
+		"cost": 650,
 		"materials": [
 			{
 				"item": "item.material.wood",

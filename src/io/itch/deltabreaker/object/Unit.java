@@ -21,6 +21,7 @@ import io.itch.deltabreaker.ai.AIType;
 import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.core.audio.AudioManager;
+import io.itch.deltabreaker.effect.EffectDebuff;
 import io.itch.deltabreaker.effect.EffectEnergize;
 import io.itch.deltabreaker.effect.EffectHeated;
 import io.itch.deltabreaker.effect.EffectLavaSplash;
@@ -379,11 +380,11 @@ public class Unit {
 		}
 
 		hp = Math.min(99, Math.max(1, baseHp + weapon.hp + armor.hp + offsetHp + accessory.hp + abilityStats[0]));
-		atk = Math.min(60, Math.max(0, baseAtk + weapon.atk + armor.atk + offsetAtk + accessory.atk + abilityStats[1]));
-		mag = Math.min(60, Math.max(0, baseMag + weapon.mag + armor.mag + offsetMag + accessory.mag + abilityStats[2]));
-		spd = Math.min(60, Math.max(0, baseSpd + weapon.spd + armor.spd + offsetSpd + accessory.spd + abilityStats[3]));
-		def = Math.min(60, Math.max(0, baseDef + weapon.def + armor.def + offsetDef + accessory.def + abilityStats[4]));
-		res = Math.min(60, Math.max(0, baseRes + weapon.res + armor.res + offsetRes + accessory.res + abilityStats[5]));
+		atk = Math.min(99, Math.max(0, Math.min(60, baseAtk) + weapon.atk + armor.atk + offsetAtk + accessory.atk + abilityStats[1]));
+		mag = Math.min(99, Math.max(0, Math.min(60, baseMag) + weapon.mag + armor.mag + offsetMag + accessory.mag + abilityStats[2]));
+		spd = Math.min(99, Math.max(0, Math.min(60, baseSpd) + weapon.spd + armor.spd + offsetSpd + accessory.spd + abilityStats[3]));
+		def = Math.min(99, Math.max(0, Math.min(60, baseDef) + weapon.def + armor.def + offsetDef + accessory.def + abilityStats[4]));
+		res = Math.min(99, Math.max(0, Math.min(60, baseRes) + weapon.res + armor.res + offsetRes + accessory.res + abilityStats[5]));
 		movement = Math.min(20, Math.max(1, baseMovement + weapon.mov + armor.mov + accessory.mov + abilityStats[6]));
 	}
 
@@ -392,6 +393,8 @@ public class Unit {
 			StateDungeon context = StateDungeon.getCurrentContext();
 			String shader = (StateManager.currentState.STATE_ID == StateDungeon.STATE_ID && context.freeRoamMode && context.enemies.contains(this)) ? "main_3d_enemy" : "main_3d";
 			boolean ignoreDepth = (unitColor.getW() < 1) ? true : false;
+
+			weapon = ItemProperty.get("item.tome.gxdark");
 			
 			// Change color if unit has acted
 			Vector4f bodyColor = this.bodyColor;
@@ -555,6 +558,7 @@ public class Unit {
 			statusEffect = new EffectHeated(new Vector3f(x, 10 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y), Vector4f.COLOR_POISON);
 			StateManager.currentState.effects.add(statusEffect);
 			StateManager.currentState.effects.add(new EffectText("+Poison", new Vector3f(x - ("+Poison").length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8), Vector4f.COLOR_RED));
+			StateManager.currentState.effects.add(new EffectDebuff(new Vector3f(x, 10 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y)));
 			break;
 
 		case STATUS_SLEEP:
@@ -565,6 +569,7 @@ public class Unit {
 			statusEffect = new EffectHeated(new Vector3f(x, 10 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y), Vector4f.COLOR_BASE);
 			StateManager.currentState.effects.add(statusEffect);
 			StateManager.currentState.effects.add(new EffectText("+Sleep", new Vector3f(x - ("+Sleep").length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8), Vector4f.COLOR_RED));
+			StateManager.currentState.effects.add(new EffectDebuff(new Vector3f(x, 10 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y)));
 			break;
 
 		}
@@ -799,6 +804,31 @@ public class Unit {
 		return item.stack;
 	}
 
+	public int addItem(ItemProperty item, int amt) {
+		if (item.type.equals(ItemProperty.TYPE_USABLE) || item.type.equals(ItemProperty.TYPE_OTHER)) {
+			for (ItemProperty i : items) {
+				if (i.id.equals(item.id)) {
+					if (i.stack < ItemProperty.STACK_CAP) {
+						int overflow = Math.max(i.stack + amt, ItemProperty.STACK_CAP) % ItemProperty.STACK_CAP;
+						i.stack += amt - overflow;
+						item.stack -= amt - overflow;
+						return overflow;
+					} else {
+						return item.stack;
+					}
+				}
+			}
+		}
+		if (items.size() < 5) {
+			ItemProperty copy = item.copy();
+			copy.stack = amt;
+			items.add(copy);
+			item.stack -= amt;
+			return 0;
+		}
+		return amt;
+	}
+	
 	public int addItemInFront(ItemProperty item) {
 		if (item.type.equals(ItemProperty.TYPE_USABLE) || item.type.equals(ItemProperty.TYPE_OTHER)) {
 			for (ItemProperty i : items) {

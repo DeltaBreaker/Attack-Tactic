@@ -1,0 +1,30 @@
+{
+	"id": "item.usable.potion.xs.hp",
+	"name": "XS HP Potion",
+	"type": "item.type.usable",
+	"tier": 0,
+	"use": "ITEM_USE_POTION_XS_HP",
+	"rate": 0.01,
+	"fish_rate": 0.0,
+	"locations": [
+		"pallet.snow_forrest",
+		"pallet.village",
+		"pallet.flooded_forrest",
+		"pallet.seabed_cove",
+		"pallet.scorched_crater",
+		"pallet.medial_plane",
+		"pallet.castle_depths"
+	],
+	"price": 500,
+	"text": [
+		"A small potion",
+		"able to boost",
+		"HP by 1"
+	],
+	"model": "item_potion_xs.dae",
+	"texture": "item_potion_xs_hp.png",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": -1
+	}
+}

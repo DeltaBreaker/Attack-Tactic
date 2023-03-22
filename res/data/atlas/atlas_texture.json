@@ -114,6 +114,22 @@
 			"unit_weapon_tome_exfire_3_3_1.png",
 			"unit_weapon_tome_exfire_3_3_2.png",
 			"unit_weapon_tome_exfire_3_3_3.png",
+			"unit_weapon_tome_gxfire_0_3_0.png",
+			"unit_weapon_tome_gxfire_0_3_1.png",
+			"unit_weapon_tome_gxfire_0_3_2.png",
+			"unit_weapon_tome_gxfire_0_3_3.png",
+			"unit_weapon_tome_gxfire_1_3_0.png",
+			"unit_weapon_tome_gxfire_1_3_1.png",
+			"unit_weapon_tome_gxfire_1_3_2.png",
+			"unit_weapon_tome_gxfire_1_3_3.png",
+			"unit_weapon_tome_gxfire_2_3_0.png",
+			"unit_weapon_tome_gxfire_2_3_1.png",
+			"unit_weapon_tome_gxfire_2_3_2.png",
+			"unit_weapon_tome_gxfire_2_3_3.png",
+			"unit_weapon_tome_gxfire_3_3_0.png",
+			"unit_weapon_tome_gxfire_3_3_1.png",
+			"unit_weapon_tome_gxfire_3_3_2.png",
+			"unit_weapon_tome_gxfire_3_3_3.png",
 			"unit_weapon_tome_smdark_0_3_0.png",
 			"unit_weapon_tome_smdark_0_3_1.png",
 			"unit_weapon_tome_smdark_0_3_2.png",
@@ -146,6 +162,22 @@
 			"unit_weapon_tome_exdark_3_3_1.png",
 			"unit_weapon_tome_exdark_3_3_2.png",
 			"unit_weapon_tome_exdark_3_3_3.png",
+			"unit_weapon_tome_gxdark_0_3_0.png",
+			"unit_weapon_tome_gxdark_0_3_1.png",
+			"unit_weapon_tome_gxdark_0_3_2.png",
+			"unit_weapon_tome_gxdark_0_3_3.png",
+			"unit_weapon_tome_gxdark_1_3_0.png",
+			"unit_weapon_tome_gxdark_1_3_1.png",
+			"unit_weapon_tome_gxdark_1_3_2.png",
+			"unit_weapon_tome_gxdark_1_3_3.png",
+			"unit_weapon_tome_gxdark_2_3_0.png",
+			"unit_weapon_tome_gxdark_2_3_1.png",
+			"unit_weapon_tome_gxdark_2_3_2.png",
+			"unit_weapon_tome_gxdark_2_3_3.png",
+			"unit_weapon_tome_gxdark_3_3_0.png",
+			"unit_weapon_tome_gxdark_3_3_1.png",
+			"unit_weapon_tome_gxdark_3_3_2.png",
+			"unit_weapon_tome_gxdark_3_3_3.png",
 			"unit_weapon_bow_wood_0_3_0.png",
 			"unit_weapon_bow_wood_0_3_1.png",
 			"unit_weapon_bow_wood_0_3_2.png",
@@ -1428,6 +1460,129 @@
 		]
 	},
 	{
+		"source": "unit_weapon_tome_gxdark_3_0_0.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_3_1_0.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_3_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_3_2_0.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_3_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_3_4_0.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_3_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_1_1_1.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_2_1_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_1_1_3.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_2_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_1_2_1.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_2_2_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_1_2_3.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_2_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_1_0_0.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_2_0_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_1_0_1.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_1_0_3.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_2_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_0_4_0.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_1_4_0.png",
+			"unit_weapon_tome_gxdark_1_4_2.png",
+			"unit_weapon_tome_gxdark_2_4_0.png",
+			"unit_weapon_tome_gxdark_2_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_0_4_3.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_1_4_3.png",
+			"unit_weapon_tome_gxdark_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_0_4_1.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_1_4_1.png",
+			"unit_weapon_tome_gxdark_2_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_1_1_0.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_1_1_2.png",
+			"unit_weapon_tome_gxdark_2_1_0.png",
+			"unit_weapon_tome_gxdark_2_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_1_2_0.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_1_2_2.png",
+			"unit_weapon_tome_gxdark_2_2_0.png",
+			"unit_weapon_tome_gxdark_2_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_0_1_0.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_0_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_0_2_0.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_0_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxdark_0_4_0.png",
+		"copies": [
+			"unit_weapon_tome_gxdark_0_4_2.png"
+		]
+	},
+	{
 		"source": "unit_weapon_tome_exdark_3_0_0.png",
 		"copies": [
 			"unit_weapon_tome_exdark_3_0_1.png"
@@ -1794,6 +1949,129 @@
 		"source": "unit_weapon_tome_exfire_0_4_0.png",
 		"copies": [
 			"unit_weapon_tome_exfire_0_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_3_0_0.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_3_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_3_1_0.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_3_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_3_2_0.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_3_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_3_4_0.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_3_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_1_1_1.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_2_1_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_1_1_3.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_2_1_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_1_2_1.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_2_2_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_1_2_3.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_2_2_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_1_0_0.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_2_0_0.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_1_0_1.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_2_0_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_1_0_3.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_2_0_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_0_4_0.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_1_4_0.png",
+			"unit_weapon_tome_gxfire_1_4_2.png",
+			"unit_weapon_tome_gxfire_2_4_0.png",
+			"unit_weapon_tome_gxfire_2_4_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_0_4_3.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_1_4_3.png",
+			"unit_weapon_tome_gxfire_2_4_3.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_0_4_1.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_1_4_1.png",
+			"unit_weapon_tome_gxfire_2_4_1.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_1_1_0.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_1_1_2.png",
+			"unit_weapon_tome_gxfire_2_1_0.png",
+			"unit_weapon_tome_gxfire_2_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_1_2_0.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_1_2_2.png",
+			"unit_weapon_tome_gxfire_2_2_0.png",
+			"unit_weapon_tome_gxfire_2_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_0_1_0.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_0_1_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_0_2_0.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_0_2_2.png"
+		]
+	},
+	{
+		"source": "unit_weapon_tome_gxfire_0_4_0.png",
+		"copies": [
+			"unit_weapon_tome_gxfire_0_4_2.png"
 		]
 	},
 	{

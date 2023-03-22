@@ -166,7 +166,7 @@ public class MenuDungeonAction extends Menu {
 							AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
 						break;
-
+						
 					case "Wait":
 						unit.setTurn(false);
 						context.clearSelectedTiles();
@@ -298,6 +298,20 @@ public class MenuDungeonAction extends Menu {
 		// Checks inventory size
 		if (unit.getItemList().size() > 0) {
 			options.add("Items");
+		}
+
+		for (Unit u : Inventory.active) {
+			if (u == unit) {
+				continue;
+			}
+			if (Math.abs(u.locX - xPos) + Math.abs(u.locY - yPos) > 1) {
+				continue;
+			}
+			if(u.getItemList().size() == 0 && unit.getItemList().size() == 0) {
+				continue;
+			}
+			options.add("Trade");
+			break;
 		}
 
 		// Check to see if the unit is on the stairs tile

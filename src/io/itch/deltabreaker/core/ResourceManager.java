@@ -246,7 +246,7 @@ public class ResourceManager {
 			}
 		}
 	}
-
+	
 	public static void packTextures(String folder) {
 		if (new File(folder).exists()) {
 			try {

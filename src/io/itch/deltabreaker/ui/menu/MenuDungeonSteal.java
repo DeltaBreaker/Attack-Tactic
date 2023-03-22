@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.util.Random;
 
 import io.itch.deltabreaker.core.Startup;
+import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.effect.EffectText;
 import io.itch.deltabreaker.graphics.BatchSorter;
 import io.itch.deltabreaker.graphics.TextRenderer;
@@ -62,15 +63,18 @@ public class MenuDungeonSteal extends Menu {
 		if (subMenu.size() == 0) {
 			if (!command.equals("return")) {
 				// This checks to see if the host unit will successfully steal the chosen item
-				if (new Random().nextInt(100) <= (u.getItemList().get(selected).tier + 1) * 20) {
+				int chance = (int) AdvMath.inRange(100 - (u.getItemList().get(selected).tier * 20) * Math.max(0, 1 - (host.spd - u.spd) * 0.05), 1, 100);
+				if (new Random().nextInt(100) <= chance) {
 					StateManager.currentState.effects.add(new EffectText("+" + u.getItemList().get(selected).name,
 							new Vector3f(host.x - ("+" + u.getItemList().get(selected).name).length(), 20 + StateManager.currentState.tiles[host.locX][host.locY].getPosition().getY(), host.y - 8),
 							new Vector4f(ItemProperty.colorList[u.getItemList().get(selected).tier], 1)));
 					host.addItem(u.getItemList().get(selected));
 					u.removeItem(u.getItemList().get(selected));
+					AudioManager.getSound("loot.ogg").play(AudioManager.defaultMainSFXGain, false);
 				} else {
 					StateManager.currentState.effects
 							.add(new EffectText("miss", new Vector3f(host.x - ("miss").length(), 20 + StateManager.currentState.tiles[host.locX][host.locY].getPosition().getY(), host.y - 8), Vector4f.COLOR_RED.copy()));
+					AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 				}
 				close();
 			}
@@ -93,11 +97,12 @@ public class MenuDungeonSteal extends Menu {
 			if (i * 18 + 12 < height) {
 				TextRenderer.render(options[item], Vector3f.add(position, 4, -i * 18 - 9, 1), new Vector3f(0, 0, 0), scale, new Vector4f(1, 1, 1, 1), true);
 				if (open) {
-					TextRenderer.render((int) ((u.getItemList().get(selected).tier + 1) * 20) + "%", Vector3f.add(position, width - 29, -i * 18 - 9, 1), new Vector3f(0, 0, 0), scale, new Vector4f(1, 1, 1, 1), true);
+					int chance = (int) AdvMath.inRange(100 - (u.getItemList().get(selected).tier * 20) * Math.max(0, 1 - (host.spd - u.spd) * 0.05), 1, 100);
+					TextRenderer.render(chance + "%", Vector3f.add(position, width - 29, -i * 18 - 9, 1), new Vector3f(0, 0, 0), scale, new Vector4f(1, 1, 1, 1), true);
 				}
 			}
 			if (i * 18 + 16 < height && open) {
-				BatchSorter.add(u.getItemList().get(selected).model, u.getItemList().get(selected).texture, "static_3d", u.getItemList().get(selected).material, Vector3f.add(position, width - 44, -i * 18 - 8, 1), new Vector3f(0, 0, 0),
+				BatchSorter.add(u.getItemList().get(item).model, u.getItemList().get(item).texture, "static_3d", u.getItemList().get(item).material, Vector3f.add(position, width - 44, -i * 18 - 8, 1), new Vector3f(0, 0, 0),
 						Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, true);
 			}
 		}

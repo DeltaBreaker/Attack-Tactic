@@ -69,11 +69,18 @@ enum BattleAnimation {
 	ITEM_ANIMATION_FIRE_SMALL {
 		@Override
 		public EffectBattle getAnimation(Vector3f position, boolean dir) {
-			return new EffectBattleMeteor(position, dir);
+			return new EffectBattleFireBurst(position, dir);
 		}
 	},
 	
 	ITEM_ANIMATION_FIRE_MEDIUM {
+		@Override
+		public EffectBattle getAnimation(Vector3f position, boolean dir) {
+			return new EffectBattleMeteor(position, dir);
+		}
+	},
+	
+	ITEM_ANIMATION_FIRE_LARGE {
 		@Override
 		public EffectBattle getAnimation(Vector3f position, boolean dir) {
 			return new EffectBattleNuclear(position, dir);
@@ -83,11 +90,18 @@ enum BattleAnimation {
 	ITEM_ANIMATION_DARK_SMALL {
 		@Override
 		public EffectBattle getAnimation(Vector3f position, boolean dir) {
-			return new EffectBattleDarkBlast(position, dir);
+			return new EffectBattleDarkBurst(position, dir);
 		}
 	},
 	
 	ITEM_ANIMATION_DARK_MEDIUM {
+		@Override
+		public EffectBattle getAnimation(Vector3f position, boolean dir) {
+			return new EffectBattleDarkBlast(position, dir);
+		}
+	},
+	
+	ITEM_ANIMATION_DARK_LARGE {
 		@Override
 		public EffectBattle getAnimation(Vector3f position, boolean dir) {
 			return new EffectBattleImplosion(position, dir);

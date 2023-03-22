@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import io.itch.deltabreaker.ai.AIHandler;
 import io.itch.deltabreaker.builder.dungeon.DungeonGenerator;
@@ -120,7 +121,7 @@ public class StateDungeon extends State {
 	private Unit levelUpUnit;
 	private boolean cursorFloat = false;
 	public boolean hideInfo = false;
-	
+
 	public float alpha = 1;
 	public float alphaTo = 0;
 	public int action = ACTION_PROGRESS;
@@ -431,6 +432,7 @@ public class StateDungeon extends State {
 						int nextLength = (int) Math.min(displayXP + xpGainSpeed, displayXPTarget);
 						if (currentLength != nextLength) {
 							effects.add(new EffectHealthBarDeplete(new Vector3f(displayXP - 47.5f, -45, -79), new Vector4f(ItemProperty.colorList[1], 1)));
+							AudioManager.getSound("xp.ogg").playWithoutReset(AudioManager.defaultSubSFXGain, false);
 						}
 						displayXP = Math.min(displayXP + xpGainSpeed, displayXPTarget);
 						if (displayXP == displayXPTarget) {
@@ -762,8 +764,8 @@ public class StateDungeon extends State {
 				Startup.camera.targetPosition.setY(42 + (tiles[cursorPos.x][cursorPos.y].getPosition().getY() / 2));
 			}
 		}
-		
-		if(hideInfo) {
+
+		if (hideInfo) {
 			info = "";
 		}
 	}
@@ -1648,19 +1650,31 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-			for(Unit u : Inventory.active) {
-				u.applyStatus(Unit.STATUS_POISON);
-				u.addItem(ItemProperty.get("item.staff.warp"));
-				u.addItem(ItemProperty.get("item.staff.blaze"));
-				u.addItem(ItemProperty.get("item.usable.pebble"));
-				u.addItem(ItemProperty.get("item.usable.magma.stone"));
+			for (Unit u : Inventory.active) {
+				u.setTurn(true);
+				u.weapon.mag = 99;
+				u.weapon.abilities = new String[] { "ITEM_ABILITY_HARDEN" };
+				boolean x = new Random().nextBoolean();
+				if (x) {
+					u.addItem(ItemProperty.get("item.tome.gxdark"));
+					u.addItem(ItemProperty.get("item.tome.gxfire"));
+					u.addItem(ItemProperty.get("item.usable.potion.lg.mag"));
+					u.addItem(ItemProperty.get("item.sword.bronze"));
+				} else {
+					u.addItem(ItemProperty.get("item.usable.potion.lg.spd"));
+					u.addItem(ItemProperty.get("item.usable.potion.lg.def"));
+					u.addItem(ItemProperty.get("item.usable.potion.lg.res"));
+					u.addItem(ItemProperty.get("item.sword.gold"));
+				}
 			}
-			for(Unit u : enemies) {
-				u.currentHp /= 2;
-				u.addItem(ItemProperty.get("item.usable.dart.tranq"));
-				u.addItem(ItemProperty.get("item.usable.dart.poison"));
-				u.addItem(ItemProperty.get("item.usable.pebble"));
-				u.addItem(ItemProperty.get("item.usable.magma.stone"));
+			for (Unit u : enemies) {
+				u.weapon.abilities = new String[] { "ITEM_ABILITY_HARDEN" };
+				u.addItem(ItemProperty.get("item.usable.potion.lg.hp"));
+				u.addItem(ItemProperty.get("item.usable.potion.lg.atk"));
+				u.addItem(ItemProperty.get("item.usable.potion.lg.mag"));
+				u.addItem(ItemProperty.get("item.usable.potion.lg.spd"));
+				u.addItem(ItemProperty.get("item.usable.potion.lg.def"));
+				u.addItem(ItemProperty.get("item.usable.potion.lg.res"));
 			}
 			break;
 
@@ -1733,7 +1747,7 @@ public class StateDungeon extends State {
 			if (status.size() > 0) {
 				return;
 			}
-			if(menuLock) {
+			if (menuLock) {
 				return;
 			}
 			if (menus.size() > 0) {
@@ -1745,7 +1759,7 @@ public class StateDungeon extends State {
 			if (status.size() > 0) {
 				return;
 			}
-			if(menuLock) {
+			if (menuLock) {
 				return;
 			}
 			if (menus.size() > 0) {

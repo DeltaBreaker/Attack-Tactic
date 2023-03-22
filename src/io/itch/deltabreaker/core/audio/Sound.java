@@ -78,6 +78,20 @@ public class Sound {
 		}
 	}
 
+	public void playWithoutReset(float gain, boolean loop) {
+		int state = AL10.alGetSourcei(sourceId, AL10.AL_SOURCE_STATE);
+		if (state == AL10.AL_STOPPED) {
+			isPlaying = false;
+			AL10.alSourcei(sourceId, AL10.AL_POSITION, 0);
+		}
+		if (!isPlaying) {
+			isPlaying = true;
+			setVolume(gain);
+			AL10.alSourcei(sourceId, AL10.AL_LOOPING, (loop) ? 1 : 0);
+			AL10.alSourcePlay(sourceId);
+		}
+	}
+	
 	public void stop() {
 		if (isPlaying) {
 			AL10.alSourceStop(sourceId);

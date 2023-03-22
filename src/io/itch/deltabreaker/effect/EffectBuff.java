@@ -3,6 +3,7 @@ package io.itch.deltabreaker.effect;
 import java.util.ArrayList;
 import java.util.Random;
 
+import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.graphics.BatchSorter;
 import io.itch.deltabreaker.graphics.Material;
 import io.itch.deltabreaker.graphics.Light;
@@ -22,6 +23,7 @@ public class EffectBuff extends Effect {
 		super(position, Vector3f.EMPTY, Vector3f.EMPTY);
 		light = new Light(Vector3f.div(position, 2, 2, 2), new Vector3f(1.5f, 3f, 1.5f), 1.5f, 1.5f, 0.05f, null);
 		StateManager.currentState.lights.add(light);
+		AudioManager.getSound("buff.ogg").play(AudioManager.defaultSubSFXGain, false);
 	}
 
 	@Override

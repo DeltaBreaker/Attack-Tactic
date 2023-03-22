@@ -54,9 +54,11 @@ public class ItemProperty implements Cloneable {
 
 	public static final String ANIMATION_FIRE_SMALL = "ITEM_ANIMATION_FIRE_SMALL";
 	public static final String ANIMATION_FIRE_MID = "ITEM_ANIMATION_FIRE_MEDIUM";
+	public static final String ANIMATION_FIRE_LARGE = "ITEM_ANIMATION_FIRE_LRAGE";
 
 	public static final String ANIMATION_HEX_SMALL = "ITEM_ANIMATION_DARK_SMALL";
 	public static final String ANIMATION_HEX_MID = "ITEM_ANIMATION_DARK_MEDIUM";
+	public static final String ANIMATION_HEX_LARGE = "ITEM_ANIMATION_DARK_LARGE";
 
 	public String uuid = UUID.randomUUID().toString();
 
