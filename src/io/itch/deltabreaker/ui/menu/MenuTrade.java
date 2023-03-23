@@ -23,7 +23,7 @@ public class MenuTrade extends Menu {
 	protected boolean traded = false;
 
 	public MenuTrade(Vector3f position, Unit host, Unit target) {
-		super(position, getItemList(host), getDimensions(getItemList(host)).width, getDimensions(getItemList(host)).height);
+		super(position, getItemList(host, target), getDimensions(getItemList(host, target)).width, getDimensions(getItemList(host, target)).height);
 		selectedUnit = host;
 		this.host = host;
 		this.target = target;
@@ -53,7 +53,7 @@ public class MenuTrade extends Menu {
 	}
 
 	public void tick() {
-		options = getItemList(selectedUnit);
+		options = getItemList(selectedUnit, (selectedUnit == host) ? target : host);
 		width = getDimensions(options).width;
 		openTo = getDimensions(options).height;
 		super.tick();
@@ -69,6 +69,10 @@ public class MenuTrade extends Menu {
 			int item = i + AdvMath.inRange(selected - 3, 0, selectedUnit.getItemList().size() - 1);
 			if (i * 18 + 12 < height) {
 				TextRenderer.render(options[item], Vector3f.add(position, 4, -i * 18 - 9, 1), new Vector3f(0, 0, 0), scale, new Vector4f(1, 1, 1, 1), true);
+				if (item == options.length - 1) {
+					Unit unit = (selectedUnit == host) ? target : host;
+					unit.renderFlat(Vector3f.add(position, width - 44, -i * 18 - 7, 1), Vector3f.SCALE_HALF, Vector4f.COLOR_BASE);
+				}
 			}
 			if (i * 18 + 16 < height && open && item < options.length - 1) {
 				BatchSorter.add(selectedUnit.getItemList().get(item).model, selectedUnit.getItemList().get(item).texture, "static_3d", selectedUnit.getItemList().get(item).material, Vector3f.add(position, width - 44, -i * 18 - 8, 1),
@@ -84,13 +88,13 @@ public class MenuTrade extends Menu {
 		}
 	}
 
-	private static String[] getItemList(Unit u) {
+	private static String[] getItemList(Unit u, Unit target) {
 		ArrayList<ItemProperty> itemList = u.getItemList();
 		String[] items = new String[itemList.size() + 1];
 		for (int i = 0; i < items.length - 1; i++) {
 			items[i] = itemList.get(i).name;
 		}
-		items[items.length - 1] = u.name;
+		items[items.length - 1] = target.name;
 		return items;
 	}
 
