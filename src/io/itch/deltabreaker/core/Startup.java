@@ -244,7 +244,7 @@ public class Startup implements Runnable {
 				}
 			} else {
 //				StateManager.swapState(StateSplash.STATE_ID);
-//				StateManager.swapState(StateTitle.STATE_ID);
+				StateManager.swapState(StateTitle.STATE_ID);
 
 //				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_BALANCE, AIType.get("standard_dungeon.json")));
 //				StateHub.loadMap("house");
@@ -267,7 +267,7 @@ public class Startup implements Runnable {
 //				Inventory.loadMap = "title_scene";
 //				Inventory.saveHeader(2);
 //				Inventory.saveGame(2);
-				StateDungeon.startDungeon("seabed_cove.json", 14, -1932052909105962160L);
+//				StateDungeon.startDungeon("seabed_cove.json", 14, -1932052909105962160L);
 //				StateDungeon.startDungeon("flooded_forrest.json", 14, new Random().nextLong());
 			}
 
