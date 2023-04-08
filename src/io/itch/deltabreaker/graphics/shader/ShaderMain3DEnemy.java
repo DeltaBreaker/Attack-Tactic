@@ -7,6 +7,8 @@ import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.graphics.Material;
 import io.itch.deltabreaker.math.Matrix4f;
 import io.itch.deltabreaker.math.Vector3f;
+import io.itch.deltabreaker.object.Unit;
+import io.itch.deltabreaker.state.StateDungeon;
 
 public class ShaderMain3DEnemy extends Shader {
 
@@ -42,20 +44,21 @@ public class ShaderMain3DEnemy extends Shader {
 		Matrix4f.release(view);
 		setUniform("proView", proView);
 		Matrix4f.release(proView);
-		
+
 		view = Startup.shadowCamera.getView();
 		proView = Matrix4f.multiply(view, Startup.shadowCamera.projection);
 		Matrix4f.release(view);
 		setUniform("lightProView", proView);
 		Matrix4f.release(proView);
-		
+
 		setUniform("seed", Startup.seed);
 		setUniform("bias", Startup.shadowBias);
 		setUniform("shadowAmount", SettingsManager.shadowIntensity);
 		setUniform("fogPos", Startup.fog);
 		setUniform("fadeDist", fadeDist);
 		setUniform("transition", transition);
-		setUniform("spotlight", new Vector3f(Inventory.active.get(0).x / 2, (13 + Inventory.active.get(0).height) / 2, Inventory.active.get(0).y / 2));
+		Unit u = Inventory.active.get(StateDungeon.getCurrentContext().roamUnit);
+		setUniform("spotlight", new Vector3f(u.x / 2, (13 + u.height) / 2, u.y / 2));
 		setUniform("depthMultiplier", Startup.depthMultiplier);
 	}
 

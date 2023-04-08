@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 import io.itch.deltabreaker.ai.AIHandler;
 import io.itch.deltabreaker.builder.dungeon.DungeonGenerator;
@@ -161,6 +160,8 @@ public class StateDungeon extends State {
 	public boolean caught = false;
 	public int caughtTimer = 0;
 	public int caughtTime = 144;
+
+	public int roamUnit = 0;
 
 	public StateDungeon() {
 		super(STATE_ID);
@@ -808,9 +809,9 @@ public class StateDungeon extends State {
 				}
 			}
 		} else {
-			Inventory.active.get(0).render();
+			Inventory.active.get(roamUnit).render();
 			if (caught) {
-				Vector3f position = new Vector3f(Inventory.active.get(0).x, 13 + Inventory.active.get(0).height, Inventory.active.get(0).y);
+				Vector3f position = new Vector3f(Inventory.active.get(roamUnit).x, 13 + Inventory.active.get(roamUnit).height, Inventory.active.get(roamUnit).y);
 				BatchSorter.add("exclamation.dae", "exclamation.png", "main_3d", Material.DEFAULT.toString(), Vector3f.add(position, 9, 14, -4), Vector3f.DEFAULT_INVERSE_CAMERA_ROTATION, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false,
 						false);
 			}
@@ -1477,6 +1478,9 @@ public class StateDungeon extends State {
 	}
 
 	public void enterGridMode() {
+		cursorPos = new Point(Inventory.active.get(roamUnit).locX, Inventory.active.get(roamUnit).locY);
+		cursor.warpLocation((float) cursorPos.getX() * 16, cursor.position.getY(), (float) cursorPos.getY() * 16);
+		cursorFloat = false;
 		InputManager.repeatDelay = 10;
 		InputManager.keyTime = 15;
 		Unit.movementSpeed = 1f;
@@ -1485,24 +1489,28 @@ public class StateDungeon extends State {
 
 		freeRoamMode = false;
 
-		effects.add(new EffectPoof(new Vector3f(Inventory.active.get(0).x, 13 + Inventory.active.get(0).height, Inventory.active.get(0).y + 2)));
+		effects.add(new EffectPoof(new Vector3f(Inventory.active.get(roamUnit).x, 13 + Inventory.active.get(roamUnit).height, Inventory.active.get(roamUnit).y + 2)));
 
 		// Get and set unit positions
 		// Get loop count based on distance from the center of the map
-		Unit location = Inventory.active.get(0);
+		Unit location = Inventory.active.get(roamUnit);
 		int widthCenter = tiles.length / 2;
 		int heightCenter = tiles[0].length / 2;
 		int loopCount = Math.max(widthCenter + Math.abs(widthCenter - location.locX), heightCenter + Math.abs(heightCenter - location.locY));
 
 		// Loop through "rings" of tiles around the main unit, search for valid
 		// positions, then place the units
-		int currentUnit = 1;
+		int currentUnit = 0;
 		mainLoop: // Label to break out of nested for loops when the last unit is placed
 		for (int i = 0; i < loopCount; i++) {
 			for (int x = 0; x < 3 + i * 2; x++) {
 				for (int y = 0; y < 3 + i * 2; y++) {
 					if (currentUnit >= Inventory.active.size()) {
 						break mainLoop; // Break out of every loop
+					}
+					if(currentUnit == roamUnit) {
+						currentUnit++;
+						continue;
 					}
 					int locX = location.locX - i + x - 1;
 					int locY = location.locY - i + y - 1;
@@ -1522,7 +1530,7 @@ public class StateDungeon extends State {
 
 		// Add effects
 		for (Unit u : Inventory.active) {
-			effects.add(new EffectBurst(new Vector3f(Inventory.active.get(0).x, 13 + Inventory.active.get(0).height, Inventory.active.get(0).y), u));
+			effects.add(new EffectBurst(new Vector3f(Inventory.active.get(roamUnit).x, 13 + Inventory.active.get(roamUnit).height, Inventory.active.get(roamUnit).y), u));
 		}
 		for (Unit u : enemies) {
 			effects.add(new EffectPoof(new Vector3f(u.x, 13 + u.height, u.y + 2)));
@@ -1538,7 +1546,7 @@ public class StateDungeon extends State {
 		Unit.movementSpeed = 0.5f;
 
 		freeRoamMode = true;
-		Unit focus = Inventory.active.get(0);
+		Unit focus = Inventory.active.get(roamUnit);
 
 		tcamX = (int) focus.x / 2;
 		tcamY = (int) focus.y / 2 + 24;
@@ -1561,7 +1569,7 @@ public class StateDungeon extends State {
 			u.locX = p.x;
 			u.locY = p.y;
 
-			Unit target = Inventory.active.get(0);
+			Unit target = Inventory.active.get(roamUnit);
 			if (Math.abs(u.locX - target.locX) + Math.abs(u.locY - target.locY) <= 1) {
 				caught = true;
 			}
@@ -1613,14 +1621,15 @@ public class StateDungeon extends State {
 					if (axes[1] > 0 && cursor.position.getZ() / 2 - tcamY > -8) {
 						tcamY += axes[1] / 2;
 					}
-				} else {
-					Unit u = Inventory.active.get(0);
+				} else if(!caught) {
+					Unit u = Inventory.active.get(roamUnit);
 					if (u.x == u.locX * 16 && u.y == u.locY * 16) {
 						if (axes[0] > 0.25) {
 							if (isTileWalkable(u.locX + 1, u.locY)) {
 								u.locX++;
 								cursorPos.x = u.locX;
 								tcamX += 8;
+								processFreeRoamMovement();
 							}
 						}
 						if (axes[0] < -0.25) {
@@ -1628,6 +1637,7 @@ public class StateDungeon extends State {
 								u.locX--;
 								cursorPos.x = u.locX;
 								tcamX -= 8;
+								processFreeRoamMovement();
 							}
 						}
 						if (axes[1] > 0.25) {
@@ -1635,6 +1645,7 @@ public class StateDungeon extends State {
 								u.locY++;
 								cursorPos.y = u.locY;
 								tcamY += 8;
+								processFreeRoamMovement();
 							}
 						}
 						if (axes[1] < -0.25) {
@@ -1642,6 +1653,7 @@ public class StateDungeon extends State {
 								u.locY--;
 								cursorPos.y = u.locY;
 								tcamY -= 8;
+								processFreeRoamMovement();
 							}
 						}
 					}
@@ -1650,32 +1662,33 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-			for (Unit u : Inventory.active) {
-				u.setTurn(true);
-				u.weapon.mag = 99;
-				u.weapon.abilities = new String[] { "ITEM_ABILITY_HARDEN" };
-				boolean x = new Random().nextBoolean();
-				if (x) {
-					u.addItem(ItemProperty.get("item.tome.gxdark"));
-					u.addItem(ItemProperty.get("item.tome.gxfire"));
-					u.addItem(ItemProperty.get("item.usable.potion.lg.mag"));
-					u.addItem(ItemProperty.get("item.sword.bronze"));
-				} else {
-					u.addItem(ItemProperty.get("item.usable.potion.lg.spd"));
-					u.addItem(ItemProperty.get("item.usable.potion.lg.def"));
-					u.addItem(ItemProperty.get("item.usable.potion.lg.res"));
-					u.addItem(ItemProperty.get("item.sword.gold"));
-				}
-			}
-			for (Unit u : enemies) {
-				u.weapon.abilities = new String[] { "ITEM_ABILITY_HARDEN" };
-				u.addItem(ItemProperty.get("item.usable.potion.lg.hp"));
-				u.addItem(ItemProperty.get("item.usable.potion.lg.atk"));
-				u.addItem(ItemProperty.get("item.usable.potion.lg.mag"));
-				u.addItem(ItemProperty.get("item.usable.potion.lg.spd"));
-				u.addItem(ItemProperty.get("item.usable.potion.lg.def"));
-				u.addItem(ItemProperty.get("item.usable.potion.lg.res"));
-			}
+//			for (Unit u : Inventory.active) {
+//				u.setTurn(true);
+//				u.weapon.mag = 99;
+//				u.weapon.abilities = new String[] { "ITEM_ABILITY_HARDEN" };
+//				boolean x = new Random().nextBoolean();
+//				if (x) {
+//					u.addItem(ItemProperty.get("item.tome.gxdark"));
+//					u.addItem(ItemProperty.get("item.tome.gxfire"));
+//					u.addItem(ItemProperty.get("item.usable.potion.lg.mag"));
+//					u.addItem(ItemProperty.get("item.sword.bronze"));
+//				} else {
+//					u.addItem(ItemProperty.get("item.usable.potion.lg.spd"));
+//					u.addItem(ItemProperty.get("item.usable.potion.lg.def"));
+//					u.addItem(ItemProperty.get("item.usable.potion.lg.res"));
+//					u.addItem(ItemProperty.get("item.sword.gold"));
+//				}
+//			}
+//			for (Unit u : enemies) {
+//				u.weapon.abilities = new String[] { "ITEM_ABILITY_HARDEN" };
+//				u.addItem(ItemProperty.get("item.usable.potion.lg.hp"));
+//				u.addItem(ItemProperty.get("item.usable.potion.lg.atk"));
+//				u.addItem(ItemProperty.get("item.usable.potion.lg.mag"));
+//				u.addItem(ItemProperty.get("item.usable.potion.lg.spd"));
+//				u.addItem(ItemProperty.get("item.usable.potion.lg.def"));
+//				u.addItem(ItemProperty.get("item.usable.potion.lg.res"));
+//			}
+			enterFreeRoam();
 			break;
 
 		case HIGHLIGHT:
@@ -1711,6 +1724,23 @@ public class StateDungeon extends State {
 					}
 				}
 			}
+			if (freeRoamMode) {
+				if (!noUIOnScreen()) {
+					break;
+				}
+				effects.add(new EffectPoof(new Vector3f(Inventory.active.get(roamUnit).x, 13 + Inventory.active.get(roamUnit).height, Inventory.active.get(roamUnit).y + 2)));
+				int nextUnit = roamUnit;
+				if (roamUnit > 0) {
+					nextUnit--;
+				} else {
+					nextUnit = Inventory.active.size() - 1;
+				}
+				Inventory.active.get(nextUnit).placeAt(Inventory.active.get(roamUnit).locX, Inventory.active.get(roamUnit).locY);
+				Inventory.active.get(nextUnit).height = Inventory.active.get(roamUnit).height;
+				roamUnit = nextUnit;
+				AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
+			}
+
 			break;
 
 		case WEAPON_RIGHT:
@@ -1720,7 +1750,7 @@ public class StateDungeon extends State {
 						if (u.locX == cursorPos.x && u.locY == cursorPos.y && tiles[u.locX][u.locY].status > 0) {
 							if (selectedAbility.showCombat) {
 								do {
-									for (int i = selectedUnit.getItemList().size() - 1; i > 0; i--) {
+									for (int i = selectedUnit.getItemList().size() - 1; i >= 0; i--) {
 										ItemProperty item = selectedUnit.getItemList().get(i);
 										if (item.type.equals(ItemProperty.TYPE_WEAPON)) {
 											ItemProperty weapon = selectedUnit.weapon;
@@ -1741,14 +1771,30 @@ public class StateDungeon extends State {
 					}
 				}
 			}
+			if (freeRoamMode) {
+				if (!noUIOnScreen()) {
+					break;
+				}
+				effects.add(new EffectPoof(new Vector3f(Inventory.active.get(roamUnit).x, 13 + Inventory.active.get(roamUnit).height, Inventory.active.get(roamUnit).y + 2)));
+				int nextUnit = roamUnit;
+				if (roamUnit < Inventory.active.size() - 1) {
+					nextUnit++;
+				} else {
+					nextUnit = 0;
+				}
+				Inventory.active.get(nextUnit).placeAt(Inventory.active.get(roamUnit).locX, Inventory.active.get(roamUnit).locY);
+				Inventory.active.get(nextUnit).height = Inventory.active.get(roamUnit).height;
+				roamUnit = nextUnit;
+				AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
+			}
 			break;
 
 		case UP:
 			if (status.size() > 0) {
-				return;
+				break;
 			}
 			if (menuLock) {
-				return;
+				break;
 			}
 			if (menus.size() > 0) {
 				menus.get(0).move(-1);
@@ -1757,10 +1803,10 @@ public class StateDungeon extends State {
 
 		case DOWN:
 			if (status.size() > 0) {
-				return;
+				break;
 			}
 			if (menuLock) {
-				return;
+				break;
 			}
 			if (menus.size() > 0) {
 				menus.get(0).move(1);
@@ -1859,9 +1905,9 @@ public class StateDungeon extends State {
 										}
 									}
 								} else if (!caught) {
-									selectedUnit = Inventory.active.get(0);
+									selectedUnit = Inventory.active.get(roamUnit);
 									selectedUnit.path.add(new Point(selectedUnit.locX, selectedUnit.locY));
-									menus.add(new MenuDungeonAction(new Vector3f(0, 0, -80), Inventory.active.get(0), this));
+									menus.add(new MenuDungeonAction(new Vector3f(0, 0, -80), Inventory.active.get(roamUnit), this));
 								}
 
 							}
@@ -1949,17 +1995,17 @@ public class StateDungeon extends State {
 			if (noUIOnScreen() && !controlLock && phase == 0 && Startup.screenColor.getW() == alphaTo) {
 				if (cursorPos.y > 0) {
 					boolean walkable = isTileWalkable(cursorPos.x, cursorPos.y - 1);
-					if (!freeRoamMode || walkable) {
+					if ((!freeRoamMode || walkable) && !caught) {
 						cursorPos.setLocation(cursorPos.getX(), cursorPos.getY() - 1);
 						if (!freeRoamMode) {
 							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
 					}
-					if ((freeRoamMode && walkable && !caught) || (Math.floorDiv((int) tcamY, 8) - 12 > -12 && cursorPos.getY() == Math.floorDiv((int) tcamY, 8) - 12 + 6)) {
+					if (((freeRoamMode && walkable) || (Math.floorDiv((int) tcamY, 8) - 12 > -12 && cursorPos.getY() == Math.floorDiv((int) tcamY, 8) - 12 + 6)) && !caught) {
 						tcamY -= 8;
 					}
 					if (freeRoamMode && walkable && !caught) {
-						Inventory.active.get(0).locY--;
+						Inventory.active.get(roamUnit).locY--;
 						processFreeRoamMovement();
 					}
 				}
@@ -1971,17 +2017,17 @@ public class StateDungeon extends State {
 			if (noUIOnScreen() && !controlLock && phase == 0 && Startup.screenColor.getW() == alphaTo) {
 				if (cursorPos.y < tiles[0].length - 1) {
 					boolean walkable = isTileWalkable(cursorPos.x, cursorPos.y + 1);
-					if (!freeRoamMode || walkable) {
+					if ((!freeRoamMode || walkable) && !caught) {
 						cursorPos.setLocation(cursorPos.getX(), cursorPos.getY() + 1);
 						if (!freeRoamMode) {
 							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
 					}
-					if ((freeRoamMode && walkable && !caught) || (Math.floorDiv((int) tcamY, 8) - 12 == cursorPos.getY() - 13)) {
+					if (((freeRoamMode && walkable) || (Math.floorDiv((int) tcamY, 8) - 12 == cursorPos.getY() - 13)) && !caught) {
 						tcamY += 8;
 					}
 					if (freeRoamMode && walkable && !caught) {
-						Inventory.active.get(0).locY++;
+						Inventory.active.get(roamUnit).locY++;
 						processFreeRoamMovement();
 					}
 				}
@@ -1993,17 +2039,17 @@ public class StateDungeon extends State {
 			if (noUIOnScreen() && !controlLock && phase == 0 && Startup.screenColor.getW() == alphaTo) {
 				if (cursorPos.x > 0) {
 					boolean walkable = isTileWalkable(cursorPos.x - 1, cursorPos.y);
-					if (!freeRoamMode || walkable) {
+					if ((!freeRoamMode || walkable) && !caught) {
 						cursorPos.setLocation(cursorPos.getX() - 1, cursorPos.getY());
 						if (!freeRoamMode) {
 							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
 					}
-					if ((freeRoamMode && walkable && !caught) || (Math.floorDiv((int) tcamX, 8) - 12 > -10 && cursorPos.getX() == Math.floorDiv((int) tcamX, 8) - 12 + 8)) {
+					if (((freeRoamMode && walkable) || (Math.floorDiv((int) tcamX, 8) - 12 > -10 && cursorPos.getX() == Math.floorDiv((int) tcamX, 8) - 12 + 8)) && !caught) {
 						tcamX -= 8;
 					}
 					if (freeRoamMode && walkable && !caught) {
-						Inventory.active.get(0).locX--;
+						Inventory.active.get(roamUnit).locX--;
 						processFreeRoamMovement();
 					}
 				}
@@ -2015,17 +2061,17 @@ public class StateDungeon extends State {
 			if (noUIOnScreen() && !controlLock && phase == 0 && Startup.screenColor.getW() == alphaTo) {
 				if (cursorPos.x < tiles.length - 1) {
 					boolean walkable = isTileWalkable(cursorPos.x + 1, cursorPos.y);
-					if (!freeRoamMode || walkable) {
+					if ((!freeRoamMode || walkable) && !caught) {
 						cursorPos.setLocation(cursorPos.getX() + 1, cursorPos.getY());
 						if (!freeRoamMode) {
 							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
 					}
-					if ((freeRoamMode && walkable && !caught) || (Math.floorDiv((int) tcamX, 8) - 12 == cursorPos.getX() - 16)) {
+					if (((freeRoamMode && walkable) || (Math.floorDiv((int) tcamX, 8) - 12 == cursorPos.getX() - 16)) && !caught) {
 						tcamX += 8;
 					}
 					if (freeRoamMode && walkable && !caught) {
-						Inventory.active.get(0).locX++;
+						Inventory.active.get(roamUnit).locX++;
 						processFreeRoamMovement();
 					}
 				}
