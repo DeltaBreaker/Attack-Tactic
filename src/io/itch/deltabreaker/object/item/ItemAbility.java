@@ -132,7 +132,7 @@ public enum ItemAbility {
 		@Override
 		public boolean followUp(Unit u, StateDungeon context) {
 			context.clearSelectedTiles();
-			StateManager.currentState.menus.add(new MenuTrade(new Vector3f(0, 0, -80), context.selectedUnit, u));
+			StateManager.currentState.menus.add(new MenuTrade(new Vector3f(0, 0, -80), context.selectedUnit, u, true));
 			context.clearUnit();
 			return true;
 		}

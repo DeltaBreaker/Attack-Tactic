@@ -64,6 +64,19 @@ public class MenuDungeonAction extends Menu {
 						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 						break;
 
+					case "Trade":
+						if(context.freeRoamMode) {
+							subMenu.add(new MenuTradeUnitSelect(Vector3f.add(position, width + 5, 0, 0), true));
+						} else {
+							context.selectedAbility = ItemAbility.getAbilityFromName(options[selected]);
+							if (context.selectedAbility.use(unit, context)) {
+								height = 16;
+								close();
+							}
+						}
+						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+						break;
+						
 					case "Continue":
 						context.alphaTo = 1;
 						context.action = StateDungeon.ACTION_PROGRESS;
@@ -166,7 +179,7 @@ public class MenuDungeonAction extends Menu {
 							AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
 						break;
-						
+
 					case "Wait":
 						unit.setTurn(false);
 						context.clearSelectedTiles();
@@ -301,13 +314,15 @@ public class MenuDungeonAction extends Menu {
 		}
 
 		for (Unit u : Inventory.active) {
-			if (u == unit) {
-				continue;
+			if (!context.freeRoamMode) {
+				if (u == unit) {
+					continue;
+				}
+				if (Math.abs(u.locX - xPos) + Math.abs(u.locY - yPos) > 1) {
+					continue;
+				}
 			}
-			if (Math.abs(u.locX - xPos) + Math.abs(u.locY - yPos) > 1) {
-				continue;
-			}
-			if(u.getItemList().size() == 0 && unit.getItemList().size() == 0) {
+			if (u.getItemList().size() == 0 && unit.getItemList().size() == 0) {
 				continue;
 			}
 			options.add("Trade");
@@ -627,7 +642,7 @@ class MenuDungeonActionItemsActionDrop extends Menu {
 class MenuDungeonActionSwitch extends Menu {
 
 	private StateDungeon context;
-	
+
 	public MenuDungeonActionSwitch(Vector3f position, StateDungeon context) {
 		super(position, getUnitList());
 		this.context = context;

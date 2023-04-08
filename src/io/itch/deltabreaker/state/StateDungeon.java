@@ -1689,7 +1689,7 @@ public class StateDungeon extends State {
 				u.addItem(ItemProperty.get("item.usable.potion.lg.def"));
 				u.addItem(ItemProperty.get("item.usable.potion.lg.res"));
 			}
-			enterFreeRoam();
+//			enterFreeRoam();
 			break;
 
 		case HIGHLIGHT:

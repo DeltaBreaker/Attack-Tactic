@@ -21,16 +21,20 @@ public class MenuTrade extends Menu {
 	private Unit host, target, selectedUnit;
 	private Vector3f cursorPos;
 	protected boolean traded = false;
+	private boolean standalone;
 
-	public MenuTrade(Vector3f position, Unit host, Unit target) {
+	public MenuTrade(Vector3f position, Unit host, Unit target, boolean standalone) {
 		super(position, getItemList(host, target), getDimensions(getItemList(host, target)).width, getDimensions(getItemList(host, target)).height);
 		selectedUnit = host;
 		this.host = host;
 		this.target = target;
-		Startup.staticView.position = new Vector3f(position.getX() / 2 - 4 + getDimensions(options).width / 4, position.getY() / 2 - getDimensions(options).height / 4, Startup.staticView.position.getZ());
-		StateManager.currentState.cursor.staticView = true;
-		cursorPos = Vector3f.add(StateManager.currentState.cursor.position, 0, 0, 0);
-		StateManager.currentState.cursor.warpLocation(Vector3f.add(position, 0, -9, 0));
+		if (standalone) {
+			Startup.staticView.position = new Vector3f(position.getX() / 2 - 4 + getDimensions(options).width / 4, position.getY() / 2 - getDimensions(options).height / 4, Startup.staticView.position.getZ());
+			StateManager.currentState.cursor.staticView = true;
+			cursorPos = Vector3f.add(StateManager.currentState.cursor.position, 0, 0, 0);
+			StateManager.currentState.cursor.warpLocation(Vector3f.add(position, 0, -9, 0));
+		}
+		this.standalone = standalone;
 	}
 
 	@Override
@@ -117,13 +121,15 @@ public class MenuTrade extends Menu {
 	@Override
 	public void close() {
 		super.close();
-		StateManager.currentState.cursor.staticView = false;
-		StateManager.currentState.cursor.warpLocation(Vector3f.add(cursorPos, 0, 0, 0));
-		if (StateManager.currentState.STATE_ID.equals(StateDungeon.STATE_ID)) {
-			if (!traded) {
-				host.reset();
-			} else {
-				host.setTurn(false);
+		if (standalone) {
+			StateManager.currentState.cursor.staticView = false;
+			StateManager.currentState.cursor.warpLocation(Vector3f.add(cursorPos, 0, 0, 0));
+			if (StateManager.currentState.STATE_ID.equals(StateDungeon.STATE_ID)) {
+				if (!traded) {
+					host.reset();
+				} else {
+					host.setTurn(false);
+				}
 			}
 		}
 	}
