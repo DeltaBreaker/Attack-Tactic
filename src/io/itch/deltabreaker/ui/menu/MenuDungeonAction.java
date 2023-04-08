@@ -183,7 +183,7 @@ public class MenuDungeonAction extends Menu {
 						break;
 
 					case "Switch":
-						subMenu.add(new MenuDungeonActionSwitch(Vector3f.add(position, width + 5, 0, 0)).setParent(this));
+						subMenu.add(new MenuDungeonActionSwitch(Vector3f.add(position, width + 5, 0, 0), context).setParent(this));
 						break;
 
 					}
@@ -626,21 +626,22 @@ class MenuDungeonActionItemsActionDrop extends Menu {
 
 class MenuDungeonActionSwitch extends Menu {
 
-	public MenuDungeonActionSwitch(Vector3f position) {
+	private StateDungeon context;
+	
+	public MenuDungeonActionSwitch(Vector3f position, StateDungeon context) {
 		super(position, getUnitList());
+		this.context = context;
 	}
 
 	@Override
 	public void action(String command, Unit unit) {
 		if (subMenu.size() == 0) {
 			if (!command.equals("return")) {
-				StateManager.currentState.effects.add(new EffectPoof(new Vector3f(Inventory.active.get(0).x, 13 + Inventory.active.get(0).height, Inventory.active.get(0).y + 2)));
-				Unit temp = Inventory.active.get(0);
-				Inventory.active.get(selected).placeAt(temp.locX, temp.locY);
-				Inventory.active.set(0, Inventory.active.get(selected));
-				Inventory.active.set(selected, temp);
-				StateDungeon.getCurrentContext().clearUnit();
-				Inventory.active.get(0).height = StateManager.currentState.tiles[(int) Math.round(Inventory.active.get(0).x / 16.0)][(int) Math.round(Inventory.active.get(0).y / 16.0)].getPosition().getY();
+				StateManager.currentState.effects.add(new EffectPoof(new Vector3f(Inventory.active.get(context.roamUnit).x, 13 + Inventory.active.get(context.roamUnit).height, Inventory.active.get(context.roamUnit).y + 2)));
+				int nextUnit = selected;
+				Inventory.active.get(nextUnit).placeAt(Inventory.active.get(context.roamUnit).locX, Inventory.active.get(context.roamUnit).locY);
+				Inventory.active.get(nextUnit).height = Inventory.active.get(context.roamUnit).height;
+				context.roamUnit = nextUnit;
 				closeAll();
 				AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 			} else {
