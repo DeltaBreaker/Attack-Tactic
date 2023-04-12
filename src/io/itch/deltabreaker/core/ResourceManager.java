@@ -51,13 +51,13 @@ import io.itch.deltabreaker.graphics.shader.ShaderStatic3DCrafting;
 import io.itch.deltabreaker.state.StateCreatorHub;
 import io.itch.deltabreaker.state.StateDungeon;
 import io.itch.deltabreaker.state.StateManager;
+import io.itch.deltabreaker.state.StateMatchLobby;
 import io.itch.deltabreaker.state.StateSplash;
 import io.itch.deltabreaker.state.StateTitle;
 import io.itch.deltabreaker.state.StateUnitCreator;
 
 public class ResourceManager {
 
-	public static final String META_HASH = "1676318575";
 	public static String currentHash = "";
 
 	public static HashMap<String, Model> models = new HashMap<>();
@@ -81,15 +81,7 @@ public class ResourceManager {
 		}
 
 		currentHash = "" + megaHash.toString().hashCode();
-		System.out.println("[ResourceManager]: Current hash " + currentHash + " with meta hash of " + META_HASH);
-
-		boolean match = META_HASH.equals("" + currentHash);
-		if (match) {
-			System.out.println("[ResourceManager]: Approved for online features");
-		} else {
-			System.out.println("[ResourceManager]: Denied for online features");
-		}
-		SettingsManager.onlineValidation = match;
+		System.out.println("[ResourceManager]: Current hash " + currentHash);
 
 		System.out.println(
 				"[ResourceManager]: Data validated in " + (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
@@ -308,6 +300,7 @@ public class ResourceManager {
 		StateManager.initState(new StateUnitCreator());
 		StateManager.initState(new StateTitle());
 		StateManager.initState(new StateSplash());
+		StateManager.initState(new StateMatchLobby());
 	}
 
 	public static void loadModels(String folder) {

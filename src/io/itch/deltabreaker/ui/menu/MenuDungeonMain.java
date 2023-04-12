@@ -61,6 +61,10 @@ public class MenuDungeonMain extends Menu {
 									state.cursorPos.y = Inventory.active.get(selected).locY;
 									closeAll();
 									AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+									
+									if(state.multiplayerMode) {
+										state.comThread.eventQueue.add(new String[] { "MOVE_CURSOR" });
+									}
 								} else {
 									close();
 									AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);

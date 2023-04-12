@@ -32,6 +32,7 @@ import io.itch.deltabreaker.graphics.shader.Shader;
 import io.itch.deltabreaker.math.AdvMath;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
+import io.itch.deltabreaker.multiplayer.ServerThread;
 import io.itch.deltabreaker.multiprocessing.TaskThread;
 import io.itch.deltabreaker.object.Unit;
 import io.itch.deltabreaker.object.item.ItemProperty;
@@ -39,6 +40,7 @@ import io.itch.deltabreaker.object.tile.Tile;
 import io.itch.deltabreaker.state.StateCreatorHub;
 import io.itch.deltabreaker.state.StateDungeon;
 import io.itch.deltabreaker.state.StateManager;
+import io.itch.deltabreaker.state.StateMatchLobby;
 import io.itch.deltabreaker.state.StateSplash;
 import io.itch.deltabreaker.state.StateTitle;
 
@@ -112,23 +114,37 @@ public class Startup implements Runnable {
 	}
 
 	public static void main(String[] args) {
-		if (args.length > 0 && args[0].toLowerCase().equals("pack")) {
-			if (args.length < 3) {
-				JOptionPane.showMessageDialog(null, "Please enter the correct arguments \npack {texture/model/both} {folder}");
-			} else {
-				switch (args[1].toLowerCase()) {
+		if (args.length > 0) {
+			switch (args[0].toLowerCase()) {
 
-				case "texture":
-					ResourceManager.packTextures(args[2]);
-					System.out.println("[Startup]: Done");
-					break;
+			case "pack":
+				if (args.length < 3) {
+					JOptionPane.showMessageDialog(null, "Please enter the correct arguments \npack {texture/model/both} {folder}");
+				} else {
+					switch (args[1].toLowerCase()) {
 
-				case "model":
-					ResourceManager.packModels(args[2]);
-					System.out.println("[Startup]: Done");
-					break;
+					case "texture":
+						ResourceManager.packTextures(args[2]);
+						System.out.println("[Startup]: Done");
+						break;
 
+					case "model":
+						ResourceManager.packModels(args[2]);
+						System.out.println("[Startup]: Done");
+						break;
+
+					}
 				}
+				break;
+
+			case "server":
+				camera = new Camera(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0), width, height, 1, 1f, 1);
+				DungeonGenerator.loadPatterns();
+				ItemProperty.loadItems("res/data/item");
+				AIType.loadAITypes("res/data/ai");
+				new Thread(new ServerThread()).start();
+				break;
+
 			}
 		} else {
 			checkArgs(args);
@@ -252,11 +268,11 @@ public class Startup implements Runnable {
 //				StateDungeon.loadMap("bridge_test");
 //				StateHub.loadMap("village_hub");
 
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.tank.magic"), AIType.get("standard_dungeon.json")));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.tank.magic"), AIType.get("standard_dungeon.json")));
 
 //				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
 //				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
@@ -267,8 +283,10 @@ public class Startup implements Runnable {
 //				Inventory.loadMap = "title_scene";
 //				Inventory.saveHeader(2);
 //				Inventory.saveGame(2);
-				StateDungeon.startDungeon("seabed_cove.json", 14, -1932052909105962160L);
+//				StateDungeon.startDungeon("seabed_cove.json", 14, -1932052909105962160L);
 //				StateDungeon.startDungeon("flooded_forrest.json", 14, new Random().nextLong());
+				
+				StateManager.swapState(StateMatchLobby.STATE_ID);
 			}
 
 			GLFW.glfwShowWindow(window);
@@ -477,7 +495,8 @@ public class Startup implements Runnable {
 		BatchSorter.renderStatic();
 
 		// Used to fade the screen
-		ResourceManager.models.get("fade.dae").render(Vector3f.add(staticView.position, Vector3f.SCREEN_POSITION), Vector3f.EMPTY, Vector3f.SCALE_FULL, ResourceManager.textures.get("fade.png"), ResourceManager.shaders.get("static_3d"), Material.MATTE, screenColor, false);
+		ResourceManager.models.get("fade.dae").render(Vector3f.add(staticView.position, Vector3f.SCREEN_POSITION), Vector3f.EMPTY, Vector3f.SCALE_FULL, ResourceManager.textures.get("fade.png"), ResourceManager.shaders.get("static_3d"),
+				Material.MATTE, screenColor, false);
 
 		GLFW.glfwSwapBuffers(window);
 		performanceManager.renders++;
@@ -693,6 +712,7 @@ public class Startup implements Runnable {
 		performanceManager.running = false;
 		processorEffect.running = false;
 		GLFW.glfwDestroyWindow(window);
+		System.exit(0);
 	}
 
 	public static void startLogger() {

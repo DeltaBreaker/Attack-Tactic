@@ -65,7 +65,7 @@ public class MenuDungeonAction extends Menu {
 						break;
 
 					case "Trade":
-						if(context.freeRoamMode) {
+						if (context.freeRoamMode) {
 							subMenu.add(new MenuTradeUnitSelect(Vector3f.add(position, width + 5, 0, 0), true));
 						} else {
 							context.selectedAbility = ItemAbility.getAbilityFromName(options[selected]);
@@ -76,7 +76,7 @@ public class MenuDungeonAction extends Menu {
 						}
 						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 						break;
-						
+
 					case "Continue":
 						context.alphaTo = 1;
 						context.action = StateDungeon.ACTION_PROGRESS;
@@ -193,6 +193,11 @@ public class MenuDungeonAction extends Menu {
 								context.events.add(new Event(e));
 							}
 						}
+						
+						if(context.multiplayerMode) {
+							context.comThread.eventQueue.add(new String[] { "UNIT_WAIT", unit.uuid });
+							context.comThread.eventQueue.add(new String[] { "CLEAR_TILE_HIGHLIGHT" });
+						}
 						break;
 
 					case "Switch":
@@ -207,6 +212,9 @@ public class MenuDungeonAction extends Menu {
 						unit.reset();
 						context.clearSelectedTiles();
 						context.clearUnit();
+						if (context.multiplayerMode) {
+							context.comThread.eventQueue.add(new String[] { "RESET_UNIT" });
+						}
 					}
 					close();
 					AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);

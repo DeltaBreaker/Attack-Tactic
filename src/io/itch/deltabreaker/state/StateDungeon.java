@@ -4,12 +4,14 @@ import java.awt.Point;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
 import io.itch.deltabreaker.ai.AIHandler;
 import io.itch.deltabreaker.builder.dungeon.DungeonGenerator;
+import io.itch.deltabreaker.builder.dungeon.DungeonGeneratorMultiplayer;
 import io.itch.deltabreaker.builder.dungeon.DungeonGeneratorRestArea;
 import io.itch.deltabreaker.builder.dungeon.DungeonGeneratorVillage;
 import io.itch.deltabreaker.core.FileManager;
@@ -43,6 +45,9 @@ import io.itch.deltabreaker.graphics.TextRenderer;
 import io.itch.deltabreaker.math.AdvMath;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
+import io.itch.deltabreaker.multiplayer.client.GameInputStream;
+import io.itch.deltabreaker.multiplayer.client.GameOutputStream;
+import io.itch.deltabreaker.multiplayer.client.MatchComThread;
 import io.itch.deltabreaker.multiprocessing.TaskThread;
 import io.itch.deltabreaker.multiprocessing.WorkerTask;
 import io.itch.deltabreaker.object.Cursor;
@@ -164,6 +169,9 @@ public class StateDungeon extends State {
 
 	public int roamUnit = 0;
 
+	public boolean multiplayerMode = false;
+	public MatchComThread comThread;
+
 	public StateDungeon() {
 		super(STATE_ID);
 	}
@@ -255,7 +263,9 @@ public class StateDungeon extends State {
 				swap = false;
 			}
 		}
-		aiHandler.tick();
+		if (!multiplayerMode) {
+			aiHandler.tick();
+		}
 		if (inCombat) {
 			// This handles the logic of the health bars that appear at the top of the
 			// screen when in combat
@@ -358,56 +368,58 @@ public class StateDungeon extends State {
 							attacker.setTurn(false);
 
 							// Distributes xp if a unit dies
-							if (Inventory.active.contains(attacker)) {
-								if (!attacker.dead) {
-									xpGainUnit = attacker.name;
-									if (displayXP == 0) {
-										displayXP = attacker.exp;
-									}
-									int exp = AdvMath.inRange(defender.level - attacker.level + 5, 1, 10) * 2;
-									if (attacker.accessory.hasAbility(ItemAbility.ITEM_ABILITY_XPGAIN_10)) {
-										exp = (int) Math.round(exp * 1.1);
-									}
-									attacker.exp += exp;
-									effects.add(new EffectText("+" + exp + " Exp", new Vector3f(attacker.x - ("+" + exp + " Exp").length(), 20 + tiles[attacker.locX][attacker.locY].getPosition().getY(), attacker.y),
-											new Vector4f(ItemProperty.colorList[1], 1)));
-									if (displayXPTarget == 0) {
-										displayXPTarget = Math.min(displayXP + exp, 100);
-									} else {
-										displayXPTarget = Math.min(displayXPTarget + exp, 100);
-									}
-									if (attacker.exp >= 100) {
-										attacker.exp -= 100;
+							if (!multiplayerMode) {
+								if (Inventory.active.contains(attacker)) {
+									if (!attacker.dead) {
+										xpGainUnit = attacker.name;
+										if (displayXP == 0) {
+											displayXP = attacker.exp;
+										}
+										int exp = AdvMath.inRange(defender.level - attacker.level + 5, 1, 10) * 2;
+										if (attacker.accessory.hasAbility(ItemAbility.ITEM_ABILITY_XPGAIN_10)) {
+											exp = (int) Math.round(exp * 1.1);
+										}
+										attacker.exp += exp;
+										effects.add(new EffectText("+" + exp + " Exp", new Vector3f(attacker.x - ("+" + exp + " Exp").length(), 20 + tiles[attacker.locX][attacker.locY].getPosition().getY(), attacker.y),
+												new Vector4f(ItemProperty.colorList[1], 1)));
+										if (displayXPTarget == 0) {
+											displayXPTarget = Math.min(displayXP + exp, 100);
+										} else {
+											displayXPTarget = Math.min(displayXPTarget + exp, 100);
+										}
 										if (attacker.exp >= 100) {
-											attacker.exp = 99;
+											attacker.exp -= 100;
+											if (attacker.exp >= 100) {
+												attacker.exp = 99;
+											}
+											levelUpUnit = attacker;
 										}
-										levelUpUnit = attacker;
 									}
-								}
-							} else if (defender != null) {
-								if (!defender.dead) {
-									xpGainUnit = defender.name;
-									if (displayXP == 0) {
-										displayXP = defender.exp;
-									}
-									int exp = AdvMath.inRange(attacker.level - defender.level + 5, 1, 10) * 2;
-									if (defender.accessory.hasAbility(ItemAbility.ITEM_ABILITY_XPGAIN_10)) {
-										exp = (int) Math.round(exp * 1.1);
-									}
-									defender.exp += exp;
-									effects.add(new EffectText("+" + exp + " Exp", new Vector3f(defender.x - ("+" + exp + " Exp").length(), 20 + tiles[defender.locX][defender.locY].getPosition().getY(), defender.y),
-											new Vector4f(ItemProperty.colorList[1], 1)));
-									if (displayXPTarget == 0) {
-										displayXPTarget = Math.min(displayXP + exp, 100);
-									} else {
-										displayXPTarget = Math.min(displayXPTarget + exp, 100);
-									}
-									if (defender.exp >= 100) {
-										defender.exp -= 100;
+								} else if (defender != null) {
+									if (!defender.dead) {
+										xpGainUnit = defender.name;
+										if (displayXP == 0) {
+											displayXP = defender.exp;
+										}
+										int exp = AdvMath.inRange(attacker.level - defender.level + 5, 1, 10) * 2;
+										if (defender.accessory.hasAbility(ItemAbility.ITEM_ABILITY_XPGAIN_10)) {
+											exp = (int) Math.round(exp * 1.1);
+										}
+										defender.exp += exp;
+										effects.add(new EffectText("+" + exp + " Exp", new Vector3f(defender.x - ("+" + exp + " Exp").length(), 20 + tiles[defender.locX][defender.locY].getPosition().getY(), defender.y),
+												new Vector4f(ItemProperty.colorList[1], 1)));
+										if (displayXPTarget == 0) {
+											displayXPTarget = Math.min(displayXP + exp, 100);
+										} else {
+											displayXPTarget = Math.min(displayXPTarget + exp, 100);
+										}
 										if (defender.exp >= 100) {
-											defender.exp = 99;
+											defender.exp -= 100;
+											if (defender.exp >= 100) {
+												defender.exp = 99;
+											}
+											levelUpUnit = defender;
 										}
-										levelUpUnit = defender;
 									}
 								}
 							}
@@ -492,7 +504,24 @@ public class StateDungeon extends State {
 			Inventory.active.get(u).tick();
 			if (Inventory.active.get(u).unitColor.getW() <= 0) {
 				effects.add(new EffectPoof(new Vector3f(Inventory.active.get(u).x, Inventory.active.get(u).height + 13, Inventory.active.get(u).y)));
-				Inventory.active.get(u).clearItems();
+
+				if (multiplayerMode) {
+					for (ItemProperty e : Inventory.active.get(u).getItemList()) {
+						if (Inventory.active.contains(attacker)) {
+							if (defender.addItem(e) != 0) {
+								findLocationForItem(Inventory.active.get(u), e);
+							}
+						} else if (Inventory.active.contains(defender)) {
+							if (attacker.addItem(e) != 0) {
+								findLocationForItem(Inventory.active.get(u), e);
+							}
+						} else {
+							findLocationForItem(Inventory.active.get(u), e);
+						}
+					}
+				} else {
+					Inventory.active.get(u).clearItems();
+				}
 
 				for (EventScript e : eventList.values()) {
 					if (e.activator.equals(EventScript.ACTIVATOR_DEATH + " " + Inventory.active.get(u).uuid)) {
@@ -516,63 +545,65 @@ public class StateDungeon extends State {
 				changePhase = false;
 			}
 			if (enemies.get(u).unitColor.getW() <= 0) {
-				if (aiHandler.processing) {
-					aiHandler.gettingPath = true;
-					aiHandler.hasAttacked = false;
-					if (aiHandler.currentUnit == enemies.size() - 1) {
-						aiHandler.processing = false;
+				if (!multiplayerMode) {
+					if (aiHandler.processing) {
+						aiHandler.gettingPath = true;
+						aiHandler.hasAttacked = false;
+						if (aiHandler.currentUnit == enemies.size() - 1) {
+							aiHandler.processing = false;
+						}
 					}
-				}
-				if (Inventory.active.contains(attacker)) {
-					if (!attacker.dead) {
-						xpGainUnit = attacker.name;
-						if (displayXP == 0) {
-							displayXP = attacker.exp;
-						}
-						int exp = AdvMath.inRange(defender.level - attacker.level + 6, 1, 16) * 5;
-						if (attacker.accessory.hasAbility(ItemAbility.ITEM_ABILITY_XPGAIN_10)) {
-							exp = (int) Math.round(exp * 1.1);
-						}
-						attacker.exp += exp;
-						effects.add(new EffectText("+" + exp + " Exp", new Vector3f(attacker.x - ("+" + exp + " Exp").length(), 20 + tiles[attacker.locX][attacker.locY].getPosition().getY(), attacker.y),
-								new Vector4f(ItemProperty.colorList[1], 1)));
-						if (displayXPTarget == 0) {
-							displayXPTarget = Math.min(displayXP + exp, 100);
-						} else {
-							displayXPTarget = Math.min(displayXPTarget + exp, 100);
-						}
-						if (attacker.exp >= 100) {
-							attacker.exp -= 100;
+					if (Inventory.active.contains(attacker)) {
+						if (!attacker.dead) {
+							xpGainUnit = attacker.name;
+							if (displayXP == 0) {
+								displayXP = attacker.exp;
+							}
+							int exp = AdvMath.inRange(defender.level - attacker.level + 6, 1, 16) * 5;
+							if (attacker.accessory.hasAbility(ItemAbility.ITEM_ABILITY_XPGAIN_10)) {
+								exp = (int) Math.round(exp * 1.1);
+							}
+							attacker.exp += exp;
+							effects.add(new EffectText("+" + exp + " Exp", new Vector3f(attacker.x - ("+" + exp + " Exp").length(), 20 + tiles[attacker.locX][attacker.locY].getPosition().getY(), attacker.y),
+									new Vector4f(ItemProperty.colorList[1], 1)));
+							if (displayXPTarget == 0) {
+								displayXPTarget = Math.min(displayXP + exp, 100);
+							} else {
+								displayXPTarget = Math.min(displayXPTarget + exp, 100);
+							}
 							if (attacker.exp >= 100) {
-								attacker.exp = 99;
+								attacker.exp -= 100;
+								if (attacker.exp >= 100) {
+									attacker.exp = 99;
+								}
+								levelUpUnit = attacker;
 							}
-							levelUpUnit = attacker;
 						}
-					}
-				} else if (defender != null) {
-					if (!defender.dead) {
-						xpGainUnit = defender.name;
-						if (displayXP == 0) {
-							displayXP = defender.exp;
-						}
-						int exp = AdvMath.inRange(attacker.level - defender.level + 6, 1, 16) * 5;
-						if (defender.accessory.hasAbility(ItemAbility.ITEM_ABILITY_XPGAIN_10)) {
-							exp = (int) Math.round(exp * 1.1);
-						}
-						defender.exp += exp;
-						effects.add(new EffectText("+" + exp + " Exp", new Vector3f(defender.x - ("+" + exp + " Exp").length(), 20 + tiles[defender.locX][defender.locY].getPosition().getY(), defender.y),
-								new Vector4f(ItemProperty.colorList[1], 1)));
-						if (displayXPTarget == 0) {
-							displayXPTarget = Math.min(displayXP + exp, 100);
-						} else {
-							displayXPTarget = Math.min(displayXPTarget + exp, 100);
-						}
-						if (defender.exp >= 100) {
-							defender.exp -= 100;
+					} else if (defender != null) {
+						if (!defender.dead) {
+							xpGainUnit = defender.name;
+							if (displayXP == 0) {
+								displayXP = defender.exp;
+							}
+							int exp = AdvMath.inRange(attacker.level - defender.level + 6, 1, 16) * 5;
+							if (defender.accessory.hasAbility(ItemAbility.ITEM_ABILITY_XPGAIN_10)) {
+								exp = (int) Math.round(exp * 1.1);
+							}
+							defender.exp += exp;
+							effects.add(new EffectText("+" + exp + " Exp", new Vector3f(defender.x - ("+" + exp + " Exp").length(), 20 + tiles[defender.locX][defender.locY].getPosition().getY(), defender.y),
+									new Vector4f(ItemProperty.colorList[1], 1)));
+							if (displayXPTarget == 0) {
+								displayXPTarget = Math.min(displayXP + exp, 100);
+							} else {
+								displayXPTarget = Math.min(displayXPTarget + exp, 100);
+							}
 							if (defender.exp >= 100) {
-								defender.exp = 99;
+								defender.exp -= 100;
+								if (defender.exp >= 100) {
+									defender.exp = 99;
+								}
+								levelUpUnit = defender;
 							}
-							levelUpUnit = defender;
 						}
 					}
 				}
@@ -739,7 +770,7 @@ public class StateDungeon extends State {
 			}
 		}
 
-		if (!aiHandler.processing && changePhase && noUIOnScreen() && phase == 1 && !usingItem && xpAlpha == 0 && this.displayXP == displayXPTarget) {
+		if (!aiHandler.processing && changePhase && noUIOnScreen() && phase == 1 && !usingItem && xpAlpha == 0 && this.displayXP == displayXPTarget && !multiplayerMode) {
 			changePhase(0);
 		}
 
@@ -883,10 +914,10 @@ public class StateDungeon extends State {
 		if (itemInfo.size() > 0) {
 			itemInfo.get(0).render();
 		}
-		if ((phase == 0 || (menus.size() > 0 && menus.get(0).open)) && (!freeRoamMode || (menus.size() > 0 && menus.get(0).open)) && (!hideCursor || (menus.size() > 0 && menus.get(0).open))) {
+		if (((phase == 0 || multiplayerMode) || (menus.size() > 0 && menus.get(0).open)) && (!freeRoamMode || (menus.size() > 0 && menus.get(0).open)) && (!hideCursor || (menus.size() > 0 && menus.get(0).open))) {
 			cursor.render();
 		}
-		if (phase == 0 && !hideCursor && !freeRoamMode) {
+		if ((phase == 0 || multiplayerMode) && !hideCursor && !freeRoamMode) {
 			BatchSorter.add("marker.dae", "marker.png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(), new Vector3f(cursorPos.x * 16, 8.5f + tiles[cursorPos.x][cursorPos.y].getPosition().getY(), cursorPos.y * 16),
 					new Vector3f(0, curRotateInt, 0), Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, false);
 		}
@@ -1120,7 +1151,11 @@ public class StateDungeon extends State {
 				Startup.corruptionTarget = Math.min(1, Startup.corruptionTarget + corruptionRate);
 			}
 			if (phase == 1) {
-				aiHandler.startProcessing();
+				if (!multiplayerMode) {
+					aiHandler.startProcessing();
+				} else {
+					comThread.eventQueue.add(new String[] { "CHANGE_PHASE", "0" });
+				}
 				for (Unit u : enemies) {
 					u.clearStatChanges();
 					if (tiles[u.locX][u.locY].isLavaLogged()) {
@@ -1285,6 +1320,11 @@ public class StateDungeon extends State {
 		initUnits();
 	}
 
+	public static void startMultiplayerDungeon(String pattern, int level, long seed, boolean starting, Unit[] enemies, Socket socket, GameInputStream in, GameOutputStream out) {
+		setUpMultiplayerDungeon(pattern, level, seed, starting, enemies.clone(), socket, in, out);
+		initUnits();
+	}
+
 	public void progressDungeon() {
 		setUpDungeon((dungeon.baseLevel + 2 < dungeon.getBottomFloor()) ? new DungeonGenerator(dungeon.getPattern(), dungeon.baseLevel + 1, dungeon.seed).start()
 				: new DungeonGeneratorRestArea(dungeon.getPattern(), dungeon.baseLevel + 1, dungeon.seed));
@@ -1435,6 +1475,60 @@ public class StateDungeon extends State {
 		}
 	}
 
+	private static void setUpMultiplayerDungeon(String map, int floor, long seed, boolean starting, Unit[] enemies, Socket socket, GameInputStream in, GameOutputStream out) {
+		StateDungeon state = new StateDungeon();
+		StateManager.initState(state);
+		StateManager.swapState(STATE_ID);
+
+		state.multiplayerMode = true;
+		state.comThread = new MatchComThread(socket, in, out, state);
+		if (!starting) {
+			state.phase = 1;
+		}
+
+		DungeonGeneratorMultiplayer dungeon = new DungeonGeneratorMultiplayer(map, floor, seed);
+
+		state.dungeon = dungeon.start();
+		state.tiles = state.dungeon.tiles;
+		state.filler = Tile.getTile(new String[] { state.dungeon.getPalletTag(), Tile.TAG_FILLER }, new Vector3f(-1, -1, -1));
+		state.items = state.dungeon.items;
+
+		int offset = (starting) ? 0 : enemies.length;
+		Point[] placements = dungeon.generatePlacements(enemies.length);
+
+		for (int i = 0; i < Inventory.active.size(); i++) {
+			Inventory.active.get(i).placeAt(placements[i + offset].x, placements[i + offset].y);
+			Inventory.active.get(i).prepare();
+		}
+
+		for (int i = 0; i < enemies.length; i++) {
+			state.enemies.add(enemies[i]);
+			enemies[i].placeAt(placements[i - offset + enemies.length].x, placements[i - offset + enemies.length].y);
+			enemies[i].prepare();
+			Inventory.loaded.put(enemies[i].uuid, enemies[i]);
+		}
+
+		Unit focalUnit = (starting) ? Inventory.active.get(Inventory.active.size() - 1) : enemies[enemies.length - 1];
+		state.cursorPos = new Point(focalUnit.locX, focalUnit.locY);
+		state.cursor = new Cursor(new Vector3f(state.cursorPos.x * 16, 32, state.cursorPos.y * 16));
+		state.setCamera((int) state.cursor.position.getX() / 2, (int) state.cursor.position.getZ() / 2 + 16);
+		Startup.camera.setPosition(new Vector3f((float) state.camX, 32, (float) state.camY));
+		Startup.camera.setRotation(new Vector3f(-60, 0, 0));
+		Startup.shadowCamera.setPosition(new Vector3f(Startup.camera.position.getX(), 80 + state.tiles[state.cursorPos.x][state.cursorPos.y].getPosition().getY() / 2, Startup.camera.position.getZ() + 5));
+
+		state.setEffects(state.dungeon.getEffectTags(), state.dungeon.getEffectVars());
+
+		state.title = state.dungeon.getName();
+		state.subTitle = (state.dungeon.baseLevel + 1) + "f";
+
+		float[] screen = state.dungeon.getScreenColor();
+		Startup.screenColor.set(screen[0], screen[0], screen[0], Startup.screenColor.getW());
+		Startup.screenColorTarget.set(screen[0], screen[0], screen[0], Startup.screenColorTarget.getW());
+
+		TaskThread.process(state.task);
+		new Thread(state.comThread).start();
+	}
+
 	private void setEffects(String[] tags, double[][] vars) {
 		Startup.enableHaze = false;
 		for (int i = 0; i < tags.length; i++) {
@@ -1509,7 +1603,7 @@ public class StateDungeon extends State {
 					if (currentUnit >= Inventory.active.size()) {
 						break mainLoop; // Break out of every loop
 					}
-					if(currentUnit == roamUnit) {
+					if (currentUnit == roamUnit) {
 						currentUnit++;
 						continue;
 					}
@@ -1597,6 +1691,9 @@ public class StateDungeon extends State {
 							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 							cursorPos.x = cursorXNext;
 							cursorPos.y = cursorYNext;
+							if (multiplayerMode) {
+								comThread.eventQueue.add(new String[] { "MOVE_CURSOR" });
+							}
 						}
 					}
 					if ((cursor.targetPosition.getX() > -16 || axes[0] > 0) && (cursor.targetPosition.getX() < tiles.length * 16 - 16 || axes[0] < 0)) {
@@ -1622,7 +1719,7 @@ public class StateDungeon extends State {
 					if (axes[1] > 0 && cursor.position.getZ() / 2 - tcamY > -8) {
 						tcamY += axes[1] / 2;
 					}
-				} else if(!caught) {
+				} else if (!caught) {
 					Unit u = Inventory.active.get(roamUnit);
 					if (u.x == u.locX * 16 && u.y == u.locY * 16) {
 						if (axes[0] > 0.25) {
@@ -1867,6 +1964,11 @@ public class StateDungeon extends State {
 												clearSelectedTiles();
 												highlightTiles(path.get(0).x, path.get(0).y, 1, selectedUnit.weapon.range + 1, "");
 												menus.add(new MenuDungeonAction(new Vector3f(0, 0, -80), selectedUnit, this));
+												if (multiplayerMode) {
+													comThread.eventQueue.add(new String[] { "MOVE_UNIT_PATH", selectedUnit.uuid, "" + path.get(0).x, "" + path.get(0).y });
+													comThread.eventQueue.add(new String[] { "CLEAR_TILE_HIGHLIGHT" });
+													comThread.eventQueue.add(new String[] { "HIGHLIGHT_TILES", "" + path.get(0).x, "" + path.get(0).y, "1", "" + (selectedUnit.weapon.range + 1), "" });
+												}
 											}
 										} else {
 											switch (selectedAbility.target) {
@@ -1938,11 +2040,17 @@ public class StateDungeon extends State {
 													clearSelectedTiles();
 													clearUnit();
 													AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+													if (multiplayerMode) {
+														comThread.eventQueue.add(new String[] { "CLEAR_SEL_UNIT" });
+													}
 												}
 											} else {
 												selectedUnit.reset();
 												clearSelectedTiles();
 												clearUnit();
+												if (multiplayerMode) {
+													comThread.eventQueue.add(new String[] { "RESET_UNIT" });
+												}
 												AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 											}
 										}
@@ -1998,6 +2106,9 @@ public class StateDungeon extends State {
 					boolean walkable = isTileWalkable(cursorPos.x, cursorPos.y - 1);
 					if ((!freeRoamMode || walkable) && !caught) {
 						cursorPos.setLocation(cursorPos.getX(), cursorPos.getY() - 1);
+						if (multiplayerMode) {
+							comThread.eventQueue.add(new String[] { "MOVE_CURSOR" });
+						}
 						if (!freeRoamMode) {
 							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
@@ -2020,6 +2131,9 @@ public class StateDungeon extends State {
 					boolean walkable = isTileWalkable(cursorPos.x, cursorPos.y + 1);
 					if ((!freeRoamMode || walkable) && !caught) {
 						cursorPos.setLocation(cursorPos.getX(), cursorPos.getY() + 1);
+						if (multiplayerMode) {
+							comThread.eventQueue.add(new String[] { "MOVE_CURSOR" });
+						}
 						if (!freeRoamMode) {
 							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
@@ -2042,6 +2156,9 @@ public class StateDungeon extends State {
 					boolean walkable = isTileWalkable(cursorPos.x - 1, cursorPos.y);
 					if ((!freeRoamMode || walkable) && !caught) {
 						cursorPos.setLocation(cursorPos.getX() - 1, cursorPos.getY());
+						if (multiplayerMode) {
+							comThread.eventQueue.add(new String[] { "MOVE_CURSOR" });
+						}
 						if (!freeRoamMode) {
 							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
@@ -2064,6 +2181,9 @@ public class StateDungeon extends State {
 					boolean walkable = isTileWalkable(cursorPos.x + 1, cursorPos.y);
 					if ((!freeRoamMode || walkable) && !caught) {
 						cursorPos.setLocation(cursorPos.getX() + 1, cursorPos.getY());
+						if (multiplayerMode) {
+							comThread.eventQueue.add(new String[] { "MOVE_CURSOR" });
+						}
 						if (!freeRoamMode) {
 							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}

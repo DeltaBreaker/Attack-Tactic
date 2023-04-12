@@ -192,7 +192,9 @@ public class ItemProperty implements Cloneable {
 
 	public ItemProperty copy() {
 		try {
-			return (ItemProperty) clone();
+			ItemProperty item = (ItemProperty) clone();
+			item.uuid = UUID.randomUUID().toString();
+			return item;
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
@@ -321,9 +323,7 @@ public class ItemProperty implements Cloneable {
 	}
 
 	public static ItemProperty get(String id) {
-		ItemProperty item = items.get(id).copy();
-		item.uuid = UUID.randomUUID().toString();
-		return item;
+		return items.get(id).copy();
 	}
 
 	public static ItemProperty[] getItemList() {

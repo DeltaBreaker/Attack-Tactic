@@ -22,7 +22,7 @@ public class State {
 	// These are used so that each state has its own version of this data to work
 	// with or for other classes to access a generalized variable
 	public Cursor cursor;
-	public Point cursorPos;
+	public Point cursorPos = new Point(0, 0);
 	public Tile[][] tiles = new Tile[0][0];
 	public ArrayList<Light> lights = new ArrayList<>();
 	public ArrayList<Effect> effects = new ArrayList<>();
