@@ -1,4 +1,4 @@
-package io.itch.deltabreaker.multiplayer.client;
+package io.itch.deltabreaker.multiplayer;
 
 import java.io.DataOutputStream;
 import java.io.IOException;

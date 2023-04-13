@@ -1,18 +1,14 @@
-package io.itch.deltabreaker.multiplayer;
+package io.itch.deltabreaker.multiplayer.server;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
 
 public class ServerThread implements Runnable {
 
 	private int PORT = 36676;
-
 	private ServerSocket server;
-
-	private ArrayList<MatchRelayThread> matches = new ArrayList<>();
-
+	
 	public ServerThread() {
 		try {
 			server = new ServerSocket(PORT);
@@ -28,17 +24,11 @@ public class ServerThread implements Runnable {
 		while (!server.isClosed()) {
 			try {
 				Socket connection = server.accept();
-				if (matches.size() > 0) {
-					matches.get(0).connect(connection);
-					new Thread(matches.get(0)).start();
-					matches.remove(0);
-					System.out.println("[ServerThread]: Client connected and placed in active session");
-				} else {
-					matches.add(new MatchRelayThread(connection));
-					System.out.println("[ServerThread]: Client connected and created a new session");
-				}
-			} catch (IOException e) {
+				System.out.println("[MatchRelayThread]: Client connected");
+				new Thread(new QueueThread(connection)).start();
+			} catch (Exception e) {
 				e.printStackTrace();
+				System.out.println("[ServerThread]: Error connecting to client");
 			}
 		}
 	}

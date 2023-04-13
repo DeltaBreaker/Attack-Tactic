@@ -1,7 +1,9 @@
 package io.itch.deltabreaker.builder.dungeon;
 
 import java.awt.Point;
+import java.util.UUID;
 
+import io.itch.deltabreaker.object.item.Item;
 import io.itch.deltabreaker.object.tile.Tile;
 
 public class DungeonGeneratorMultiplayer extends DungeonGenerator {
@@ -63,11 +65,18 @@ public class DungeonGeneratorMultiplayer extends DungeonGenerator {
 		return placements;
 	}
 	
+	private void syncUUIDs() {
+		for(Item i : items) {
+			i.item.uuid = "" + r.nextLong();
+		}
+	}
+	
 	public DungeonGenerator start() {
 		long time = System.nanoTime();
 		tiles = convertMap(generateMap());
 		generateDecor();
 		generateItems();
+		syncUUIDs();
 		for (Tile[] x : tiles) {
 			for (Tile y : x) {
 				y.updateMatrix();

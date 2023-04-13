@@ -32,7 +32,7 @@ import io.itch.deltabreaker.graphics.shader.Shader;
 import io.itch.deltabreaker.math.AdvMath;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
-import io.itch.deltabreaker.multiplayer.ServerThread;
+import io.itch.deltabreaker.multiplayer.server.ServerThread;
 import io.itch.deltabreaker.multiprocessing.TaskThread;
 import io.itch.deltabreaker.object.Unit;
 import io.itch.deltabreaker.object.item.ItemProperty;
@@ -145,6 +145,13 @@ public class Startup implements Runnable {
 				new Thread(new ServerThread()).start();
 				break;
 
+			default:
+				checkArgs(args);
+				System.out.println("[Startup] Starting game... ");
+				thread = new Startup(args);
+				new Thread(thread).start();
+				break;
+				
 			}
 		} else {
 			checkArgs(args);

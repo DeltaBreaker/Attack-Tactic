@@ -160,10 +160,13 @@ public class MenuDungeonAction extends Menu {
 										context.clearSelectedTiles();
 										context.clearUnit();
 									}
+									if(context.multiplayerMode) {
+										context.comThread.eventQueue.add(new String[] { "PICK_UP_ITEM", item.uuid, unit.uuid });
+									}
 									AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 									AudioManager.getSound("loot.ogg").play(AudioManager.defaultMainSFXGain, false);
 								} else {
-									AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+									AudioManager.getSound("invalid.ogg").play(AudioManager.defaultMainSFXGain, false);
 								}
 								break;
 							}

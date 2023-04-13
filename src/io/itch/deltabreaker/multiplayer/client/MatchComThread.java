@@ -7,10 +7,17 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 import io.itch.deltabreaker.core.Inventory;
+import io.itch.deltabreaker.core.audio.AudioManager;
+import io.itch.deltabreaker.effect.EffectPoof;
+import io.itch.deltabreaker.math.Vector3f;
+import io.itch.deltabreaker.multiplayer.GameInputStream;
+import io.itch.deltabreaker.multiplayer.GameOutputStream;
 import io.itch.deltabreaker.object.Unit;
+import io.itch.deltabreaker.object.item.Item;
 import io.itch.deltabreaker.object.item.ItemAbility;
 import io.itch.deltabreaker.object.item.ItemProperty;
 import io.itch.deltabreaker.state.StateDungeon;
+import io.itch.deltabreaker.state.StateManager;
 
 public class MatchComThread implements Runnable {
 
@@ -83,12 +90,12 @@ enum MatchEvent {
 	},
 
 	MOVE_CURSOR {
-
 		@Override
 		public void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
 			context.cursorPos.setLocation(in.readInt(), in.readInt());
 			context.tcamX = in.readDouble();
 			context.tcamY = in.readDouble();
+			AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 		}
 
 		@Override
@@ -100,7 +107,7 @@ enum MatchEvent {
 			out.writeDouble(context.tcamY);
 		}
 	},
-	
+
 	HIGHLIGHT_UNIT {
 		@Override
 		public void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
@@ -115,7 +122,7 @@ enum MatchEvent {
 			out.writeUTF(args[1]);
 		}
 	},
-	
+
 	CLEAR_SEL_UNIT {
 		@Override
 		public void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
@@ -128,7 +135,7 @@ enum MatchEvent {
 			out.writeUTF("CLEAR_SEL_UNIT");
 		}
 	},
-	
+
 	MOVE_UNIT_PATH {
 		@Override
 		public void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
@@ -143,7 +150,7 @@ enum MatchEvent {
 			out.writeInt(Integer.parseInt(args[3]));
 		}
 	},
-	
+
 	RESET_UNIT {
 		@Override
 		public void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
@@ -157,7 +164,7 @@ enum MatchEvent {
 			out.writeUTF("RESET_UNIT");
 		}
 	},
-	
+
 	CLEAR_TILE_HIGHLIGHT {
 		@Override
 		public void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
@@ -169,7 +176,7 @@ enum MatchEvent {
 			out.writeUTF("CLEAR_TILE_HIGHLIGHT");
 		}
 	},
-	
+
 	HIGHLIGHT_TILES {
 		@Override
 		public void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
@@ -186,11 +193,12 @@ enum MatchEvent {
 			out.writeUTF(args[5]);
 		}
 	},
-	
+
 	UNIT_WAIT {
 		@Override
 		public void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
 			Inventory.loaded.get(in.readUTF()).setTurn(false);
+			AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 		}
 
 		@Override
@@ -199,7 +207,7 @@ enum MatchEvent {
 			out.writeUTF(args[1]);
 		}
 	},
-	
+
 	USE_ATTACKING_ABILITY {
 		@Override
 		public void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
@@ -207,9 +215,9 @@ enum MatchEvent {
 			String weapon = in.readUTF();
 			Unit attacker = Inventory.loaded.get(in.readUTF());
 			Unit defender = Inventory.loaded.get(in.readUTF());
-			if(!attacker.weapon.uuid.equals(weapon)) {
-				for(ItemProperty i : attacker.getItemList()) {
-					if(i.uuid.equals(weapon)) {
+			if (!attacker.weapon.uuid.equals(weapon)) {
+				for (ItemProperty i : attacker.getItemList()) {
+					if (i.uuid.equals(weapon)) {
 						ItemProperty temp = i;
 						attacker.removeItem(i);
 						attacker.addItem(attacker.weapon);
@@ -229,6 +237,37 @@ enum MatchEvent {
 			out.writeUTF(args[2]);
 			out.writeUTF(args[3]);
 			out.writeUTF(args[4]);
+		}
+	},
+
+	PICK_UP_ITEM {
+		@Override
+		public void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
+			String item = in.readUTF();
+			String unit = in.readUTF();
+			for (Item i : context.items) {
+				if (i.item.uuid.equals(item)) {
+					Unit u = Inventory.loaded.get(unit);
+					int overflow = u.addItem(i.item);
+					if (overflow == 0) {
+						StateManager.currentState.effects.add(new EffectPoof(Vector3f.add(i.position, 0, StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), 0)));
+						context.items.remove(i);
+					}
+					u.setTurn(false);
+					context.clearSelectedTiles();
+					context.clearUnit();
+					AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+					AudioManager.getSound("loot.ogg").play(AudioManager.defaultMainSFXGain, false);
+					break;
+				}
+			}
+		}
+
+		@Override
+		public void send(String[] args, StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
+			out.writeUTF("PICK_UP_ITEM");
+			out.writeUTF(args[1]);
+			out.writeUTF(args[2]);
 		}
 	};
 

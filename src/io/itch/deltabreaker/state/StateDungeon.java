@@ -45,8 +45,8 @@ import io.itch.deltabreaker.graphics.TextRenderer;
 import io.itch.deltabreaker.math.AdvMath;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
-import io.itch.deltabreaker.multiplayer.client.GameInputStream;
-import io.itch.deltabreaker.multiplayer.client.GameOutputStream;
+import io.itch.deltabreaker.multiplayer.GameInputStream;
+import io.itch.deltabreaker.multiplayer.GameOutputStream;
 import io.itch.deltabreaker.multiplayer.client.MatchComThread;
 import io.itch.deltabreaker.multiprocessing.TaskThread;
 import io.itch.deltabreaker.multiprocessing.WorkerTask;
@@ -1320,8 +1320,8 @@ public class StateDungeon extends State {
 		initUnits();
 	}
 
-	public static void startMultiplayerDungeon(String pattern, int level, long seed, boolean starting, Unit[] enemies, Socket socket, GameInputStream in, GameOutputStream out) {
-		setUpMultiplayerDungeon(pattern, level, seed, starting, enemies.clone(), socket, in, out);
+	public static void startMultiplayerDungeon(String pattern, int level, long seed, boolean starting, Unit[] enemies, Socket socket, GameInputStream in, GameOutputStream out, String name, String opponent) {
+		setUpMultiplayerDungeon(pattern, level, seed, starting, enemies.clone(), socket, in, out, name, opponent);
 		initUnits();
 	}
 
@@ -1475,7 +1475,7 @@ public class StateDungeon extends State {
 		}
 	}
 
-	private static void setUpMultiplayerDungeon(String map, int floor, long seed, boolean starting, Unit[] enemies, Socket socket, GameInputStream in, GameOutputStream out) {
+	private static void setUpMultiplayerDungeon(String map, int floor, long seed, boolean starting, Unit[] enemies, Socket socket, GameInputStream in, GameOutputStream out, String name, String opponent) {
 		StateDungeon state = new StateDungeon();
 		StateManager.initState(state);
 		StateManager.swapState(STATE_ID);
@@ -1519,7 +1519,7 @@ public class StateDungeon extends State {
 		state.setEffects(state.dungeon.getEffectTags(), state.dungeon.getEffectVars());
 
 		state.title = state.dungeon.getName();
-		state.subTitle = (state.dungeon.baseLevel + 1) + "f";
+		state.subTitle = name + " vs " + opponent;
 
 		float[] screen = state.dungeon.getScreenColor();
 		Startup.screenColor.set(screen[0], screen[0], screen[0], Startup.screenColor.getW());
