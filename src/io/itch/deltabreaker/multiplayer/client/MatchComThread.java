@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 
 import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.object.Unit;
+import io.itch.deltabreaker.object.item.ItemAbility;
+import io.itch.deltabreaker.object.item.ItemProperty;
 import io.itch.deltabreaker.state.StateDungeon;
 
 public class MatchComThread implements Runnable {
@@ -195,6 +197,38 @@ enum MatchEvent {
 		public void send(String[] args, StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
 			out.writeUTF("UNIT_WAIT");
 			out.writeUTF(args[1]);
+		}
+	},
+	
+	USE_ATTACKING_ABILITY {
+		@Override
+		public void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
+			context.selectedAbility = ItemAbility.valueOf(in.readUTF());
+			String weapon = in.readUTF();
+			Unit attacker = Inventory.loaded.get(in.readUTF());
+			Unit defender = Inventory.loaded.get(in.readUTF());
+			if(!attacker.weapon.uuid.equals(weapon)) {
+				for(ItemProperty i : attacker.getItemList()) {
+					if(i.uuid.equals(weapon)) {
+						ItemProperty temp = i;
+						attacker.removeItem(i);
+						attacker.addItem(attacker.weapon);
+						attacker.weapon = temp;
+						attacker.lastWeapon = attacker.weapon.id;
+						break;
+					}
+				}
+			}
+			context.setCombat(attacker, defender);
+		}
+
+		@Override
+		public void send(String[] args, StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
+			out.writeUTF("USE_ATTACKING_ABILITY");
+			out.writeUTF(args[1]);
+			out.writeUTF(args[2]);
+			out.writeUTF(args[3]);
+			out.writeUTF(args[4]);
 		}
 	};
 

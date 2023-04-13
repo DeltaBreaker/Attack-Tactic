@@ -11,6 +11,7 @@ import io.itch.deltabreaker.ai.AIType;
 import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.math.Vector4f;
 import io.itch.deltabreaker.object.Unit;
+import io.itch.deltabreaker.object.item.ItemProperty;
 import io.itch.deltabreaker.state.StateMatchLobby;
 
 public class MatchPreviewThread implements Runnable {
@@ -44,6 +45,7 @@ public class MatchPreviewThread implements Runnable {
 			}
 			for(int i = 0; i < units; i++) {
 				Unit u = Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, profiles.get(new Random().nextInt(profiles.size())), AIType.get("standard_dungeon.json"));
+				u.addItem(ItemProperty.get("item.sword.gold"));
 				Inventory.active.add(u);
 				Inventory.units.add(u);
 			}

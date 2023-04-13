@@ -202,6 +202,22 @@ enum ServerEvent {
 			outTwo.writeUTF("UNIT_WAIT");
 			outTwo.writeUTF(uuid);
 		}
+	},
+	
+	USE_ATTACKING_ABILITY {
+		@Override
+		public void run(MatchRelayThread thread, GameInputStream inOne, GameOutputStream outOne, GameInputStream inTwo, GameOutputStream outTwo) throws Exception {
+			String ability = inOne.readUTF();
+			String weapon = inOne.readUTF();
+			String uuidOne = inOne.readUTF();
+			String uuidTwo = inOne.readUTF();
+			
+			outTwo.writeUTF("USE_ATTACKING_ABILITY");
+			outTwo.writeUTF(ability);
+			outTwo.writeUTF(weapon);
+			outTwo.writeUTF(uuidOne);
+			outTwo.writeUTF(uuidTwo);
+		}
 	};
 
 	public abstract void run(MatchRelayThread thread, GameInputStream inOne, GameOutputStream outOne, GameInputStream inTwo, GameOutputStream outTwo) throws Exception;

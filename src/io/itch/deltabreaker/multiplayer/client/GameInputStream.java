@@ -47,7 +47,7 @@ public class GameInputStream extends DataInputStream {
 		u.level = readInt();
 		u.baseMovement = readInt();
 
-		u.weapon = ItemProperty.get(readUTF()).copy();
+		u.weapon = ItemProperty.get(readUTF());
 		u.weapon.uuid = readUTF();
 		String[] abilities = new String[readInt()];
 		for (int i = 0; i < abilities.length; i++) {
@@ -63,11 +63,12 @@ public class GameInputStream extends DataInputStream {
 			for (int j = 0; j < itemAbilities.length; j++) {
 				itemAbilities[j] = readUTF();
 			}
+			u.addItem(item);
 		}
 
-		u.armor = ItemProperty.get(readUTF()).copy();
+		u.armor = ItemProperty.get(readUTF());
 		u.armor.uuid = readUTF();
-		u.accessory = ItemProperty.get(readUTF()).copy();
+		u.accessory = ItemProperty.get(readUTF());
 		u.accessory.uuid = readUTF();
 
 		// Set and clean up

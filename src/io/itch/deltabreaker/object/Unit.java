@@ -518,7 +518,7 @@ public class Unit {
 	public void select() {
 		StateDungeon.getCurrentContext().selectedUnit = this;
 		StateDungeon.getCurrentContext().highlightTiles(locX, locY, movement, weapon.range, Inventory.active.contains(this) ? "unit" : "enemy");
-		if (StateDungeon.getCurrentContext().multiplayerMode) {
+		if (StateDungeon.getCurrentContext().multiplayerMode && StateDungeon.getCurrentContext().phase == 0) {
 			StateDungeon.getCurrentContext().comThread.eventQueue.add(new String[] { "HIGHLIGHT_UNIT", uuid });
 		}
 	}
@@ -799,7 +799,7 @@ public class Unit {
 			}
 		}
 		if (items.size() < 5) {
-			items.add(item.copy());
+			items.add(item);
 			return 0;
 		}
 		return item.stack;
@@ -846,7 +846,7 @@ public class Unit {
 			}
 		}
 		if (items.size() < 5) {
-			items.add(0, item.copy());
+			items.add(0, item);
 			return 0;
 		}
 		return item.stack;
@@ -1035,6 +1035,7 @@ public class Unit {
 				for (int j = 0; j < itemAbilities.length; j++) {
 					itemAbilities[j] = in.readUTF();
 				}
+				u.addItem(item);
 			}
 
 			u.armor = ItemProperty.get(in.readUTF()).copy();
