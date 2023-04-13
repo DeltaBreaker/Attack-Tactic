@@ -42,6 +42,8 @@ public class MatchRelayThread implements Runnable {
 			this.floor = (floor.toLowerCase().equals("random")) ? new Random().nextInt(50) : Integer.parseInt(floor);
 			map = in.readUTF();
 
+			out.writeUTF(roomID);
+			
 			QueueThread.addMatch(this);
 			System.out.println("[MatchRelayThread]: Client one connected");
 			System.out.println("[MatchRelayThread]: Password for room " + roomID + " was set as " + password);
@@ -107,17 +109,18 @@ public class MatchRelayThread implements Runnable {
 				outOne.writeBoolean(false);
 				outTwo.writeBoolean(false);
 			}
-
+			
 			outOne.writeUTF(nameTwo);
+			outTwo.writeUTF(nameOne);
 			
 			outOne.writeInt(units);
 			outTwo.writeInt(units);
-
+			
 			Unit[] unitsOne = new Unit[units];
 			for (int i = 0; i < units; i++) {
 				unitsOne[i] = inOne.readUnit();
 			}
-
+			
 			Unit[] unitsTwo = new Unit[units];
 			for (int i = 0; i < units; i++) {
 				unitsTwo[i] = inTwo.readUnit();
@@ -127,7 +130,7 @@ public class MatchRelayThread implements Runnable {
 				outOne.writeUnit(unitsTwo[i]);
 				outTwo.writeUnit(unitsOne[i]);
 			}
-
+			
 			outOne.writeBoolean(startingPlayer);
 			outTwo.writeBoolean(!startingPlayer);
 

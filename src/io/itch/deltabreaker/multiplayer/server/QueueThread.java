@@ -46,6 +46,7 @@ public class QueueThread implements Runnable {
 				System.out.println("[MatchRelayThread]: Client attempting to join");
 				boolean connected = false;
 
+				whileLoop:
 				while (!connected) {
 					String roomID = in.readUTF();
 					String password = in.readUTF();
@@ -61,11 +62,13 @@ public class QueueThread implements Runnable {
 								for(MatchRelayThread m : matches.values()) {
 									if(m.password.length() == 0 && m.hash.equals(hash)) {
 										out.writeBoolean(true);
-										matches.get(roomID).connect(socket, in, out);
+										matches.get(m.roomID).connect(socket, in, out);
 										connected = true;
-										break;
+										break whileLoop;
 									}
 								}
+								out.writeBoolean(false);
+								out.writeUTF("There are no rooms available at the moment.");
 							}
 						}
 

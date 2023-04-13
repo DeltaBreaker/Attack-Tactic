@@ -1035,6 +1035,7 @@ public class Unit {
 				for (int j = 0; j < itemAbilities.length; j++) {
 					itemAbilities[j] = in.readUTF();
 				}
+				item.abilities = itemAbilities;
 				u.addItem(item);
 			}
 

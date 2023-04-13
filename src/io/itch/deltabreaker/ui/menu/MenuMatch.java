@@ -90,7 +90,7 @@ class MenuMatchCreate extends Menu {
 					
 					case 4:
 						PerformanceManager.checkForCrash = false;
-						String password = JOptionPane.showInputDialog(null);
+						String password = JOptionPane.showInputDialog(null).toLowerCase();
 						options[4] = (password != null) ? password : "Password";
 						PerformanceManager.checkForCrash = true;
 						break;
@@ -115,7 +115,7 @@ class MenuMatchCreate extends Menu {
 						break;
 
 					case 2:
-						if (floor > 0) {
+						if (floor > -1) {
 							floor--;
 						}
 						break;
@@ -161,7 +161,7 @@ class MenuMatchCreate extends Menu {
 	}
 
 	public void update() {
-		options = new String[] { options[0], "Map-" + maps[map], "Floor-" + ((floor > -1) ? (floor + 1) : "random"), "Units-" + units, options[4], "Create" };
+		options = new String[] { options[0], "Map-" + ((map > 1) ? DungeonGenerator.getPatternNameFromFile(maps[map]) : maps[map]), "Floor-" + ((floor > -1) ? (floor + 1) : "random"), "Units-" + units, options[4], "Create" };
 	}
 	
 }

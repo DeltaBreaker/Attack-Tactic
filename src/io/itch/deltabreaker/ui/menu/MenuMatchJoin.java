@@ -1,5 +1,6 @@
 package io.itch.deltabreaker.ui.menu;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -38,14 +39,14 @@ public class MenuMatchJoin extends Menu {
 
 						case 1:
 							PerformanceManager.checkForCrash = false;
-							String roomID = JOptionPane.showInputDialog(null);
+							String roomID = JOptionPane.showInputDialog(null).toLowerCase();
 							options[1] = (roomID != null) ? roomID : "Room ID";
 							PerformanceManager.checkForCrash = true;
 							break;
 
 						case 2:
 							PerformanceManager.checkForCrash = false;
-							String password = JOptionPane.showInputDialog(null);
+							String password = JOptionPane.showInputDialog(null).toLowerCase();
 							options[2] = (password != null) ? password : "Password";
 							PerformanceManager.checkForCrash = true;
 							break;
@@ -68,6 +69,21 @@ public class MenuMatchJoin extends Menu {
 				}
 			} else {
 				subMenu.get(0).action(command, unit);
+			}
+		}
+	}
+	
+	@Override
+	public void close() {
+		super.close();
+		if (context.thread != null) {
+			context.thread = null;
+			try {
+				context.thread.in.close();
+				context.thread.out.close();
+				context.thread.socket.close();
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 	}

@@ -8,14 +8,17 @@ import java.util.Random;
 import javax.swing.JOptionPane;
 
 import io.itch.deltabreaker.ai.AIType;
+import io.itch.deltabreaker.builder.dungeon.DungeonGenerator;
 import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.core.ResourceManager;
+import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
 import io.itch.deltabreaker.multiplayer.GameInputStream;
 import io.itch.deltabreaker.multiplayer.GameOutputStream;
 import io.itch.deltabreaker.object.Unit;
 import io.itch.deltabreaker.object.item.ItemProperty;
 import io.itch.deltabreaker.state.StateMatchLobby;
+import io.itch.deltabreaker.ui.RoomInfo;
 import io.itch.deltabreaker.ui.menu.MenuMatchJoin;
 
 public class MatchPreviewThread implements Runnable {
@@ -68,11 +71,12 @@ public class MatchPreviewThread implements Runnable {
 				out.writeInt(units);
 				out.writeUTF(floor);
 				out.writeUTF(map);
+								
+				state.details = new RoomInfo(new Vector3f(0, 0, -80), new String[] { name, "room id - " + in.readUTF(), (password.length() > 0) ? "password - " + password : "password - none", "units - " + units, "floor - " + ((floor.equals("random")) ? floor : (Integer.parseInt(floor) + 1)), (map.equals("Random") || map.equals("Vote")) ? map : "map - " + DungeonGenerator.getPatternNameFromFile(map) });
 			} else {
 				boolean approved = false;
 				while (!approved) {
 					if (menu.attempts.size() > 0) {
-						System.out.println("Attempting");
 						String[] attempt = menu.attempts.get(0);
 						menu.attempts.remove(0);
 
@@ -117,7 +121,6 @@ public class MatchPreviewThread implements Runnable {
 			}
 			for (int i = 0; i < units; i++) {
 				Unit u = Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, profiles.get(new Random().nextInt(profiles.size())), AIType.get("standard_dungeon.json"));
-				u.addItem(ItemProperty.get("item.sword.gold"));
 				Inventory.active.add(u);
 				Inventory.units.add(u);
 			}

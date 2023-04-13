@@ -1507,6 +1507,10 @@ public class DungeonGenerator {
 		}
 	}
 
+	public static String getPatternNameFromFile(String map) {
+		return patterns.get(map).name;
+	}
+
 }
 
 class GenerationPattern {

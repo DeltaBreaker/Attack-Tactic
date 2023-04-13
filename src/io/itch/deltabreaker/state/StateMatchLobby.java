@@ -1,14 +1,14 @@
 package io.itch.deltabreaker.state;
 
 import io.itch.deltabreaker.core.InputMapping;
-import io.itch.deltabreaker.graphics.BatchSorter;
-import io.itch.deltabreaker.graphics.Material;
+import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.graphics.TextRenderer;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
 import io.itch.deltabreaker.multiplayer.client.MatchPreviewThread;
 import io.itch.deltabreaker.object.Cursor;
 import io.itch.deltabreaker.object.Unit;
+import io.itch.deltabreaker.ui.RoomInfo;
 import io.itch.deltabreaker.ui.menu.MenuMatch;
 
 public class StateMatchLobby extends State {
@@ -29,8 +29,8 @@ public class StateMatchLobby extends State {
 	private int time = 72;
 	private int dots = 0;
 
-	private Vector3f rotation = new Vector3f(0, 0, 0);
-
+	public RoomInfo details;
+	
 	public StateMatchLobby() {
 		super(STATE_ID);
 	}
@@ -43,8 +43,6 @@ public class StateMatchLobby extends State {
 				menus.remove(0);
 			}
 		}
-		rotation.setX((rotation.getX() + 0.25f) % 360);
-		rotation.setY((rotation.getY() + 0.25f) % 360);
 		if (timer < time) {
 			timer++;
 		} else {
@@ -64,14 +62,16 @@ public class StateMatchLobby extends State {
 		if (!hideCursor) {
 			cursor.render();
 		}
-		BatchSorter.add(StateSplash.splashIcon + ".dae", StateSplash.splashIcon + ".png", "static_3d", Material.DEFAULT.toString(), new Vector3f(0, 5, -35), rotation, Vector3f.SCALE_FULL, Vector4f.COLOR_BASE, false, true);
-		String dot = "";
-		for (int i = 0; i < dots; i++) {
-			dot += ".";
-		}
-		TextRenderer.render("waiting" + dot, new Vector3f(-("waiting" + dot).length() * 2.75f, -24, -45), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_SPLASH_MAIN, true);
 		if (menus.size() > 0) {
 			menus.get(0).render();
+		}
+		if(details != null) {
+			details.render();
+			String dot = "";
+			for (int i = 0; i < dots; i++) {
+				dot += ".";
+			}
+			TextRenderer.render("waiting" + dot, Vector3f.add(Vector3f.mul(Startup.staticView.position, 2), new Vector3f(-("waiting" + dot).length() * 2.75f, -24, -45)), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_SPLASH_MAIN, true);
 		}
 	}
 
@@ -103,6 +103,12 @@ public class StateMatchLobby extends State {
 			}
 			break;
 
+		case BACK:
+			if (menus.size() > 0) {
+				menus.get(0).action("back", null);
+			}
+			break;
+			
 		case LEFT:
 			if (menus.size() > 0) {
 				menus.get(0).action("left", null);
