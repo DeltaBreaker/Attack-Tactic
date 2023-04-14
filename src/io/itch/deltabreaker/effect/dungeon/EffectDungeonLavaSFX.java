@@ -7,7 +7,7 @@ import io.itch.deltabreaker.math.Vector3f;
 public class EffectDungeonLavaSFX extends Effect {
 
 	public EffectDungeonLavaSFX() {
-		super(Vector3f.EMPTY, Vector3f.EMPTY, Vector3f.EMPTY);
+		super(Vector3f.EMPTY.copy(), Vector3f.EMPTY.copy(), Vector3f.EMPTY.copy());
 		if (!AudioManager.getSound("lava.ogg").isPlaying()) {
 			AudioManager.getSound("lava.ogg").play(0, true);
 		}

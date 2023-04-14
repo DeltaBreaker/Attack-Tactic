@@ -218,7 +218,7 @@ public class StateDungeon extends State {
 			}
 			cursor.tick();
 
-			if (alphaTo <= 0) {
+			if (alphaTo <= 0 && Startup.screenColor.getW() == 0) {
 				if (alpha > alphaTo) {
 					if (titleWaitTimer < titleWaitTime) {
 						titleWaitTimer++;

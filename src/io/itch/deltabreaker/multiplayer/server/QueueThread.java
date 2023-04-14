@@ -69,9 +69,10 @@ public class QueueThread implements Runnable {
 								}
 								out.writeBoolean(false);
 								out.writeUTF("There are no rooms available at the moment.");
+								continue;
 							}
 						}
-
+						
 						if (!matches.get(roomID).password.equals(password)) {
 							out.writeBoolean(false);
 							out.writeUTF("The password was incorrect.");

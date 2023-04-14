@@ -102,20 +102,6 @@ public class StateTitle extends State {
 	
 	@Override
 	public void tick() {
-		if (Startup.screenColor.getW() == 1 && Startup.screenColorTarget.getW() == 1) {
-			switch (fadeOption) {
-
-			case OPTION_NEW:
-				StateHub.loadMap(Inventory.loadMap);
-				break;
-
-			case OPTION_LOAD:
-				Inventory.loadGame(loadMap);
-				StateHub.loadMap(Inventory.loadMap);
-				break;
-
-			}
-		}
 		if (hideMenu) {
 			if (uiOffset < uiOffsetLimit) {
 				uiOffset = Math.min(uiOffsetLimit, uiOffset + uiOffsetSpeed);
@@ -188,6 +174,21 @@ public class StateTitle extends State {
 		Startup.camera.position.setX((float) camX);
 		Startup.camera.position.setZ((float) camY);
 		Startup.camera.targetPosition.setY(42 + (tiles[(int) (camX / 8)][(int) (camY / 8)].getPosition().getY() / 2));
+		
+		if (Startup.screenColor.getW() == 1 && Startup.screenColorTarget.getW() == 1) {
+			switch (fadeOption) {
+
+			case OPTION_NEW:
+				StateHub.loadMap(Inventory.loadMap);
+				break;
+
+			case OPTION_LOAD:
+				Inventory.loadGame(loadMap);
+				StateHub.loadMap(Inventory.loadMap);
+				break;
+
+			}
+		}
 	}
 
 	@Override

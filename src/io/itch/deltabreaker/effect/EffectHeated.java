@@ -30,7 +30,7 @@ public class EffectHeated extends Effect {
 
 	public EffectHeated(Vector3f position, Vector4f color) {
 		super(Vector3f.add(position, 0, 0, 0), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
-		this.color = color;
+		this.color = color.copy();
 	}
 
 	@Override
@@ -116,7 +116,7 @@ class HeatParticle {
 		this.position.add(new Vector3f(AdvMath.sin[(int) (loop % 360)] * 3, 0, AdvMath.sin[(int) ((loop + offset) % 360)] * 3));
 		this.color = color;
 
-		precalc = Matrix4f.transform(position, Vector3f.EMPTY, scale);
+		precalc = Matrix4f.transform(position, Vector3f.EMPTY.copy(), scale);
 	}
 
 	public void reset(Vector3f position, Vector4f color) {
