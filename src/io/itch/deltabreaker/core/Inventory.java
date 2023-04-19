@@ -32,7 +32,7 @@ public class Inventory {
 	public static String header = "";
 	public static long playtime = 0;
 
-	public static int addItem(ItemProperty item) {
+	public static void addItem(ItemProperty item) {
 		if (item.type.equals(ItemProperty.TYPE_USABLE) || item.type.equals(ItemProperty.TYPE_OTHER)) {
 			for (ItemProperty i : items) {
 				if (i.id.equals(item.id)) {
@@ -40,17 +40,48 @@ public class Inventory {
 						int overflow = Math.max(i.stack + item.stack, ItemProperty.STACK_CAP) % ItemProperty.STACK_CAP;
 						i.stack += (item.stack - overflow);
 						item.stack = overflow;
-						return overflow;
-					} else {
-						return item.stack;
+						break;
 					}
 				}
 			}
+			while (item.stack > 0) {
+				ItemProperty copy = item.copy();
+				int overflow = Math.max(item.stack, ItemProperty.STACK_CAP) % ItemProperty.STACK_CAP;
+				copy.stack = item.stack - overflow;
+				item.stack = overflow;
+				items.add(copy);
+			}
+		} else {
+			items.add(item.copy());
 		}
-		items.add(item.copy());
-		return 0;
 	}
 
+	public static void addItem(ItemProperty item, int stack) {
+		if (item.type.equals(ItemProperty.TYPE_USABLE) || item.type.equals(ItemProperty.TYPE_OTHER)) {
+			for (ItemProperty i : items) {
+				if (i.id.equals(item.id)) {
+					if (i.stack < ItemProperty.STACK_CAP) {
+						int overflow = Math.max(i.stack + stack, ItemProperty.STACK_CAP) % ItemProperty.STACK_CAP;
+						i.stack += (stack - overflow);
+						item.stack -= (stack - overflow);
+						stack -= (stack - overflow);
+						if(stack <= 0) {
+							break;
+						}
+					}
+				}
+			}
+			if(stack > 0) {
+				ItemProperty copy = item.copy();
+				copy.stack = stack;
+				item.stack -= stack;
+				items.add(copy);
+			}
+		} else {
+			items.add(item.copy());
+		}
+	}
+	
 	public static void saveHeader(long time) {
 		File dir = new File("save/" + time);
 		if (!dir.exists()) {
@@ -104,7 +135,7 @@ public class Inventory {
 				unitsDir.mkdirs();
 			}
 
-			for(File f : FileManager.getFiles("save/" + time + "/unit")) {
+			for (File f : FileManager.getFiles("save/" + time + "/unit")) {
 				f.delete();
 			}
 			for (Unit u : Inventory.units) {
@@ -193,7 +224,6 @@ public class Inventory {
 			for (int i = 0; i < loopSize; i++) {
 				String key = in.readUTF();
 
-
 				int listSize = in.readInt();
 				ArrayList<String> list = new ArrayList<>();
 				for (int j = 0; j < listSize; j++) {
@@ -201,7 +231,7 @@ public class Inventory {
 				}
 				lists.put(key, list);
 			}
-			
+
 			in.close();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -224,7 +254,7 @@ public class Inventory {
 	public static String getHeader(int i) {
 		return saveSlots.get(i).header;
 	}
-	
+
 	public static long getSlot(int i) {
 		return saveSlots.get(i).slot;
 	}
@@ -232,7 +262,11 @@ public class Inventory {
 	public static long getPlaytime(int i) {
 		return saveSlots.get(i).playtime;
 	}
-	
+
+	public static ArrayList<ItemProperty> getItemList() {
+		return items;
+	}
+
 }
 
 class HeaderData {
@@ -250,5 +284,5 @@ class HeaderData {
 	public String getHeader() {
 		return header;
 	}
-	
+
 }

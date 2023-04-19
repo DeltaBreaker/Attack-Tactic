@@ -61,22 +61,24 @@ public class MenuDungeonSteal extends Menu {
 	@Override
 	public void action(String command, Unit unit) {
 		if (subMenu.size() == 0) {
-			if (!command.equals("return")) {
-				// This checks to see if the host unit will successfully steal the chosen item
-				int chance = (int) AdvMath.inRange(100 - (u.getItemList().get(selected).tier * 20) * Math.max(0, 1 - (host.spd - u.spd) * 0.05), 1, 100);
-				if (new Random().nextInt(100) <= chance) {
-					StateManager.currentState.effects.add(new EffectText("+" + u.getItemList().get(selected).name,
-							new Vector3f(host.x - ("+" + u.getItemList().get(selected).name).length(), 20 + StateManager.currentState.tiles[host.locX][host.locY].getPosition().getY(), host.y - 8),
-							new Vector4f(ItemProperty.colorList[u.getItemList().get(selected).tier], 1)));
-					host.addItem(u.getItemList().get(selected));
-					u.removeItem(u.getItemList().get(selected));
-					AudioManager.getSound("loot.ogg").play(AudioManager.defaultMainSFXGain, false);
-				} else {
-					StateManager.currentState.effects
-							.add(new EffectText("miss", new Vector3f(host.x - ("miss").length(), 20 + StateManager.currentState.tiles[host.locX][host.locY].getPosition().getY(), host.y - 8), Vector4f.COLOR_RED.copy()));
-					AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+			if (!command.equals("back")) {
+				if (command.equals("")) {
+					// This checks to see if the host unit will successfully steal the chosen item
+					int chance = (int) AdvMath.inRange(100 - (u.getItemList().get(selected).tier * 20) * Math.max(0, 1 - (host.spd - u.spd) * 0.05), 1, 100);
+					if (new Random().nextInt(100) <= chance) {
+						StateManager.currentState.effects.add(new EffectText("+" + u.getItemList().get(selected).name,
+								new Vector3f(host.x - ("+" + u.getItemList().get(selected).name).length(), 20 + StateManager.currentState.tiles[host.locX][host.locY].getPosition().getY(), host.y - 8),
+								new Vector4f(ItemProperty.colorList[u.getItemList().get(selected).tier], 1)));
+						host.addItem(u.getItemList().get(selected));
+						u.removeItem(u.getItemList().get(selected));
+						AudioManager.getSound("loot.ogg").play(AudioManager.defaultMainSFXGain, false);
+					} else {
+						StateManager.currentState.effects
+								.add(new EffectText("miss", new Vector3f(host.x - ("miss").length(), 20 + StateManager.currentState.tiles[host.locX][host.locY].getPosition().getY(), host.y - 8), Vector4f.COLOR_RED.copy()));
+						AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+					}
+					close();
 				}
-				close();
 			}
 		} else {
 			subMenu.get(0).action(command, unit);
@@ -85,7 +87,7 @@ public class MenuDungeonSteal extends Menu {
 
 	public void tick() {
 		super.tick();
-		if (subMenu.size() == 0 && open && StateManager.currentState.status.size() == 0 && StateManager.currentState.itemInfo.size() == 0) {
+		if (subMenu.size() == 0 && open) {
 			StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() - 10, position.getY() - 12 - 18 * Math.min(3, selected), position.getZ() + 2));
 		}
 	}

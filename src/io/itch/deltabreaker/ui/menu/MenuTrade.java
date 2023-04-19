@@ -40,12 +40,14 @@ public class MenuTrade extends Menu {
 	@Override
 	public void action(String command, Unit unit) {
 		if (subMenu.size() == 0) {
-			if (!command.equals("return")) {
-				if (selected == options.length - 1) {
-					selectedUnit = (selectedUnit == host) ? target : host;
-					AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-				} else {
-					subMenu.add(new MenuTradeRecieve(Vector3f.add(position, width + 5, 0, 0), selectedUnit, (selectedUnit == host) ? target : host, selected, this));
+			if (!command.equals("back")) {
+				if (command.equals("")) {
+					if (selected == options.length - 1) {
+						selectedUnit = (selectedUnit == host) ? target : host;
+						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+					} else {
+						subMenu.add(new MenuTradeRecieve(Vector3f.add(position, width + 5, 0, 0), selectedUnit, (selectedUnit == host) ? target : host, selected, this));
+					}
 				}
 			} else {
 				close();
@@ -61,7 +63,7 @@ public class MenuTrade extends Menu {
 		width = getDimensions(options).width;
 		openTo = getDimensions(options).height;
 		super.tick();
-		if (subMenu.size() == 0 && open && StateManager.currentState.status.size() == 0 && StateManager.currentState.itemInfo.size() == 0) {
+		if (subMenu.size() == 0 && open) {
 			StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() - 10, position.getY() - 12 - 18 * Math.min(3, selected), position.getZ() + 2));
 		}
 	}
@@ -153,39 +155,41 @@ class MenuTradeRecieve extends Menu {
 	@Override
 	public void action(String command, Unit unit) {
 		if (subMenu.size() == 0) {
-			if (!command.equals("return")) {
-				if (open) {
-					switch (options[selected]) {
+			if (!command.equals("back")) {
+				if (command.equals("")) {
+					if (open) {
+						switch (options[selected]) {
 
-					default:
-						ItemProperty temp = host.getItemList().get(itemIndex);
-						host.removeItem(temp, temp.stack);
+						default:
+							ItemProperty temp = host.getItemList().get(itemIndex);
+							host.removeItem(temp, temp.stack);
 
-						ItemProperty targetItem = target.getItemList().get(selected);
-						host.addItem(targetItem);
-						target.removeItem(targetItem);
-						target.addItem(temp);
-						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-						parent.traded = true;
-						close();
-						break;
+							ItemProperty targetItem = target.getItemList().get(selected);
+							host.addItem(targetItem);
+							target.removeItem(targetItem);
+							target.addItem(temp);
+							AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+							parent.traded = true;
+							close();
+							break;
 
-					case "Add":
-						String type = host.getItemList().get(itemIndex).type;
-						if (type.equals(ItemProperty.TYPE_USABLE) || type.equals(ItemProperty.TYPE_OTHER)) {
-							subMenu.add(new MenuTradeCount(Vector3f.add(position, width + 5, 0, 0), host.getItemList().get(itemIndex).stack, host, target, itemIndex, this));
-						} else {
-							int overflow = target.addItem(host.getItemList().get(itemIndex));
-							if (overflow == 0) {
-								host.removeItem(host.getItemList().get(itemIndex));
-								close();
-								AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+						case "Add":
+							String type = host.getItemList().get(itemIndex).type;
+							if (type.equals(ItemProperty.TYPE_USABLE) || type.equals(ItemProperty.TYPE_OTHER)) {
+								subMenu.add(new MenuTradeCount(Vector3f.add(position, width + 5, 0, 0), host.getItemList().get(itemIndex).stack, host, target, itemIndex, this));
 							} else {
-								AudioManager.getSound("invalid.ogg").play(AudioManager.defaultMainSFXGain, false);
+								int overflow = target.addItem(host.getItemList().get(itemIndex));
+								if (overflow == 0) {
+									host.removeItem(host.getItemList().get(itemIndex));
+									close();
+									AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+								} else {
+									AudioManager.getSound("invalid.ogg").play(AudioManager.defaultMainSFXGain, false);
+								}
 							}
-						}
-						break;
+							break;
 
+						}
 					}
 				}
 			} else {
@@ -202,7 +206,7 @@ class MenuTradeRecieve extends Menu {
 		width = getDimensions(options).width;
 		openTo = getDimensions(options).height;
 		super.tick();
-		if (subMenu.size() == 0 && open && StateManager.currentState.status.size() == 0 && StateManager.currentState.itemInfo.size() == 0) {
+		if (subMenu.size() == 0 && open) {
 			StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() - 10, position.getY() - 12 - 18 * Math.min(3, selected), position.getZ() + 2));
 		}
 	}
@@ -277,18 +281,20 @@ class MenuTradeCount extends Menu {
 	@Override
 	public void action(String command, Unit unit) {
 		if (subMenu.size() == 0) {
-			if (!command.equals("return")) {
-				int leftover = target.addItem(host.getItemList().get(itemIndex), trade);
-				if (leftover == trade) {
-					AudioManager.getSound("invalid.ogg").play(AudioManager.defaultMainSFXGain, false);
-				} else {
-					if (host.getItemList().get(itemIndex).stack <= 0) {
-						host.removeItem(host.getItemList().get(itemIndex));
-						parent.close();
+			if (!command.equals("back")) {
+				if (command.equals("")) {
+					int leftover = target.addItem(host.getItemList().get(itemIndex), trade);
+					if (leftover == trade) {
+						AudioManager.getSound("invalid.ogg").play(AudioManager.defaultMainSFXGain, false);
+					} else {
+						if (host.getItemList().get(itemIndex).stack <= 0) {
+							host.removeItem(host.getItemList().get(itemIndex));
+							parent.close();
+						}
+						parent.parent.traded = true;
+						close();
+						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 					}
-					parent.parent.traded = true;
-					close();
-					AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 				}
 			} else {
 				close();

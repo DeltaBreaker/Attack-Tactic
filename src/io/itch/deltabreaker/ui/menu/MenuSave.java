@@ -33,7 +33,7 @@ public class MenuSave extends Menu {
 			}
 		}
 
-		if (subMenu.size() == 0 && open && StateManager.currentState.status.size() == 0 && StateManager.currentState.itemInfo.size() == 0) {
+		if (subMenu.size() == 0 && open) {
 			Startup.staticView.targetPosition = new Vector3f(position.getX() / 2 - 1 + width / 4, position.getY() / 2 - openTo / 4, Startup.staticView.position.getZ());
 			StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() - 10, position.getY() - 13 - 24 * Math.min(2, selected), position.getZ() + 4));
 		}
@@ -63,7 +63,7 @@ public class MenuSave extends Menu {
 	@Override
 	public void action(String command, Unit unit) {
 		if (subMenu.size() == 0) {
-			if (!command.equals("return")) {
+			if (!command.equals("back")) {
 				switch (options[selected]) {
 
 				case "New":
@@ -71,7 +71,7 @@ public class MenuSave extends Menu {
 						@Override
 						public void action(String command, Unit unit) {
 							if (subMenu.size() == 0) {
-								if (!command.equals("return")) {
+								if (!command.equals("back")) {
 									switch (options[selected]) {
 
 									case "Confirm":
@@ -152,7 +152,7 @@ class MenuSaveSub extends Menu {
 	@Override
 	public void action(String command, Unit unit) {
 		if (subMenu.size() == 0) {
-			if (!command.equals("return")) {
+			if (!command.equals("back")) {
 				switch (options[selected]) {
 
 				case "Save":
@@ -160,7 +160,7 @@ class MenuSaveSub extends Menu {
 						@Override
 						public void action(String command, Unit unit) {
 							if (subMenu.size() == 0) {
-								if (!command.equals("return")) {
+								if (!command.equals("back")) {
 									switch (options[selected]) {
 
 									case "Confirm":
@@ -194,7 +194,7 @@ class MenuSaveSub extends Menu {
 						@Override
 						public void action(String command, Unit unit) {
 							if (subMenu.size() == 0) {
-								if (!command.equals("return")) {
+								if (!command.equals("back")) {
 									switch (options[selected]) {
 
 									case "Confirm":
@@ -228,7 +228,7 @@ class MenuSaveSub extends Menu {
 						@Override
 						public void action(String command, Unit unit) {
 							if (subMenu.size() == 0) {
-								if (!command.equals("return")) {
+								if (!command.equals("back")) {
 									switch (options[selected]) {
 
 									case "Confirm":

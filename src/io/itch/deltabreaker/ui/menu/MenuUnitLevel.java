@@ -103,7 +103,7 @@ public class MenuUnitLevel extends Menu {
 			if (selected < 0) {
 				selected = 0;
 			}
-			if (subMenu.size() == 0 && open && StateManager.currentState.status.size() == 0 && StateManager.currentState.itemInfo.size() == 0) {
+			if (subMenu.size() == 0 && open) {
 				Startup.staticView.targetPosition = new Vector3f(position.getX() / 2 - 1 + width / 4, position.getY() / 2 - openTo / 4, Startup.staticView.position.getZ());
 				StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() - 10, position.getY() - 17 - 8 * Math.min(4, selected), position.getZ() + 4));
 			}
@@ -135,7 +135,7 @@ public class MenuUnitLevel extends Menu {
 	@Override
 	public void action(String command, Unit unit) {
 		if (subMenu.size() == 0) {
-			if (!command.equals("return")) {
+			if (!command.equals("back")) {
 				switch (selected) {
 
 				case 0:

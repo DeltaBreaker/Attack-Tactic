@@ -6,6 +6,7 @@ import java.io.PrintStream;
 import java.nio.FloatBuffer;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
@@ -108,7 +109,7 @@ public class Startup implements Runnable {
 	private Shader bloom;
 	private Shader drawImage;
 	private Shader defer;
-
+	
 	public Startup(String[] args) {
 		this.args = args;
 	}
@@ -292,7 +293,21 @@ public class Startup implements Runnable {
 //				StateDungeon.startDungeon("seabed_cove.json", 14, -1932052909105962160L);
 //				StateDungeon.startDungeon("flooded_forrest.json", 14, new Random().nextLong());
 				
-				StateManager.swapState(StateMatchLobby.STATE_ID);
+				ArrayList<float[]> profiles = new ArrayList<>();
+				for (float[] profile : Unit.GROWTH_PROFILES.values()) {
+					profiles.add(profile);
+				}
+				for (int i = 0; i < 10; i++) {
+					Unit u = Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, profiles.get(new Random().nextInt(profiles.size())), AIType.get("standard_dungeon.json"));
+					Inventory.units.add(u);
+					u.addItem(ItemProperty.get("item.material.gem.ruby"));
+					u.addItem(ItemProperty.get("item.material.gem.onyx"));
+					u.addItem(ItemProperty.get("item.material.gem.diamond"));
+					u.addItem(ItemProperty.get("item.material.bar.steel"));
+					u.addItem(ItemProperty.get("item.material.bar.gold"));
+					u.accessory = ItemProperty.get("item.accessory.mirror.medal");
+				}
+				StateMatchLobby.swapWithSetup();
 			}
 
 			GLFW.glfwShowWindow(window);

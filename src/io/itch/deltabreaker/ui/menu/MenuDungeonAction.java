@@ -21,7 +21,6 @@ import io.itch.deltabreaker.object.item.ItemProperty;
 import io.itch.deltabreaker.object.tile.Tile;
 import io.itch.deltabreaker.state.StateDungeon;
 import io.itch.deltabreaker.state.StateManager;
-import io.itch.deltabreaker.ui.ItemInfoCard;
 import io.itch.deltabreaker.ui.UIBox;
 
 public class MenuDungeonAction extends Menu {
@@ -43,170 +42,173 @@ public class MenuDungeonAction extends Menu {
 	@Override
 	public void action(String command, Unit unit) {
 		if (subMenu.size() == 0) {
-			if (!command.equals("return")) {
-				if (unit.path.isEmpty()) {
-					switch (options[selected]) {
+			if (!command.equals("back")) {
+				if (command.equals("")) {
+					if (unit.path.isEmpty()) {
+						switch (options[selected]) {
 
-					case "Attack":
-						context.selectedAbility = ItemAbility.ITEM_ABILITY_ATTACK;
-						context.selectedAbility.use(unit, context);
-						height = 16;
-						close();
-						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-						break;
-
-					default:
-						context.selectedAbility = ItemAbility.getAbilityFromName(options[selected]);
-						if (context.selectedAbility.use(unit, context)) {
+						case "Attack":
+							context.selectedAbility = ItemAbility.ITEM_ABILITY_ATTACK;
+							context.selectedAbility.use(unit, context);
 							height = 16;
 							close();
-						}
-						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-						break;
+							AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+							break;
 
-					case "Trade":
-						if (context.freeRoamMode) {
-							subMenu.add(new MenuTradeUnitSelect(Vector3f.add(position, width + 5, 0, 0), true));
-						} else {
+						default:
 							context.selectedAbility = ItemAbility.getAbilityFromName(options[selected]);
 							if (context.selectedAbility.use(unit, context)) {
 								height = 16;
 								close();
 							}
-						}
-						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-						break;
+							AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+							break;
 
-					case "Continue":
-						context.alphaTo = 1;
-						context.action = StateDungeon.ACTION_PROGRESS;
-						close();
-						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-						break;
-
-					case "Leave":
-						// Laeve dungeon here
-						break;
-
-					case "Chest":
-						// Removes the key from units inventory
-						for (int i = 0; i < unit.getItemList().size(); i++) {
-							if (unit.getItemList().get(i).type.equals(ItemProperty.TYPE_KEY_CHEST)) {
-								unit.removeItem(unit.getItemList().get(i));
-								break;
-							}
-						}
-
-						// Determines which tile to use as reference
-						Tile t = StateManager.currentState.tiles[unit.locX - 1][unit.locY];
-						if (StateManager.currentState.tiles[unit.locX][unit.locY - 1].getProperty().equals(Tile.PROPERTY_CHEST)) {
-							t = StateManager.currentState.tiles[unit.locX][unit.locY - 1];
-						} else if (StateManager.currentState.tiles[unit.locX + 1][unit.locY].getProperty().equals(Tile.PROPERTY_CHEST)) {
-							t = StateManager.currentState.tiles[unit.locX + 1][unit.locY];
-						} else if (StateManager.currentState.tiles[unit.locX][unit.locY + 1].getProperty().equals(Tile.PROPERTY_CHEST)) {
-							t = StateManager.currentState.tiles[unit.locX][unit.locY + 1];
-						}
-
-						// Sorts and chooses item to give
-						t.action(unit, new String[] { "" + (context.dungeon.getTier() + 1) });
-
-						closeAll();
-						if (!context.freeRoamMode) {
-							unit.setTurn(false);
-							context.clearSelectedTiles();
-							context.clearUnit();
-						}
-						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-						break;
-
-					case "Door":
-						// Determines which tile to use as reference
-						Tile t1 = StateManager.currentState.tiles[unit.locX - 1][unit.locY];
-						if (StateManager.currentState.tiles[unit.locX][unit.locY - 1].getProperty().equals(Tile.PROPERTY_DOOR_LOCKED) || StateManager.currentState.tiles[unit.locX][unit.locY - 1].getProperty().equals(Tile.PROPERTY_DOOR)) {
-							t1 = StateManager.currentState.tiles[unit.locX][unit.locY - 1];
-						} else if (StateManager.currentState.tiles[unit.locX + 1][unit.locY].getProperty().equals(Tile.PROPERTY_DOOR_LOCKED)
-								|| StateManager.currentState.tiles[unit.locX + 1][unit.locY].getProperty().equals(Tile.PROPERTY_DOOR)) {
-							t1 = StateManager.currentState.tiles[unit.locX + 1][unit.locY];
-						} else if (StateManager.currentState.tiles[unit.locX][unit.locY + 1].getProperty().equals(Tile.PROPERTY_DOOR_LOCKED)
-								|| StateManager.currentState.tiles[unit.locX][unit.locY + 1].getProperty().equals(Tile.PROPERTY_DOOR)) {
-							t1 = StateManager.currentState.tiles[unit.locX][unit.locY + 1];
-						}
-
-						t1.action(unit, new String[] {});
-
-						closeAll();
-						if (!context.freeRoamMode) {
-							unit.setTurn(false);
-							context.clearSelectedTiles();
-							context.clearUnit();
-						}
-						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-						break;
-
-					case "Pick Up":
-						for (int k = 0; k < context.items.size(); k++) {
-							if (unit.locX == context.items.get(k).locX && unit.locY == context.items.get(k).locY) {
-								ItemProperty item = context.items.get(k).item;
-								if (unit.canAddItem(item)) {
-									int overflow = unit.addItem(item);
-									if (overflow == 0) {
-										StateManager.currentState.effects.add(new EffectPoof(Vector3f.add(context.items.get(k).position, 0, StateManager.currentState.tiles[unit.locX][unit.locY].getPosition().getY(), 0)));
-										context.items.remove(context.items.get(k));
-										k--;
-									}
-									closeAll();
-									if (!context.freeRoamMode) {
-										unit.setTurn(false);
-										context.clearSelectedTiles();
-										context.clearUnit();
-									}
-									if(context.multiplayerMode) {
-										context.comThread.eventQueue.add(new String[] { "PICK_UP_ITEM", item.uuid, unit.uuid });
-									}
-									AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-									AudioManager.getSound("loot.ogg").play(AudioManager.defaultMainSFXGain, false);
-								} else {
-									AudioManager.getSound("invalid.ogg").play(AudioManager.defaultMainSFXGain, false);
+						case "Trade":
+							if (context.freeRoamMode) {
+								subMenu.add(new MenuTradeUnitSelect(Vector3f.add(position, width + 5, 0, 0), true));
+							} else {
+								context.selectedAbility = ItemAbility.getAbilityFromName(options[selected]);
+								if (context.selectedAbility.use(unit, context)) {
+									height = 16;
+									close();
 								}
-								break;
 							}
-						}
-						break;
+							AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+							break;
 
-					case "Items":
-						// Check if the unit has any items and display a message if not. Add a new sub
-						// menu if so.
-						if (unit.getItemList().size() > 0) {
-							subMenu.add(new MenuDungeonActionItems(Vector3f.add(position, width + 5, 0, 0), unit, context).setParent(this));
-						} else {
-							AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
-						}
-						break;
+						case "Continue":
+							context.alphaTo = 1;
+							context.action = StateDungeon.ACTION_PROGRESS;
+							close();
+							AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+							break;
 
-					case "Wait":
-						unit.setTurn(false);
-						context.clearSelectedTiles();
-						context.clearUnit();
-						close();
-						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+						case "Leave":
+							// Laeve dungeon here
+							break;
 
-						for (EventScript e : context.eventList.values()) {
-							String[] args = e.activator.split(" ");
-							if (args[0].equals(EventScript.ACTIVATOR_WAIT) && unit.locX == Integer.parseInt(args[1]) && unit.locY == Integer.parseInt(args[2])) {
-								context.events.add(new Event(e));
+						case "Chest":
+							// Removes the key from units inventory
+							for (int i = 0; i < unit.getItemList().size(); i++) {
+								if (unit.getItemList().get(i).type.equals(ItemProperty.TYPE_KEY_CHEST)) {
+									unit.removeItem(unit.getItemList().get(i));
+									break;
+								}
 							}
-						}
-						
-						if(context.multiplayerMode) {
-							context.comThread.eventQueue.add(new String[] { "UNIT_WAIT", unit.uuid });
-							context.comThread.eventQueue.add(new String[] { "CLEAR_TILE_HIGHLIGHT" });
-						}
-						break;
 
-					case "Switch":
-						subMenu.add(new MenuDungeonActionSwitch(Vector3f.add(position, width + 5, 0, 0), context).setParent(this));
-						break;
+							// Determines which tile to use as reference
+							Tile t = StateManager.currentState.tiles[unit.locX - 1][unit.locY];
+							if (StateManager.currentState.tiles[unit.locX][unit.locY - 1].getProperty().equals(Tile.PROPERTY_CHEST)) {
+								t = StateManager.currentState.tiles[unit.locX][unit.locY - 1];
+							} else if (StateManager.currentState.tiles[unit.locX + 1][unit.locY].getProperty().equals(Tile.PROPERTY_CHEST)) {
+								t = StateManager.currentState.tiles[unit.locX + 1][unit.locY];
+							} else if (StateManager.currentState.tiles[unit.locX][unit.locY + 1].getProperty().equals(Tile.PROPERTY_CHEST)) {
+								t = StateManager.currentState.tiles[unit.locX][unit.locY + 1];
+							}
 
+							// Sorts and chooses item to give
+							t.action(unit, new String[] { "" + (context.dungeon.getTier() + 1) });
+
+							closeAll();
+							if (!context.freeRoamMode) {
+								unit.setTurn(false);
+								context.clearSelectedTiles();
+								context.clearUnit();
+							}
+							AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+							break;
+
+						case "Door":
+							// Determines which tile to use as reference
+							Tile t1 = StateManager.currentState.tiles[unit.locX - 1][unit.locY];
+							if (StateManager.currentState.tiles[unit.locX][unit.locY - 1].getProperty().equals(Tile.PROPERTY_DOOR_LOCKED)
+									|| StateManager.currentState.tiles[unit.locX][unit.locY - 1].getProperty().equals(Tile.PROPERTY_DOOR)) {
+								t1 = StateManager.currentState.tiles[unit.locX][unit.locY - 1];
+							} else if (StateManager.currentState.tiles[unit.locX + 1][unit.locY].getProperty().equals(Tile.PROPERTY_DOOR_LOCKED)
+									|| StateManager.currentState.tiles[unit.locX + 1][unit.locY].getProperty().equals(Tile.PROPERTY_DOOR)) {
+								t1 = StateManager.currentState.tiles[unit.locX + 1][unit.locY];
+							} else if (StateManager.currentState.tiles[unit.locX][unit.locY + 1].getProperty().equals(Tile.PROPERTY_DOOR_LOCKED)
+									|| StateManager.currentState.tiles[unit.locX][unit.locY + 1].getProperty().equals(Tile.PROPERTY_DOOR)) {
+								t1 = StateManager.currentState.tiles[unit.locX][unit.locY + 1];
+							}
+
+							t1.action(unit, new String[] {});
+
+							closeAll();
+							if (!context.freeRoamMode) {
+								unit.setTurn(false);
+								context.clearSelectedTiles();
+								context.clearUnit();
+							}
+							AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+							break;
+
+						case "Pick Up":
+							for (int k = 0; k < context.items.size(); k++) {
+								if (unit.locX == context.items.get(k).locX && unit.locY == context.items.get(k).locY) {
+									ItemProperty item = context.items.get(k).item;
+									if (unit.canAddItem(item)) {
+										int overflow = unit.addItem(item);
+										if (overflow == 0) {
+											StateManager.currentState.effects.add(new EffectPoof(Vector3f.add(context.items.get(k).position, 0, StateManager.currentState.tiles[unit.locX][unit.locY].getPosition().getY(), 0)));
+											context.items.remove(context.items.get(k));
+											k--;
+										}
+										closeAll();
+										if (!context.freeRoamMode) {
+											unit.setTurn(false);
+											context.clearSelectedTiles();
+											context.clearUnit();
+										}
+										if (context.multiplayerMode) {
+											context.comThread.eventQueue.add(new String[] { "PICK_UP_ITEM", item.uuid, unit.uuid });
+										}
+										AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+										AudioManager.getSound("loot.ogg").play(AudioManager.defaultMainSFXGain, false);
+									} else {
+										AudioManager.getSound("invalid.ogg").play(AudioManager.defaultMainSFXGain, false);
+									}
+									break;
+								}
+							}
+							break;
+
+						case "Items":
+							// Check if the unit has any items and display a message if not. Add a new sub
+							// menu if so.
+							if (unit.getItemList().size() > 0) {
+								subMenu.add(new MenuDungeonActionItems(Vector3f.add(position, width + 5, 0, 0), unit, context).setParent(this));
+							} else {
+								AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+							}
+							break;
+
+						case "Wait":
+							unit.setTurn(false);
+							context.clearSelectedTiles();
+							context.clearUnit();
+							close();
+							AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+
+							for (EventScript e : context.eventList.values()) {
+								String[] args = e.activator.split(" ");
+								if (args[0].equals(EventScript.ACTIVATOR_WAIT) && unit.locX == Integer.parseInt(args[1]) && unit.locY == Integer.parseInt(args[2])) {
+									context.events.add(new Event(e));
+								}
+							}
+
+							if (context.multiplayerMode) {
+								context.comThread.eventQueue.add(new String[] { "UNIT_WAIT", unit.uuid });
+								context.comThread.eventQueue.add(new String[] { "CLEAR_TILE_HIGHLIGHT" });
+							}
+							break;
+
+						case "Switch":
+							subMenu.add(new MenuDungeonActionSwitch(Vector3f.add(position, width + 5, 0, 0), context).setParent(this));
+							break;
+
+						}
 					}
 				}
 			} else {
@@ -425,7 +427,7 @@ class MenuDungeonActionItems extends Menu {
 
 		selected = AdvMath.inRange(selected, 0, options.length - 1);
 
-		if (subMenu.size() == 0 && open && StateManager.currentState.status.size() == 0 && StateManager.currentState.itemInfo.size() == 0) {
+		if (subMenu.size() == 0 && open) {
 			StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() - 10, position.getY() - 12 - 18 * Math.min(3, selected), position.getZ() + 2));
 		}
 	}
@@ -454,33 +456,35 @@ class MenuDungeonActionItems extends Menu {
 	@Override
 	public void action(String command, Unit unit) {
 		if (subMenu.size() == 0) {
-			if (!command.equals("return")) {
-				ArrayList<String> options = new ArrayList<String>();
+			if (!command.equals("back")) {
+				if (command.equals("")) {
+					ArrayList<String> options = new ArrayList<String>();
 
-				if (!StateDungeon.getCurrentContext().freeRoamMode && unit.getItemList().get(selected).type.equals(ItemProperty.TYPE_USABLE)) {
-					options.add("Use");
-				}
-
-				// Get item type and add equip option if applicable
-				String type = unit.getItemList().get(selected).type;
-				if (type.equals(ItemProperty.TYPE_WEAPON) || type.equals(ItemProperty.TYPE_ARMOR) || type.equals(ItemProperty.TYPE_ACCESSORY)) {
-					options.add("Equip");
-				}
-
-				options.add("Info");
-
-				// Makes sure the unit is not currently on an item
-				boolean onItem = false;
-				for (Item i : ((StateDungeon) StateManager.currentState).items) {
-					if (i.locX == unit.locX && i.locY == unit.locY) {
-						onItem = true;
+					if (!StateDungeon.getCurrentContext().freeRoamMode && unit.getItemList().get(selected).type.equals(ItemProperty.TYPE_USABLE)) {
+						options.add("Use");
 					}
-				}
-				if (!onItem) {
-					options.add("Drop");
-				}
 
-				subMenu.add(new MenuDungeonActionItemsAction(Vector3f.add(position, width + 5, 0, 0), options.toArray(new String[options.size()]), context).setParent(this));
+					// Get item type and add equip option if applicable
+					String type = unit.getItemList().get(selected).type;
+					if (type.equals(ItemProperty.TYPE_WEAPON) || type.equals(ItemProperty.TYPE_ARMOR) || type.equals(ItemProperty.TYPE_ACCESSORY)) {
+						options.add("Equip");
+					}
+
+					options.add("Info");
+
+					// Makes sure the unit is not currently on an item
+					boolean onItem = false;
+					for (Item i : ((StateDungeon) StateManager.currentState).items) {
+						if (i.locX == unit.locX && i.locY == unit.locY) {
+							onItem = true;
+						}
+					}
+					if (!onItem) {
+						options.add("Drop");
+					}
+
+					subMenu.add(new MenuDungeonActionItemsAction(Vector3f.add(position, width + 5, 0, 0), options.toArray(new String[options.size()]), context).setParent(this));
+				}
 			} else {
 				close();
 				AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
@@ -521,70 +525,72 @@ class MenuDungeonActionItemsAction extends Menu {
 	@Override
 	public void action(String command, Unit unit) {
 		if (subMenu.size() == 0) {
-			if (!command.equals("return")) {
-				switch (options[selected]) {
+			if (!command.equals("back")) {
+				if (command.equals("")) {
+					switch (options[selected]) {
 
-				case "Use":
-					context.selectedItem = unit.getItemList().get(parent.selected);
-					unit.getItemList().get(parent.selected).use(unit, context);
-					closeAll();
-					AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-					break;
-
-				case "Equip":
-					switch (unit.getItemList().get(parent.selected).type) {
-
-					case ItemProperty.TYPE_WEAPON:
-						unit.lastWeapon = unit.weapon.id;
-						ItemProperty wepTemp = unit.weapon;
-						unit.weapon = unit.getItemList().get(parent.selected);
-						unit.removeItem(unit.getItemList().get(parent.selected));
-						if (wepTemp.type.equals(ItemProperty.TYPE_WEAPON)) {
-							unit.addItem(wepTemp);
-						}
+					case "Use":
+						context.selectedItem = unit.getItemList().get(parent.selected);
+						unit.getItemList().get(parent.selected).use(unit, context);
+						closeAll();
+						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 						break;
 
-					case ItemProperty.TYPE_ARMOR:
-						ItemProperty armorTemp = unit.armor;
-						unit.armor = unit.getItemList().get(parent.selected);
-						unit.removeItem(unit.getItemList().get(parent.selected));
-						if (armorTemp.id.equals(ItemProperty.TYPE_ARMOR)) {
-							unit.addItem(armorTemp);
+					case "Equip":
+						switch (unit.getItemList().get(parent.selected).type) {
+
+						case ItemProperty.TYPE_WEAPON:
+							unit.lastWeapon = unit.weapon.id;
+							ItemProperty wepTemp = unit.weapon;
+							unit.weapon = unit.getItemList().get(parent.selected);
+							unit.removeItem(unit.getItemList().get(parent.selected));
+							if (wepTemp.type.equals(ItemProperty.TYPE_WEAPON)) {
+								unit.addItem(wepTemp);
+							}
+							break;
+
+						case ItemProperty.TYPE_ARMOR:
+							ItemProperty armorTemp = unit.armor;
+							unit.armor = unit.getItemList().get(parent.selected);
+							unit.removeItem(unit.getItemList().get(parent.selected));
+							if (armorTemp.id.equals(ItemProperty.TYPE_ARMOR)) {
+								unit.addItem(armorTemp);
+							}
+							break;
+
+						case ItemProperty.TYPE_ACCESSORY:
+							ItemProperty accTemp = unit.accessory;
+							unit.accessory = unit.getItemList().get(parent.selected);
+							unit.removeItem(unit.getItemList().get(parent.selected));
+							if (accTemp.id.equals(ItemProperty.TYPE_ACCESSORY)) {
+								unit.addItem(accTemp);
+							}
+							break;
+
 						}
-						break;
-
-					case ItemProperty.TYPE_ACCESSORY:
-						ItemProperty accTemp = unit.accessory;
-						unit.accessory = unit.getItemList().get(parent.selected);
-						unit.removeItem(unit.getItemList().get(parent.selected));
-						if (accTemp.id.equals(ItemProperty.TYPE_ACCESSORY)) {
-							unit.addItem(accTemp);
-						}
-						break;
-
-					}
-					parent.parent.update();
-					close();
-					AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-					break;
-
-				case "Info":
-					context.itemInfo.add(new ItemInfoCard(Vector3f.add(position, width + 5, 0, 0), unit.getItemList().get(parent.selected), unit));
-					AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-					break;
-
-				case "Drop":
-					if (unit.getItemList().get(parent.selected).stack > 1) {
-						subMenu.add(new MenuDungeonActionItemsActionDrop(Vector3f.add(position, width + 5, 0, 0), context, unit.getItemList().get(parent.selected)).setParent(this));
-					} else {
-						context.items.add(new Item(new Vector3f(unit.locX * 16, 24, unit.locY * 16), unit.getItemList().get(parent.selected).copy()));
-						StateManager.currentState.effects.add(new EffectPoof(Vector3f.add(new Vector3f(unit.locX * 16, 20, unit.locY * 16), 0, StateManager.currentState.tiles[unit.locX][unit.locY].getPosition().getY(), 0)));
-						unit.removeItem(unit.getItemList().get(parent.selected));
+						parent.parent.update();
 						close();
 						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-					}
-					break;
+						break;
 
+					case "Info":
+						context.menus.add(new MenuItemInfoCard(Vector3f.add(position, width + 5, 0, 0), unit.getItemList().get(parent.selected), unit));
+						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+						break;
+
+					case "Drop":
+						if (unit.getItemList().get(parent.selected).stack > 1) {
+							subMenu.add(new MenuDungeonActionItemsActionDrop(Vector3f.add(position, width + 5, 0, 0), context, unit.getItemList().get(parent.selected)).setParent(this));
+						} else {
+							context.items.add(new Item(new Vector3f(unit.locX * 16, 24, unit.locY * 16), unit.getItemList().get(parent.selected).copy()));
+							StateManager.currentState.effects.add(new EffectPoof(Vector3f.add(new Vector3f(unit.locX * 16, 20, unit.locY * 16), 0, StateManager.currentState.tiles[unit.locX][unit.locY].getPosition().getY(), 0)));
+							unit.removeItem(unit.getItemList().get(parent.selected));
+							close();
+							AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+						}
+						break;
+
+					}
 				}
 			} else {
 				close();
@@ -630,15 +636,17 @@ class MenuDungeonActionItemsActionDrop extends Menu {
 	@Override
 	public void action(String command, Unit unit) {
 		if (subMenu.size() == 0) {
-			if (!command.equals("return")) {
-				ItemProperty newItem = unit.getItemList().get(parent.parent.selected).copy();
-				newItem.stack = amt;
-				context.items.add(new Item(new Vector3f(unit.locX * 16, 24, unit.locY * 16), newItem));
-				StateManager.currentState.effects.add(new EffectPoof(Vector3f.add(new Vector3f(unit.locX * 16, 20, unit.locY * 16), 0, StateManager.currentState.tiles[unit.locX][unit.locY].getPosition().getY(), 0)));
-				unit.removeItem(item, amt);
-				close();
-				parent.close();
-				AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+			if (!command.equals("back")) {
+				if (command.equals("")) {
+					ItemProperty newItem = unit.getItemList().get(parent.parent.selected).copy();
+					newItem.stack = amt;
+					context.items.add(new Item(new Vector3f(unit.locX * 16, 24, unit.locY * 16), newItem));
+					StateManager.currentState.effects.add(new EffectPoof(Vector3f.add(new Vector3f(unit.locX * 16, 20, unit.locY * 16), 0, StateManager.currentState.tiles[unit.locX][unit.locY].getPosition().getY(), 0)));
+					unit.removeItem(item, amt);
+					close();
+					parent.close();
+					AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+				}
 			} else {
 				close();
 				AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
@@ -662,14 +670,16 @@ class MenuDungeonActionSwitch extends Menu {
 	@Override
 	public void action(String command, Unit unit) {
 		if (subMenu.size() == 0) {
-			if (!command.equals("return")) {
-				StateManager.currentState.effects.add(new EffectPoof(new Vector3f(Inventory.active.get(context.roamUnit).x, 13 + Inventory.active.get(context.roamUnit).height, Inventory.active.get(context.roamUnit).y + 2)));
-				int nextUnit = selected;
-				Inventory.active.get(nextUnit).placeAt(Inventory.active.get(context.roamUnit).locX, Inventory.active.get(context.roamUnit).locY);
-				Inventory.active.get(nextUnit).height = Inventory.active.get(context.roamUnit).height;
-				context.roamUnit = nextUnit;
-				closeAll();
-				AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+			if (!command.equals("back")) {
+				if (command.equals("")) {
+					StateManager.currentState.effects.add(new EffectPoof(new Vector3f(Inventory.active.get(context.roamUnit).x, 13 + Inventory.active.get(context.roamUnit).height, Inventory.active.get(context.roamUnit).y + 2)));
+					int nextUnit = selected;
+					Inventory.active.get(nextUnit).placeAt(Inventory.active.get(context.roamUnit).locX, Inventory.active.get(context.roamUnit).locY);
+					Inventory.active.get(nextUnit).height = Inventory.active.get(context.roamUnit).height;
+					context.roamUnit = nextUnit;
+					closeAll();
+					AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+				}
 			} else {
 				close();
 				AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);

@@ -7,7 +7,6 @@ import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.object.Unit;
 import io.itch.deltabreaker.state.StateDungeon;
 import io.itch.deltabreaker.state.StateManager;
-import io.itch.deltabreaker.ui.StatusCard;
 
 public class MenuDungeonMain extends Menu {
 
@@ -25,64 +24,66 @@ public class MenuDungeonMain extends Menu {
 	public void action(String command, Unit u) {
 		StateDungeon state = (StateDungeon) StateManager.getState(StateDungeon.STATE_ID);
 		if (subMenu.size() == 0) {
-			if (!command.equals("return")) {
-				switch (options[selected]) {
+			if (!command.equals("back")) {
+				if (command.equals("")) {
+					switch (options[selected]) {
 
-				case "Status":
-					subMenu.add(new Menu(new Vector3f(position.getX() + width + 5, 0, position.getZ()), Unit.getUnitNames(Inventory.active.toArray(new Unit[Inventory.active.size()]))) {
+					case "Status":
+						subMenu.add(new Menu(new Vector3f(position.getX() + width + 5, 0, position.getZ()), Unit.getUnitNames(Inventory.active.toArray(new Unit[Inventory.active.size()]))) {
 
-						@Override
-						public void action(String todo, Unit u) {
-							if (subMenu.size() == 0) {
-								if (!todo.equals("return")) {
-									state.status.add(new StatusCard(Vector3f.add(position, width + 5, 0, 0), Inventory.active.get(selected)));
-									AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-								} else {
-									close();
-									AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
-								}
-							} else {
-								subMenu.get(0).action(todo, u);
-							}
-						}
-					});
-					break;
-
-				case "Go To":
-					subMenu.add(new Menu(new Vector3f(position.getX() + width + 5, 0, position.getZ()), Unit.getUnitNames(Inventory.active.toArray(new Unit[Inventory.active.size()]))) {
-
-						@Override
-						public void action(String command, Unit u) {
-							if (subMenu.size() == 0) {
-								if (!command.equals("return")) {
-									StateManager.currentState.tcamX = (int) Inventory.active.get(selected).x / 2;
-									StateManager.currentState.tcamY = (int) Inventory.active.get(selected).y / 2 + 16;
-									state.cursorPos.x = Inventory.active.get(selected).locX;
-									state.cursorPos.y = Inventory.active.get(selected).locY;
-									closeAll();
-									AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-									
-									if(state.multiplayerMode) {
-										state.comThread.eventQueue.add(new String[] { "MOVE_CURSOR" });
+							@Override
+							public void action(String todo, Unit u) {
+								if (subMenu.size() == 0) {
+									if (!todo.equals("back")) {
+										subMenu.add(new MenuStatusCard(Vector3f.add(position, width + 5, 0, 0), Inventory.active.get(selected), false));
+										AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+									} else {
+										close();
+										AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 									}
 								} else {
-									close();
-									AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+									subMenu.get(0).action(todo, u);
 								}
-							} else {
-								subMenu.get(0).action(command, u);
 							}
-						}
-					});
-					subMenu.get(0).setParent(this);
-					break;
+						});
+						break;
 
-				case "End":
-					state.changePhase(1);
-					close();
-					AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-					break;
+					case "Go To":
+						subMenu.add(new Menu(new Vector3f(position.getX() + width + 5, 0, position.getZ()), Unit.getUnitNames(Inventory.active.toArray(new Unit[Inventory.active.size()]))) {
 
+							@Override
+							public void action(String command, Unit u) {
+								if (subMenu.size() == 0) {
+									if (!command.equals("back")) {
+										StateManager.currentState.tcamX = (int) Inventory.active.get(selected).x / 2;
+										StateManager.currentState.tcamY = (int) Inventory.active.get(selected).y / 2 + 16;
+										state.cursorPos.x = Inventory.active.get(selected).locX;
+										state.cursorPos.y = Inventory.active.get(selected).locY;
+										closeAll();
+										AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+
+										if (state.multiplayerMode) {
+											state.comThread.eventQueue.add(new String[] { "MOVE_CURSOR" });
+										}
+									} else {
+										close();
+										AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+									}
+								} else {
+									subMenu.get(0).action(command, u);
+								}
+							}
+						});
+						subMenu.get(0).setParent(this);
+						break;
+
+					case "End":
+						state.changePhase(1);
+						close();
+						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+						break;
+
+					}
 				}
 			} else {
 				close();

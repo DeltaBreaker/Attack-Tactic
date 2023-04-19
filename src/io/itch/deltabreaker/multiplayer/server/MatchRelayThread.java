@@ -1,6 +1,5 @@
 package io.itch.deltabreaker.multiplayer.server;
 
-import java.io.IOException;
 import java.net.Socket;
 import java.util.Random;
 
@@ -15,18 +14,23 @@ public class MatchRelayThread implements Runnable {
 	private GameInputStream inOne, inTwo;
 	private GameOutputStream outOne, outTwo;
 	public boolean startingPlayer;
+	public boolean oneReady = false;
+	public boolean twoReady = false;
+	public boolean oneCanStart = false;
+	public boolean twoCanStart = false;
 	public boolean matchRunning = false;
 	
 	// Customs
-	private int units;
-	private int floor;
-	private String map;
+	public int units;
+	public String floor;
+	public int realFloor;
+	public String map;
 
 	public String roomID;
 	public String password;
 	public String hash;
-	public String nameOne, nameTwo;
-
+	public String nameOne = "", nameTwo = "";
+	
 	public MatchRelayThread(String roomID, Socket clientOne, GameInputStream in, GameOutputStream out) {
 		this.roomID = roomID;
 		this.clientOne = clientOne;
@@ -39,18 +43,20 @@ public class MatchRelayThread implements Runnable {
 
 			units = in.readInt();
 			String floor = in.readUTF();
-			this.floor = (floor.toLowerCase().equals("random")) ? new Random().nextInt(50) : Integer.parseInt(floor);
+			this.floor = floor;
+			realFloor = (floor.toLowerCase().equals("random")) ? new Random().nextInt(50) : Integer.parseInt(floor);
 			map = in.readUTF();
 
 			out.writeUTF(roomID);
 			
 			QueueThread.addMatch(this);
+			new Thread(this).start();
 			System.out.println("[MatchRelayThread]: Client one connected");
 			System.out.println("[MatchRelayThread]: Password for room " + roomID + " was set as " + password);
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("[MatchRelayThread]: Error creating room " + roomID);
-			disconnectClients();
+			disconnectHost();
 		}
 	}
 
@@ -59,21 +65,24 @@ public class MatchRelayThread implements Runnable {
 		this.clientTwo = clientTwo;
 		inTwo = in;
 		outTwo = out;
-		try {
-			nameTwo = in.readUTF();
-			new Thread(this).start();
-			System.out.println("[MatchRelayThread]: Client two connected");
-		} catch (IOException e) {
-			e.printStackTrace();
-			QueueThread.addMatch(this);
-		}
+		System.out.println("[MatchRelayThread]: Client two connected");
 	}
 
-	public void disconnectClients() {
+	public void disconnectHost() {
 		try {
 			inOne.close();
 			outOne.close();
 			clientOne.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void disconnectClient() {
+		nameTwo = "";
+		twoReady = false;
+		twoCanStart = false;
+		try {
 			inTwo.close();
 			outTwo.close();
 			clientTwo.close();
@@ -81,14 +90,23 @@ public class MatchRelayThread implements Runnable {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public void closeRoom() {
-		disconnectClients();
+		disconnectHost();
+		disconnectClient();
 		QueueThread.removeMatch(this);
 	}
 
 	@Override
 	public void run() {
+		while(!oneCanStart || !twoCanStart) {
+			try {
+				Thread.sleep(1000L);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+		
 		startingPlayer = new Random().nextBoolean();
 		long seed = new Random().nextLong();
 		
@@ -140,15 +158,15 @@ public class MatchRelayThread implements Runnable {
 			outOne.writeLong(seed);
 			outTwo.writeLong(seed);
 
-			outOne.writeInt(floor);
-			outTwo.writeInt(floor);
+			outOne.writeInt(realFloor);
+			outTwo.writeInt(realFloor);
 
 			matchRunning = true;
 			while (!clientOne.isClosed() && !clientTwo.isClosed() && matchRunning) {
 				if (startingPlayer) {
-					ServerEvent.valueOf(inOne.readUTF()).run(this, inOne, outOne, inTwo, outTwo);
+					MatchEvent.valueOf(inOne.readUTF()).run(this, inOne, outOne, inTwo, outTwo);
 				} else {
-					ServerEvent.valueOf(inTwo.readUTF()).run(this, inTwo, outTwo, inOne, outOne);
+					MatchEvent.valueOf(inTwo.readUTF()).run(this, inTwo, outTwo, inOne, outOne);
 				}
 			}
 		} catch (Exception e) {
@@ -160,7 +178,7 @@ public class MatchRelayThread implements Runnable {
 
 }
 
-enum ServerEvent {
+enum MatchEvent {
 
 	CHANGE_PHASE {
 		@Override

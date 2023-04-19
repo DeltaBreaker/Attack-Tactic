@@ -398,7 +398,7 @@ public class StateTitle extends State {
 
 		case BACK:
 			if (canOperateSubUI()) {
-				menus.get(0).action("return", null);
+				menus.get(0).action("back", null);
 			} else if (messages.size() > 0) {
 				messages.get(0).close();
 			}

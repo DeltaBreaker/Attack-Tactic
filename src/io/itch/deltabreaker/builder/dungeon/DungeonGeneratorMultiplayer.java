@@ -1,7 +1,6 @@
 package io.itch.deltabreaker.builder.dungeon;
 
 import java.awt.Point;
-import java.util.UUID;
 
 import io.itch.deltabreaker.object.item.Item;
 import io.itch.deltabreaker.object.tile.Tile;

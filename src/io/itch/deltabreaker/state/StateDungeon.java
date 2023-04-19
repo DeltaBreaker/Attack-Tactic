@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Random;
 
 import io.itch.deltabreaker.ai.AIHandler;
 import io.itch.deltabreaker.builder.dungeon.DungeonGenerator;
@@ -60,12 +59,12 @@ import io.itch.deltabreaker.object.tile.Tile;
 import io.itch.deltabreaker.ui.CombatCard;
 import io.itch.deltabreaker.ui.HealingCard;
 import io.itch.deltabreaker.ui.Message;
-import io.itch.deltabreaker.ui.StatusCard;
 import io.itch.deltabreaker.ui.TextBox;
 import io.itch.deltabreaker.ui.UIBox;
 import io.itch.deltabreaker.ui.menu.Menu;
 import io.itch.deltabreaker.ui.menu.MenuDungeonAction;
 import io.itch.deltabreaker.ui.menu.MenuDungeonMain;
+import io.itch.deltabreaker.ui.menu.MenuStatusCard;
 import io.itch.deltabreaker.ui.menu.MenuUnitLevel;
 
 public class StateDungeon extends State {
@@ -697,19 +696,6 @@ public class StateDungeon extends State {
 			path.clear();
 			path = getPath(cursorPos.x, cursorPos.y);
 		}
-		if (status.size() > 0) {
-			status.get(0).tick();
-			if (status.get(0).close == true && status.get(0).height <= 16) {
-				status.remove(0);
-			}
-		}
-		if (itemInfo.size() > 0) {
-			itemInfo.get(0).tick();
-			if (itemInfo.get(0).close == true && itemInfo.get(0).height == 16) {
-				itemInfo.remove(0);
-			}
-		}
-
 		if (alphaTo >= 1) {
 			if (alpha < alphaTo) {
 				alpha = (float) Math.min(alpha + 0.005, alphaTo);
@@ -742,7 +728,7 @@ public class StateDungeon extends State {
 			info += " " + tiles[cursorPos.x][cursorPos.y].getProperty() + " " + cursorPos.x + "x " + cursorPos.y + "y" + " status " + tiles[cursorPos.x][cursorPos.y].status + " mp " + tiles[cursorPos.x][cursorPos.y].movementPenalty;
 		}
 		int lengthTarget = info.length() * 6 + 10;
-		if (info.length() > 0 && phase == 0 && menus.size() == 0 && status.size() == 0 && !combatMode && !inCombat && alpha < 0.1 && alpha == alphaTo && alphaTo != 1 && !hideCursor && !swap) {
+		if (info.length() > 0 && phase == 0 && menus.size() == 0 && !combatMode && !inCombat && alpha < 0.1 && alpha == alphaTo && alphaTo != 1 && !hideCursor && !swap) {
 			Startup.staticView.setPosition(0, 0, 0);
 			if (infoLength < lengthTarget) {
 				infoLength = Math.min(lengthTarget, infoLength + 10);
@@ -908,12 +894,6 @@ public class StateDungeon extends State {
 		for (TextBox t : text) {
 			t.render();
 		}
-		if (status.size() > 0) {
-			status.get(0).render();
-		}
-		if (itemInfo.size() > 0) {
-			itemInfo.get(0).render();
-		}
 		if (((phase == 0 || multiplayerMode) || (menus.size() > 0 && menus.get(0).open)) && (!freeRoamMode || (menus.size() > 0 && menus.get(0).open)) && (!hideCursor || (menus.size() > 0 && menus.get(0).open))) {
 			cursor.render();
 		}
@@ -962,7 +942,7 @@ public class StateDungeon extends State {
 				}
 			}
 		}
-		if (phase == 0 && menus.size() == 0 && status.size() == 0 && !combatMode) {
+		if (phase == 0 && menus.size() == 0 && !combatMode) {
 			UIBox.render(new Vector3f(-infoLength / 2 + 1.5f, 93, -160), infoLength + 1, 17);
 			TextRenderer.render(info.substring(0, AdvMath.inRange((infoLength - 10) / 6, 0, info.length())), new Vector3f(-infoLength / 2 + 6.5f, 88, -159), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, true);
 		}
@@ -1569,7 +1549,7 @@ public class StateDungeon extends State {
 	}
 
 	public boolean noUIOnScreen() {
-		return (text.size() == 0 && menus.size() == 0 && status.size() == 0 && itemInfo.size() == 0 && messages.size() == 0);
+		return (text.size() == 0 && menus.size() == 0 && messages.size() == 0);
 	}
 
 	public void enterGridMode() {
@@ -1761,7 +1741,12 @@ public class StateDungeon extends State {
 
 		case MISC:
 			for (Unit u : Inventory.active) {
-				u.addItem(ItemProperty.get("item.sword.gold"));
+				u.addItem(ItemProperty.get("item.material.gem.ruby"));
+				u.addItem(ItemProperty.get("item.material.gem.onyx"));
+				u.addItem(ItemProperty.get("item.material.gem.diamond"));
+				u.addItem(ItemProperty.get("item.material.bar.steel"));
+				u.addItem(ItemProperty.get("item.material.bar.gold"));
+				u.accessory = ItemProperty.get("item.accessory.mirror.medal");
 			}
 			for (Unit u : enemies) {
 				u.addItem(ItemProperty.get("item.sword.gold"));
@@ -1868,9 +1853,6 @@ public class StateDungeon extends State {
 			break;
 
 		case UP:
-			if (status.size() > 0) {
-				break;
-			}
 			if (menuLock) {
 				break;
 			}
@@ -1880,9 +1862,6 @@ public class StateDungeon extends State {
 			break;
 
 		case DOWN:
-			if (status.size() > 0) {
-				break;
-			}
 			if (menuLock) {
 				break;
 			}
@@ -1894,7 +1873,7 @@ public class StateDungeon extends State {
 		case CONFIRM:
 			if (alpha < 0.95 && swapTimer == 0 && displayXP == displayXPTarget && xpAlpha == 0) {
 				if (messages.size() == 0) {
-					if (status.size() == 0 && itemInfo.size() == 0 && text.size() == 0) {
+					if (text.size() == 0) {
 						if (menus.size() == 0) {
 							if (phase == 0 && !controlLock) {
 								if (!freeRoamMode) {
@@ -1919,7 +1898,7 @@ public class StateDungeon extends State {
 														AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 														break;
 													} else {
-														status.add(new StatusCard(new Vector3f(0, 0, -80), selectedUnit));
+														menus.add(new MenuStatusCard(new Vector3f(0, 0, -80), selectedUnit, true));
 														Startup.staticView.position = new Vector3f(126 / 4, -90 / 4 + 1, 0);
 														AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 													}
@@ -2010,40 +1989,30 @@ public class StateDungeon extends State {
 				if (messages.size() == 0) {
 					if (text.size() == 0) {
 						if (!controlLock) {
-							if (status.size() == 0) {
-								if (itemInfo.size() == 0) {
-									if (menus.size() == 0) {
-										if (phase == 0 && !freeRoamMode) {
-											if (!combatMode) {
-												if (enemies.contains(selectedUnit) || Inventory.active.contains(selectedUnit) || showingRange) {
-													showingRange = false;
-													clearSelectedTiles();
-													clearUnit();
-													AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
-													if (multiplayerMode) {
-														comThread.eventQueue.add(new String[] { "CLEAR_SEL_UNIT" });
-													}
-												}
-											} else {
-												selectedUnit.reset();
-												clearSelectedTiles();
-												clearUnit();
-												if (multiplayerMode) {
-													comThread.eventQueue.add(new String[] { "RESET_UNIT" });
-												}
-												AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+							if (menus.size() == 0) {
+								if (phase == 0 && !freeRoamMode) {
+									if (!combatMode) {
+										if (enemies.contains(selectedUnit) || Inventory.active.contains(selectedUnit) || showingRange) {
+											showingRange = false;
+											clearSelectedTiles();
+											clearUnit();
+											AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+											if (multiplayerMode) {
+												comThread.eventQueue.add(new String[] { "CLEAR_SEL_UNIT" });
 											}
 										}
 									} else {
-										menus.get(0).action("return", selectedUnit);
+										selectedUnit.reset();
+										clearSelectedTiles();
+										clearUnit();
+										if (multiplayerMode) {
+											comThread.eventQueue.add(new String[] { "RESET_UNIT" });
+										}
+										AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 									}
-								} else {
-									itemInfo.get(0).close = true;
-									AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 								}
 							} else {
-								status.get(0).close = true;
-								AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
+								menus.get(0).action("back", selectedUnit);
 							}
 						}
 					} else {
@@ -2131,6 +2100,10 @@ public class StateDungeon extends State {
 
 		case LEFT:
 			cursorFloat = false;
+			if (menus.size() > 0) {
+				menus.get(0).action("left", selectedUnit);
+				break;
+			}
 			if (noUIOnScreen() && !controlLock && phase == 0 && Startup.screenColor.getW() == alphaTo) {
 				if (cursorPos.x > 0) {
 					boolean walkable = isTileWalkable(cursorPos.x - 1, cursorPos.y);
@@ -2156,6 +2129,10 @@ public class StateDungeon extends State {
 
 		case RIGHT:
 			cursorFloat = false;
+			if (menus.size() > 0) {
+				menus.get(0).action("right", selectedUnit);
+				break;
+			}
 			if (noUIOnScreen() && !controlLock && phase == 0 && Startup.screenColor.getW() == alphaTo) {
 				if (cursorPos.x < tiles.length - 1) {
 					boolean walkable = isTileWalkable(cursorPos.x + 1, cursorPos.y);

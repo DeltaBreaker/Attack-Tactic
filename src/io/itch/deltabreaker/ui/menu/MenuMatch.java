@@ -1,10 +1,8 @@
 package io.itch.deltabreaker.ui.menu;
 
-import javax.swing.JOptionPane;
-
 import io.itch.deltabreaker.builder.dungeon.DungeonGenerator;
-import io.itch.deltabreaker.core.PerformanceManager;
 import io.itch.deltabreaker.core.Startup;
+import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.multiplayer.client.MatchPreviewThread;
 import io.itch.deltabreaker.object.Unit;
@@ -82,25 +80,30 @@ class MenuMatchCreate extends Menu {
 					switch (selected) {
 					
 					case 0:
-						PerformanceManager.checkForCrash = false;
-						String input = JOptionPane.showInputDialog(null);
-						options[0] = (input != null) ? input : "Name";
-						PerformanceManager.checkForCrash = true;
+						subMenu.add(new MenuTextInput(Vector3f.add(position, width + 5, 0, 0)) {
+							@Override
+							public void output(String output) {
+								parent.options[0] = output;
+							}
+						}.setParent(this));
 						break;
 					
 					case 4:
-						PerformanceManager.checkForCrash = false;
-						String password = JOptionPane.showInputDialog(null).toLowerCase();
-						options[4] = (password != null) ? password : "Password";
-						PerformanceManager.checkForCrash = true;
+						subMenu.add(new MenuTextInput(Vector3f.add(position, width + 5, 0, 0)) {
+							@Override
+							public void output(String output) {
+								parent.options[4] = output;
+							}
+						}.setParent(this));
 						break;
 						
 					case 5:
 						StateManager.currentState.hideCursor = true;
-						context.thread = new MatchPreviewThread(context, "localhost", 36676, options[0], maps[map], (floor > -1) ? "" + floor : "random", units, (options[4].equals("Password")) ? "" : options[4]);
+						context.thread = new MatchPreviewThread(context, "100.106.67.243", 36676, options[0], maps[map], (floor > -1) ? "" + floor : "random", units, (options[4].equals("Password")) ? "" : options[4]);
 						new Thread(context.thread).start();
 						closeAll();
 						Startup.staticView.targetPosition.set(0, 0, 0);
+						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 						break;
 					
 					}
@@ -111,18 +114,21 @@ class MenuMatchCreate extends Menu {
 					case 1:
 						if (map > 0) {
 							map--;
+							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
 						break;
 
 					case 2:
 						if (floor > -1) {
 							floor--;
+							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
 						break;
 
 					case 3:
 						if (units > 1) {
 							units--;
+							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
 						break;
 
@@ -134,18 +140,21 @@ class MenuMatchCreate extends Menu {
 					case 1:
 						if (map < maps.length - 1) {
 							map++;
+							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
 						break;
 
 					case 2:
 						if (floor < 49) {
 							floor++;
+							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
 						break;
 
 					case 3:
 						if (units < 10) {
 							units++;
+							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
 						break;
 
@@ -154,6 +163,7 @@ class MenuMatchCreate extends Menu {
 				update();
 			} else {
 				close();
+				AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 			}
 		} else {
 			subMenu.get(0).action(command, unit);

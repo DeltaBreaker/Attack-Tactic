@@ -13,6 +13,7 @@ import io.itch.deltabreaker.effect.dungeon.EffectDungeonResidue;
 import io.itch.deltabreaker.effect.dungeon.EffectDungeonSnow;
 import io.itch.deltabreaker.graphics.BatchSorter;
 import io.itch.deltabreaker.graphics.Light;
+import io.itch.deltabreaker.graphics.Material;
 import io.itch.deltabreaker.graphics.TextRenderer;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
@@ -43,13 +44,8 @@ public class StateMatchLobby extends State {
 	private long seed;
 	private boolean startingPlayer;
 	private Unit[] enemies;
-	private String name, opponent;
 
 	public MatchPreviewThread thread;
-
-	private int timer = 0;
-	private int time = 72;
-	private int dots = 0;
 
 	public RoomInfo details;
 
@@ -87,16 +83,6 @@ public class StateMatchLobby extends State {
 			menus.get(0).tick();
 			if (!menus.get(0).open && menus.get(0).height <= 16) {
 				menus.remove(0);
-			}
-		}
-		if (timer < time) {
-			timer++;
-		} else {
-			timer = 0;
-			if (dots < 3) {
-				dots++;
-			} else {
-				dots = 0;
 			}
 		}
 
@@ -138,9 +124,9 @@ public class StateMatchLobby extends State {
 		Startup.camera.position.setX((float) camX);
 		Startup.camera.position.setZ((float) camY);
 		Startup.camera.targetPosition.setY(42 + (tiles[(int) (camX / 8)][(int) (camY / 8)].getPosition().getY() / 2));
-		
+
 		if (matchReady && Math.abs(Startup.screenColor.getW() - 1) < 0.00001) {
-			StateDungeon.startMultiplayerDungeon(map, floor, seed, startingPlayer, enemies, thread.socket, thread.in, thread.out, name, opponent);
+			StateDungeon.startMultiplayerDungeon(map, floor, seed, startingPlayer, enemies, thread.socket, thread.in, thread.out, thread.name, thread.opponentName);
 		}
 	}
 
@@ -167,22 +153,48 @@ public class StateMatchLobby extends State {
 		if (menus.size() > 0) {
 			menus.get(0).render();
 		}
-		if (details != null) {
+		if (details != null) {			
 			details.render();
-			String dot = "";
-			for (int i = 0; i < dots; i++) {
-				dot += ".";
+		}
+		if(thread != null && thread.waiting) {
+			//System.out.println(Startup.staticView.position.getX());
+			TextRenderer.render(thread.name, new Vector3f(Startup.staticView.position.getX() * 2 - (thread.name.length() + 2) * 6, -60, -80), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_GREEN, true);
+			TextRenderer.render("vs", new Vector3f(Startup.staticView.position.getX() * 2 - 5.5f, -60, -80), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, true);
+			String opponentText = (thread.opponentName.length() > 0) ? thread.opponentName : "none";
+			TextRenderer.render(opponentText, new Vector3f(Startup.staticView.position.getX() * 2 + 12, -60, -80), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_RED, true);
+
+			String icon = (thread.ready) ? "check" : "cross";
+			BatchSorter.add(icon + ".dae", icon + ".png", "static_3d", Material.DEFAULT.toString(), new Vector3f(Startup.staticView.position.getX() * 2 - 16 - thread.name.length() * 3, -70, -80), Vector3f.EMPTY,
+					Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, true);
+
+			if (thread.opponentName.length() > 0) {
+				icon = (thread.opponentReady) ? "check" : "cross";
+				BatchSorter.add(icon + ".dae", icon + ".png", "static_3d", Material.DEFAULT.toString(), new Vector3f(Startup.staticView.position.getX() * 2 + 9 + (thread.opponentName.length()) * 3, -70, -80), Vector3f.EMPTY,
+						Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, true);
 			}
-			TextRenderer.render("waiting" + dot, Vector3f.add(Vector3f.mul(Startup.staticView.position, 2), new Vector3f(-("waiting" + dot).length() * 2.75f, -24, -45)), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_SPLASH_MAIN,
-					true);
 		}
 	}
 
+	public static void swapWithSetup() {
+		StateMatchLobby state = new StateMatchLobby();
+		StateManager.initState(state);
+		StateManager.swapState(STATE_ID);
+		state.menus.add(new MenuMatch(state, new Vector3f(0, 0, -80)));
+	}
+
+	public static void returnFromMatch() {
+		StateMatchLobby state = new StateMatchLobby();
+		StateManager.initState(state);
+		StateManager.swapState(STATE_ID);
+	}
+
 	public void onEnter() {
+		Startup.screenColor.setW(1);
+		Startup.screenColorTarget.setW(0);
+
 		matchReady = false;
 		cursor = new Cursor(new Vector3f(0, 0, -79));
 		cursor.staticView = true;
-		menus.add(new MenuMatch(this, new Vector3f(0, 0, -80)));
 
 		String[] tagArray = DungeonGenerator.getPalletTags();
 		String palletTag = tagArray[new Random().nextInt(tagArray.length)];
@@ -216,9 +228,6 @@ public class StateMatchLobby extends State {
 		float[] screen = dungeon.getScreenColor();
 		Startup.screenColor.set(screen[0], screen[0], screen[0], Startup.screenColor.getW());
 		Startup.screenColorTarget.set(screen[0], screen[0], screen[0], Startup.screenColorTarget.getW());
-
-		Startup.screenColor.setW(1);
-		Startup.screenColorTarget.setW(0);
 
 		TaskThread.process(task);
 	}
@@ -263,8 +272,6 @@ public class StateMatchLobby extends State {
 		this.seed = seed;
 		this.startingPlayer = startingPlayer;
 		this.enemies = enemies;
-		this.name = name;
-		this.opponent = opponent;
 		matchReady = true;
 		Startup.screenColorTarget.setW(1);
 	};

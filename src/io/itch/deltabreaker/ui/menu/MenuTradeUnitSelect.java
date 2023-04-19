@@ -27,7 +27,7 @@ public class MenuTradeUnitSelect extends Menu {
 	@Override
 	public void action(String command, Unit unit) {
 		if (subMenu.size() == 0) {
-			if (!command.equals("return")) {
+			if (!command.equals("back")) {
 				subMenu.add(new MenuTradeSecondUnitSelect(Vector3f.add(position, width + 5, 0, 0), limited, units.get(selected)));
 				AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 			} else {
@@ -43,7 +43,7 @@ public class MenuTradeUnitSelect extends Menu {
 		super.tick();
 		width = getDimensions(options).width;
 		openTo = getDimensions(options).height;
-		if (subMenu.size() == 0 && open && StateManager.currentState.status.size() == 0 && StateManager.currentState.itemInfo.size() == 0) {
+		if (subMenu.size() == 0 && open) {
 			StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() - 10, position.getY() - 12 - 18 * Math.min(3, selected), position.getZ() + 2));
 		}
 	}
@@ -108,7 +108,7 @@ class MenuTradeSecondUnitSelect extends Menu {
 	@Override
 	public void action(String command, Unit unit) {
 		if (subMenu.size() == 0) {
-			if (!command.equals("return")) {
+			if (!command.equals("back")) {
 				if(units.get(selected) != host) {
 					subMenu.add(new MenuTrade(Vector3f.add(position, width + 5, 0, 0), host, units.get(selected), false));
 					AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
@@ -128,7 +128,7 @@ class MenuTradeSecondUnitSelect extends Menu {
 		super.tick();
 		width = getDimensions(options).width;
 		openTo = getDimensions(options).height;
-		if (subMenu.size() == 0 && open && StateManager.currentState.status.size() == 0 && StateManager.currentState.itemInfo.size() == 0) {
+		if (subMenu.size() == 0 && open) {
 			StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() - 10, position.getY() - 12 - 18 * Math.min(3, selected), position.getZ() + 2));
 		}
 	}
