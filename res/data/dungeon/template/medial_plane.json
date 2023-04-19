@@ -67,13 +67,6 @@
 				2.0,
 				3.0
 			]
-		},
-		{
-			"tag": "dungeon.decoration.chest",
-			"vars": [
-				0.0,
-				0.0
-			]
 		}
 	],
 	"effect_tags": [

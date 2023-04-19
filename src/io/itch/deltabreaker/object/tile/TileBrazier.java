@@ -11,13 +11,13 @@ public class TileBrazier extends TileCompound {
 	
 	public TileBrazier(TileProperty property, Vector3f position) {
 		super(property, position);
-		effect = new EffectTorchFire(Vector3f.add(Vector3f.mul(this.position, 0.5f, 0.5f, 0.5f), 0, -4, 0), new Vector3f(7.5f, 4.5f, 0f));
+		effect = new EffectTorchFire(Vector3f.mul(this.position, 0.5f, 0.5f, 0.5f), new Vector3f(7.5f, 4.5f, 0f));
 		StateManager.currentState.effects.add(effect);
 	}
 	
 	public TileBrazier(TileProperty property, Vector3f position, Tile t) {
 		super(property, position, t);
-		effect = new EffectTorchFire(Vector3f.add(Vector3f.mul(this.position, 0.5f, 0.5f, 0.5f), 0, -4, 0), new Vector3f(5f, 2.5f, 0f));
+		effect = new EffectTorchFire(Vector3f.mul(this.position, 0.5f, 0.5f, 0.5f), new Vector3f(5f, 2.5f, 0f));
 		StateManager.currentState.effects.add(effect);
 	}
 

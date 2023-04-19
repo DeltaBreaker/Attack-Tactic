@@ -23,6 +23,8 @@ public abstract class Menu extends UIBox {
 	public Menu parent;
 	public ArrayList<Menu> subMenu = new ArrayList<Menu>();
 
+	public boolean moveCamera = true;
+
 	public Menu(Vector3f position, String[] options) {
 		super(position, getDimensions(options).width, 8);
 		this.options = options;
@@ -87,8 +89,10 @@ public abstract class Menu extends UIBox {
 		if (selected < 0) {
 			selected = 0;
 		}
-		if (subMenu.size() == 0 && open && StateManager.currentState.status.size() == 0 && StateManager.currentState.itemInfo.size() == 0) {
-			Startup.staticView.targetPosition = new Vector3f(position.getX() / 2 - 1 + width / 4, position.getY() / 2 - openTo / 4, Startup.staticView.position.getZ());
+		if (subMenu.size() == 0 && open) {
+			if (moveCamera) {
+				Startup.staticView.targetPosition = new Vector3f(position.getX() / 2 - 1 + width / 4, position.getY() / 2 - openTo / 4, Startup.staticView.position.getZ());
+			}
 			StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() - 10, position.getY() - 9 - 8 * Math.min(4, selected), position.getZ() + 4));
 		}
 	}
@@ -98,6 +102,11 @@ public abstract class Menu extends UIBox {
 		openTo = getDimensions(options).height;
 	}
 
+	public Menu setCameraMove(boolean moveCamera) {
+		this.moveCamera = moveCamera;
+		return this;
+	}
+	
 	public void move(int amt) {
 		if (subMenu.size() == 0) {
 			AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);

@@ -165,13 +165,13 @@ public class Unit {
 		this.x = locX * 16;
 		this.y = locY * 16;
 		this.unitColor = unitColor;
-		unitColor.setW(0);
+		unitColor.copy().setW(0);
 		rotation = new Vector3f(-Startup.camera.getRotation().getX(), -Startup.camera.getRotation().getY(), -Startup.camera.getRotation().getZ());
 
 		this.uuid = uuid;
 
 		Inventory.loaded.put(uuid, this);
-
+		
 		AIPattern = AIType.getDefault();
 	}
 
@@ -394,8 +394,6 @@ public class Unit {
 			String shader = (StateManager.currentState.STATE_ID == StateDungeon.STATE_ID && context.freeRoamMode && context.enemies.contains(this)) ? "main_3d_enemy" : "main_3d";
 			boolean ignoreDepth = (unitColor.getW() < 1) ? true : false;
 
-			weapon = ItemProperty.get("item.tome.gxdark");
-			
 			// Change color if unit has acted
 			Vector4f bodyColor = this.bodyColor;
 			Vector4f hairColor = this.hairColor;
@@ -520,6 +518,9 @@ public class Unit {
 	public void select() {
 		StateDungeon.getCurrentContext().selectedUnit = this;
 		StateDungeon.getCurrentContext().highlightTiles(locX, locY, movement, weapon.range, Inventory.active.contains(this) ? "unit" : "enemy");
+		if (StateDungeon.getCurrentContext().multiplayerMode && StateDungeon.getCurrentContext().phase == 0) {
+			StateDungeon.getCurrentContext().comThread.eventQueue.add(new String[] { "HIGHLIGHT_UNIT", uuid });
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -798,7 +799,7 @@ public class Unit {
 			}
 		}
 		if (items.size() < 5) {
-			items.add(item.copy());
+			items.add(item);
 			return 0;
 		}
 		return item.stack;
@@ -828,7 +829,7 @@ public class Unit {
 		}
 		return amt;
 	}
-	
+
 	public int addItemInFront(ItemProperty item) {
 		if (item.type.equals(ItemProperty.TYPE_USABLE) || item.type.equals(ItemProperty.TYPE_OTHER)) {
 			for (ItemProperty i : items) {
@@ -845,7 +846,7 @@ public class Unit {
 			}
 		}
 		if (items.size() < 5) {
-			items.add(0, item.copy());
+			items.add(0, item);
 			return 0;
 		}
 		return item.stack;
@@ -1034,6 +1035,8 @@ public class Unit {
 				for (int j = 0; j < itemAbilities.length; j++) {
 					itemAbilities[j] = in.readUTF();
 				}
+				item.abilities = itemAbilities;
+				u.addItem(item);
 			}
 
 			u.armor = ItemProperty.get(in.readUTF()).copy();

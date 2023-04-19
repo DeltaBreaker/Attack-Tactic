@@ -24,7 +24,7 @@ import io.itch.deltabreaker.state.StateDungeon;
 public class ItemProperty implements Cloneable {
 
 	private static HashMap<String, ItemProperty> items = new HashMap<>();
-	public static ItemProperty empty;
+	public static ItemProperty empty = new ItemProperty();
 
 	public static Vector3f[] colorList = { new Vector3f(1, 1, 1), new Vector3f(0, 0.909f, 0.419f), new Vector3f(1, 1, 0), new Vector3f(1, 0.15f, 0.15f), new Vector3f(1, 0, 1) };
 
@@ -63,8 +63,8 @@ public class ItemProperty implements Cloneable {
 	public String uuid = UUID.randomUUID().toString();
 
 	// Generic modifiers
-	public String id;
-	public String type;
+	public String id = "";
+	public String type = "";
 	public int tier;
 	public double rate;
 	public int price;
@@ -192,7 +192,9 @@ public class ItemProperty implements Cloneable {
 
 	public ItemProperty copy() {
 		try {
-			return (ItemProperty) clone();
+			ItemProperty item = (ItemProperty) clone();
+			item.uuid = UUID.randomUUID().toString();
+			return item;
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
@@ -321,9 +323,7 @@ public class ItemProperty implements Cloneable {
 	}
 
 	public static ItemProperty get(String id) {
-		ItemProperty item = items.get(id).copy();
-		item.uuid = UUID.randomUUID().toString();
-		return item;
+		return (items.containsKey(id)) ? items.get(id).copy() : null;
 	}
 
 	public static ItemProperty[] getItemList() {

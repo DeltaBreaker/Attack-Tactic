@@ -53,10 +53,6 @@ public class SettingsManager {
 	// These aren't saved
 	public static Dimension storedRes = new Dimension(1280, 720);
 	public static Point storedPos = new Point(0, 0);
-
-	// Gameplay options
-	public static boolean onlineValidation = false;
-	public static boolean onlineEnabled = false;
 	
 	// Misc
 	public static float deadzone = 0.35f;

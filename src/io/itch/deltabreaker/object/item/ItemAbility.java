@@ -35,6 +35,10 @@ public enum ItemAbility {
 		@Override
 		public boolean followUp(Unit u, StateDungeon context) {
 			context.setCombat(context.selectedUnit, u);
+			if (context.multiplayerMode) {
+				context.comThread.eventQueue.add(new String[] { "USE_ATTACKING_ABILITY", "ITEM_ABILITY_ATTACK", context.selectedUnit.weapon.uuid, context.selectedUnit.uuid, u.uuid });
+				context.comThread.eventQueue.add(new String[] { "CLEAR_TILE_HIGHLIGHT" });
+			}
 			return true;
 		}
 
@@ -124,7 +128,7 @@ public enum ItemAbility {
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
 			context.clearSelectedTiles();
-			context.highlightTiles(u.locX, u.locY, 1, 1, "");
+			context.highlightTiles(u.locX, u.locY, 1, 2, "");
 			context.combatMode = true;
 			return true;
 		}
@@ -132,7 +136,7 @@ public enum ItemAbility {
 		@Override
 		public boolean followUp(Unit u, StateDungeon context) {
 			context.clearSelectedTiles();
-			StateManager.currentState.menus.add(new MenuTrade(new Vector3f(0, 0, -80), context.selectedUnit, u));
+			StateManager.currentState.menus.add(new MenuTrade(new Vector3f(0, 0, -80), context.selectedUnit, u, true));
 			context.clearUnit();
 			return true;
 		}
@@ -172,7 +176,7 @@ public enum ItemAbility {
 			// Empty
 		}
 	},
-	
+
 	ITEM_ABILITY_USE_ITEM_ALLY("", "target.unit", false, false, true, false, false) {
 
 		@Override
@@ -484,6 +488,10 @@ public enum ItemAbility {
 		@Override
 		public boolean followUp(Unit u, StateDungeon context) {
 			context.setCombat(context.selectedUnit, u);
+			if (context.multiplayerMode) {
+				context.comThread.eventQueue.add(new String[] { "USE_ATTACKING_ABILITY", "ITEM_ABILITY_DISARM", context.selectedUnit.weapon.uuid, context.selectedUnit.uuid, u.uuid });
+				context.comThread.eventQueue.add(new String[] { "CLEAR_TILE_HIGHLIGHT" });
+			}
 			return true;
 		}
 
@@ -1145,6 +1153,10 @@ public enum ItemAbility {
 		@Override
 		public boolean followUp(Unit u, StateDungeon context) {
 			context.setCombat(context.selectedUnit, u);
+			if (context.multiplayerMode) {
+				context.comThread.eventQueue.add(new String[] { "USE_ATTACKING_ABILITY", "ITEM_ABILITY_WEAK_POINT", context.selectedUnit.weapon.uuid, context.selectedUnit.uuid, u.uuid });
+				context.comThread.eventQueue.add(new String[] { "CLEAR_TILE_HIGHLIGHT" });
+			}
 			return true;
 		}
 
@@ -1240,6 +1252,10 @@ public enum ItemAbility {
 		@Override
 		public boolean followUp(Unit u, StateDungeon context) {
 			context.setCombat(context.selectedUnit, u);
+			if (context.multiplayerMode) {
+				context.comThread.eventQueue.add(new String[] { "USE_ATTACKING_ABILITY", "ITEM_ABILITY_ATTACK_POISON", context.selectedUnit.weapon.uuid, context.selectedUnit.uuid, u.uuid });
+				context.comThread.eventQueue.add(new String[] { "CLEAR_TILE_HIGHLIGHT" });
+			}
 			return true;
 		}
 
@@ -1335,6 +1351,10 @@ public enum ItemAbility {
 		@Override
 		public boolean followUp(Unit u, StateDungeon context) {
 			context.setCombat(context.selectedUnit, u);
+			if (context.multiplayerMode) {
+				context.comThread.eventQueue.add(new String[] { "USE_ATTACKING_ABILITY", "ITEM_ABILITY_ATTACK_SLEEP", context.selectedUnit.weapon.uuid, context.selectedUnit.uuid, u.uuid });
+				context.comThread.eventQueue.add(new String[] { "CLEAR_TILE_HIGHLIGHT" });
+			}
 			return true;
 		}
 

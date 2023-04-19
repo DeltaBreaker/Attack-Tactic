@@ -314,7 +314,7 @@ public class AIType {
 	}
 
 	public Point getDefaultRoamLocation(Unit u, StateDungeon context) {
-		Unit target = Inventory.active.get(0);
+		Unit target = Inventory.active.get(context.roamUnit);
 
 		boolean direction = new Random().nextBoolean();
 		int amt = (new Random().nextBoolean()) ? 1 : -1;

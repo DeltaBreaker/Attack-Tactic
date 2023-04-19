@@ -9,9 +9,7 @@ import io.itch.deltabreaker.effect.EffectWaterSplash;
 import io.itch.deltabreaker.graphics.Light;
 import io.itch.deltabreaker.object.Cursor;
 import io.itch.deltabreaker.object.tile.Tile;
-import io.itch.deltabreaker.ui.ItemInfoCard;
 import io.itch.deltabreaker.ui.Message;
-import io.itch.deltabreaker.ui.StatusCard;
 import io.itch.deltabreaker.ui.TextBox;
 import io.itch.deltabreaker.ui.menu.Menu;
 
@@ -22,13 +20,11 @@ public class State {
 	// These are used so that each state has its own version of this data to work
 	// with or for other classes to access a generalized variable
 	public Cursor cursor;
-	public Point cursorPos;
+	public Point cursorPos = new Point(0, 0);
 	public Tile[][] tiles = new Tile[0][0];
 	public ArrayList<Light> lights = new ArrayList<>();
 	public ArrayList<Effect> effects = new ArrayList<>();
 	public ArrayList<Message> messages = new ArrayList<>();
-	public ArrayList<ItemInfoCard> itemInfo = new ArrayList<>();
-	public ArrayList<StatusCard> status = new ArrayList<>();
 	public ArrayList<Menu> menus = new ArrayList<>();
 	public ArrayList<TextBox> text = new ArrayList<>();
 	public double camX = 0;

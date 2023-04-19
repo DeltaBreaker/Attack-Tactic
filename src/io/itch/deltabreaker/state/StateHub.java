@@ -250,7 +250,7 @@ public class StateHub extends State {
 	}
 
 	public boolean noUIOnScreen() {
-		return (text.size() == 0 && menus.size() == 0 && status.size() == 0 && itemInfo.size() == 0 && messages.size() == 0);
+		return (text.size() == 0 && menus.size() == 0 && messages.size() == 0);
 	}
 
 	public boolean hasEvent(Unit u) {
@@ -511,7 +511,7 @@ public class StateHub extends State {
 
 			case BACK:
 				if (menus.size() != 0) {
-					menus.get(0).action("return", null);
+					menus.get(0).action("back", null);
 					return;
 				}
 

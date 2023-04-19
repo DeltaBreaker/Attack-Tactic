@@ -23,7 +23,7 @@ public class MenuOptions extends Menu {
 			subMenu.get(0).action(command, unit);
 			return;
 		}
-		if (command.equals("return")) {
+		if (command.equals("back")) {
 			close();
 			AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 			return;
@@ -80,7 +80,7 @@ class MenuOptionsVideo extends Menu {
 			subMenu.get(0).action(command, unit);
 			return;
 		}
-		if (command.equals("return")) {
+		if (command.equals("back")) {
 			close();
 			AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 			return;
@@ -191,7 +191,7 @@ class MenuOptionsAudio extends Menu {
 			subMenu.get(0).action(command, unit);
 			return;
 		}
-		if (command.equals("return")) {
+		if (command.equals("back")) {
 			close();
 			AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 			return;
@@ -287,7 +287,7 @@ class MenuOptionsControls extends Menu {
 			subMenu.get(0).action(command, unit);
 			return;
 		}
-		if (command.equals("return")) {
+		if (command.equals("back")) {
 			close();
 			AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 			return;
