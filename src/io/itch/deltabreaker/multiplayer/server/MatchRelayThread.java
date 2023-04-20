@@ -306,6 +306,22 @@ enum MatchEvent {
 			outTwo.writeUTF(item);
 			outTwo.writeUTF(unit);
 		}
+	},
+	
+	DROP_ITEM {
+		@Override
+		public void run(MatchRelayThread thread, GameInputStream inOne, GameOutputStream outOne, GameInputStream inTwo, GameOutputStream outTwo) throws Exception {
+			String unit = inOne.readUTF();
+			String item = inOne.readUTF();
+			String copyItem = inOne.readUTF();
+			byte amt = inOne.readByte();
+			
+			outTwo.writeUTF("DROP_ITEM");
+			outTwo.writeUTF(unit);
+			outTwo.writeUTF(item);
+			outTwo.writeUTF(copyItem);
+			outTwo.writeByte(amt);
+		}
 	};
 
 	public abstract void run(MatchRelayThread thread, GameInputStream inOne, GameOutputStream outOne, GameInputStream inTwo, GameOutputStream outTwo) throws Exception;

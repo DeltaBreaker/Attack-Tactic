@@ -269,6 +269,43 @@ enum MatchEvent {
 			out.writeUTF(args[1]);
 			out.writeUTF(args[2]);
 		}
+	},
+
+	DROP_ITEM {
+		@Override
+		public void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
+			Unit u = Inventory.loaded.get(in.readUTF());
+			String item = in.readUTF();
+			String uuid = in.readUTF();
+			byte amt = in.readByte();
+
+			System.out.println(u.name);
+			System.out.println(item);
+			System.out.println("---------------------------");
+			
+			for (int i = 0; i < u.getItemList().size(); i++) {
+				System.out.println(u.getItemList().get(i).uuid);
+				if (u.getItemList().get(i).uuid.equals(item)) {
+					ItemProperty itemCopy = u.getItemList().get(i);
+					itemCopy.uuid = uuid;
+					itemCopy.stack = amt;
+					context.items.add(new Item(new Vector3f(u.locX * 16, 16, u.locY * 16), u.getItemList().get(i)));
+					u.removeItem(itemCopy, amt);
+					AudioManager.getSound("footsteps_0.ogg").play(AudioManager.defaultSubSFXGain, false);
+					StateManager.currentState.effects.add(new EffectPoof(Vector3f.add(new Vector3f(u.locX * 16, 20, u.locY * 16), 0, StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), 0)));
+					break;
+				}
+			}
+		}
+
+		@Override
+		public void send(String[] args, StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
+			out.writeUTF("DROP_ITEM");
+			out.writeUTF(args[1]);
+			out.writeUTF(args[2]);
+			out.writeUTF(args[3]);
+			out.writeByte(Byte.parseByte(args[4]));
+		}
 	};
 
 	public abstract void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception;

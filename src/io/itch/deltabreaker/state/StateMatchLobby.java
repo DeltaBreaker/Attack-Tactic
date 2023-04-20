@@ -157,7 +157,6 @@ public class StateMatchLobby extends State {
 			details.render();
 		}
 		if(thread != null && thread.waiting) {
-			//System.out.println(Startup.staticView.position.getX());
 			TextRenderer.render(thread.name, new Vector3f(Startup.staticView.position.getX() * 2 - (thread.name.length() + 2) * 6, -60, -80), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_GREEN, true);
 			TextRenderer.render("vs", new Vector3f(Startup.staticView.position.getX() * 2 - 5.5f, -60, -80), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, true);
 			String opponentText = (thread.opponentName.length() > 0) ? thread.opponentName : "none";
