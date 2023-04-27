@@ -309,9 +309,14 @@ public enum ItemAbility {
 			context.selectedUnit.locX = posX;
 			context.selectedUnit.locY = posY;
 
+			if (context.multiplayerMode && context.phase == 0) {
+				context.comThread.eventQueue.add(new String[] { "USE_ABILITY", name(), context.selectedUnit.uuid, u.uuid, "false" });
+			}
+
 			context.selectedUnit.setTurn(false);
 			context.clearSelectedTiles();
 			context.clearUnit();
+
 			return true;
 		}
 
@@ -707,6 +712,14 @@ public enum ItemAbility {
 					.add(new EffectText("+4 Def_Res", new Vector3f(u.x - ("+4 Def_Res").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
 			context.effects.add(new EffectShield(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			u.setTurn(false);
+
+			System.out.println("done");
+			
+			if (context.multiplayerMode && context.phase == 0) {
+				System.out.println("using");
+				context.comThread.eventQueue.add(new String[] { "USE_ABILITY", name(), context.selectedUnit.uuid, u.uuid, "true" });
+			}
+
 			context.clearSelectedTiles();
 			context.clearUnit();
 			return true;
@@ -771,6 +784,11 @@ public enum ItemAbility {
 			if (u.currentHp < u.hp) {
 				u.heal(calculateHealing(context.selectedUnit, u));
 				context.selectedUnit.setTurn(false);
+
+				if (context.multiplayerMode && context.phase == 0) {
+					context.comThread.eventQueue.add(new String[] { "USE_ABILITY", name(), context.selectedUnit.uuid, u.uuid, "false" });
+				}
+
 				context.clearSelectedTiles();
 				context.clearUnit();
 				return true;
@@ -833,6 +851,11 @@ public enum ItemAbility {
 			if (u.currentHp < u.hp) {
 				u.heal(calculateHealing(context.selectedUnit, u));
 				context.selectedUnit.setTurn(false);
+
+				if (context.multiplayerMode && context.phase == 0) {
+					context.comThread.eventQueue.add(new String[] { "USE_ABILITY", name(), context.selectedUnit.uuid, u.uuid, "false" });
+				}
+
 				context.clearSelectedTiles();
 				context.clearUnit();
 				return true;
@@ -895,6 +918,11 @@ public enum ItemAbility {
 			if (u.currentHp < u.hp) {
 				u.heal(calculateHealing(context.selectedUnit, u));
 				context.selectedUnit.setTurn(false);
+
+				if (context.multiplayerMode && context.phase == 0) {
+					context.comThread.eventQueue.add(new String[] { "USE_ABILITY", name(), context.selectedUnit.uuid, u.uuid, "false" });
+				}
+
 				context.clearSelectedTiles();
 				context.clearUnit();
 				return true;
@@ -958,6 +986,11 @@ public enum ItemAbility {
 				u.clearStatus();
 				StateManager.currentState.effects.add(new EffectEnergize(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y), new Vector4f(0.5f, 1f, 0.5f, 1f)));
 				context.selectedUnit.setTurn(false);
+
+				if (context.multiplayerMode && context.phase == 0) {
+					context.comThread.eventQueue.add(new String[] { "USE_ABILITY", name(), context.selectedUnit.uuid, u.uuid, "false" });
+				}
+
 				context.clearSelectedTiles();
 				context.clearUnit();
 				return true;
@@ -1026,6 +1059,11 @@ public enum ItemAbility {
 				u.height = StateManager.currentState.tiles[(int) Math.round(u.x / 16.0)][(int) Math.round(u.y / 16.0)].getPosition().getY();
 				context.effects.add(new EffectPoof(new Vector3f(u.x, u.height + 13, u.y + 2)));
 				AudioManager.getSound("warp.ogg").play(AudioManager.defaultMainSFXGain, false);
+
+				if (context.multiplayerMode && context.phase == 0) {
+					context.comThread.eventQueue.add(new String[] { "USE_ABILITY", name(), context.selectedUnit.uuid, u.uuid, "false" });
+				}
+
 				context.clearSelectedTiles();
 				context.clearUnit();
 				return true;
@@ -1081,11 +1119,14 @@ public enum ItemAbility {
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
 			if (u.currentHp > 1) {
-				StateDungeon.getCurrentContext().clearSelectedTiles();
-				StateDungeon.getCurrentContext().clearUnit();
+				if (context.multiplayerMode && context.phase == 0) {
+					context.comThread.eventQueue.add(new String[] { "USE_ABILITY", name(), context.selectedUnit.uuid, u.uuid, "true" });
+				}
+				context.clearSelectedTiles();
+				context.clearUnit();
 				StateManager.currentState.controlLock = true;
 				StateManager.currentState.hideCursor = true;
-				StateDungeon.getCurrentContext().hideInfo = true;
+				context.hideInfo = true;
 				AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 				StateManager.currentState.effects.add(new EffectCoupDeGrace(u.dir == 0, u));
 				return true;

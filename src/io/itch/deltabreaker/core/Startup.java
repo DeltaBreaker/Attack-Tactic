@@ -140,7 +140,6 @@ public class Startup implements Runnable {
 
 			case "server":
 				camera = new Camera(new Vector3f(0, 0, 0), new Vector3f(0, 0, 0), width, height, 1, 1f, 1);
-				DungeonGenerator.loadPatterns();
 				AIType.loadAITypes("res/data/ai");
 				new Thread(new ServerThread()).start();
 				break;

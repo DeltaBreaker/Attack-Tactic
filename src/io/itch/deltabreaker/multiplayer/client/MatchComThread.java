@@ -278,13 +278,8 @@ enum MatchEvent {
 			String item = in.readUTF();
 			String uuid = in.readUTF();
 			byte amt = in.readByte();
-
-			System.out.println(u.name);
-			System.out.println(item);
-			System.out.println("---------------------------");
 			
 			for (int i = 0; i < u.getItemList().size(); i++) {
-				System.out.println(u.getItemList().get(i).uuid);
 				if (u.getItemList().get(i).uuid.equals(item)) {
 					ItemProperty itemCopy = u.getItemList().get(i);
 					itemCopy.uuid = uuid;
@@ -305,6 +300,29 @@ enum MatchEvent {
 			out.writeUTF(args[2]);
 			out.writeUTF(args[3]);
 			out.writeByte(Byte.parseByte(args[4]));
+		}
+	},
+	
+	USE_ABILITY {
+		@Override
+		public void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
+			context.selectedAbility = ItemAbility.valueOf(in.readUTF());
+			context.selectedUnit = Inventory.loaded.get(in.readUTF());
+			String target = in.readUTF();
+			if(in.readBoolean()) {
+				context.selectedAbility.use(Inventory.loaded.get(target), context);
+			} else {
+				context.selectedAbility.followUp(Inventory.loaded.get(target), context);
+			}
+		}
+
+		@Override
+		public void send(String[] args, StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
+			out.writeUTF("USE_ABILITY");
+			out.writeUTF(args[1]);
+			out.writeUTF(args[2]);
+			out.writeUTF(args[3]);
+			out.writeBoolean(Boolean.parseBoolean(args[4]));
 		}
 	};
 

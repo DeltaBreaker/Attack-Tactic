@@ -3,7 +3,6 @@ package io.itch.deltabreaker.multiplayer.server;
 import java.net.Socket;
 import java.util.Random;
 
-import io.itch.deltabreaker.builder.dungeon.DungeonGenerator;
 import io.itch.deltabreaker.multiplayer.GameInputStream;
 import io.itch.deltabreaker.multiplayer.GameOutputStream;
 import io.itch.deltabreaker.object.Unit;
@@ -19,6 +18,7 @@ public class MatchRelayThread implements Runnable {
 	public boolean oneCanStart = false;
 	public boolean twoCanStart = false;
 	public boolean matchRunning = false;
+	public boolean matchCancelled = false;
 	
 	// Customs
 	public int units;
@@ -95,11 +95,12 @@ public class MatchRelayThread implements Runnable {
 		disconnectHost();
 		disconnectClient();
 		QueueThread.removeMatch(this);
+		matchCancelled = true;
 	}
 
 	@Override
 	public void run() {
-		while(!oneCanStart || !twoCanStart) {
+		while((!oneCanStart || !twoCanStart) && !matchCancelled) {
 			try {
 				Thread.sleep(1000L);
 			} catch (InterruptedException e) {
@@ -111,10 +112,6 @@ public class MatchRelayThread implements Runnable {
 		long seed = new Random().nextLong();
 		
 		try {
-			if (map.toLowerCase().equals("random")) {
-				String[] maps = DungeonGenerator.getPalletTags();
-				map = maps[new Random().nextInt(maps.length)];
-			}
 			if (map.toLowerCase().equals("vote")) {
 				outOne.writeBoolean(true);
 				outTwo.writeBoolean(true);
@@ -321,6 +318,22 @@ enum MatchEvent {
 			outTwo.writeUTF(item);
 			outTwo.writeUTF(copyItem);
 			outTwo.writeByte(amt);
+		}
+	},
+	
+	USE_ABILITY {
+		@Override
+		public void run(MatchRelayThread thread, GameInputStream inOne, GameOutputStream outOne, GameInputStream inTwo, GameOutputStream outTwo) throws Exception {
+			String ability = inOne.readUTF();
+			String user = inOne.readUTF();
+			String target = inOne.readUTF();
+			boolean use = inOne.readBoolean();
+						
+			outTwo.writeUTF("USE_ABILITY");
+			outTwo.writeUTF(ability);
+			outTwo.writeUTF(user);
+			outTwo.writeUTF(target);
+			outTwo.writeBoolean(use);
 		}
 	};
 

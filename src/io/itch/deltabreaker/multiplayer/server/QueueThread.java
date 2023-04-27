@@ -9,6 +9,8 @@ import io.itch.deltabreaker.multiplayer.GameOutputStream;
 
 public class QueueThread implements Runnable {
 
+	private static final long QUEUE_SLEEP_TIME = 1000L;
+	
 	private static ConcurrentHashMap<String, MatchRelayThread> matches = new ConcurrentHashMap<>();
 
 	private Socket socket;
@@ -45,10 +47,10 @@ public class QueueThread implements Runnable {
 				try {
 					System.out.println("[MatchRelayThread]: Client creating new room with ID " + roomID);
 					thread = new MatchRelayThread(roomID, socket, in, out);
-
+					
 					boolean twoReady = false;
 					while (!thread.oneReady || !twoReady) {
-						Thread.sleep(1000L);
+						Thread.sleep(QUEUE_SLEEP_TIME);
 						synchronized (thread) {
 							twoReady = thread.twoReady;
 							thread.oneReady = in.readBoolean();
@@ -60,17 +62,7 @@ public class QueueThread implements Runnable {
 					thread.oneCanStart = true;
 				} catch (Exception e) {
 					e.printStackTrace();
-					if (matches.containsKey(roomID)) {
-						matches.remove(roomID);
-					}
-					try {
-						in.close();
-						out.close();
-						socket.close();
-					} catch (Exception e1) {
-						e1.printStackTrace();
-					}
-
+					thread.closeRoom();
 					System.out.println("[MatchRelayThread]: Host disconnected. Room closing.");
 				}
 			} else {
@@ -137,7 +129,7 @@ public class QueueThread implements Runnable {
 				try {
 					boolean oneReady = false;
 					while (!oneReady || !thread.twoReady) {
-						Thread.sleep(1000L);
+						Thread.sleep(QUEUE_SLEEP_TIME);
 						synchronized (thread) {
 							oneReady = thread.oneReady;
 							thread.twoReady = in.readBoolean();
