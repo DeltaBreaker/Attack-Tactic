@@ -74,10 +74,6 @@ public class StateTitle extends State {
 	private WorkerTask task = new WorkerTask() {
 		@Override
 		public void tick() {
-			// Moves the shadow camera along with the normal camera
-			Startup.shadowCamera.targetPosition.set(Startup.camera.position.getX(), 80 + tiles[(int) (camX / 16)][(int) (camX / 16)].getPosition().getY() / 2, Startup.camera.position.getZ());
-			overheadLight.position.set(Startup.shadowCamera.position.getX(), Startup.shadowCamera.position.getY() + 48, Startup.shadowCamera.position.getZ());
-
 			// Updates each tile in the camera range
 			for (int x = 0; x < DungeonGenerator.xActiveSpace; x++) {
 				for (int y = 0; y < DungeonGenerator.yActiveSpace; y++) {
@@ -86,7 +82,7 @@ public class StateTitle extends State {
 					}
 				}
 			}
-			
+
 			if (tileRot < 360) {
 				tileRot += rotSpeed;
 			} else {
@@ -99,9 +95,13 @@ public class StateTitle extends State {
 			}
 		}
 	};
-	
+
 	@Override
 	public void tick() {
+		// Moves the shadow camera along with the normal camera
+		Startup.shadowCamera.targetPosition.set(Startup.camera.position.getX(), 80 + tiles[(int) (camX / 16)][(int) (camX / 16)].getPosition().getY() / 2, Startup.camera.position.getZ());
+		overheadLight.position.set(Startup.shadowCamera.position.getX(), Startup.shadowCamera.position.getY() + 48, Startup.shadowCamera.position.getZ());
+		
 		if (hideMenu) {
 			if (uiOffset < uiOffsetLimit) {
 				uiOffset = Math.min(uiOffsetLimit, uiOffset + uiOffsetSpeed);
@@ -174,7 +174,7 @@ public class StateTitle extends State {
 		Startup.camera.position.setX((float) camX);
 		Startup.camera.position.setZ((float) camY);
 		Startup.camera.targetPosition.setY(42 + (tiles[(int) (camX / 8)][(int) (camY / 8)].getPosition().getY() / 2));
-		
+
 		if (Startup.screenColor.getW() == 1 && Startup.screenColorTarget.getW() == 1) {
 			switch (fadeOption) {
 
@@ -291,7 +291,7 @@ public class StateTitle extends State {
 
 		Startup.screenColor.setW(1);
 		Startup.screenColorTarget.setW(0);
-		
+
 		TaskThread.process(task);
 	}
 

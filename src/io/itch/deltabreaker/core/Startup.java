@@ -265,7 +265,7 @@ public class Startup implements Runnable {
 
 				}
 			} else {
-//				StateManager.swapState(StateSplash.STATE_ID);
+				StateManager.swapState(StateSplash.STATE_ID);
 //				StateManager.swapState(StateTitle.STATE_ID);
 
 //				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_BALANCE, AIType.get("standard_dungeon.json")));
@@ -292,21 +292,23 @@ public class Startup implements Runnable {
 //				StateDungeon.startDungeon("seabed_cove.json", 14, -1932052909105962160L);
 //				StateDungeon.startDungeon("flooded_forrest.json", 14, new Random().nextLong());
 				
-				ArrayList<float[]> profiles = new ArrayList<>();
-				for (float[] profile : Unit.GROWTH_PROFILES.values()) {
-					profiles.add(profile);
-				}
-				for (int i = 0; i < 10; i++) {
-					Unit u = Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, profiles.get(new Random().nextInt(profiles.size())), AIType.get("standard_dungeon.json"));
-					Inventory.units.add(u);
-					u.addItem(ItemProperty.get("item.material.gem.ruby"), 5);
-					u.addItem(ItemProperty.get("item.material.gem.onyx"), 10);
-					u.addItem(ItemProperty.get("item.material.gem.diamond"), 15);
-					u.addItem(ItemProperty.get("item.material.bar.steel"), 20);
-					u.addItem(ItemProperty.get("item.material.bar.gold"), 25);
-					u.accessory = ItemProperty.get("item.accessory.mirror.medal");
-				}
-				StateMatchLobby.swapWithSetup();
+				
+				
+//				ArrayList<float[]> profiles = new ArrayList<>();
+//				for (float[] profile : Unit.GROWTH_PROFILES.values()) {
+//					profiles.add(profile);
+//				}
+//				for (int i = 0; i < 10; i++) {
+//					Unit u = Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, profiles.get(new Random().nextInt(profiles.size())), AIType.get("standard_dungeon.json"));
+//					Inventory.units.add(u);
+//					u.addItem(ItemProperty.get("item.material.gem.ruby"), 5);
+//					u.addItem(ItemProperty.get("item.material.gem.onyx"), 10);
+//					u.addItem(ItemProperty.get("item.material.gem.diamond"), 15);
+//					u.addItem(ItemProperty.get("item.material.bar.steel"), 20);
+//					u.addItem(ItemProperty.get("item.material.bar.gold"), 25);
+//					u.accessory = ItemProperty.get("item.accessory.mirror.medal");
+//				}
+//				StateMatchLobby.swapWithSetup();
 			}
 
 			GLFW.glfwShowWindow(window);
