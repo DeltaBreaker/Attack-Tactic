@@ -882,8 +882,8 @@ public class StateDungeon extends State {
 			TextRenderer.render(xpGainUnit, Vector3f.add(position, -xpGainUnit.length() * 3 + 3, 4, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, new Vector4f(1, 1, 1, xpAlpha), true);
 			UIBox.render(Vector3f.add(position, -52, 7, -1), 110, 16, new Vector4f(1, 1, 1, xpAlpha));
 		}
-		for (Effect e : effects) {
-			e.render();
+		for(int i = 0; i < effects.size(); i++) {
+			effects.get(i).render();
 		}
 		for (Menu m : menus) {
 			m.render();
@@ -903,7 +903,7 @@ public class StateDungeon extends State {
 		}
 
 		// Draw movement arrow
-		if (Inventory.active.contains(selectedUnit)) {
+		if (phase == 0 && Inventory.active.contains(selectedUnit)) {
 			for (int i = 0; i < path.size() - 1; i++) {
 				int direction = getArrowDirection(i);
 				BatchSorter.add("d", "arrow_" + direction + ".dae", "arrow_" + direction + ".png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(),
@@ -1108,6 +1108,7 @@ public class StateDungeon extends State {
 
 	public void changePhase(int phase) {
 		if (this.phase != phase) {
+			clearUnit();
 			this.phase = phase;
 			for (Unit u : Inventory.active) {
 				u.setTurn(true);

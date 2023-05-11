@@ -36,7 +36,7 @@ public class EffectFountain extends Effect {
 			spawnTimer++;
 		} else {
 			spawnTimer = 0;
-			water.add(new WaterParticle(position, startDistance, new Random().nextInt(360), speed, fade, new Vector4f(0.427f, 0.765f, 0.9f, 0.75f), 5));
+			water.add(new WaterParticle(position, startDistance, new Random().nextInt(360), speed, fade, Vector4f.mul(new Vector4f(0.427f, 0.765f, 1.05f, 0.75f), 1.75f).setW(0.8f), 5));
 		}
 
 		for (int i = 0; i < water.size(); i++) {
@@ -61,7 +61,7 @@ public class EffectFountain extends Effect {
 				scales.add(s.scale);
 				colors.add(s.color);
 			}
-			BatchSorter.addBatch("z", "pixel.dae", "pixel.png", "main_3d_bloom", Material.WATER.toString(), positions, rotations, scales, colors, true, false);
+			BatchSorter.addBatch("z", "pixel.dae", "pixel.png", "main_3d_nobloom", Material.DEFAULT.toString(), positions, rotations, scales, colors, true, false);
 		}
 	}
 

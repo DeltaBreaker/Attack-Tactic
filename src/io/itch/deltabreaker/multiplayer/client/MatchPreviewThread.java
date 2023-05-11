@@ -96,10 +96,14 @@ public class MatchPreviewThread implements Runnable {
 		out.writeUTF(name);
 		out.writeInt(units);
 		out.writeUTF(floor);
+		if (map.equals("Random")) {
+			String[] maps = DungeonGenerator.getPalletTags();
+			map = maps[new Random().nextInt(maps.length)];
+		}
 		out.writeUTF(map);
 
 		state.details = new RoomInfo(new Vector3f(0, 0, -80), new String[] { name, "room id - " + in.readUTF(), (password.length() > 0) ? "password - " + password : "password - none", "units - " + units,
-				"floor - " + ((floor.equals("random")) ? floor : (Integer.parseInt(floor) + 1)), (map.equals("Random") || map.equals("Vote")) ? map : "map - " + DungeonGenerator.getPatternNameFromFile(map) });
+				"floor - " + ((floor.equals("random")) ? floor : (Integer.parseInt(floor) + 1)), "map - " + (map.equals("Random") || (map.equals("Vote")) ? map : DungeonGenerator.getPatternNameFromFile(map)) });
 		StateManager.currentState.hideCursor = false;
 		state.menus.add(new Menu(new Vector3f(0, 20, -80), new String[] { "Ready" }) {
 			@Override
@@ -158,7 +162,7 @@ public class MatchPreviewThread implements Runnable {
 		map = in.readUTF();
 
 		state.details = new RoomInfo(new Vector3f(0, 0, -80), new String[] { name, "room id - " + roomID, (password.length() > 0) ? "password - " + password : "password - none", "units - " + units,
-				"floor - " + ((floor.equals("random")) ? floor : (Integer.parseInt(floor) + 1)), (map.equals("Random") || map.equals("Vote")) ? map : "map - " + DungeonGenerator.getPatternNameFromFile(map) });
+				"floor - " + ((floor.equals("random")) ? floor : (Integer.parseInt(floor) + 1)), "map - " + ((map.equals("Random") || map.equals("Vote")) ? map : DungeonGenerator.getPatternNameFromFile(map)) });
 		StateManager.currentState.hideCursor = false;
 		state.menus.add(new Menu(new Vector3f(0, 20, -80), new String[] { "Ready" }) {
 			@Override

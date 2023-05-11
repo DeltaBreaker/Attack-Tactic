@@ -534,6 +534,8 @@ class MenuDungeonActionItemsAction extends Menu {
 						unit.getItemList().get(parent.selected).use(unit, context);
 						closeAll();
 						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+						
+						
 						break;
 
 					case "Equip":
@@ -582,8 +584,14 @@ class MenuDungeonActionItemsAction extends Menu {
 						if (unit.getItemList().get(parent.selected).stack > 1) {
 							subMenu.add(new MenuDungeonActionItemsActionDrop(Vector3f.add(position, width + 5, 0, 0), context, unit.getItemList().get(parent.selected)).setParent(this));
 						} else {
-							context.items.add(new Item(new Vector3f(unit.locX * 16, 24, unit.locY * 16), unit.getItemList().get(parent.selected).copy()));
+							ItemProperty itemCopy = unit.getItemList().get(parent.selected).copy();
+							context.items.add(new Item(new Vector3f(unit.locX * 16, 24, unit.locY * 16), itemCopy));
 							StateManager.currentState.effects.add(new EffectPoof(Vector3f.add(new Vector3f(unit.locX * 16, 20, unit.locY * 16), 0, StateManager.currentState.tiles[unit.locX][unit.locY].getPosition().getY(), 0)));
+
+							if (context.multiplayerMode) {
+								context.comThread.eventQueue.add(new String[] { "DROP_ITEM", unit.uuid, unit.getItemList().get(parent.selected).uuid, itemCopy.uuid, "1" });
+							}
+
 							unit.removeItem(unit.getItemList().get(parent.selected));
 							close();
 							AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
@@ -645,7 +653,12 @@ class MenuDungeonActionItemsActionDrop extends Menu {
 					unit.removeItem(item, amt);
 					close();
 					parent.close();
+					AudioManager.getSound("footsteps_0.ogg").play(AudioManager.defaultSubSFXGain, false);
 					AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+
+					if (context.multiplayerMode) {
+						context.comThread.eventQueue.add(new String[] { "DROP_ITEM", unit.uuid, item.uuid, newItem.uuid, "" + amt });
+					}
 				}
 			} else {
 				close();

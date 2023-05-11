@@ -269,6 +269,85 @@ enum MatchEvent {
 			out.writeUTF(args[1]);
 			out.writeUTF(args[2]);
 		}
+	},
+
+	DROP_ITEM {
+		@Override
+		public void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
+			Unit u = Inventory.loaded.get(in.readUTF());
+			String item = in.readUTF();
+			String uuid = in.readUTF();
+			byte amt = in.readByte();
+			
+			for (int i = 0; i < u.getItemList().size(); i++) {
+				if (u.getItemList().get(i).uuid.equals(item)) {
+					ItemProperty itemCopy = u.getItemList().get(i);
+					itemCopy.uuid = uuid;
+					itemCopy.stack = amt;
+					context.items.add(new Item(new Vector3f(u.locX * 16, 16, u.locY * 16), u.getItemList().get(i)));
+					u.removeItem(itemCopy, amt);
+					AudioManager.getSound("footsteps_0.ogg").play(AudioManager.defaultSubSFXGain, false);
+					StateManager.currentState.effects.add(new EffectPoof(Vector3f.add(new Vector3f(u.locX * 16, 20, u.locY * 16), 0, StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), 0)));
+					break;
+				}
+			}
+		}
+
+		@Override
+		public void send(String[] args, StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
+			out.writeUTF("DROP_ITEM");
+			out.writeUTF(args[1]);
+			out.writeUTF(args[2]);
+			out.writeUTF(args[3]);
+			out.writeByte(Byte.parseByte(args[4]));
+		}
+	},
+	
+	USE_ABILITY {
+		@Override
+		public void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
+			context.selectedAbility = ItemAbility.valueOf(in.readUTF());
+			context.selectedUnit = Inventory.loaded.get(in.readUTF());
+			String target = in.readUTF();
+			if(in.readBoolean()) {
+				context.selectedAbility.use(Inventory.loaded.get(target), context);
+			} else {
+				context.selectedAbility.followUp(Inventory.loaded.get(target), context);
+			}
+		}
+
+		@Override
+		public void send(String[] args, StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception {
+			out.writeUTF("USE_ABILITY");
+			out.writeUTF(args[1]);
+			out.writeUTF(args[2]);
+			out.writeUTF(args[3]);
+			out.writeBoolean(Boolean.parseBoolean(args[4]));
+		}
+	}, USE_SOLO_ITEM {
+		@Override
+		public void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread)
+				throws Exception {
+			String itemID = in.readUTF();
+			Unit unit = Inventory.loaded.get(in.readUTF());
+			
+			for(ItemProperty item : unit.getItemList()) {
+				if(item.uuid.equals(itemID)) {
+					context.selectedItem = item;
+					item.use(unit, context);
+					AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+					break;
+				}
+			}
+		}
+
+		@Override
+		public void send(String[] args, StateDungeon context, GameInputStream in, GameOutputStream out,
+				MatchComThread comThread) throws Exception {
+			out.writeUTF("USE_SOLO_ITEM");
+			out.writeUTF(args[1]);
+			out.writeUTF(args[2]);
+		}
 	};
 
 	public abstract void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception;
