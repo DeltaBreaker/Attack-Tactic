@@ -534,6 +534,8 @@ class MenuDungeonActionItemsAction extends Menu {
 						unit.getItemList().get(parent.selected).use(unit, context);
 						closeAll();
 						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+						
+						
 						break;
 
 					case "Equip":

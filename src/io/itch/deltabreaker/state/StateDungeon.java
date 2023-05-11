@@ -903,7 +903,7 @@ public class StateDungeon extends State {
 		}
 
 		// Draw movement arrow
-		if (Inventory.active.contains(selectedUnit)) {
+		if (phase == 0 && Inventory.active.contains(selectedUnit)) {
 			for (int i = 0; i < path.size() - 1; i++) {
 				int direction = getArrowDirection(i);
 				BatchSorter.add("d", "arrow_" + direction + ".dae", "arrow_" + direction + ".png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(),
@@ -1108,6 +1108,7 @@ public class StateDungeon extends State {
 
 	public void changePhase(int phase) {
 		if (this.phase != phase) {
+			clearUnit();
 			this.phase = phase;
 			for (Unit u : Inventory.active) {
 				u.setTurn(true);

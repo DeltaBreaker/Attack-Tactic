@@ -66,7 +66,7 @@ public class MenuMatchJoin extends Menu {
 							attempts.add(new String[] { (options[1].equals("Room ID")) ? "" : options[1], (options[2].equals("Password")) ? "" : options[2] });
 						}
 						if (context.thread == null) {
-							context.thread = new MatchPreviewThread(context, "100.106.67.243", 36676, options[0], this);
+							context.thread = new MatchPreviewThread(context, "localhost", 36676, options[0], this);
 							new Thread(context.thread).start();
 						}
 						break;

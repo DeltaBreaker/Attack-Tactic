@@ -99,7 +99,7 @@ class MenuMatchCreate extends Menu {
 						
 					case 5:
 						StateManager.currentState.hideCursor = true;
-						context.thread = new MatchPreviewThread(context, "100.106.67.243", 36676, options[0], maps[map], (floor > -1) ? "" + floor : "random", units, (options[4].equals("Password")) ? "" : options[4]);
+						context.thread = new MatchPreviewThread(context, "localhost", 36676, options[0], maps[map], (floor > -1) ? "" + floor : "random", units, (options[4].equals("Password")) ? "" : options[4]);
 						new Thread(context.thread).start();
 						closeAll();
 						Startup.staticView.targetPosition.set(0, 0, 0);

@@ -335,6 +335,19 @@ enum MatchEvent {
 			outTwo.writeUTF(target);
 			outTwo.writeBoolean(use);
 		}
+	},
+	
+	USE_SOLO_ITEM {
+		@Override
+		public void run(MatchRelayThread thread, GameInputStream inOne, GameOutputStream outOne, GameInputStream inTwo,
+				GameOutputStream outTwo) throws Exception {
+			String item = inOne.readUTF();
+			String unit = inOne.readUTF();
+			
+			outTwo.writeUTF("USE_SOLO_ITEM");
+			outTwo.writeUTF(item);
+			outTwo.writeUTF(unit);
+		}
 	};
 
 	public abstract void run(MatchRelayThread thread, GameInputStream inOne, GameOutputStream outOne, GameInputStream inTwo, GameOutputStream outTwo) throws Exception;

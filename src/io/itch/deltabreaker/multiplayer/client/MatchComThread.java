@@ -324,6 +324,30 @@ enum MatchEvent {
 			out.writeUTF(args[3]);
 			out.writeBoolean(Boolean.parseBoolean(args[4]));
 		}
+	}, USE_SOLO_ITEM {
+		@Override
+		public void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread)
+				throws Exception {
+			String itemID = in.readUTF();
+			Unit unit = Inventory.loaded.get(in.readUTF());
+			
+			for(ItemProperty item : unit.getItemList()) {
+				if(item.uuid.equals(itemID)) {
+					context.selectedItem = item;
+					item.use(unit, context);
+					AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+					break;
+				}
+			}
+		}
+
+		@Override
+		public void send(String[] args, StateDungeon context, GameInputStream in, GameOutputStream out,
+				MatchComThread comThread) throws Exception {
+			out.writeUTF("USE_SOLO_ITEM");
+			out.writeUTF(args[1]);
+			out.writeUTF(args[2]);
+		}
 	};
 
 	public abstract void recieve(StateDungeon context, GameInputStream in, GameOutputStream out, MatchComThread comThread) throws Exception;
