@@ -712,11 +712,8 @@ public enum ItemAbility {
 					.add(new EffectText("+4 Def_Res", new Vector3f(u.x - ("+4 Def_Res").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
 			context.effects.add(new EffectShield(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			u.setTurn(false);
-
-			System.out.println("done");
 			
 			if (context.multiplayerMode && context.phase == 0) {
-				System.out.println("using");
 				context.comThread.eventQueue.add(new String[] { "USE_ABILITY", name(), context.selectedUnit.uuid, u.uuid, "true" });
 			}
 
