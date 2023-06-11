@@ -101,7 +101,7 @@ public class StateTitle extends State {
 		// Moves the shadow camera along with the normal camera
 		Startup.shadowCamera.targetPosition.set(Startup.camera.position.getX(), 80 + tiles[(int) (camX / 16)][(int) (camX / 16)].getPosition().getY() / 2, Startup.camera.position.getZ());
 		overheadLight.position.set(Startup.shadowCamera.position.getX(), Startup.shadowCamera.position.getY() + 48, Startup.shadowCamera.position.getZ());
-		
+
 		if (hideMenu) {
 			if (uiOffset < uiOffsetLimit) {
 				uiOffset = Math.min(uiOffsetLimit, uiOffset + uiOffsetSpeed);
@@ -229,12 +229,14 @@ public class StateTitle extends State {
 					float glow = ((float) Math.sin(Math.toRadians(optionGlow)) + 1) / 3;
 					mult.add(new Vector4f(glow, glow, glow, 0));
 				}
-				TextRenderer.render(OPTIONS[i], Vector3f.add(optionsPosition, (float) -Math.cos(Math.toRadians(optionsRot + distance * i)) * optionsRadius - (OPTIONS[i].length() - 1) * 3 + uiOffset * 4,
-						(float) -Math.sin(Math.toRadians(optionsRot + distance * i)) * optionsRadius, 0), Vector3f.EMPTY, Vector3f.SCALE_FULL, Vector4f.mul(new Vector4f(0.39216f, 0.44314f, 0.53333f, 1), mult), true);
-				for (int x = 0; x < 3; x++) {
-					for (int y = 0; y < 3; y++) {
-						TextRenderer.render(OPTIONS[i], Vector3f.add(optionsPosition, (float) -Math.cos(Math.toRadians(optionsRot + distance * i)) * optionsRadius + x - 1 - (OPTIONS[i].length() - 1) * 3 + uiOffset * 4,
-								(float) -Math.sin(Math.toRadians(optionsRot + distance * i)) * optionsRadius - y + 1, -1), Vector3f.EMPTY, Vector3f.SCALE_FULL, new Vector4f(0.15686f, 0.15686f, 0.15686f, 1), true);
+				if (i * distance < selected * distance + 180 && i * distance > selected * distance - 180) {
+					TextRenderer.render(OPTIONS[i], Vector3f.add(optionsPosition, (float) -Math.cos(Math.toRadians(optionsRot + distance * i)) * optionsRadius - (OPTIONS[i].length() - 1) * 3 + uiOffset * 4,
+							(float) -Math.sin(Math.toRadians(optionsRot + distance * i)) * optionsRadius, 0), Vector3f.EMPTY, Vector3f.SCALE_FULL, Vector4f.mul(new Vector4f(0.39216f, 0.44314f, 0.53333f, 1), mult), true);
+					for (int x = 0; x < 3; x++) {
+						for (int y = 0; y < 3; y++) {
+							TextRenderer.render(OPTIONS[i], Vector3f.add(optionsPosition, (float) -Math.cos(Math.toRadians(optionsRot + distance * i)) * optionsRadius + x - 1 - (OPTIONS[i].length() - 1) * 3 + uiOffset * 4,
+									(float) -Math.sin(Math.toRadians(optionsRot + distance * i)) * optionsRadius - y + 1, -1), Vector3f.EMPTY, Vector3f.SCALE_FULL, new Vector4f(0.15686f, 0.15686f, 0.15686f, 1), true);
+						}
 					}
 				}
 			}
