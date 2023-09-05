@@ -136,7 +136,7 @@ public class Unit {
 	public int mag = baseMag;
 	public int spd = baseSpd;
 	public int def = baseDef;
-	public int res = baseMag;
+	public int res = baseRes;
 
 	public int offsetHp = 0;
 	public int offsetAtk = 0;

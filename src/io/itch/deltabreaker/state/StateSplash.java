@@ -51,6 +51,8 @@ public class StateSplash extends State {
 					AudioManager.getSound("text.ogg").play(AudioManager.defaultMainSFXGain, false);
 				} else if (waitTimer < waitTime) {
 					waitTimer++;
+				} else {
+					open = false;
 				}
 			}
 		} else {
