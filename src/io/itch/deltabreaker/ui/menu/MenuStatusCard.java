@@ -61,15 +61,21 @@ public class MenuStatusCard extends Menu {
 						break;
 
 					case 1:
-						subMenu.add(new MenuItemInfoCard(Vector3f.add(position, width + 5, 0, 0), u.weapon, u));
+						if (!u.weapon.type.equals(ItemProperty.TYPE_EMPTY)) {
+							subMenu.add(new MenuItemInfoCard(Vector3f.add(position, width + 5, 0, 0), u.weapon, u));
+						}
 						break;
 
 					case 2:
-						subMenu.add(new MenuItemInfoCard(Vector3f.add(position, width + 5, 0, 0), u.armor, u));
+						if (!u.armor.type.equals(ItemProperty.TYPE_EMPTY)) {
+							subMenu.add(new MenuItemInfoCard(Vector3f.add(position, width + 5, 0, 0), u.armor, u));
+						}
 						break;
 
 					case 3:
-						subMenu.add(new MenuItemInfoCard(Vector3f.add(position, width + 5, 0, 0), u.accessory, u));
+						if (!u.accessory.type.equals(ItemProperty.TYPE_EMPTY)) {
+							subMenu.add(new MenuItemInfoCard(Vector3f.add(position, width + 5, 0, 0), u.accessory, u));
+						}
 						break;
 
 					default:
