@@ -130,3 +130,7 @@ public class MenuItemInfoCard extends Menu {
 	}
 
 }
+
+class MenuItemInfoCardSkills {
+	
+}
