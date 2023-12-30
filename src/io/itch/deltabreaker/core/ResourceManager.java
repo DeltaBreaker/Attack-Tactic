@@ -84,7 +84,7 @@ public class ResourceManager {
 		System.out.println("[ResourceManager]: Current hash " + currentHash);
 
 		System.out.println(
-				"[ResourceManager]: Data validated in " + (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
+				"[ResourceManager]: Data checked in " + (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
 	}
 
 	private static String getFileChecksum(MessageDigest digest, File file) throws IOException {

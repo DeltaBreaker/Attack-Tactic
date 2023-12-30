@@ -89,21 +89,23 @@ public class AIType {
 
 	public static int checkForOffenseItemFitness(Unit u, AIHandler parent, StateDungeon context, int fitness, boolean canMove) {
 		for (ItemProperty i : u.getItemList()) {
-			for (Unit target : Inventory.active) {
-				int itemFitness = ItemUse.valueOf(i.use).calculateDamage(target, context);
-				if (itemFitness > fitness) {
-					Point[] positions = getBestValidAttackPositions(u, target, context, canMove, ItemUse.valueOf(i.use).getRange(u, context) - 1);
-					if (positions.length > 0) {
-						if (canMove) {
-							context.clearSelectedTiles();
-							context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
-							parent.currentPath = context.getPath(positions[0].x, positions[0].y);
-							context.clearSelectedTiles();
+			if (i.use != null) {
+				for (Unit target : Inventory.active) {
+					int itemFitness = ItemUse.valueOf(i.use).calculateDamage(target, context);
+					if (itemFitness > fitness) {
+						Point[] positions = getBestValidAttackPositions(u, target, context, canMove, ItemUse.valueOf(i.use).getRange(u, context) - 1);
+						if (positions.length > 0) {
+							if (canMove) {
+								context.clearSelectedTiles();
+								context.highlightTiles(u.locX, u.locY, u.movement, u.weapon.range, "enemy");
+								parent.currentPath = context.getPath(positions[0].x, positions[0].y);
+								context.clearSelectedTiles();
+							}
+							parent.itemUse = i;
+							parent.attackTarget = target;
+							parent.currentOption = "item_followup";
+							fitness = itemFitness;
 						}
-						parent.itemUse = i;
-						parent.attackTarget = target;
-						parent.currentOption = "item_followup";
-						fitness = itemFitness;
 					}
 				}
 			}

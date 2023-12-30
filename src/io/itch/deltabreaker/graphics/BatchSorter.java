@@ -19,7 +19,8 @@ public class BatchSorter {
 	public static TreeMap<String, RenderSpec> transparentBatches = new TreeMap<>();
 	public static TreeMap<String, RenderSpec> staticBatches = new TreeMap<>();
 	public static TreeMap<String, RenderSpec> shadowBatches = new TreeMap<>();
-
+	private static StringBuilder br = new StringBuilder();
+	
 	public static void render() {
 		long time = System.nanoTime();
 		batches.values().forEach((r) -> {
@@ -59,7 +60,7 @@ public class BatchSorter {
 	}
 
 	public static void add(String model, String texture, String shader, String material, Vector3f position, Vector3f rotation, Vector3f scale, Vector4f shade, boolean shadow, boolean staticView, boolean... ignoreDepth) {
-		StringBuilder br = new StringBuilder();
+		br.setLength(0);
 		boolean setIgnore = (ignoreDepth.length >= 1) ? ignoreDepth[0] : true;
 		br.append(model);
 		br.append(texture);
@@ -85,7 +86,7 @@ public class BatchSorter {
 	}
 
 	public static void add(String priority, String model, String texture, String shader, String material, Vector3f position, Vector3f rotation, Vector3f scale, Vector4f shade, boolean shadow, boolean staticView, boolean... ignoreDepth) {
-		StringBuilder br = new StringBuilder();
+		br.setLength(0);
 		boolean setIgnore = (ignoreDepth.length >= 1) ? ignoreDepth[0] : true;
 		br.append(priority);
 		br.append(model);
@@ -113,7 +114,7 @@ public class BatchSorter {
 
 	public static void addBatch(String model, String texture, String shader, String material, ArrayList<Vector3f> position, ArrayList<Vector3f> rotation, ArrayList<Vector3f> scale, ArrayList<Vector4f> shade, boolean shadow,
 			boolean staticView, boolean... ignoreDepth) {
-		StringBuilder br = new StringBuilder();
+		br.setLength(0);
 		boolean setIgnore = (ignoreDepth.length >= 1) ? ignoreDepth[0] : true;
 		br.append(model);
 		br.append(texture);
@@ -150,7 +151,7 @@ public class BatchSorter {
 
 	public static void addBatch(String priority, String model, String texture, String shader, String material, ArrayList<Vector3f> position, ArrayList<Vector3f> rotation, ArrayList<Vector3f> scale, ArrayList<Vector4f> shade, boolean shadow,
 			boolean staticView, boolean... ignoreDepth) {
-		StringBuilder br = new StringBuilder();
+		br.setLength(0);
 		boolean setIgnore = (ignoreDepth.length >= 1) ? ignoreDepth[0] : true;
 		br.append(priority);
 		br.append(model);
@@ -186,7 +187,7 @@ public class BatchSorter {
 	}
 
 	public static void add(String model, String texture, String shader, String material, Matrix4f precalc, Vector4f shade, boolean shadow, boolean staticView, boolean... ignoreDepth) {
-		StringBuilder br = new StringBuilder();
+		br.setLength(0);
 		boolean setIgnore = (ignoreDepth.length >= 1) ? ignoreDepth[0] : true;
 		br.append(model);
 		br.append(texture);
@@ -212,7 +213,7 @@ public class BatchSorter {
 	}
 
 	public static void add(String priority, String model, String texture, String shader, String material, Matrix4f precalc, Vector4f shade, boolean shadow, boolean staticView, boolean... ignoreDepth) {
-		StringBuilder br = new StringBuilder();
+		br.setLength(0);
 		boolean setIgnore = (ignoreDepth.length >= 1) ? ignoreDepth[0] : true;
 		br.append(priority);
 		br.append(model);
@@ -239,7 +240,7 @@ public class BatchSorter {
 	}
 
 	public static void addBatch(String model, String texture, String shader, String material, ArrayList<Matrix4f> precalc, ArrayList<Vector4f> shade, boolean shadow, boolean staticView, boolean... ignoreDepth) {
-		StringBuilder br = new StringBuilder();
+		br.setLength(0);
 		boolean setIgnore = (ignoreDepth.length >= 1) ? ignoreDepth[0] : true;
 		br.append(model);
 		br.append(texture);
@@ -274,7 +275,7 @@ public class BatchSorter {
 	}
 
 	public static void addBatch(String priority, String model, String texture, String shader, String material, ArrayList<Matrix4f> precalc, ArrayList<Vector4f> shade, boolean shadow, boolean staticView, boolean... ignoreDepth) {
-		StringBuilder br = new StringBuilder();
+		br.setLength(0);
 		boolean setIgnore = (ignoreDepth.length >= 1) ? ignoreDepth[0] : true;
 		br.append(priority);
 		br.append(model);

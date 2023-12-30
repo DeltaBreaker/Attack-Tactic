@@ -106,16 +106,18 @@ public abstract class Menu extends UIBox {
 		this.moveCamera = moveCamera;
 		return this;
 	}
-	
+
 	public void move(int amt) {
 		if (subMenu.size() == 0) {
-			AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
-			selected += amt;
-			if (selected < 0) {
-				selected = options.length - 1;
-			}
-			if (selected > options.length - 1) {
-				selected = 0;
+			if (options.length > 1) {
+				AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
+				selected += amt;
+				if (selected < 0) {
+					selected = options.length - 1;
+				}
+				if (selected > options.length - 1) {
+					selected = 0;
+				}
 			}
 		} else {
 			subMenu.get(0).move(amt);

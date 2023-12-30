@@ -316,8 +316,9 @@ public class SettingsManager {
 		fullscreenBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				GLFW.glfwSetWindowAttrib(Startup.thread.window, GLFW.GLFW_DECORATED, (fullscreenBox.isSelected()) ? GLFW.GLFW_FALSE : GLFW.GLFW_TRUE);
-				SettingsManager.setFullscreen(fullscreenBox.isSelected());
+				fullscreen = !fullscreen;
+				SettingsManager.setFullscreen(fullscreen);
+				fullscreenBox.setSelected(fullscreen);
 			}
 		});
 		frame.add(fullscreenBox);
@@ -423,6 +424,7 @@ public class SettingsManager {
 	}
 
 	public static void setFullscreen(boolean isFullscreen) {
+		GLFW.glfwSetWindowAttrib(Startup.thread.window, GLFW.GLFW_DECORATED, (fullscreen) ? GLFW.GLFW_FALSE : GLFW.GLFW_TRUE);
 		if (isFullscreen) {
 			storedRes.setSize(Startup.width, Startup.height);
 			int[] x = new int[1];

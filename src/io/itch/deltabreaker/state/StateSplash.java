@@ -51,6 +51,8 @@ public class StateSplash extends State {
 					AudioManager.getSound("text.ogg").play(AudioManager.defaultMainSFXGain, false);
 				} else if (waitTimer < waitTime) {
 					waitTimer++;
+				} else {
+					open = false;
 				}
 			}
 		} else {
@@ -65,14 +67,14 @@ public class StateSplash extends State {
 
 	public void render() {
 		if (charsRevealed > 0) {
-			BatchSorter.add(splashIcon + ".dae", splashIcon + ".png", "static_3d", Material.DEFAULT.toString(), new Vector3f(0, 5, -35), Vector3f.EMPTY, Vector3f.SCALE_FULL, Vector4f.COLOR_BASE, false, true);
+			BatchSorter.add(splashIcon + ".dae", splashIcon + ".png", "static_3d", Material.DEFAULT.toString(), new Vector3f(0, 3, -40), Vector3f.EMPTY, Vector3f.SCALE_FULL, Vector4f.COLOR_BASE, false, true);
 		}
 		Vector3f rotation = new Vector3f(0, 0, 0);
 		Vector3f scale = new Vector3f(1, 1, 2);
-		TextRenderer.render(text.substring(0, charsRevealed), new Vector3f(-text.length() * 2.75f, -24, -45), rotation, scale, Vector4f.COLOR_SPLASH_MAIN, true);
+		TextRenderer.render(text.substring(0, charsRevealed), new Vector3f(-text.length() * 2.75f, -26, -45), rotation, scale, Vector4f.COLOR_SPLASH_MAIN, true);
 		for (int x = 0; x < 3; x++) {
 			for (int y = 0; y < 3; y++) {
-				TextRenderer.render(text.substring(0, charsRevealed), new Vector3f(x - 1 - text.length() * 2.75f, -23 - y, -45), rotation, scale, Vector4f.COLOR_SPLASH_ALT, true);
+				TextRenderer.render(text.substring(0, charsRevealed), new Vector3f(x - 1 - text.length() * 2.75f, -25 - y, -45), rotation, scale, Vector4f.COLOR_SPLASH_ALT, true);
 			}
 		}
 		for (Effect e : effects) {

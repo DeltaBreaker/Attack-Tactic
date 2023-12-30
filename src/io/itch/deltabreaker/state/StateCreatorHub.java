@@ -850,8 +850,8 @@ public class StateCreatorHub extends State {
 				state.effects.clear();
 
 				state.dungeon = new DungeonGeneratorVillage(width, height, pallet, seed).start();
-				state.createTileArray(dungeon.getPalletTag());
-				state.filler = Tile.getTile(new String[] { dungeon.getPalletTag(), Tile.TAG_FILLER }, new Vector3f(0, 0, 0));
+				state.createTileArray(state.dungeon.getPalletTag());
+				state.filler = Tile.getTile(new String[] { state.dungeon.getPalletTag(), Tile.TAG_FILLER }, new Vector3f(0, 0, 0));
 				
 				state.tiles = new Tile[width][height];
 				for (int x = 0; x < width; x++) {

@@ -63,7 +63,7 @@ public class DungeonGenerator {
 	public static HashMap<String, GenerationPattern> patterns = new HashMap<>();
 
 	public static int xActiveSpace = 43;
-	public static int yActiveSpace = 23;
+	public static int yActiveSpace = 25;
 
 	// Variables
 	public final long seed;

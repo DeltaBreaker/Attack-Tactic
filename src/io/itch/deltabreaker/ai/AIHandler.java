@@ -76,7 +76,7 @@ public class AIHandler {
 
 						// Manually set the camera and shadow camera trained on the current unit
 						if (!context.inCombat) {
-							Startup.camera.setPosition(context.enemies.get(currentUnit).x / 2.0f, 42 + (context.tiles[context.enemies.get(currentUnit).locX][context.enemies.get(currentUnit).locY].getPosition().getY() / 2),
+							Startup.camera.setTargetPosition(context.enemies.get(currentUnit).x / 2.0f, 42 + (context.tiles[context.enemies.get(currentUnit).locX][context.enemies.get(currentUnit).locY].getPosition().getY() / 2),
 									context.enemies.get(currentUnit).y / 2.0f + 16);
 						} else {
 							float xDist = context.attacker.locX * 8 - context.defender.locX * 8;
@@ -84,7 +84,7 @@ public class AIHandler {
 							Startup.camera.setTargetPosition(context.enemies.get(currentUnit).x / 2.0f - xDist / 2, 42 + (context.tiles[context.enemies.get(currentUnit).locX][context.enemies.get(currentUnit).locY].getPosition().getY() / 2),
 									context.enemies.get(currentUnit).y / 2.0f + 16 - yDist / 2);
 						}
-						Startup.shadowCamera.setPosition(Startup.camera.position.getX(), 80 + StateManager.currentState.tiles[context.enemies.get(currentUnit).locX][context.enemies.get(currentUnit).locY].getPosition().getY() / 2,
+						Startup.shadowCamera.setTargetPosition(Startup.camera.position.getX(), 80 + StateManager.currentState.tiles[context.enemies.get(currentUnit).locX][context.enemies.get(currentUnit).locY].getPosition().getY() / 2,
 								Startup.camera.position.getZ());
 						context.overheadLight.position.set(Startup.shadowCamera.position.getX(), Startup.shadowCamera.position.getY() + 48, Startup.shadowCamera.position.getZ());
 					}

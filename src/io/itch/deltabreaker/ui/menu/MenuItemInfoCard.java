@@ -19,7 +19,7 @@ public class MenuItemInfoCard extends Menu {
 	public Unit comparedUnit;
 
 	public MenuItemInfoCard(Vector3f position, ItemProperty item, Unit comparedUnit) {
-		super(position, new String[] { "" }, getWidth(item), 16);
+		super(position, item.type.equals(ItemProperty.TYPE_WEAPON) ? new String[] { "", "Skills" } : new String[] { "" }, getWidth(item), 16);
 		this.item = item;
 		this.comparedUnit = comparedUnit;
 		openTo = 90;
@@ -40,7 +40,7 @@ public class MenuItemInfoCard extends Menu {
 			}
 		}
 		if (subMenu.size() == 0 && open) {
-			StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() - 10, position.getY() - 9 - 8 * Math.min(4, selected), position.getZ() + 4));
+			StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() - 10 + selected * 20, position.getY() - 9 - 12 * Math.min(4, selected), position.getZ() + 4));
 		}
 	}
 
@@ -84,6 +84,10 @@ public class MenuItemInfoCard extends Menu {
 			}
 		}
 
+		if (item.type.equals(ItemProperty.TYPE_WEAPON)) {
+			TextRenderer.render("Skills", Vector3f.add(position, 22, -18, 1), new Vector3f(0, 0, 0), new Vector3f(0.5f, 0.5f, 0.5f), Vector4f.COLOR_BASE, true);
+		}
+		
 		for (int i = 0; i < item.text.length; i++) {
 			if (height > 15 + i * 8) {
 				TextRenderer.render(item.text[i], Vector3f.add(position, xPosition, -30 - i * 8, 1), new Vector3f(0, 0, 0), new Vector3f(0.5f, 0.5f, 0.5f), new Vector4f(1, 1, 1, 1), true);
@@ -112,7 +116,7 @@ public class MenuItemInfoCard extends Menu {
 
 		return width;
 	}
-
+	
 	@Override
 	public void action(String command, Unit unit) {
 		if (subMenu.size() == 0) {

@@ -70,6 +70,9 @@ public class Camera {
 	}
 
 	private Vector3f moveToTarget(Vector3f position, Vector3f target, float speedX, float speedY, float speedZ) {
+		speedX = Math.abs(position.getX() - target.getX()) / 16.0f;
+		speedY = Math.abs(position.getY() - target.getY()) / 16.0f;
+		speedZ = Math.abs(position.getZ() - target.getZ()) / 16.0f;
 		if (position.getX() < target.getX()) {
 			position.set(Math.min(position.getX() + speedX, target.getX()), position.getY(), position.getZ());
 		}

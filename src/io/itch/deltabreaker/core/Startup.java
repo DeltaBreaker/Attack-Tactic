@@ -6,7 +6,6 @@ import java.io.PrintStream;
 import java.nio.FloatBuffer;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Random;
 
 import javax.swing.JOptionPane;
@@ -41,7 +40,6 @@ import io.itch.deltabreaker.object.tile.Tile;
 import io.itch.deltabreaker.state.StateCreatorHub;
 import io.itch.deltabreaker.state.StateDungeon;
 import io.itch.deltabreaker.state.StateManager;
-import io.itch.deltabreaker.state.StateMatchLobby;
 import io.itch.deltabreaker.state.StateSplash;
 import io.itch.deltabreaker.state.StateTitle;
 
@@ -294,27 +292,27 @@ public class Startup implements Runnable {
 				
 				
 				
-				ArrayList<float[]> profiles = new ArrayList<>();
-				for (float[] profile : Unit.GROWTH_PROFILES.values()) {
-					profiles.add(profile);
-				}
-				for (int i = 0; i < 10; i++) {
-					Unit u = Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, profiles.get(new Random().nextInt(profiles.size())), AIType.get("standard_dungeon.json"));
-					Inventory.units.add(u);
-					u.addItem(ItemProperty.get("item.material.gem.ruby"), 5);
-					u.addItem(ItemProperty.get("item.material.gem.onyx"), 10);
-					u.addItem(ItemProperty.get("item.material.gem.diamond"), 15);
-					u.addItem(ItemProperty.get("item.material.bar.steel"), 20);
-					u.addItem(ItemProperty.get("item.material.bar.gold"), 25);
-					u.accessory = ItemProperty.get("item.accessory.mirror.medal");
-				}
-				StateMatchLobby.swapWithSetup();
+//				ArrayList<float[]> profiles = new ArrayList<>();
+//				for (float[] profile : Unit.GROWTH_PROFILES.values()) {
+//					profiles.add(profile);
+//				}
+//				for (int i = 0; i < 10; i++) {
+//					Unit u = Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, profiles.get(new Random().nextInt(profiles.size())), AIType.get("standard_dungeon.json"));
+//					Inventory.units.add(u);
+//					u.addItem(ItemProperty.get("item.material.gem.ruby"), 5);
+//					u.addItem(ItemProperty.get("item.material.gem.onyx"), 10);
+//					u.addItem(ItemProperty.get("item.material.gem.diamond"), 15);
+//					u.addItem(ItemProperty.get("item.material.bar.steel"), 20);
+//					u.addItem(ItemProperty.get("item.material.bar.gold"), 25);
+//					u.accessory = ItemProperty.get("item.accessory.mirror.medal");
+//				}
+//				StateMatchLobby.swapWithSetup();
 			}
 
 			GLFW.glfwShowWindow(window);
 
 			if (SettingsManager.fullscreen) {
-				GLFW.glfwSetWindowAttrib(Startup.thread.window, GLFW.GLFW_DECORATED, GLFW.GLFW_TRUE);
+				GLFW.glfwSetWindowAttrib(Startup.thread.window, GLFW.GLFW_DECORATED, GLFW.GLFW_FALSE);
 				SettingsManager.storedRes.setSize(Startup.width, Startup.height);
 				int[] x = new int[1];
 				int[] y = new int[1];
@@ -330,7 +328,7 @@ public class Startup implements Runnable {
 			e1.printStackTrace();
 		}
 	}
-
+	
 	private void loadMetaData(String file) {
 		File f = new File(file);
 		try {
