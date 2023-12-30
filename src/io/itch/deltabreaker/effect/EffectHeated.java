@@ -26,8 +26,6 @@ public class EffectHeated extends Effect {
 
 	private Vector4f color;
 
-	public boolean die = false;
-
 	public EffectHeated(Vector3f position, Vector4f color) {
 		super(Vector3f.add(position, 0, 0, 0), new Vector3f(0, 0, 0), new Vector3f(1, 1, 1));
 		this.color = color.copy();

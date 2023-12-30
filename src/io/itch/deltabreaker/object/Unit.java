@@ -21,6 +21,8 @@ import io.itch.deltabreaker.ai.AIType;
 import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.core.audio.AudioManager;
+import io.itch.deltabreaker.effect.Effect;
+import io.itch.deltabreaker.effect.EffectConfusion;
 import io.itch.deltabreaker.effect.EffectDebuff;
 import io.itch.deltabreaker.effect.EffectEnergize;
 import io.itch.deltabreaker.effect.EffectHeated;
@@ -47,6 +49,7 @@ public class Unit {
 
 	public static final String STATUS_POISON = "unit.status.poison";
 	public static final String STATUS_SLEEP = "unit.status.sleep";
+	public static final String STATUS_CONFUSION = "unit.status.confusion";
 
 	public static ArrayList<String> names = new ArrayList<>();
 	public static HashMap<String, float[]> GROWTH_PROFILES = new HashMap<>();
@@ -95,7 +98,7 @@ public class Unit {
 
 	private String status = "";
 	private int statusTimer = 0;
-	private EffectHeated statusEffect = new EffectHeated(new Vector3f(0, 0, 0), Vector4f.COLOR_BASE);
+	private Effect statusEffect = new EffectHeated(new Vector3f(0, 0, 0), Vector4f.COLOR_BASE);
 
 	private boolean playFootsteps = true;
 	private int footstepFile = 0;
@@ -121,8 +124,9 @@ public class Unit {
 	public int level = 1;
 	public int exp = 0;
 
-	public int baseMovement = 14;
+	public int baseMovement = 12;
 	public int movement = baseMovement;
+	public int offsetMovement = 0;
 
 	public int baseHp = 20;
 	public int baseAtk = 5;
@@ -171,8 +175,10 @@ public class Unit {
 		this.uuid = uuid;
 
 		Inventory.loaded.put(uuid, this);
-		
+
 		AIPattern = AIType.getDefault();
+
+		statusEffect.die = true;
 	}
 
 	public void tick() {
@@ -180,7 +186,9 @@ public class Unit {
 
 		updateStats();
 
-		statusEffect.position.set(x / 2, (StateManager.currentState.tiles[locX][locY].getPosition().getY() - 10) / 2, y / 2);
+		if (!statusEffect.die) {
+			statusEffect.position.set(x / 2, (StateManager.currentState.tiles[locX][locY].getPosition().getY() - 10) / 2, y / 2);
+		}
 
 		if (currentHp > hp) {
 			currentHp = hp;
@@ -320,9 +328,7 @@ public class Unit {
 				}
 			}
 		}
-		if (wait)
-
-		{
+		if (wait) {
 			if (waitTimer < waitTime) {
 				waitTimer++;
 			} else {
@@ -385,7 +391,7 @@ public class Unit {
 		spd = Math.min(99, Math.max(0, Math.min(60, baseSpd) + weapon.spd + armor.spd + offsetSpd + accessory.spd + abilityStats[3]));
 		def = Math.min(99, Math.max(0, Math.min(60, baseDef) + weapon.def + armor.def + offsetDef + accessory.def + abilityStats[4]));
 		res = Math.min(99, Math.max(0, Math.min(60, baseRes) + weapon.res + armor.res + offsetRes + accessory.res + abilityStats[5]));
-		movement = Math.min(20, Math.max(1, baseMovement + weapon.mov + armor.mov + accessory.mov + abilityStats[6]));
+		movement = Math.min(20, Math.max(1, baseMovement + weapon.mov + armor.mov + offsetMovement + accessory.mov + abilityStats[6]));
 	}
 
 	public void render() {
@@ -573,6 +579,16 @@ public class Unit {
 			StateManager.currentState.effects.add(new EffectDebuff(new Vector3f(x, 10 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y)));
 			break;
 
+		case STATUS_CONFUSION:
+			statusTimer = 3;
+			this.status = STATUS_CONFUSION;
+			statusEffect.die = true;
+			statusEffect = new EffectConfusion(new Vector3f(x, 10 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y));
+			StateManager.currentState.effects.add(statusEffect);
+			StateManager.currentState.effects.add(new EffectText("+Confusion", new Vector3f(x - ("+Confusion").length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8), Vector4f.COLOR_RED));
+			StateManager.currentState.effects.add(new EffectDebuff(new Vector3f(x, 10 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y)));
+			break;
+
 		}
 	}
 
@@ -600,13 +616,29 @@ public class Unit {
 	}
 
 	public void setTurn(boolean ready) {
-		if (!ready && status.equals(STATUS_POISON)) {
-			hurt((int) Math.round(hp / 10.0));
-			statusTimer--;
+		switch (status) {
+
+		case STATUS_POISON:
+			if (!ready) {
+				hurt((int) Math.round(hp / 10.0));
+				statusTimer--;
+			}
+			break;
+
+		case STATUS_SLEEP:
+			if (ready) {
+				statusTimer--;
+			}
+			break;
+
+		case STATUS_CONFUSION:
+			if (ready) {
+				statusTimer--;
+			}
+			break;
+
 		}
-		if (ready && status.equals(STATUS_SLEEP)) {
-			statusTimer--;
-		}
+
 		if (statusTimer <= 0) {
 			clearStatus();
 		}
@@ -623,6 +655,11 @@ public class Unit {
 		offsetSpd = 0;
 		offsetDef = 0;
 		offsetRes = 0;
+		offsetMovement = 0;
+
+		if (status.equals(STATUS_CONFUSION)) {
+			offsetMovement = new Random().nextInt(6) - 3;
+		}
 	}
 
 	public void reset() {
@@ -762,6 +799,7 @@ public class Unit {
 		offsetSpd = 0;
 		offsetDef = 0;
 		offsetRes = 0;
+		offsetMovement = 0;
 
 		hp = Math.max(1, baseHp + weapon.hp + armor.hp + offsetHp + accessory.hp + abilityStats[0]);
 		atk = Math.max(0, baseAtk + weapon.atk + armor.atk + offsetAtk + accessory.atk + abilityStats[1]);

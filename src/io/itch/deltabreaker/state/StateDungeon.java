@@ -1741,18 +1741,7 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-			for (Unit u : Inventory.active) {
-				u.addItem(ItemProperty.get("item.material.gem.ruby"));
-				u.addItem(ItemProperty.get("item.material.gem.onyx"));
-				u.addItem(ItemProperty.get("item.material.gem.diamond"));
-				u.addItem(ItemProperty.get("item.material.bar.steel"));
-				u.addItem(ItemProperty.get("item.material.bar.gold"));
-				u.accessory = ItemProperty.get("item.accessory.mirror.medal");
-			}
-			for (Unit u : enemies) {
-				u.addItem(ItemProperty.get("item.sword.gold"));
-			}
-//			enterFreeRoam();
+			Inventory.active.get(2).applyStatus(Unit.STATUS_CONFUSION);
 			break;
 
 		case HIGHLIGHT:

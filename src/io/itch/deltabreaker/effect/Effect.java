@@ -11,6 +11,8 @@ public abstract class Effect {
 	
 	public long priority = new Random().nextLong();
 	
+	public boolean die = false;
+	
 	public Effect(Vector3f position, Vector3f rotation, Vector3f scale) {
 		this.position = position;
 		this.rotation = rotation;

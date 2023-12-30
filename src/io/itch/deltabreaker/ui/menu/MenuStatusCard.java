@@ -156,8 +156,8 @@ public class MenuStatusCard extends Menu {
 			subMenu.get(0).render();
 		}
 		UIBox.render(position, width, height);
-		String[] text = { u.name, "lv " + u.level, "exp " + u.exp, "hp  " + u.currentHp + "_" + u.hp, "", "atk " + u.atk, "mag " + u.mag, "spd " + u.spd, "def " + u.def, "res " + u.res };
-		int[] offsets = { u.offsetHp, 0, u.offsetAtk, u.offsetMag, u.offsetSpd, u.offsetDef, u.offsetRes };
+		String[] text = { u.name, "lv " + u.level, "exp " + u.exp, "hp  " + u.currentHp + "_" + u.hp, "mov " + Math.max(u.movement - 2, 0), "atk " + u.atk, "mag " + u.mag, "spd " + u.spd, "def " + u.def, "res " + u.res };
+		int[] offsets = { u.offsetHp, u.offsetMovement, u.offsetAtk, u.offsetMag, u.offsetSpd, u.offsetDef, u.offsetRes };
 		for (int i = 0; i < text.length; i++) {
 			Vector4f color = new Vector4f(1, 1, 1, 1);
 			if (i == 0) {

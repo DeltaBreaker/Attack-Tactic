@@ -64,9 +64,9 @@ class DebuffParticle {
 	public Vector3f scale;
 	public Vector4f color;
 
-	public int age = 0;
+	public float age = 0;
 	public int sin = 0;
-	public float colorInterval = 0.02f;
+	public float colorInterval = 0.01f;
 	public float heightInterval = -0.2f;
 
 	public DebuffParticle(Vector3f position) {
@@ -78,7 +78,7 @@ class DebuffParticle {
 	}
 
 	public void tick() {
-		age++;
+		age += 0.25f;
 		position = Vector3f.add(start, (float) Math.sin(Math.toRadians(sin)) * 8, 10 + heightInterval * age, (float) Math.cos(Math.toRadians(sin)) * 8);
 		color.setW(Math.max(0, color.getW() - colorInterval));
 	}
