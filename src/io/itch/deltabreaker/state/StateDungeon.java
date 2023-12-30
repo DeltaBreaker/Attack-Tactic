@@ -1111,6 +1111,9 @@ public class StateDungeon extends State {
 			clearUnit();
 			this.phase = phase;
 			for (Unit u : Inventory.active) {
+				if(u.hasTurn) {
+					u.setTurn(false);
+				}
 				u.setTurn(true);
 			}
 			for (Unit u : enemies) {
@@ -1741,7 +1744,7 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-			Inventory.active.get(2).applyStatus(Unit.STATUS_CONFUSION);
+			Inventory.active.get(0).applyStatus(Unit.STATUS_POISON);
 			break;
 
 		case HIGHLIGHT:

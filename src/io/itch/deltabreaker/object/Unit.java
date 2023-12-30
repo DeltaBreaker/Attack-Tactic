@@ -607,6 +607,10 @@ public class Unit {
 			case STATUS_SLEEP:
 				StateManager.currentState.effects.add(new EffectText("-Sleep", new Vector3f(x - ("-Sleep").length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8), Vector4f.COLOR_GREEN));
 				break;
+				
+			case STATUS_CONFUSION:
+				StateManager.currentState.effects.add(new EffectText("-Confusion", new Vector3f(x - ("-Sleep").length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8), Vector4f.COLOR_GREEN));
+				break;
 
 			}
 
