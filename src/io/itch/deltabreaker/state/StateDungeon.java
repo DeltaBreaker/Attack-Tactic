@@ -178,10 +178,6 @@ public class StateDungeon extends State {
 	private WorkerTask task = new WorkerTask() {
 		@Override
 		public void tick() {
-			// Moves the shadow camera along with the normal camera
-			Startup.shadowCamera.targetPosition.set(Startup.camera.position.getX(), 80 + tiles[cursorPos.x][cursorPos.y].getPosition().getY() / 2, Startup.camera.position.getZ());
-			overheadLight.position.set(Startup.shadowCamera.position.getX(), Startup.shadowCamera.position.getY() + 48, Startup.shadowCamera.position.getZ());
-
 			// Controlls the fade timer for the board highlights
 			if (shading < 360) {
 				shading += 0.75f;
@@ -234,7 +230,12 @@ public class StateDungeon extends State {
 	@Override
 	public void tick() {
 		info = "";
-		
+
+		// Moves the shadow camera along with the normal camera
+		Startup.shadowCamera.setPosition(Startup.camera.position.getX(), Startup.shadowCamera.position.getY(), Startup.camera.position.getZ());
+		Startup.shadowCamera.targetPosition.setY(80 + tiles[cursorPos.x][cursorPos.y].getPosition().getY() / 2);
+		overheadLight.position.set(Startup.shadowCamera.position.getX(), Startup.shadowCamera.position.getY() + 48, Startup.shadowCamera.position.getZ());
+
 		// This handles how long the exclamation mark appears when being caught
 		if (caught) {
 			if (caughtTimer < caughtTime) {
@@ -881,7 +882,7 @@ public class StateDungeon extends State {
 			TextRenderer.render(xpGainUnit, Vector3f.add(position, -xpGainUnit.length() * 3 + 3, 4, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, new Vector4f(1, 1, 1, xpAlpha), true);
 			UIBox.render(Vector3f.add(position, -52, 7, -1), 110, 16, new Vector4f(1, 1, 1, xpAlpha));
 		}
-		for(int i = 0; i < effects.size(); i++) {
+		for (int i = 0; i < effects.size(); i++) {
 			effects.get(i).render();
 		}
 		for (Menu m : menus) {
@@ -1110,7 +1111,7 @@ public class StateDungeon extends State {
 			clearUnit();
 			this.phase = phase;
 			for (Unit u : Inventory.active) {
-				if(u.hasTurn) {
+				if (u.hasTurn) {
 					u.setTurn(false);
 				}
 				u.setTurn(true);

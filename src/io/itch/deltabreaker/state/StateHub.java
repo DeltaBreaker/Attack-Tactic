@@ -63,12 +63,11 @@ public class StateHub extends State {
 			camY = Inventory.units.get(0).y / 2.0 + 24;
 			rcamX = Math.floorDiv((int) camX, 8) - 15;
 			rcamY = Math.floorDiv((int) camY, 8) - 17;
-			Startup.camera.position.setX((float) camX);
-			Startup.camera.position.setZ((float) camY);
 			Startup.camera.targetPosition.setX((float) camX);
 			Startup.camera.targetPosition.setZ((float) camY);
 			Startup.camera.targetPosition.setY(42 + (tiles[Inventory.units.get(0).locX][Inventory.units.get(0).locY].getPosition().getY() / 2));
-			Startup.shadowCamera.setPosition(Startup.camera.position.getX(), 128 + tiles[Inventory.units.get(0).locX][Inventory.units.get(0).locY].getPosition().getY() / 2, Startup.camera.position.getZ());
+			Startup.shadowCamera.setPosition(Startup.camera.position.getX(), Startup.shadowCamera.position.getY(), Startup.camera.position.getZ());
+			Startup.shadowCamera.targetPosition.setY(128 + tiles[Inventory.units.get(0).locX][Inventory.units.get(0).locY].getPosition().getY() / 2);
 			Startup.shadowCamera.setRotation(new Vector3f(-60, 0, 0));
 
 			// Updates each tile in the camera range
