@@ -260,11 +260,13 @@ public class MenuDungeonAction extends Menu {
 				options.add("Attack");
 			}
 
-			// Check if weapon has a usable ability
-			for (String s : unit.weapon.abilities) {
-				ItemAbility a = ItemAbility.valueOf(s);
-				if (a.activated && (a.target.equals(ItemAbility.TARGET_NONE) || (assist && a.target.equals(ItemAbility.TARGET_UNIT)) || (attack && a.target.equals(ItemAbility.TARGET_ENEMY)))) {
-					options.add(ItemAbility.valueOf(s).toString());
+			if (!unit.getStatus().equals(Unit.STATUS_DAZE)) {
+				// Check if weapon has a usable ability
+				for (String s : unit.weapon.abilities) {
+					ItemAbility a = ItemAbility.valueOf(s);
+					if (a.activated && (a.target.equals(ItemAbility.TARGET_NONE) || (assist && a.target.equals(ItemAbility.TARGET_UNIT)) || (attack && a.target.equals(ItemAbility.TARGET_ENEMY)))) {
+						options.add(ItemAbility.valueOf(s).toString());
+					}
 				}
 			}
 		}
@@ -460,7 +462,7 @@ class MenuDungeonActionItems extends Menu {
 				if (command.equals("")) {
 					ArrayList<String> options = new ArrayList<String>();
 
-					if (!StateDungeon.getCurrentContext().freeRoamMode && unit.getItemList().get(selected).type.equals(ItemProperty.TYPE_USABLE)) {
+					if (!unit.getStatus().equals(Unit.STATUS_DAZE) && !StateDungeon.getCurrentContext().freeRoamMode && unit.getItemList().get(selected).type.equals(ItemProperty.TYPE_USABLE)) {
 						options.add("Use");
 					}
 
@@ -534,8 +536,7 @@ class MenuDungeonActionItemsAction extends Menu {
 						unit.getItemList().get(parent.selected).use(unit, context);
 						closeAll();
 						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
-						
-						
+
 						break;
 
 					case "Equip":

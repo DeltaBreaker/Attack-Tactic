@@ -88,9 +88,7 @@ class ParticleQuestionMark {
 	
 	public ParticleQuestionMark(Vector3f position) {
 		int circlePosition = new Random().nextInt(360);
-		this.position = Vector3f.add(position, new Vector3f(AdvMath.sin[circlePosition] * 8, 8 + new Random().nextInt(8), AdvMath.sin[(circlePosition + 90) % 360] * 8));
-		
-		
+		this.position = Vector3f.add(position, new Vector3f(AdvMath.sin[circlePosition] * 8, 14 + new Random().nextInt(8), AdvMath.sin[(circlePosition + 90) % 360] * 8));
 	}
 
 	public void tick() {
@@ -119,7 +117,10 @@ class ParticleQuestionMark {
 	}
 	
 	public void render() {
-		BatchSorter.add("zzzzzzzzz", "&.dae", "@.png", "main_3d_nobloom", Material.DEFAULT.toString(), position, rotation, Vector3f.SCALE_HALF, color,
+		float scaler = 0.5f / life * (life - age);
+		Vector3f scale = new Vector3f(scaler, scaler, scaler);
+		float multiplier = scaler / 0.5f;
+		BatchSorter.add("zzzzzzzzz", "&.dae", "&.png", "main_3d_nobloom", Material.DEFAULT.toString(), Vector3f.div(position, multiplier, multiplier, multiplier), rotation, scale, color,
 				false, false);
 	}
 	

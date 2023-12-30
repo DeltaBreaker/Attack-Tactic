@@ -1744,7 +1744,7 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-			Inventory.active.get(0).applyStatus(Unit.STATUS_POISON);
+			Inventory.active.get(0).applyStatus(Unit.STATUS_CONFUSION);
 			break;
 
 		case HIGHLIGHT:

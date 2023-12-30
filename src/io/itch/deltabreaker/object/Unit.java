@@ -23,6 +23,7 @@ import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.effect.Effect;
 import io.itch.deltabreaker.effect.EffectConfusion;
+import io.itch.deltabreaker.effect.EffectDaze;
 import io.itch.deltabreaker.effect.EffectDebuff;
 import io.itch.deltabreaker.effect.EffectEnergize;
 import io.itch.deltabreaker.effect.EffectHeated;
@@ -50,6 +51,7 @@ public class Unit {
 	public static final String STATUS_POISON = "unit.status.poison";
 	public static final String STATUS_SLEEP = "unit.status.sleep";
 	public static final String STATUS_CONFUSION = "unit.status.confusion";
+	public static final String STATUS_DAZE = "unit.status.daze";
 
 	public static ArrayList<String> names = new ArrayList<>();
 	public static HashMap<String, float[]> GROWTH_PROFILES = new HashMap<>();
@@ -589,6 +591,16 @@ public class Unit {
 			StateManager.currentState.effects.add(new EffectDebuff(new Vector3f(x, 10 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y)));
 			break;
 
+		case STATUS_DAZE:
+			statusTimer = 3;
+			this.status = STATUS_DAZE;
+			statusEffect.die = true;
+			statusEffect = new EffectDaze(new Vector3f(x, 10 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y));
+			StateManager.currentState.effects.add(statusEffect);
+			StateManager.currentState.effects.add(new EffectText("+Daze", new Vector3f(x - ("+Daze").length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8), Vector4f.COLOR_RED));
+			StateManager.currentState.effects.add(new EffectDebuff(new Vector3f(x, 10 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y)));
+			break;
+			
 		}
 	}
 
@@ -609,9 +621,13 @@ public class Unit {
 				break;
 				
 			case STATUS_CONFUSION:
-				StateManager.currentState.effects.add(new EffectText("-Confusion", new Vector3f(x - ("-Sleep").length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8), Vector4f.COLOR_GREEN));
+				StateManager.currentState.effects.add(new EffectText("-Confusion", new Vector3f(x - ("-Confusion").length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8), Vector4f.COLOR_GREEN));
 				break;
 
+			case STATUS_DAZE:
+				StateManager.currentState.effects.add(new EffectText("-Daze", new Vector3f(x - ("-Daze").length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8), Vector4f.COLOR_GREEN));
+				break;
+				
 			}
 
 			statusEffect.die = true;
