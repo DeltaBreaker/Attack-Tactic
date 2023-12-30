@@ -234,7 +234,7 @@ public class StateDungeon extends State {
 	@Override
 	public void tick() {
 		info = "";
-
+		
 		// This handles how long the exclamation mark appears when being caught
 		if (caught) {
 			if (caughtTimer < caughtTime) {
@@ -728,15 +728,16 @@ public class StateDungeon extends State {
 			info += " " + tiles[cursorPos.x][cursorPos.y].getProperty() + " " + cursorPos.x + "x " + cursorPos.y + "y" + " status " + tiles[cursorPos.x][cursorPos.y].status + " mp " + tiles[cursorPos.x][cursorPos.y].movementPenalty;
 		}
 		int lengthTarget = info.length() * 6 + 10;
+		int lengthSpeed = (int) Math.max(2, Math.abs(infoLength - lengthTarget) / 8.0f);
 		if (info.length() > 0 && phase == 0 && menus.size() == 0 && !combatMode && !inCombat && alpha < 0.1 && alpha == alphaTo && alphaTo != 1 && !hideCursor && !swap) {
 			Startup.staticView.setPosition(0, 0, 0);
 			if (infoLength < lengthTarget) {
-				infoLength = Math.min(lengthTarget, infoLength + 10);
+				infoLength = Math.min(lengthTarget, infoLength + lengthSpeed);
 			} else if (infoLength > lengthTarget) {
-				infoLength = Math.max(0, infoLength - 10);
+				infoLength = Math.max(0, infoLength - lengthSpeed);
 			}
 		} else if (infoLength > 0) {
-			infoLength = Math.max(0, infoLength - 10);
+			infoLength = Math.max(0, infoLength - lengthSpeed);
 		}
 
 		// Manages the event system
@@ -776,8 +777,6 @@ public class StateDungeon extends State {
 			rcamX = Math.floorDiv((int) camX, 8) - 18;
 			rcamY = Math.floorDiv((int) camY, 8) - 17;
 			if (!aiHandler.processing) {
-				Startup.camera.position.setX((float) camX);
-				Startup.camera.position.setZ((float) camY);
 				Startup.camera.targetPosition.setX((float) camX);
 				Startup.camera.targetPosition.setZ((float) camY);
 				Startup.camera.targetPosition.setY(42 + (tiles[cursorPos.x][cursorPos.y].getPosition().getY() / 2));

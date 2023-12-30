@@ -40,23 +40,27 @@ public class Cursor {
 		} else {
 			bob = 0;
 		}
+		
+		float xSpeed = Math.abs(position.getX() - targetPosition.getX()) / 16.0f;
+		float ySpeed = Math.abs(position.getY() - targetPosition.getY()) / 16.0f;
+		float zSpeed = Math.abs(position.getZ() - targetPosition.getZ()) / 16.0f;
 		if (position.getX() < targetPosition.getX()) {
-			position = new Vector3f(Math.min(position.getX() + 1, targetPosition.getX()), position.getY(), position.getZ());
+			position = new Vector3f(Math.min(position.getX() + xSpeed, targetPosition.getX()), position.getY(), position.getZ());
 		}
 		if (position.getX() > targetPosition.getX()) {
-			position = new Vector3f(Math.max(position.getX() - 1, targetPosition.getX()), position.getY(), position.getZ());
+			position = new Vector3f(Math.max(position.getX() - xSpeed, targetPosition.getX()), position.getY(), position.getZ());
 		}
 		if (position.getY() < targetPosition.getY()) {
-			position.setY((float) Math.min(position.getY() + 1, targetPosition.getY()));
+			position.setY((float) Math.min(position.getY() + ySpeed, targetPosition.getY()));
 		}
 		if (position.getY() > targetPosition.getY()) {
-			position = new Vector3f(position.getX(), Math.max(position.getY() - 1, targetPosition.getY()), position.getZ());
+			position = new Vector3f(position.getX(), Math.max(position.getY() - ySpeed, targetPosition.getY()), position.getZ());
 		}
 		if (position.getZ() < targetPosition.getZ()) {
-			position = new Vector3f(position.getX(), position.getY(), Math.min(position.getZ() + 1, targetPosition.getZ()));
+			position = new Vector3f(position.getX(), position.getY(), Math.min(position.getZ() + zSpeed, targetPosition.getZ()));
 		}
 		if (position.getZ() > targetPosition.getZ()) {
-			position = new Vector3f(position.getX(), position.getY(), Math.max(position.getZ() - 1, targetPosition.getZ()));
+			position = new Vector3f(position.getX(), position.getY(), Math.max(position.getZ() - zSpeed, targetPosition.getZ()));
 		}
 		if (wait) {
 			if (waitTimer < waitTime) {
