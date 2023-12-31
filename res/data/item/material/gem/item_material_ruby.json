@@ -7,7 +7,8 @@
 	"fish_rate": 0.0,
 	"locations": [
 		"pallet.castle_depths",
-		"pallet.scorched_crater"
+		"pallet.scorched_crater",
+		"pallet.medial_plane"
 	],
 	"price": 400,
 	"text": [

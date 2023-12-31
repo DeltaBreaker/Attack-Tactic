@@ -577,7 +577,7 @@ class MenuDungeonActionItemsAction extends Menu {
 						break;
 
 					case "Info":
-						context.menus.add(new MenuItemInfoCard(Vector3f.add(position, width + 5, 0, 0), unit.getItemList().get(parent.selected), unit));
+						subMenu.add(new MenuItemInfoCard(Vector3f.add(position, width + 5, 0, 0), unit.getItemList().get(parent.selected), unit));
 						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 						break;
 

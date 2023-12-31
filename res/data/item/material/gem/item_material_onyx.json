@@ -6,7 +6,8 @@
 	"rate": 0.5,
 	"fish_rate": 0.0,
 	"locations": [
-		"pallet.castle_depths"
+		"pallet.castle_depths",
+		"pallet.medial_plane"
 	],
 	"price": 400,
 	"text": [

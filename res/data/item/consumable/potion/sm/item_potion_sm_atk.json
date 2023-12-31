@@ -4,7 +4,7 @@
 	"type": "item.type.usable",
 	"tier": 1,
 	"use": "ITEM_USE_POTION_SM_ATK",
-	"rate": 0.01,
+	"rate": 0.05,
 	"fish_rate": 0.0,
 	"locations": [
 		"pallet.snow_forrest",

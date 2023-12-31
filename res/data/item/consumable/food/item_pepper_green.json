@@ -1,0 +1,25 @@
+{
+	"id": "item.usable.pepper.green",
+	"name": "Green Pepper",
+	"type": "item.type.usable",
+	"tier": 0,
+	"use": "ITEM_USE_RES_5",
+	"rate": 0.6,
+	"fish_rate": 0.0,
+	"locations": [
+		"pallet.snow_forrest",
+		"pallet.village",
+		"pallet.flooded_forrest"
+	],
+	"price": 150,
+	"text": [
+		"Increases res by 5",
+		"for one turn"
+	],
+	"model": "item_pepper.dae",
+	"texture": "item_pepper_green.png",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": -1
+	}
+}

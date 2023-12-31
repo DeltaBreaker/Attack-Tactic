@@ -9,7 +9,8 @@
 		"pallet.snow_forrest",
 		"pallet.village",
 		"pallet.flooded_forrest",
-		"pallet.scorched_crater"
+		"pallet.scorched_crater",
+		"pallet.medial_plane"
 	],
 	"price": 150,
 	"text": [

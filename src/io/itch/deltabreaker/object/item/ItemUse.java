@@ -1293,7 +1293,91 @@ public enum ItemUse {
 			return 0;
 		}
 	},
+	
+	ITEM_USE_DEF_5(true) {
+		@Override
+		public void use(Unit u, StateDungeon context) {
+			context.effects.add(new EffectItemUse(u, context.selectedItem, context));
+			context.clearSelectedTiles();
+			context.selectedUnit.removeItem(context.selectedItem);
+			context.selectedItemUse = this;
+			
+			if(context.multiplayerMode) {
+				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
+			}
+		}
 
+		@Override
+		public void followUp(Unit u, StateDungeon context) {
+
+		}
+
+		@Override
+		public void afterAnimation(Unit u, StateDungeon context) {
+			context.selectedUnit.buffStat("def", 5);
+			context.selectedUnit.setTurn(false);
+			context.clearUnit();
+			context.clearAtkDefUnit();
+		}
+
+		@Override
+		public int calculateHealing(Unit u, StateDungeon context) {
+			return 5;
+		}
+
+		@Override
+		public int calculateDamage(Unit u, StateDungeon context) {
+			return 0;
+		}
+
+		@Override
+		public int getRange(Unit u, StateDungeon context) {
+			return 0;
+		}
+	},
+
+	ITEM_USE_RES_5(true) {
+		@Override
+		public void use(Unit u, StateDungeon context) {
+			context.effects.add(new EffectItemUse(u, context.selectedItem, context));
+			context.clearSelectedTiles();
+			context.selectedUnit.removeItem(context.selectedItem);
+			context.selectedItemUse = this;
+			
+			if(context.multiplayerMode) {
+				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
+			}
+		}
+
+		@Override
+		public void followUp(Unit u, StateDungeon context) {
+
+		}
+
+		@Override
+		public void afterAnimation(Unit u, StateDungeon context) {
+			context.selectedUnit.buffStat("res", 5);
+			context.selectedUnit.setTurn(false);
+			context.clearUnit();
+			context.clearAtkDefUnit();
+		}
+
+		@Override
+		public int calculateHealing(Unit u, StateDungeon context) {
+			return 5;
+		}
+
+		@Override
+		public int calculateDamage(Unit u, StateDungeon context) {
+			return 0;
+		}
+
+		@Override
+		public int getRange(Unit u, StateDungeon context) {
+			return 0;
+		}
+	},
+	
 	ITEM_USE_PEBBLE(false) {
 		@Override
 		public void use(Unit u, StateDungeon context) {

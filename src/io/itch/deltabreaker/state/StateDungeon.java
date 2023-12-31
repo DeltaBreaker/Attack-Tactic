@@ -1744,7 +1744,8 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-			Inventory.active.get(0).applyStatus(Unit.STATUS_CONFUSION);
+			Inventory.active.get(0).setTurn(true);
+			Inventory.active.get(0).addItem(ItemProperty.get("item.usable.pepper.green"));
 			break;
 
 		case HIGHLIGHT:
@@ -1985,7 +1986,7 @@ public class StateDungeon extends State {
 							if (menus.size() == 0) {
 								if (phase == 0 && !freeRoamMode) {
 									if (!combatMode) {
-										if (enemies.contains(selectedUnit) || Inventory.active.contains(selectedUnit) || showingRange) {
+										if ((enemies.contains(selectedUnit) || Inventory.active.contains(selectedUnit) || showingRange) && !usingItem) {
 											showingRange = false;
 											clearSelectedTiles();
 											clearUnit();

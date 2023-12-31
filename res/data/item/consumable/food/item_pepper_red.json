@@ -1,0 +1,25 @@
+{
+	"id": "item.usable.pepper.red",
+	"name": "Red Pepper",
+	"type": "item.type.usable",
+	"tier": 0,
+	"use": "ITEM_USE_DEF_5",
+	"rate": 0.6,
+	"fish_rate": 0.0,
+	"locations": [
+		"pallet.snow_forrest",
+		"pallet.village",
+		"pallet.flooded_forrest"
+	],
+	"price": 150,
+	"text": [
+		"Increases def by 5",
+		"for one turn"
+	],
+	"model": "item_pepper.dae",
+	"texture": "item_pepper_red.png",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": -1
+	}
+}

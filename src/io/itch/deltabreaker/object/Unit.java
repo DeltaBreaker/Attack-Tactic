@@ -557,6 +557,48 @@ public class Unit {
 		currentHp = Math.min(hp, currentHp + damage);
 	}
 
+	public void buffStat(String stat, int amt) {
+		if (amt > 0) {
+			switch (stat.toLowerCase()) {
+
+			case "movement":
+				offsetMovement += amt;
+				break;
+
+			case "hp":
+				offsetHp += amt;
+				break;
+
+			case "atk":
+				offsetAtk += amt;
+				break;
+
+			case "mag":
+				offsetMag += amt;
+				break;
+
+			case "spd":
+				offsetSpd += amt;
+				break;
+
+			case "def":
+				offsetDef += amt;
+				break;
+
+			case "res":
+				offsetRes += amt;
+				break;
+
+			default:
+				return;
+
+			}
+			StateManager.currentState.effects.add(new EffectText("+" + amt + " " + stat, new Vector3f(x - ("+" + amt + " " + stat).length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8),
+					new Vector4f(ItemProperty.colorList[1], 1)));
+			StateManager.currentState.effects.add(new EffectEnergize(new Vector3f(x, 10 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y), new Vector4f(0.5f, 1f, 0.5f, 1f)));
+		}
+	}
+
 	public void applyStatus(String status) {
 		switch (status) {
 
@@ -600,7 +642,7 @@ public class Unit {
 			StateManager.currentState.effects.add(new EffectText("+Daze", new Vector3f(x - ("+Daze").length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8), Vector4f.COLOR_RED));
 			StateManager.currentState.effects.add(new EffectDebuff(new Vector3f(x, 10 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y)));
 			break;
-			
+
 		}
 	}
 
@@ -619,7 +661,7 @@ public class Unit {
 			case STATUS_SLEEP:
 				StateManager.currentState.effects.add(new EffectText("-Sleep", new Vector3f(x - ("-Sleep").length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8), Vector4f.COLOR_GREEN));
 				break;
-				
+
 			case STATUS_CONFUSION:
 				StateManager.currentState.effects.add(new EffectText("-Confusion", new Vector3f(x - ("-Confusion").length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8), Vector4f.COLOR_GREEN));
 				break;
@@ -627,7 +669,7 @@ public class Unit {
 			case STATUS_DAZE:
 				StateManager.currentState.effects.add(new EffectText("-Daze", new Vector3f(x - ("-Daze").length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8), Vector4f.COLOR_GREEN));
 				break;
-				
+
 			}
 
 			statusEffect.die = true;

@@ -9,7 +9,8 @@
 		"pallet.castle_depths",
 		"pallet.snow_forrest",
 		"pallet.flooded_forrest",
-		"pallet.village"
+		"pallet.village",
+		"pallet.medial_plane"
 	],
 	"price": 400,
 	"text": [
