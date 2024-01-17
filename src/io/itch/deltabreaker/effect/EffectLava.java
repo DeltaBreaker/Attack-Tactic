@@ -29,7 +29,7 @@ public class EffectLava extends EffectWater {
 
 		t.setWaterLogged(false);
 		t.setLavaLogged(true);
-		
+
 		if ((int) position.getX() % 2 == 0 && (int) position.getZ() % 2 == 0) {
 			light = new Light(Vector3f.add(Vector3f.div(position, 2, 2, 2), 0, 4, 0), new Vector3f(2f, 1.25f, 0f), 1.5f, 1f, 0.075f, null);
 			StateManager.currentState.lights.add(light);
@@ -41,23 +41,24 @@ public class EffectLava extends EffectWater {
 		if (canRender) {
 			if (SettingsManager.enableFancyWater) {
 				boolean renderOrder = Startup.camera.position.getX() * 2 < position.getX();
-				positions.clear();
-				for (int y = water[0].length - 1; y >= 0; y--) {
-					if (renderOrder) {
+				if (renderOrder) {
+					for (int y = water[0].length - 1; y >= 0; y--) {
 						for (int x = 0; x < water.length; x++) {
-							positions.add(water[x][y].renderPosition);
+							BatchSorter.addLiquidPosition("main_3d_lava", water[x][y].renderPosition);
 						}
-					} else {
+					}
+				} else {
+					for (int y = water[0].length - 1; y >= 0; y--) {
 						for (int x = water.length - 1; x >= 0; x--) {
-							positions.add(water[x][y].renderPosition);
+							BatchSorter.addLiquidPosition("main_3d_lava", water[x][y].renderPosition);
 						}
 					}
 				}
-				BatchSorter.addLiquidBatch("z", "pixel.dae", "pixel.png", "main_3d_lava", Material.DEFAULT.toString(), positions);
 			} else {
 				Vector3f position = Vector3f.add(this.position, 0,
 						heights[0][0] + noise[0][0] * height * AdvMath.sin[(int) (Startup.universalAge + (this.position.getX()) * spacingDevisor + (this.position.getZ()) * spacingDevisor) % AdvMath.values], 0);
-				BatchSorter.add("z", "pixel.dae", "pixel.png", "main_3d_bloom", Material.DEFAULT.toString(), Vector3f.div(Vector3f.add(position, 0, 6, 0), Vector3f.SCALE_16X), Vector3f.EMPTY, Vector3f.SCALE_8X, Vector4f.mul(Vector4f.COLOR_LAVA, new Vector4f(0.5f, 0.5f, 0.5f, 1)), false, false);
+				BatchSorter.add("z", "pixel.dae", "pixel.png", "main_3d_bloom", Material.DEFAULT.toString(), Vector3f.div(Vector3f.add(position, 0, 6, 0), Vector3f.SCALE_16X), Vector3f.EMPTY, Vector3f.SCALE_8X,
+						Vector4f.mul(Vector4f.COLOR_LAVA, new Vector4f(0.5f, 0.5f, 0.5f, 1)), false, false);
 			}
 		}
 	}

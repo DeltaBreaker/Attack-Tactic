@@ -7,7 +7,8 @@
 	"use": "ITEM_USE_HEAL_10",
 	"fish_rate": 0.75,
 	"locations": [
-		"pallet.seabed_cove"
+		"pallet.seabed_cove",
+		"pallet.medial_plane"
 	],
 	"price": 200,
 	"text": [

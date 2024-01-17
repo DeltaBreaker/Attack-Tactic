@@ -37,8 +37,6 @@ public class EffectWater extends Effect {
 
 	public Tile t;
 
-	protected ArrayList<Vector4f> positions = new ArrayList<>();
-
 	protected WorkerTask task = new WorkerTask() {
 		@Override
 		public void tick() {
@@ -145,25 +143,26 @@ public class EffectWater extends Effect {
 		if (canRender) {
 			if (SettingsManager.enableFancyWater) {
 				boolean renderOrder = Startup.camera.position.getX() * 2 < position.getX();
-				positions.clear();
-				for (int y = water[0].length - 1; y >= 0; y--) {
-					if (renderOrder) {
+				if (renderOrder) {
+					for (int y = water[0].length - 1; y >= 0; y--) {
 						for (int x = 0; x < water.length; x++) {
-							positions.add(water[x][y].renderPosition);
+							BatchSorter.addLiquidPosition("main_3d_water", water[x][y].renderPosition);
 						}
-					} else {
+					}
+				} else {
+					for (int y = water[0].length - 1; y >= 0; y--) {
 						for (int x = water.length - 1; x >= 0; x--) {
-							positions.add(water[x][y].renderPosition);
+							BatchSorter.addLiquidPosition("main_3d_water", water[x][y].renderPosition);
 						}
 					}
 				}
-				BatchSorter.addLiquidBatch("z", "pixel.dae", "pixel.png", "main_3d_water", Material.WATER.toString(), positions);
 			} else {
 				Vector3f position = Vector3f.add(this.position, 0,
 						heights[0][0] + noise[0][0] * height * AdvMath.sin[(int) (Startup.universalAge + (this.position.getX()) * spacingDevisor + (this.position.getZ()) * spacingDevisor) % AdvMath.values], 0);
 				BatchSorter.add("z", "pixel.dae", "pixel.png", "main_3d_bloom", Material.WATER.toString(), Vector3f.div(Vector3f.add(position, 0, 6, 0), Vector3f.SCALE_16X), Vector3f.EMPTY, Vector3f.SCALE_8X, color, false, false);
 			}
 		}
+
 	}
 
 	@Override

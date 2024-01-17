@@ -14,12 +14,12 @@ import io.itch.deltabreaker.math.Vector4f;
 
 public class EffectHeated extends Effect {
 
-	private static final int SPAWN_LIMIT = 16;
+	private static final int SPAWN_LIMIT = 8;
 
 	private ArrayList<HeatParticle> snowflakes = new ArrayList<>();
 
 	private int spawnTimer = 0;
-	private int spawnRate = 24;
+	private int spawnRate = 48;
 
 	private ArrayList<Matrix4f> matrices = new ArrayList<>();
 	private ArrayList<Vector4f> colors = new ArrayList<>();

@@ -2,14 +2,15 @@
 	"id": "item.usable.pepper.red",
 	"name": "Red Pepper",
 	"type": "item.type.usable",
-	"tier": 0,
+	"tier": 1,
 	"use": "ITEM_USE_DEF_5",
 	"rate": 0.6,
 	"fish_rate": 0.0,
 	"locations": [
 		"pallet.snow_forrest",
 		"pallet.village",
-		"pallet.flooded_forrest"
+		"pallet.flooded_forrest",
+		"pallet.medial_plane"
 	],
 	"price": 150,
 	"text": [

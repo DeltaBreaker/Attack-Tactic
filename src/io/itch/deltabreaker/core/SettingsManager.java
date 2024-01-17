@@ -59,6 +59,7 @@ public class SettingsManager {
 	
 	// Developer options
 	public static boolean consolePerformacneOutput = false;
+	public static boolean enableGLErrorChecking = true;
 
 	public static void saveSettingsFile(String path, String file) {
 		File dir = new File(path);

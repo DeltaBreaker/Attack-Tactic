@@ -1,5 +1,7 @@
 package io.itch.deltabreaker.graphics;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
@@ -32,7 +34,7 @@ public class Model {
 	private int sample = 0;
 
 	public boolean built = false;
-
+	
 	public Model(float[] vertices, float[] texCoords, float[] normals, int[] indices) {
 		drawCount = indices.length;
 
@@ -217,9 +219,14 @@ public class Model {
 	}
 
 	public static FloatBuffer createFloatBuffer4f(ArrayList<Vector4f> data) {
-		FloatBuffer buffer = BufferUtils.createFloatBuffer(data.size() * 4);
+		ByteBuffer byteBuffer = ByteBuffer.allocateDirect(data.size() * 16);
+		byteBuffer.order(ByteOrder.nativeOrder());
+		FloatBuffer buffer = byteBuffer.asFloatBuffer();
 		for (Vector4f v : data) {
-			buffer.put(v.getElements());
+			buffer.put(v.getX());
+			buffer.put(v.getY());
+			buffer.put(v.getZ());
+			buffer.put(v.getW());
 		}
 		buffer.flip();
 		return buffer;

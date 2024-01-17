@@ -8,7 +8,8 @@
 	"fish_rate": 0.0,
 	"locations": [
 		"pallet.village",
-		"pallet.flooded_forrest"
+		"pallet.flooded_forrest",
+		"pallet.medial_plane"
 	],
 	"price": 125,
 	"text": [

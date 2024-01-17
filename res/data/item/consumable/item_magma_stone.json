@@ -7,7 +7,8 @@
 	"rate": 0.75,
 	"fish_rate": 0.15,
 	"locations": [
-		"pallet.scorched_crater"
+		"pallet.scorched_crater",
+		"pallet.medial_plane"
 	],
 	"price": 25,
 	"text": [

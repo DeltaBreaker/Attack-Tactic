@@ -107,7 +107,7 @@ public class Startup implements Runnable {
 	private Shader bloom;
 	private Shader drawImage;
 	private Shader defer;
-	
+
 	public Startup(String[] args) {
 		this.args = args;
 	}
@@ -148,7 +148,7 @@ public class Startup implements Runnable {
 				thread = new Startup(args);
 				new Thread(thread).start();
 				break;
-				
+
 			}
 		} else {
 			checkArgs(args);
@@ -226,6 +226,7 @@ public class Startup implements Runnable {
 			AIType.loadAITypes("res/data/ai");
 			ResourceManager.loadStates();
 			ResourceManager.validateData();
+			BatchSorter.loadSpecs();
 
 			shadowMap = new ShadowMap();
 
@@ -288,10 +289,8 @@ public class Startup implements Runnable {
 //				Inventory.saveHeader(2);
 //				Inventory.saveGame(2);
 //				StateDungeon.startDungeon("seabed_cove.json", 14, -1932052909105962160L);
-				StateDungeon.startDungeon("flooded_forrest.json", 14, new Random().nextLong());
-				
-				
-				
+				StateDungeon.startDungeon("scorched_crater.json", 14, new Random().nextLong());
+
 //				ArrayList<float[]> profiles = new ArrayList<>();
 //				for (float[] profile : Unit.GROWTH_PROFILES.values()) {
 //					profiles.add(profile);
@@ -328,7 +327,7 @@ public class Startup implements Runnable {
 			e1.printStackTrace();
 		}
 	}
-	
+
 	private void loadMetaData(String file) {
 		File f = new File(file);
 		try {
@@ -559,38 +558,40 @@ public class Startup implements Runnable {
 				render();
 			}
 
-			int error = GL40.glGetError();
+			if (SettingsManager.enableGLErrorChecking) {
+				int error = GL40.glGetError();
 
-			switch (error) {
+				switch (error) {
 
-			case GL40.GL_INVALID_ENUM:
-				System.out.println("[Startup]: GL Error: Invalid enum");
-				break;
+				case GL40.GL_INVALID_ENUM:
+					System.out.println("[Startup]: GL Error: Invalid enum");
+					break;
 
-			case GL40.GL_INVALID_VALUE:
-				System.out.println("[Startup]: GL Error: Invalid value");
-				break;
+				case GL40.GL_INVALID_VALUE:
+					System.out.println("[Startup]: GL Error: Invalid value");
+					break;
 
-			case GL40.GL_INVALID_OPERATION:
-				System.out.println("[Startup]: GL Error: Invalid opperation");
-				break;
+				case GL40.GL_INVALID_OPERATION:
+					System.out.println("[Startup]: GL Error: Invalid opperation");
+					break;
 
-			case GL40.GL_STACK_OVERFLOW:
-				System.out.println("[Startup]: GL Error: Stack overflow");
-				break;
+				case GL40.GL_STACK_OVERFLOW:
+					System.out.println("[Startup]: GL Error: Stack overflow");
+					break;
 
-			case GL40.GL_STACK_UNDERFLOW:
-				System.out.println("[Startup]: GL Error: Stack underflow");
-				break;
+				case GL40.GL_STACK_UNDERFLOW:
+					System.out.println("[Startup]: GL Error: Stack underflow");
+					break;
 
-			case GL40.GL_OUT_OF_MEMORY:
-				System.out.println("[Startup]: GL Error: Out of memory");
-				break;
+				case GL40.GL_OUT_OF_MEMORY:
+					System.out.println("[Startup]: GL Error: Out of memory");
+					break;
 
-			case GL40.GL_INVALID_FRAMEBUFFER_OPERATION:
-				System.out.println("[Startup]: GL Error: Invalid framebuffer operation");
-				break;
+				case GL40.GL_INVALID_FRAMEBUFFER_OPERATION:
+					System.out.println("[Startup]: GL Error: Invalid framebuffer operation");
+					break;
 
+				}
 			}
 		}
 		destroy();

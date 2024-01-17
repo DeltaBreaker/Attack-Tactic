@@ -1,0 +1,29 @@
+{
+	"id": "item.usable.wine",
+	"name": "Wine",
+	"type": "item.type.usable",
+	"tier": 1,
+	"use": "ITEM_USE_WINE",
+	"rate": 0.25,
+	"fish_rate": 0.0,
+	"locations": [
+		"pallet.snow_forrest",
+		"pallet.village",
+		"pallet.flooded_forrest",
+		"pallet.seabed_cove",
+		"pallet.scorched_crater",
+		"pallet.medial_plane",
+		"pallet.castle_depths"
+	],
+	"price": 200,
+	"text": [
+		"Removes any status",
+		"but applies daze"
+	],
+	"model": "item_wine.dae",
+	"texture": "item_wine.png",
+	"material": "DEFAULT",
+	"recipe": {
+		"cost": -1
+	}
+}

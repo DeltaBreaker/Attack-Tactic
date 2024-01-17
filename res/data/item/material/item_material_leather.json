@@ -6,9 +6,7 @@
 	"rate": 1.0,
 	"fish_rate": 0.1,
 	"locations": [
-		"pallet.snow_forrest",
-		"pallet.village",
-		"pallet.flooded_forrest",
+		"pallet.seabed_cove",
 		"pallet.medial_plane"
 	],
 	"price": 50,

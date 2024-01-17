@@ -9,7 +9,8 @@
 	"locations": [
 		"pallet.snow_forrest",
 		"pallet.village",
-		"pallet.flooded_forrest"
+		"pallet.flooded_forrest",
+		"pallet.medial_plane"
 	],
 	"price": 100,
 	"text": [

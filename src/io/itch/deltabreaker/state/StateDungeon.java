@@ -1745,7 +1745,8 @@ public class StateDungeon extends State {
 
 		case MISC:
 			Inventory.active.get(0).setTurn(true);
-			Inventory.active.get(0).addItem(ItemProperty.get("item.usable.pepper.green"));
+			Inventory.active.get(0).addItem(ItemProperty.get("item.usable.ale"));
+			Inventory.active.get(0).addItem(ItemProperty.get("item.usable.wine"));
 			break;
 
 		case HIGHLIGHT:

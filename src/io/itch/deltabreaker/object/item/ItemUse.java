@@ -5,6 +5,7 @@ import java.util.Random;
 import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.effect.EffectBuff;
+import io.itch.deltabreaker.effect.EffectEnergize;
 import io.itch.deltabreaker.effect.EffectItemUse;
 import io.itch.deltabreaker.effect.EffectProjectile;
 import io.itch.deltabreaker.effect.EffectText;
@@ -23,8 +24,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -37,12 +38,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseHp = Math.min(99, u.baseHp + 1);
-			context.effects.add(new EffectText("+1 HP",
-					new Vector3f(u.x - ("+1 HP").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+1 HP", new Vector3f(u.x - ("+1 HP").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -71,8 +68,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -85,12 +82,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseAtk = Math.min(60, u.baseAtk + 1);
-			context.effects.add(new EffectText("+1 ATK",
-					new Vector3f(u.x - ("+1 ATK").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+1 ATK", new Vector3f(u.x - ("+1 ATK").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -119,8 +112,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -133,12 +126,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseMag = Math.min(60, u.baseMag + 1);
-			context.effects.add(new EffectText("+1 MAG",
-					new Vector3f(u.x - ("+1 MAG").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+1 MAG", new Vector3f(u.x - ("+1 MAG").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -167,8 +156,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -181,12 +170,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseSpd = Math.min(60, u.baseSpd + 1);
-			context.effects.add(new EffectText("+1 SPD",
-					new Vector3f(u.x - ("+1 SPD").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+1 SPD", new Vector3f(u.x - ("+1 SPD").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -215,8 +200,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -229,12 +214,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseDef = Math.min(60, u.baseDef + 1);
-			context.effects.add(new EffectText("+1 DEF",
-					new Vector3f(u.x - ("+1 DEF").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+1 DEF", new Vector3f(u.x - ("+1 DEF").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -263,8 +244,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -277,12 +258,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseRes = Math.min(60, u.baseRes + 1);
-			context.effects.add(new EffectText("+1 RES",
-					new Vector3f(u.x - ("+1 RES").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+1 RES", new Vector3f(u.x - ("+1 RES").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -311,8 +288,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -325,12 +302,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseHp = Math.min(99, u.baseHp + 2);
-			context.effects.add(new EffectText("+2 HP",
-					new Vector3f(u.x - ("+2 HP").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+2 HP", new Vector3f(u.x - ("+2 HP").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -359,8 +332,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -373,12 +346,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseAtk = Math.min(60, u.baseAtk + 2);
-			context.effects.add(new EffectText("+2 ATK",
-					new Vector3f(u.x - ("+2 ATK").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+2 ATK", new Vector3f(u.x - ("+2 ATK").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -407,8 +376,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -421,12 +390,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseMag = Math.min(60, u.baseMag + 2);
-			context.effects.add(new EffectText("+2 MAG",
-					new Vector3f(u.x - ("+2 MAG").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+2 MAG", new Vector3f(u.x - ("+2 MAG").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -455,8 +420,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -469,12 +434,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseSpd = Math.min(60, u.baseSpd + 2);
-			context.effects.add(new EffectText("+2 SPD",
-					new Vector3f(u.x - ("+2 SPD").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+2 SPD", new Vector3f(u.x - ("+2 SPD").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -503,8 +464,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -517,12 +478,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseDef = Math.min(60, u.baseDef + 2);
-			context.effects.add(new EffectText("+2 DEF",
-					new Vector3f(u.x - ("+2 DEF").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+2 DEF", new Vector3f(u.x - ("+2 DEF").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -551,8 +508,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -565,12 +522,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseRes = Math.min(60, u.baseRes + 2);
-			context.effects.add(new EffectText("+2 RES",
-					new Vector3f(u.x - ("+2 RES").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+2 RES", new Vector3f(u.x - ("+2 RES").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -599,8 +552,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -613,12 +566,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseHp = Math.min(99, u.baseHp + 3);
-			context.effects.add(new EffectText("+3 HP",
-					new Vector3f(u.x - ("+3 HP").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+3 HP", new Vector3f(u.x - ("+3 HP").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -647,8 +596,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -661,12 +610,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseAtk = Math.min(60, u.baseAtk + 3);
-			context.effects.add(new EffectText("+3 ATK",
-					new Vector3f(u.x - ("+3 ATK").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+3 ATK", new Vector3f(u.x - ("+3 ATK").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -695,8 +640,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -709,12 +654,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseMag = Math.min(60, u.baseMag + 3);
-			context.effects.add(new EffectText("+3 MAG",
-					new Vector3f(u.x - ("+3 MAG").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+3 MAG", new Vector3f(u.x - ("+3 MAG").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -743,8 +684,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -757,12 +698,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseSpd = Math.min(60, u.baseSpd + 3);
-			context.effects.add(new EffectText("+3 SPD",
-					new Vector3f(u.x - ("+3 SPD").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+3 SPD", new Vector3f(u.x - ("+3 SPD").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -791,8 +728,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -805,12 +742,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseDef = Math.min(60, u.baseDef + 3);
-			context.effects.add(new EffectText("+3 DEF",
-					new Vector3f(u.x - ("+3 DEF").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+3 DEF", new Vector3f(u.x - ("+3 DEF").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -839,8 +772,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -853,12 +786,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseRes = Math.min(60, u.baseRes + 3);
-			context.effects.add(new EffectText("+3 RES",
-					new Vector3f(u.x - ("+3 RES").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+3 RES", new Vector3f(u.x - ("+3 RES").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -887,8 +816,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -901,12 +830,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseHp = Math.min(99, u.baseHp + 4);
-			context.effects.add(new EffectText("+4 HP",
-					new Vector3f(u.x - ("+4 HP").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+4 HP", new Vector3f(u.x - ("+4 HP").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -935,8 +860,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -949,12 +874,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseAtk = Math.min(60, u.baseAtk + 4);
-			context.effects.add(new EffectText("+4 ATK",
-					new Vector3f(u.x - ("+4 ATK").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+4 ATK", new Vector3f(u.x - ("+4 ATK").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -983,8 +904,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -997,12 +918,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseMag = Math.min(60, u.baseMag + 4);
-			context.effects.add(new EffectText("+4 MAG",
-					new Vector3f(u.x - ("+4 MAG").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+4 MAG", new Vector3f(u.x - ("+4 MAG").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -1031,8 +948,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -1045,12 +962,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseSpd = Math.min(60, u.baseSpd + 4);
-			context.effects.add(new EffectText("+4 SPD",
-					new Vector3f(u.x - ("+4 SPD").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+4 SPD", new Vector3f(u.x - ("+4 SPD").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -1079,8 +992,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -1093,12 +1006,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseDef = Math.min(60, u.baseDef + 4);
-			context.effects.add(new EffectText("+4 DEF",
-					new Vector3f(u.x - ("+4 DEF").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+4 DEF", new Vector3f(u.x - ("+4 DEF").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -1127,8 +1036,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -1141,12 +1050,8 @@ public enum ItemUse {
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
 			u.baseRes = Math.min(60, u.baseRes + 4);
-			context.effects.add(new EffectText("+4 RES",
-					new Vector3f(u.x - ("+4 RES").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
-			context.effects.add(new EffectBuff(
-					new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
+			context.effects.add(new EffectText("+4 RES", new Vector3f(u.x - ("+4 RES").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
+			context.effects.add(new EffectBuff(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -1175,8 +1080,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -1217,8 +1122,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -1259,8 +1164,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -1293,7 +1198,7 @@ public enum ItemUse {
 			return 0;
 		}
 	},
-	
+
 	ITEM_USE_DEF_5(true) {
 		@Override
 		public void use(Unit u, StateDungeon context) {
@@ -1301,8 +1206,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -1343,8 +1248,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -1365,6 +1270,93 @@ public enum ItemUse {
 		@Override
 		public int calculateHealing(Unit u, StateDungeon context) {
 			return 5;
+		}
+
+		@Override
+		public int calculateDamage(Unit u, StateDungeon context) {
+			return 0;
+		}
+
+		@Override
+		public int getRange(Unit u, StateDungeon context) {
+			return 0;
+		}
+	},
+
+	ITEM_USE_WINE(true) {
+		@Override
+		public void use(Unit u, StateDungeon context) {
+			context.effects.add(new EffectItemUse(u, context.selectedItem, context));
+			context.clearSelectedTiles();
+			context.selectedUnit.removeItem(context.selectedItem);
+			context.selectedItemUse = this;
+
+			if (context.multiplayerMode) {
+				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
+			}
+		}
+
+		@Override
+		public void followUp(Unit u, StateDungeon context) {
+
+		}
+
+		@Override
+		public void afterAnimation(Unit u, StateDungeon context) {
+			StateManager.currentState.effects.add(new EffectEnergize(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y), new Vector4f(0.5f, 1f, 0.5f, 1f)));
+			context.selectedUnit.clearStatus();
+			context.selectedUnit.applyStatus(Unit.STATUS_DAZE);
+			context.selectedUnit.setTurn(false);
+			context.clearUnit();
+			context.clearAtkDefUnit();
+		}
+
+		@Override
+		public int calculateHealing(Unit u, StateDungeon context) {
+			return u.currentHp;
+		}
+
+		@Override
+		public int calculateDamage(Unit u, StateDungeon context) {
+			return 0;
+		}
+
+		@Override
+		public int getRange(Unit u, StateDungeon context) {
+			return 0;
+		}
+	},
+
+	ITEM_USE_MEAD(true) {
+		@Override
+		public void use(Unit u, StateDungeon context) {
+			context.effects.add(new EffectItemUse(u, context.selectedItem, context));
+			context.clearSelectedTiles();
+			context.selectedUnit.removeItem(context.selectedItem);
+			context.selectedItemUse = this;
+
+			if (context.multiplayerMode) {
+				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
+			}
+		}
+
+		@Override
+		public void followUp(Unit u, StateDungeon context) {
+
+		}
+
+		@Override
+		public void afterAnimation(Unit u, StateDungeon context) {
+			context.selectedUnit.heal(u.hp);
+			context.selectedUnit.applyStatus(Unit.STATUS_CONFUSION);
+			context.selectedUnit.setTurn(false);
+			context.clearUnit();
+			context.clearAtkDefUnit();
+		}
+
+		@Override
+		public int calculateHealing(Unit u, StateDungeon context) {
+			return u.currentHp;
 		}
 
 		@Override
@@ -1398,8 +1390,7 @@ public enum ItemUse {
 
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
-			context.effects.add(
-					new EffectProjectile(context.selectedUnit, u, 0, calculateDamage(context.selectedUnit, context)));
+			context.effects.add(new EffectProjectile(context.selectedUnit, u, 0, calculateDamage(context.selectedUnit, context)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -1412,8 +1403,7 @@ public enum ItemUse {
 
 		@Override
 		public int calculateDamage(Unit u, StateDungeon context) {
-			boolean hasReflect = u.weapon.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT)
-					|| u.accessory.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT);
+			boolean hasReflect = u.weapon.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT) || u.accessory.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT);
 			return (hasReflect) ? 0 : 5;
 		}
 
@@ -1443,8 +1433,7 @@ public enum ItemUse {
 
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
-			context.effects.add(
-					new EffectProjectile(context.selectedUnit, u, 1, calculateDamage(context.selectedUnit, context)));
+			context.effects.add(new EffectProjectile(context.selectedUnit, u, 1, calculateDamage(context.selectedUnit, context)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -1457,8 +1446,7 @@ public enum ItemUse {
 
 		@Override
 		public int calculateDamage(Unit u, StateDungeon context) {
-			boolean hasReflect = u.weapon.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT)
-					|| u.accessory.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT);
+			boolean hasReflect = u.weapon.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT) || u.accessory.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT);
 			return (hasReflect) ? 0 : 10;
 		}
 
@@ -1488,8 +1476,7 @@ public enum ItemUse {
 
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
-			context.effects.add(
-					new EffectProjectile(context.selectedUnit, u, 2, calculateDamage(context.selectedUnit, context)));
+			context.effects.add(new EffectProjectile(context.selectedUnit, u, 2, calculateDamage(context.selectedUnit, context)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -1502,8 +1489,7 @@ public enum ItemUse {
 
 		@Override
 		public int calculateDamage(Unit u, StateDungeon context) {
-			boolean hasReflect = u.weapon.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT)
-					|| u.accessory.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT);
+			boolean hasReflect = u.weapon.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT) || u.accessory.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT);
 			return (hasReflect || !u.getStatus().equals("")) ? 0 : u.currentHp;
 		}
 
@@ -1533,8 +1519,7 @@ public enum ItemUse {
 
 		@Override
 		public void afterAnimation(Unit u, StateDungeon context) {
-			context.effects.add(
-					new EffectProjectile(context.selectedUnit, u, 3, calculateDamage(context.selectedUnit, context)));
+			context.effects.add(new EffectProjectile(context.selectedUnit, u, 3, calculateDamage(context.selectedUnit, context)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();
@@ -1547,8 +1532,7 @@ public enum ItemUse {
 
 		@Override
 		public int calculateDamage(Unit u, StateDungeon context) {
-			boolean hasReflect = u.weapon.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT)
-					|| u.accessory.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT);
+			boolean hasReflect = u.weapon.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT) || u.accessory.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT);
 			return (hasReflect || !u.getStatus().equals("")) ? 0 : u.atk;
 		}
 
@@ -1565,8 +1549,8 @@ public enum ItemUse {
 			context.clearSelectedTiles();
 			context.selectedUnit.removeItem(context.selectedItem);
 			context.selectedItemUse = this;
-			
-			if(context.multiplayerMode) {
+
+			if (context.multiplayerMode) {
 				context.comThread.eventQueue.add(new String[] { "USE_SOLO_ITEM", context.selectedItem.uuid, u.uuid });
 			}
 		}
@@ -1583,10 +1567,8 @@ public enum ItemUse {
 			if (Inventory.active.contains(u)) {
 				Inventory.gold += gold;
 			}
-			StateManager.currentState.effects.add(new EffectText("+" + gold + " g",
-					new Vector3f(u.x - ("+" + gold + " g").length() * 1.5f,
-							20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8),
-					new Vector4f(ItemProperty.colorList[1], 1)));
+			StateManager.currentState.effects.add(
+					new EffectText("+" + gold + " g", new Vector3f(u.x - ("+" + gold + " g").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
 			context.selectedUnit.setTurn(false);
 			context.clearUnit();
 			context.clearAtkDefUnit();

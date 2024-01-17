@@ -39,6 +39,7 @@ import io.itch.deltabreaker.graphics.shader.ShaderMain3D;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DBloom;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DCrystal;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DEnemy;
+import io.itch.deltabreaker.graphics.shader.ShaderMain3DHeated;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DHousing;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DLava;
 import io.itch.deltabreaker.graphics.shader.ShaderMain3DMedial;
@@ -422,6 +423,7 @@ public class ResourceManager {
 		new ShaderMain3DHousing("main_3d_housing");
 		new ShaderMain3DWater("main_3d_water");
 		new ShaderMain3DLava("main_3d_lava");
+		new ShaderMain3DHeated("main_3d_heated");
 		new ShaderStatic3D("static_3d_editor");
 		new ShaderStatic3DCrafting("static_3d_crafting");
 		new ShaderDeferredLighting("deferred_lighting");

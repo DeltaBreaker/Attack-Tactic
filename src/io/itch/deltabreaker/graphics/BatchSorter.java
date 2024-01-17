@@ -310,23 +310,27 @@ public class BatchSorter {
 		}
 	}
 
-	public static void addLiquidBatch(String priority, String model, String texture, String shader, String material, ArrayList<Vector4f> shade) {
-		String key = shader;
-
-		if (!transparentBatches.containsKey(key)) {
-			transparentBatches.put(key, new LiquidRenderSpec(model, texture, shader, material));
-		}
-
+	public static void addLiquidBatch(String shader, ArrayList<Vector4f> shade) {
 		for (int i = 0; i < shade.size(); i++) {
-			transparentBatches.get(key).add(null, shade.get(i));
+			transparentBatches.get(shader).add(null, shade.get(i));
 		}
 	}
 
+	public static void addLiquidPosition(String shader, Vector4f shade) {
+		transparentBatches.get(shader).add(null, shade);
+	}
+	
 	public static void clear() {
 		batches.values().forEach((r) -> r.clear());
 		staticBatches.values().forEach((r) -> r.clear());
 		shadowBatches.values().forEach((r) -> r.clear());
 		transparentBatches.values().forEach((r) -> r.clear());
+	}
+
+	public static void loadSpecs() {
+		transparentBatches.put("main_3d_water", new LiquidRenderSpec("pixel.dae", "pixel.png", "main_3d_water", "WATER"));
+		transparentBatches.put("main_3d_lava", new LiquidRenderSpec("pixel.dae", "pixel.png", "main_3d_lava", "DEFAULT"));
+		transparentBatches.put("main_3d_heated", new LiquidRenderSpec("pixel.dae", "pixel.png", "main_3d_heated", "DEFAULT"));
 	}
 
 }
