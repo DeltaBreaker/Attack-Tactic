@@ -97,8 +97,8 @@ public class Startup implements Runnable {
 	public int[] pingPongBuffer = new int[2];
 	public boolean resize = false;
 	public int deferFBO = 0;
-	public int[] deferBuffers = new int[6];
-	public int[] deferDepthFBO = new int[6];
+	public int[] deferBuffers = new int[5];
+	public int[] deferDepthFBO = new int[5];
 
 	// The variables needed to render full images to the screen
 	// along with the shaders needed for the bloom effect
@@ -452,8 +452,8 @@ public class Startup implements Runnable {
 		GL40.glClearBufferfv(GL40.GL_COLOR, 1, new float[] { 0, 1, 0, 1 });
 		GL40.glClearBufferfv(GL40.GL_COLOR, 2, new float[] { camera.position.getX(), 1, camera.position.getZ(), 1 });
 		GL40.glClearBufferfv(GL40.GL_COLOR, 3, new float[] { 0.75f, 1, 1, 1 });
-		GL40.glClearBufferfv(GL40.GL_COLOR, 4, new float[] { 0, 0, 0, 1 });
-		GL40.glClearBufferfv(GL40.GL_COLOR, 5, new float[] { 0, 0, 0, 1 });
+		GL40.glClearBufferfv(GL40.GL_COLOR, 4, new float[] { 0, 1, 0, 1 });
+//		GL40.glClearBufferfv(GL40.GL_COLOR, 5, new float[] { 0, 0, 0, 1 });
 
 		BatchSorter.render();
 
@@ -496,15 +496,15 @@ public class Startup implements Runnable {
 			GL40.glBindTexture(GL40.GL_TEXTURE_2D, colorBuffers[0]);
 			GL40.glActiveTexture(GL40.GL_TEXTURE0 + 1);
 			GL40.glBindTexture(GL40.GL_TEXTURE_2D, pingPongBuffer[0]);
-			GL40.glActiveTexture(GL40.GL_TEXTURE0 + 3);
-			GL40.glBindTexture(GL40.GL_TEXTURE_2D, deferBuffers[5]);
+//			GL40.glActiveTexture(GL40.GL_TEXTURE0 + 3);
+//			GL40.glBindTexture(GL40.GL_TEXTURE_2D, deferBuffers[5]);
 			bloom.bind();
 			bloom.use(0, null);
 		} else {
 			GL40.glBindFramebuffer(GL40.GL_FRAMEBUFFER, 0);
 			GL40.glBindTexture(GL40.GL_TEXTURE_2D, colorBuffers[0]);
-			GL40.glActiveTexture(GL40.GL_TEXTURE0 + 1);
-			GL40.glBindTexture(GL40.GL_TEXTURE_2D, deferBuffers[5]);
+//			GL40.glActiveTexture(GL40.GL_TEXTURE0 + 1);
+//			GL40.glBindTexture(GL40.GL_TEXTURE_2D, deferBuffers[5]);
 			drawImage.bind();
 			drawImage.use(0, null);
 		}

@@ -19,10 +19,8 @@ uniform bool enableHaze;
 uniform float time;
 uniform float size;
 uniform float strength;
-uniform float outlineTolerance;
 uniform float width;
 uniform float height;
-uniform bool enableOutline;
 
 uniform float rt_w; // GeeXLab built-in
 uniform float rt_h; // GeeXLab built-in
@@ -118,20 +116,4 @@ void main() {
   	FragColor = (enableFXAA) ? PostFX(sampler, uv, 0.0) : texture(sampler, TexCoords + distort);
 
 	FragColor.rgb = mix(FragColor.rgb, FragColor.rgb * length, 0.5);
-	
-	
-	// Edge detection
-	if(enableOutline) {
-		float currentDepth = texture(depth, TexCoords).r;
-		float total = 0;
-		total += abs(ceil(currentDepth - texture(depth, TexCoords + vec2(width, 0)).r + outlineTolerance));
-		total += abs(ceil(currentDepth - texture(depth, TexCoords + vec2(-width, 0)).r + outlineTolerance));
-		total += abs(ceil(currentDepth - texture(depth, TexCoords + vec2(0, height)).r + outlineTolerance));
-		total += abs(ceil(currentDepth - texture(depth, TexCoords + vec2(0, -height)).r + outlineTolerance));
-		
-		if(total > 0) {
-			vec3 outline = vec3(1 - total);
-			FragColor.rgb *= clamp(outline, 0, 1) * texture(depth, TexCoords).a;
-		}
-	}
 }

@@ -45,10 +45,6 @@ public class SettingsManager {
 	public static int shadowMapSize = 2048;
 	public static int renderRate = 144;
 	public static int bloomFidelity = 10;
-
-	public static boolean enableOutline = false;
-	public static float outlineTolerance = -0.4f;
-	public static float outlineThickness = 1f;
 	
 	// These aren't saved
 	public static Dimension storedRes = new Dimension(1280, 720);
@@ -78,9 +74,6 @@ public class SettingsManager {
 		config.setProperty("enable_fancy_rain", "" + enableFancyRain);
 		config.setProperty("render_scale", "" + resScaling);
 		config.setProperty("shadow_resolution", "" + shadowMapSize);
-		config.setProperty("enable_outline", "" + enableOutline);
-		config.setProperty("outline_tolerance", "" + outlineTolerance);
-		config.setProperty("outline_thickness", "" + outlineThickness);
 
 		config.setProperty("start_fullscreen", "" + fullscreen);
 		config.setProperty("gamma", "" + gamma);
@@ -122,9 +115,6 @@ public class SettingsManager {
 				enableFancyRain = Boolean.parseBoolean((String) config.get("enable_fancy_rain"));
 				resScaling = Float.parseFloat((String) config.get("render_scale"));
 				shadowMapSize = Integer.parseInt((String) config.get("shadow_resolution"));
-				enableOutline = Boolean.parseBoolean((String) config.get("enable_outline"));
-				outlineTolerance = Float.parseFloat((String) config.get("outline_tolerance"));
-				outlineThickness = Float.parseFloat((String) config.get("outline_thickness"));
 
 				fullscreen = Boolean.parseBoolean((String) config.get("start_fullscreen"));
 				gamma = Float.parseFloat((String) config.get("gamma"));
@@ -324,17 +314,17 @@ public class SettingsManager {
 		});
 		frame.add(fullscreenBox);
 
-		JLabel outlineLabel = new JLabel("Outlines");
+		JLabel outlineLabel = new JLabel("N/A");
 		outlineLabel.setBounds(150, 200, 100, 20);
 		frame.add(outlineLabel);
 
-		JCheckBox outlineBox = new JCheckBox("Outlines");
+		JCheckBox outlineBox = new JCheckBox("N/A");
 		outlineBox.setBounds(150, 220, 20, 20);
-		outlineBox.setSelected(enableOutline);
+		outlineBox.setSelected(false);
 		outlineBox.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				enableOutline = outlineBox.isSelected();
+				
 			}
 		});
 		frame.add(outlineBox);
@@ -368,31 +358,31 @@ public class SettingsManager {
 		});
 		frame.add(bloomFidelitySlider);
 
-		JLabel outlineToleranceLabel = new JLabel("Outline Tolerance");
+		JLabel outlineToleranceLabel = new JLabel("N/A");
 		outlineToleranceLabel.setBounds(250, 40, 100, 20);
 		frame.add(outlineToleranceLabel);
 
-		JSlider outlineToleranceSlider = new JSlider(20, 80, (int) (outlineTolerance * -100));
+		JSlider outlineToleranceSlider = new JSlider(20, 80, 20);
 		outlineToleranceSlider.setBounds(250, 60, 100, 20);
 		outlineToleranceSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
-				outlineTolerance = outlineToleranceSlider.getValue() / -100.0f;
+				
 			}
 		});
 		frame.add(outlineToleranceSlider);
 		
 		
-		JLabel outlineThicknessLabel = new JLabel("Outline Thickness");
+		JLabel outlineThicknessLabel = new JLabel("N/A");
 		outlineThicknessLabel.setBounds(250, 80, 100, 20);
 		frame.add(outlineThicknessLabel);
 
-		JSlider outlineThicknessSlider = new JSlider(100, 400, (int) (outlineThickness * 100));
+		JSlider outlineThicknessSlider = new JSlider(100, 400, 100);
 		outlineThicknessSlider.setBounds(250, 100, 100, 20);
 		outlineThicknessSlider.addChangeListener(new ChangeListener() {
 			@Override
 			public void stateChanged(ChangeEvent arg0) {
-				outlineThickness = outlineThicknessSlider.getValue() / 100.0f;
+				
 			}
 		});
 		frame.add(outlineThicknessSlider);

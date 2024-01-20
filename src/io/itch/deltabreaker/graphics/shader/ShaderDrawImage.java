@@ -36,10 +36,6 @@ public class ShaderDrawImage extends Shader {
 		setUniform("time", (float) Startup.universalAge * 0.0001f);
 		setUniform("size", 0.07f);
 		setUniform("strength", 0.006f);
-		setUniform("outlineTolerance", SettingsManager.outlineTolerance);
-		setUniform("width", 1f / Startup.width * SettingsManager.outlineThickness);
-		setUniform("height", 1f / Startup.height * SettingsManager.outlineThickness);
-		setUniform("enableOutline", SettingsManager.enableOutline);
 	}
 
 }
