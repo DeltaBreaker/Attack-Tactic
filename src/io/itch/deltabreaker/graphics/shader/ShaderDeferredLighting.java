@@ -7,7 +7,7 @@ import io.itch.deltabreaker.graphics.Material;
 import io.itch.deltabreaker.state.StateManager;
 
 public class ShaderDeferredLighting extends Shader {
-		
+
 	public ShaderDeferredLighting(String file) {
 		super(file);
 	}
@@ -33,7 +33,7 @@ public class ShaderDeferredLighting extends Shader {
 		setUniform("corruption", Startup.corruption);
 		setUniform("seed", Startup.seed);
 
-		int lightCount = Math.min(StateManager.currentState.lights.size(), 300);
+		int lightCount = Math.min(StateManager.currentState.lights.size(), 100);
 		for (int i = 0; i < lightCount; i++) {
 			Light light = StateManager.currentState.lights.get(i);
 			setUniform("lights[" + i + "].position", light.position.getX(), light.position.getY(), light.position.getZ(), light.constant);

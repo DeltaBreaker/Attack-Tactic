@@ -12,7 +12,7 @@ public class Light {
 	public float quadratic;
 
 	public Vector3f direction;
-
+	
 	public Light(Vector3f position, Vector3f color, float constant, float linear, float quadratic, Vector3f direction) {
 		this.position = position;
 		this.color = color;

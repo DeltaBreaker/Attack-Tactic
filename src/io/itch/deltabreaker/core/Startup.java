@@ -25,6 +25,7 @@ import io.itch.deltabreaker.event.DialogueScript;
 import io.itch.deltabreaker.exception.MissingMetaFileException;
 import io.itch.deltabreaker.graphics.BatchSorter;
 import io.itch.deltabreaker.graphics.Camera;
+import io.itch.deltabreaker.graphics.Light;
 import io.itch.deltabreaker.graphics.Material;
 import io.itch.deltabreaker.graphics.Model;
 import io.itch.deltabreaker.graphics.ShadowMap;
@@ -289,7 +290,7 @@ public class Startup implements Runnable {
 //				Inventory.saveHeader(2);
 //				Inventory.saveGame(2);
 //				StateDungeon.startDungeon("seabed_cove.json", 14, -1932052909105962160L);
-				StateDungeon.startDungeon("scorched_crater.json", 14, new Random().nextLong());
+				StateDungeon.startDungeon("seabed_cove.json", 14, -274341930193026469L);
 
 //				ArrayList<float[]> profiles = new ArrayList<>();
 //				for (float[] profile : Unit.GROWTH_PROFILES.values()) {
