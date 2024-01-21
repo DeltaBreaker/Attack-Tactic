@@ -11,6 +11,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import io.itch.deltabreaker.core.FileManager;
+import io.itch.deltabreaker.core.audio.AudioManager;
+import io.itch.deltabreaker.effect.EffectPoof;
 import io.itch.deltabreaker.exception.MissingPropertyException;
 import io.itch.deltabreaker.graphics.BatchSorter;
 import io.itch.deltabreaker.graphics.Material;
@@ -98,6 +100,9 @@ public class Tile {
 	public static final String PROPERTY_BRAZIER = "TILE_BRAZIER";
 	public static final String PROPERTY_RUG = "TILE_RUG";
 
+	public static final String TRAP_NONE = "tile.trap.none";
+	public static final String TRAP_POISON = "tile.trap.poison";
+
 	public static TreeMap<String, TileProperty> tileProperties = new TreeMap<>();
 
 	public TileProperty property;
@@ -113,6 +118,9 @@ public class Tile {
 	private boolean waterLogged = false;
 	private boolean lavaLogged = false;
 	public boolean healLogged = false;
+
+	public String trap = TRAP_NONE;
+	public boolean trapTriggered = false;
 
 	public Vector4f shade = new Vector4f(1, 1, 1, 1);
 	public Matrix4f precalc;
@@ -152,6 +160,10 @@ public class Tile {
 	public void render(boolean staticView) {
 		if (!containsTag(TAG_AIR)) {
 			BatchSorter.add(property.model, property.texture, (staticView) ? "static_3d" : property.shader, property.material.toString(), precalc, shade, true, staticView);
+			if (!trap.equals(TRAP_NONE) && trapTriggered) {
+				BatchSorter.add(trap + ".dae", trap + ".png", (staticView) ? "static_3d" : property.shader, property.material.toString(), Vector3f.add(Vector3f.add(position, getOffset()), 0, 8.5f, 0), Vector3f.EMPTY, Vector3f.SCALE_HALF,
+						shade, true, staticView);
+			}
 		}
 	}
 
@@ -159,6 +171,23 @@ public class Tile {
 		if (!containsTag(TAG_AIR)) {
 			BatchSorter.add(property.model, property.texture, "static_3d_editor", property.material.toString(), precalc, shade, false, true);
 		}
+	}
+
+	public void triggerTrap(Unit unit) {
+		switch (trap) {
+
+		case TRAP_POISON:
+			trapTriggered = true;
+			unit.applyStatus(Unit.STATUS_POISON);
+			StateManager.currentState.effects.add(new EffectPoof(Vector3f.add(Vector3f.add(position, getOffset()), 0, 14f, 0)));
+			break;
+
+		default:
+			return;
+
+		}
+		
+		AudioManager.getSound("trap_trigger.ogg").play(AudioManager.defaultSubSFXGain, false);
 	}
 
 	public String getModel() {
@@ -200,7 +229,7 @@ public class Tile {
 	public Vector3f getPosition() {
 		return position;
 	}
-	
+
 	public Vector3f getRotation() {
 		return rotation;
 	}
@@ -209,7 +238,7 @@ public class Tile {
 		position.set(x, y, z);
 		updateMatrix();
 	}
-	
+
 	public void setPositionY(float y) {
 		position.setY(y);
 		updateMatrix();

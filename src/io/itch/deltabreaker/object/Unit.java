@@ -36,6 +36,7 @@ import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
 import io.itch.deltabreaker.object.item.ItemAbility;
 import io.itch.deltabreaker.object.item.ItemProperty;
+import io.itch.deltabreaker.object.tile.Tile;
 import io.itch.deltabreaker.state.StateDungeon;
 import io.itch.deltabreaker.state.StateHub;
 import io.itch.deltabreaker.state.StateManager;
@@ -271,6 +272,10 @@ public class Unit {
 		}
 		if (path.size() > 1) {
 			if ((int) x / 16 == path.get(path.size() - 1).x && (int) y / 16 == path.get(path.size() - 1).y) {
+				if (!StateManager.currentState.tiles[path.get(path.size() - 1).x][path.get(path.size() - 1).y].trap.equals(Tile.TRAP_NONE)
+						&& !StateManager.currentState.tiles[path.get(path.size() - 1).x][path.get(path.size() - 1).y].trapTriggered) {
+					StateManager.currentState.tiles[path.get(path.size() - 1).x][path.get(path.size() - 1).y].triggerTrap(this);
+				}
 				path.remove(path.size() - 1);
 				locX = path.get(path.size() - 1).x;
 				locY = path.get(path.size() - 1).y;

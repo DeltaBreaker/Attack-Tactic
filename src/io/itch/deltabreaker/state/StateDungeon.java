@@ -1744,9 +1744,7 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-			Inventory.active.get(0).setTurn(true);
-			Inventory.active.get(0).addItem(ItemProperty.get("item.usable.ale"));
-			Inventory.active.get(0).addItem(ItemProperty.get("item.usable.wine"));
+			tiles[cursorPos.x][cursorPos.y].trap = Tile.TRAP_POISON;
 			break;
 
 		case HIGHLIGHT:

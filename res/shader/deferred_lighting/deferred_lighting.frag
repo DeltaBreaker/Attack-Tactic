@@ -17,7 +17,7 @@ uniform sampler2D positionImage;
 uniform sampler2D materialImage;
 uniform sampler2D miscImage;
 
-uniform PointLight lights[100];
+uniform PointLight lights[300];
 uniform int lightAmt;
 uniform float gamma;
 uniform float corruption;
@@ -32,7 +32,6 @@ float kEnergyConservation;
 vec3 material;
 float shininess;
 
-
 float rand(vec2 co) {
 	return fract(sin(dot(co.xy, vec2(12.9898, 78.233))) * 43758.5453);
 }
@@ -41,22 +40,19 @@ vec3 getLighting(PointLight light, vec3 fragPos) {
 	vec3 lightMinusFrag = light.position.xyz - fragPos;
 	float distance = length(lightMinusFrag);
 	float attenuation = 1.0
-			/ (light.position.w + light.color.w * distance
+			/ (light.position.w + light.color.w * distance     
 					+ light.direction.w * (distance * distance));
 					
 	vec3 ambiant_light = light.color.rgb * material.r;
 					
-	vec3 light_dir =
-			(length(light.direction.rgb) != 0) ?
-					normalize(-light.direction.rgb) :
-					normalize(lightMinusFrag);
+	float mul = 1 - light.direction.g;
+	vec3 light_dir = normalize(lightMinusFrag) * mul + light.direction.rgb;
 					
-	float diff = max(dot(norm, light_dir), 0.0);
+	float diff = dot(norm, light_dir);
 	vec3 diffuse_light = diff * material.g * light.color.rgb;
 					
 	vec3 reflect_dir = normalize(light_dir + view_dir);
-	float spec = kEnergyConservation
-			* pow(max(dot(norm, reflect_dir), 0.0), shininess);
+	float spec = kEnergyConservation * pow(max(dot(norm, reflect_dir), 0.0), shininess);
 					
 	spec = diff != 0 ? spec : 0.0;
 	vec3 specular_light = material.b * spec * light.color.rgb;

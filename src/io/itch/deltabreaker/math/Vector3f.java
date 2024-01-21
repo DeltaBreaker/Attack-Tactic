@@ -182,6 +182,10 @@ public class Vector3f {
 		return new Vector3f(vector1.getX() / x, vector1.getY() / y, vector1.getZ() / z);
 	}
 
+	public static Vector3f div(Vector3f vector1, float x) {
+		return new Vector3f(vector1.getX() / x, vector1.getY() / x, vector1.getZ() / x);
+	}
+	
 	public static Vector3f mul(Vector3f vector1, Vector3f vector2) {
 		return new Vector3f(vector1.getX() * vector2.getX(), vector1.getY() * vector2.getY(), vector1.getZ() * vector2.getZ());
 	}
@@ -202,6 +206,10 @@ public class Vector3f {
 		return vector1.getX() * vector2.getX() + vector1.getY() * vector2.getY() + vector1.getZ() * vector2.getZ();
 	}
 
+	public static Vector3f inverseNormalize(Vector3f input) {
+		return div(input, -length(input));
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

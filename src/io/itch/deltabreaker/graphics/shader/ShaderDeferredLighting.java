@@ -4,6 +4,7 @@ import io.itch.deltabreaker.core.SettingsManager;
 import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.graphics.Light;
 import io.itch.deltabreaker.graphics.Material;
+import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.state.StateManager;
 
 public class ShaderDeferredLighting extends Shader {
@@ -38,7 +39,20 @@ public class ShaderDeferredLighting extends Shader {
 			Light light = StateManager.currentState.lights.get(i);
 			setUniform("lights[" + i + "].position", light.position.getX(), light.position.getY(), light.position.getZ(), light.constant);
 			setUniform("lights[" + i + "].color", light.color.getX(), light.color.getY(), light.color.getZ(), light.linear);
-			setUniform("lights[" + i + "].direction", light.direction.getX(), light.direction.getY(), light.direction.getZ(), light.quadratic);
+			
+			float x = light.direction.getX();
+			float y = light.direction.getY();
+			float z = light.direction.getZ();
+			
+			if(light.direction.trueTotal() != 0) {
+				Vector3f normal = Vector3f.inverseNormalize(light.direction);
+				
+				x = normal.getX();
+				y = normal.getY();
+				z = normal.getZ();
+			}
+			
+			setUniform("lights[" + i + "].direction", x, y, z, light.quadratic);
 		}
 		setUniform("lightAmt", lightCount);
 	}
