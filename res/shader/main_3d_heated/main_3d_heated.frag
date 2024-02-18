@@ -30,7 +30,7 @@ uniform float diffuse_intensity;
 uniform float specular_intensity;
 uniform float shininess;
 
-vec4 shade = vec4(1f, 0.35f, 0.35f, 1f);
+vec4 shade = vec4(1.0, 0.35, 0.35, 1.0);
 
 float ShadowCalculation(vec4 fragPosLightSpace) {
     vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;

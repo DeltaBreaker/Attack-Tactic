@@ -3,6 +3,7 @@ package io.itch.deltabreaker.graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.nio.ByteBuffer;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
@@ -10,12 +11,16 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL40;
 
 import io.itch.deltabreaker.math.Vector3f;
+import io.itch.deltabreaker.math.Vector4f;
 
 public class Texture {
 
 	private int id;
 	private int width, height;
 
+	private Vector4f averageColor;
+	private ArrayList<Vector4f> colors = new ArrayList<>();
+	
 	private byte[] pixelData;
 
 	public boolean built = false;
@@ -30,7 +35,7 @@ public class Texture {
 			int[] pixels_raw = new int[width * height * 4];
 			pixels_raw = bi.getRGB(0, 0, width, height, null, 0, width);
 			pixelData = new byte[pixels_raw.length * 4];
-
+			
 			for (int x = 0; x < width; x++) {
 				for (int y = 0; y < height; y++) {
 					int pixel = pixels_raw[x * height + y];
@@ -74,12 +79,29 @@ public class Texture {
 
 	public void build() {
 		ByteBuffer pixels = BufferUtils.createByteBuffer(pixelData.length * 4);
+		
+		int pixelCount = 0;
+		int rTotal = 0, gTotal = 0, bTotal = 0;
+		
 		for (int i = 0; i < pixelData.length / 4; i++) {
-			pixels.put(pixelData[i * 4]);
-			pixels.put(pixelData[i * 4 + 1]);
-			pixels.put(pixelData[i * 4 + 2]);
-			pixels.put(pixelData[i * 4 + 3]);
+			byte r = pixelData[i * 4];
+			byte g = pixelData[i * 4 + 1];
+			byte b = pixelData[i * 4 + 2];
+			byte a = pixelData[i * 4 + 3];
+			
+			pixels.put(r);
+			pixels.put(g);
+			pixels.put(b);
+			pixels.put(a);
+			
+			if((a & 0xff) > 0) {
+				rTotal += r & 0xff;
+				gTotal += g & 0xff;
+				bTotal += b & 0xff;
+				pixelCount++;
+			}
 		}
+		averageColor = new Vector4f(rTotal / 255.0f / pixelCount, gTotal / 255.0f / pixelCount, bTotal / 255.0f / pixelCount, 1);
 		pixels.flip();
 
 		id = GL40.glGenTextures();
@@ -109,6 +131,10 @@ public class Texture {
 		return id;
 	}
 
+	public Vector4f getAverageColor() {
+		return averageColor;
+	}
+	
 	public Vector3f getColor(int x, int y) {
 		int location = (x * height + y) * 4;
 		return new Vector3f((pixelData[location] & 0xff) / 255f, (pixelData[location + 1] & 0xff) / 255f, (pixelData[location + 2] & 0xff) / 255f);

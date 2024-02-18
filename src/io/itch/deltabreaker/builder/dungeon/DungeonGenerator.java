@@ -29,6 +29,7 @@ import io.itch.deltabreaker.object.tile.Tile;
 import io.itch.deltabreaker.object.tile.TileBrazier;
 import io.itch.deltabreaker.object.tile.TileCompound;
 import io.itch.deltabreaker.state.StateManager;
+import io.itch.deltabreaker.ui.Map;
 
 public class DungeonGenerator {
 
@@ -83,7 +84,8 @@ public class DungeonGenerator {
 	public Rectangle endRoom;
 	public ArrayList<Item> items = new ArrayList<>();
 	public ArrayList<Unit> enemyPlacements = new ArrayList<>();
-
+	public Map map;
+	
 	public DungeonGenerator(String pattern, int baseLevel, long seed) {
 		this.pattern = patterns.get(pattern);
 		this.seed = seed;
@@ -1196,6 +1198,7 @@ public class DungeonGenerator {
 				}
 			}
 			alterDungeon();
+			map = new Map(tiles);
 			System.out.println("[DungeonGeneration]: Generation completed in: " + (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
 			System.out.println("[DungeonGeneration]: Dungeon generated with seed: " + seed);
 		} catch (Exception e) {
@@ -1209,6 +1212,7 @@ public class DungeonGenerator {
 			tiles = convertMap(generateMap());
 			generateDecor();
 			generateItems();
+			map = new Map(tiles);
 			System.out.println("[DungeonGeneration]: Dungeon generated with seed: " + seed);
 		} catch (Exception e) {
 			e.printStackTrace();

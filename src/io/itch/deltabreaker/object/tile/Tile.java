@@ -11,6 +11,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import io.itch.deltabreaker.core.FileManager;
+import io.itch.deltabreaker.core.ResourceManager;
 import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.effect.EffectPoof;
 import io.itch.deltabreaker.exception.MissingPropertyException;
@@ -234,6 +235,10 @@ public class Tile {
 		return rotation;
 	}
 
+	public Vector4f getAverageColor() {
+		return ResourceManager.textures.get(property.texture).getAverageColor();
+	}
+	
 	public void setPosition(float x, float y, float z) {
 		position.set(x, y, z);
 		updateMatrix();
