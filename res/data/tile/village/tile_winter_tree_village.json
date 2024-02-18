@@ -17,7 +17,6 @@
         "tile.wall.cap.bottom",
         "tile.wall.cap.left",
         "tile.wall.cap.right",
-        "tile.filler",
         "pallet.flooded_forrest"
     ],
     "property": "DEFAULT",

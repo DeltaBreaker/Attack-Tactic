@@ -16,8 +16,7 @@
         "tile.wall.cap.top",
         "tile.wall.cap.bottom",
         "tile.wall.cap.left",
-        "tile.wall.cap.right",
-        "tile.filler"
+        "tile.wall.cap.right"
     ],
     "property": "DEFAULT",
     "model": "tile_winter_tree_snow_forrest.dae",
