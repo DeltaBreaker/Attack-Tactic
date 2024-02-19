@@ -21,7 +21,7 @@ public class Map {
 		for (int x = 0; x < tiles.length; x++) {
 			for (int y = 0; y < tiles[0].length; y++) {
 				if (!tiles[x][y].containsTag(Tile.TAG_FILLER)) {
-					pixels.add(new MapPixel(new Vector3f(94 + x - tiles.length, 86 - y * 0.99f - tiles[0].length, -80), Vector4f.mul(tiles[x][y].getAverageColor(), (tiles[x][y].isSolid()) ? half : full)));
+					pixels.add(new MapPixel(new Vector3f(94 + x - tiles.length, 50 - y * 0.99f, -80), Vector4f.mul(tiles[x][y].getAverageColor(), (tiles[x][y].isSolid()) ? half : full)));
 				}
 			}
 		}

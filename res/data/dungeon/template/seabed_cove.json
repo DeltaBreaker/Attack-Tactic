@@ -105,6 +105,13 @@
 				"0.05",
 				"item.usable.coin"
 			]
+		},
+		{
+			"tag": "dungeon.alt.enemy.golden",
+			"vars": [
+				"0.05",
+				"3.0"
+			]
 		}
 	]
 }

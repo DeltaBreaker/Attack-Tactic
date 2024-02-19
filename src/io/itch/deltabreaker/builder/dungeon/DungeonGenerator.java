@@ -46,6 +46,7 @@ public class DungeonGenerator {
 	public static final String TAG_ALT_ITEM_SURPLUS = "dungeon.alt.item.surplus";
 	public static final String TAG_ALT_ENEMY_NONE = "dungeon.alt.enemy.none";
 	public static final String TAG_ALT_ENEMY_HEALTH_REDUCE = "dungeon.alt.enemy.health.reduce";
+	public static final String TAG_ALT_ENEMY_GOLDEN = "dungeon.alt.enemy.golden";
 
 	// Used to apply in-game effects and set certain objects, such as the overhead
 	// light
@@ -85,7 +86,7 @@ public class DungeonGenerator {
 	public ArrayList<Item> items = new ArrayList<>();
 	public ArrayList<Unit> enemyPlacements = new ArrayList<>();
 	public Map map;
-	
+
 	public DungeonGenerator(String pattern, int baseLevel, long seed) {
 		this.pattern = patterns.get(pattern);
 		this.seed = seed;
@@ -278,7 +279,8 @@ public class DungeonGenerator {
 			}
 		}
 
-		System.out.println("[DungeonGeneration]: Map generated in: " + (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
+		System.out.println("[DungeonGeneration]: Map generated in: "
+				+ (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
 		return map;
 	}
 
@@ -292,9 +294,16 @@ public class DungeonGenerator {
 			for (int y = 0; y < heightmap[0].length; y++) {
 				if (heightmap[x][y] >= 0.5) {
 					tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_FLOOR_CENTER },
-							new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+							new Vector3f(x,
+									(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+											((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+									y));
 				} else {
-					tiles[x][y] = Tile.getTile(new String[] { Tile.TAG_AIR }, new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+					tiles[x][y] = Tile.getTile(new String[] { Tile.TAG_AIR },
+							new Vector3f(x,
+									(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+											((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+									y));
 				}
 			}
 		}
@@ -305,17 +314,30 @@ public class DungeonGenerator {
 					if (y > 0) {
 						if (tiles[x][y - 1].containsTag(Tile.TAG_FLOOR_CENTER)) {
 							tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_HORIZONTAL },
-									new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+									new Vector3f(x,
+											(float) Math
+													.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+															((float) y / (tiles[0].length + yActiveSpace))) * 10)
+													/ 4f,
+											y));
 							if (x > 0) {
 								if (tiles[x - 1][y].containsTag(Tile.TAG_FLOOR_CENTER)) {
-									tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_TURN_TOP_LEFT },
-											new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+									tiles[x][y] = Tile.getTile(
+											new String[] { pattern.palletTag, Tile.TAG_WALL_TURN_TOP_LEFT },
+											new Vector3f(x, (float) Math
+													.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+															((float) y / (tiles[0].length + yActiveSpace))) * 10)
+													/ 4f, y));
 								}
 							}
 							if (x < tiles.length - 1) {
 								if (tiles[x + 1][y].containsTag(Tile.TAG_FLOOR_CENTER)) {
-									tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_TURN_TOP_RIGHT },
-											new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+									tiles[x][y] = Tile.getTile(
+											new String[] { pattern.palletTag, Tile.TAG_WALL_TURN_TOP_RIGHT },
+											new Vector3f(x, (float) Math
+													.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+															((float) y / (tiles[0].length + yActiveSpace))) * 10)
+													/ 4f, y));
 								}
 							}
 						}
@@ -323,17 +345,30 @@ public class DungeonGenerator {
 					if (y < tiles[0].length - 1) {
 						if (tiles[x][y + 1].containsTag(Tile.TAG_FLOOR_CENTER)) {
 							tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_HORIZONTAL },
-									new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+									new Vector3f(x,
+											(float) Math
+													.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+															((float) y / (tiles[0].length + yActiveSpace))) * 10)
+													/ 4f,
+											y));
 							if (x > 0) {
 								if (tiles[x - 1][y].containsTag(Tile.TAG_FLOOR_CENTER)) {
-									tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_TURN_BOTTOM_LEFT },
-											new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+									tiles[x][y] = Tile.getTile(
+											new String[] { pattern.palletTag, Tile.TAG_WALL_TURN_BOTTOM_LEFT },
+											new Vector3f(x, (float) Math
+													.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+															((float) y / (tiles[0].length + yActiveSpace))) * 10)
+													/ 4f, y));
 								}
 							}
 							if (x < tiles.length - 1) {
 								if (tiles[x + 1][y].containsTag(Tile.TAG_FLOOR_CENTER)) {
-									tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_TURN_BOTTOM_RIGHT },
-											new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+									tiles[x][y] = Tile.getTile(
+											new String[] { pattern.palletTag, Tile.TAG_WALL_TURN_BOTTOM_RIGHT },
+											new Vector3f(x, (float) Math
+													.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+															((float) y / (tiles[0].length + yActiveSpace))) * 10)
+													/ 4f, y));
 								}
 							}
 						}
@@ -343,13 +378,23 @@ public class DungeonGenerator {
 					if (x < tiles.length - 1) {
 						if (tiles[x + 1][y].containsTag(Tile.TAG_FLOOR_CENTER)) {
 							tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_VERTICAL },
-									new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+									new Vector3f(x,
+											(float) Math
+													.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+															((float) y / (tiles[0].length + yActiveSpace))) * 10)
+													/ 4f,
+											y));
 						}
 					}
 					if (x > 0) {
 						if (tiles[x - 1][y].containsTag(Tile.TAG_FLOOR_CENTER)) {
 							tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_VERTICAL },
-									new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+									new Vector3f(x,
+											(float) Math
+													.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+															((float) y / (tiles[0].length + yActiveSpace))) * 10)
+													/ 4f,
+											y));
 						}
 					}
 				}
@@ -360,31 +405,65 @@ public class DungeonGenerator {
 			for (int y = 0; y < tiles[0].length; y++) {
 				if (tiles[x][y].containsTag(Tile.TAG_AIR)) {
 					if (x > 0 && y < tiles[0].length - 1) {
-						if ((tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT) || tiles[x - 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL) || tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT))
-								&& (tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT) || tiles[x][y + 1].containsTag(Tile.TAG_WALL_VERTICAL) || tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT))) {
+						if ((tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT)
+								|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL)
+								|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT))
+								&& (tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT)
+										|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_VERTICAL)
+										|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT))) {
 							tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_TURN_TOP_RIGHT },
-									new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+									new Vector3f(x,
+											(float) Math
+													.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+															((float) y / (tiles[0].length + yActiveSpace))) * 10)
+													/ 4f,
+											y));
 						}
 					}
 					if (x > 0 && y > 0) {
-						if ((tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT) || tiles[x - 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL) || tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT))
-								&& (tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT) || tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT) || tiles[x][y - 1].containsTag(Tile.TAG_WALL_VERTICAL))) {
-							tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_TURN_BOTTOM_RIGHT },
-									new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+						if ((tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT)
+								|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL)
+								|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT))
+								&& (tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT)
+										|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT)
+										|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_VERTICAL))) {
+							tiles[x][y] = Tile
+									.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_TURN_BOTTOM_RIGHT },
+											new Vector3f(x, (float) Math
+													.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+															((float) y / (tiles[0].length + yActiveSpace))) * 10)
+													/ 4f, y));
 						}
 					}
 					if (x < tiles.length - 1 && y < tiles[0].length - 1) {
-						if ((tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT) || tiles[x + 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL) || tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT))
-								&& (tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT) || tiles[x][y + 1].containsTag(Tile.TAG_WALL_VERTICAL) || tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT))) {
+						if ((tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT)
+								|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL)
+								|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT))
+								&& (tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT)
+										|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_VERTICAL)
+										|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT))) {
 							tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_TURN_TOP_LEFT },
-									new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+									new Vector3f(x,
+											(float) Math
+													.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+															((float) y / (tiles[0].length + yActiveSpace))) * 10)
+													/ 4f,
+											y));
 						}
 					}
 					if (x < tiles.length - 1 && y > 0) {
-						if ((tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT) || tiles[x + 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL) || tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT))
-								&& (tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT) || tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT) || tiles[x][y - 1].containsTag(Tile.TAG_WALL_VERTICAL))) {
-							tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_TURN_BOTTOM_LEFT },
-									new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+						if ((tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT)
+								|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL)
+								|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT))
+								&& (tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT)
+										|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT)
+										|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_VERTICAL))) {
+							tiles[x][y] = Tile
+									.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_TURN_BOTTOM_LEFT },
+											new Vector3f(x, (float) Math
+													.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+															((float) y / (tiles[0].length + yActiveSpace))) * 10)
+													/ 4f, y));
 						}
 					}
 				}
@@ -394,60 +473,123 @@ public class DungeonGenerator {
 		for (int x = 0; x < tiles.length; x++) {
 			for (int y = 0; y < tiles[0].length; y++) {
 				if (x > 0 && y > 0 && y < tiles[0].length - 1) {
-					if ((tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT) || tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT) || tiles[x][y - 1].containsTag(Tile.TAG_WALL_VERTICAL)
-							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_JUNCTION_LEFT) || tiles[x][y - 1].containsTag(Tile.TAG_WALL_JUNCTION_RIGHT))
-							&& (tiles[x][y + 1].containsTag(Tile.TAG_WALL_VERTICAL) || tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT) || tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT)
-									|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_JUNCTION_LEFT) || tiles[x][y + 1].containsTag(Tile.TAG_WALL_JUNCTION_RIGHT))
-							&& (tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT) || tiles[x - 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL) || tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT)
-									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_JUNCTION_TOP) || tiles[x - 1][y].containsTag(Tile.TAG_WALL_JUNCTION_BOTTOM))) {
+					if ((tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT)
+							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT)
+							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_VERTICAL)
+							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_JUNCTION_LEFT)
+							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_JUNCTION_RIGHT))
+							&& (tiles[x][y + 1].containsTag(Tile.TAG_WALL_VERTICAL)
+									|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT)
+									|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT)
+									|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_JUNCTION_LEFT)
+									|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_JUNCTION_RIGHT))
+							&& (tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT)
+									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL)
+									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT)
+									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_JUNCTION_TOP)
+									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_JUNCTION_BOTTOM))) {
 						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_JUNCTION_RIGHT },
-								new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+								new Vector3f(x,
+										(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+												((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+										y));
 					}
 				}
 				if (x < tiles.length - 1 && y > 0 && y < tiles[0].length - 1) {
-					if ((tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT) || tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT) || tiles[x][y - 1].containsTag(Tile.TAG_WALL_VERTICAL)
-							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_JUNCTION_LEFT) || tiles[x][y - 1].containsTag(Tile.TAG_WALL_JUNCTION_RIGHT))
-							&& (tiles[x][y + 1].containsTag(Tile.TAG_WALL_VERTICAL) || tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT) || tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT)
-									|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_JUNCTION_LEFT) || tiles[x][y + 1].containsTag(Tile.TAG_WALL_JUNCTION_RIGHT))
-							&& (tiles[x + 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL) || tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT) || tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT)
-									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_JUNCTION_TOP) || tiles[x + 1][y].containsTag(Tile.TAG_WALL_JUNCTION_BOTTOM))) {
+					if ((tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT)
+							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT)
+							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_VERTICAL)
+							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_JUNCTION_LEFT)
+							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_JUNCTION_RIGHT))
+							&& (tiles[x][y + 1].containsTag(Tile.TAG_WALL_VERTICAL)
+									|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT)
+									|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT)
+									|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_JUNCTION_LEFT)
+									|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_JUNCTION_RIGHT))
+							&& (tiles[x + 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL)
+									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT)
+									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT)
+									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_JUNCTION_TOP)
+									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_JUNCTION_BOTTOM))) {
 						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_JUNCTION_LEFT },
-								new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+								new Vector3f(x,
+										(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+												((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+										y));
 					}
 				}
 				if (x > 0 && x < tiles.length - 1 && y < tiles[0].length - 1) {
-					if ((tiles[x][y + 1].containsTag(Tile.TAG_WALL_VERTICAL) || tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT) || tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT)
-							|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_JUNCTION_LEFT) || tiles[x][y + 1].containsTag(Tile.TAG_WALL_JUNCTION_RIGHT))
-							&& (tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT) || tiles[x - 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL) || tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT)
-									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_JUNCTION_TOP) || tiles[x - 1][y].containsTag(Tile.TAG_WALL_JUNCTION_BOTTOM))
-							&& (tiles[x + 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL) || tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT) || tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT)
-									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_JUNCTION_TOP) || tiles[x + 1][y].containsTag(Tile.TAG_WALL_JUNCTION_BOTTOM))) {
+					if ((tiles[x][y + 1].containsTag(Tile.TAG_WALL_VERTICAL)
+							|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT)
+							|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT)
+							|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_JUNCTION_LEFT)
+							|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_JUNCTION_RIGHT))
+							&& (tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT)
+									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL)
+									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT)
+									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_JUNCTION_TOP)
+									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_JUNCTION_BOTTOM))
+							&& (tiles[x + 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL)
+									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT)
+									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT)
+									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_JUNCTION_TOP)
+									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_JUNCTION_BOTTOM))) {
 						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_JUNCTION_TOP },
-								new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+								new Vector3f(x,
+										(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+												((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+										y));
 					}
 				}
 				if (x > 0 && x < tiles.length - 1 && y > 0) {
-					if ((tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT) || tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT) || tiles[x][y - 1].containsTag(Tile.TAG_WALL_VERTICAL)
-							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_JUNCTION_LEFT) || tiles[x][y - 1].containsTag(Tile.TAG_WALL_JUNCTION_RIGHT))
-							&& (tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT) || tiles[x - 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL) || tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT)
-									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_JUNCTION_TOP) || tiles[x - 1][y].containsTag(Tile.TAG_WALL_JUNCTION_BOTTOM))
-							&& (tiles[x + 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL) || tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT) || tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT)
-									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_JUNCTION_TOP) || tiles[x + 1][y].containsTag(Tile.TAG_WALL_JUNCTION_BOTTOM))) {
+					if ((tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT)
+							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT)
+							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_VERTICAL)
+							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_JUNCTION_LEFT)
+							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_JUNCTION_RIGHT))
+							&& (tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT)
+									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL)
+									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT)
+									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_JUNCTION_TOP)
+									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_JUNCTION_BOTTOM))
+							&& (tiles[x + 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL)
+									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT)
+									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT)
+									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_JUNCTION_TOP)
+									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_JUNCTION_BOTTOM))) {
 						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_JUNCTION_BOTTOM },
-								new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+								new Vector3f(x,
+										(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+												((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+										y));
 					}
 				}
 				if (x > 0 && x < tiles.length - 1 && y > 0 && y < tiles[0].length - 1) {
-					if ((tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT) || tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT) || tiles[x][y - 1].containsTag(Tile.TAG_WALL_VERTICAL)
-							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_JUNCTION_LEFT) || tiles[x][y - 1].containsTag(Tile.TAG_WALL_JUNCTION_RIGHT))
-							&& (tiles[x][y + 1].containsTag(Tile.TAG_WALL_VERTICAL) || tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT) || tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT)
-									|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_JUNCTION_LEFT) || tiles[x][y + 1].containsTag(Tile.TAG_WALL_JUNCTION_RIGHT))
-							&& (tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT) || tiles[x - 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL) || tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT)
-									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_JUNCTION_TOP) || tiles[x - 1][y].containsTag(Tile.TAG_WALL_JUNCTION_BOTTOM))
-							&& (tiles[x + 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL) || tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT) || tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT)
-									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_JUNCTION_TOP) || tiles[x + 1][y].containsTag(Tile.TAG_WALL_JUNCTION_BOTTOM))) {
+					if ((tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT)
+							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT)
+							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_VERTICAL)
+							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_JUNCTION_LEFT)
+							|| tiles[x][y - 1].containsTag(Tile.TAG_WALL_JUNCTION_RIGHT))
+							&& (tiles[x][y + 1].containsTag(Tile.TAG_WALL_VERTICAL)
+									|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT)
+									|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT)
+									|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_JUNCTION_LEFT)
+									|| tiles[x][y + 1].containsTag(Tile.TAG_WALL_JUNCTION_RIGHT))
+							&& (tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_LEFT)
+									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL)
+									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_LEFT)
+									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_JUNCTION_TOP)
+									|| tiles[x - 1][y].containsTag(Tile.TAG_WALL_JUNCTION_BOTTOM))
+							&& (tiles[x + 1][y].containsTag(Tile.TAG_WALL_HORIZONTAL)
+									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_TOP_RIGHT)
+									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_TURN_BOTTOM_RIGHT)
+									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_JUNCTION_TOP)
+									|| tiles[x + 1][y].containsTag(Tile.TAG_WALL_JUNCTION_BOTTOM))) {
 						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_CROSS },
-								new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+								new Vector3f(x,
+										(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+												((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+										y));
 					}
 				}
 			}
@@ -457,42 +599,67 @@ public class DungeonGenerator {
 			for (int y = 0; y < tiles[0].length; y++) {
 				if (!tiles[x][y].containsTag(Tile.TAG_FLOOR_CENTER)) {
 					if (x > 0 && x < tiles.length - 1) {
-						if (tiles[x - 1][y].containsTag(Tile.TAG_FLOOR_CENTER) && tiles[x + 1][y].containsTag(Tile.TAG_FLOOR_CENTER)) {
+						if (tiles[x - 1][y].containsTag(Tile.TAG_FLOOR_CENTER)
+								&& tiles[x + 1][y].containsTag(Tile.TAG_FLOOR_CENTER)) {
 							if (y > 0) {
 								if (tiles[x][y - 1].containsTag(Tile.TAG_FLOOR_CENTER)) {
-									tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_CAP_TOP },
-											new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+									tiles[x][y] = Tile.getTile(
+											new String[] { pattern.palletTag, Tile.TAG_WALL_CAP_TOP },
+											new Vector3f(x, (float) Math
+													.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+															((float) y / (tiles[0].length + yActiveSpace))) * 10)
+													/ 4f, y));
 								}
 							}
 							if (y < tiles[0].length - 1) {
 								if (tiles[x][y + 1].containsTag(Tile.TAG_FLOOR_CENTER)) {
-									tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_CAP_BOTTOM },
-											new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+									tiles[x][y] = Tile.getTile(
+											new String[] { pattern.palletTag, Tile.TAG_WALL_CAP_BOTTOM },
+											new Vector3f(x, (float) Math
+													.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+															((float) y / (tiles[0].length + yActiveSpace))) * 10)
+													/ 4f, y));
 								}
 							}
 						}
 					}
 					if (y > 0 && y < tiles[0].length - 1) {
-						if (tiles[x][y - 1].containsTag(Tile.TAG_FLOOR_CENTER) && tiles[x][y + 1].containsTag(Tile.TAG_FLOOR_CENTER)) {
+						if (tiles[x][y - 1].containsTag(Tile.TAG_FLOOR_CENTER)
+								&& tiles[x][y + 1].containsTag(Tile.TAG_FLOOR_CENTER)) {
 							if (x < tiles.length - 1) {
 								if (tiles[x + 1][y].containsTag(Tile.TAG_FLOOR_CENTER)) {
-									tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_CAP_RIGHT },
-											new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+									tiles[x][y] = Tile.getTile(
+											new String[] { pattern.palletTag, Tile.TAG_WALL_CAP_RIGHT },
+											new Vector3f(x, (float) Math
+													.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+															((float) y / (tiles[0].length + yActiveSpace))) * 10)
+													/ 4f, y));
 								}
 							}
 							if (x > 0) {
 								if (tiles[x - 1][y].containsTag(Tile.TAG_FLOOR_CENTER)) {
-									tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_CAP_LEFT },
-											new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+									tiles[x][y] = Tile.getTile(
+											new String[] { pattern.palletTag, Tile.TAG_WALL_CAP_LEFT },
+											new Vector3f(x, (float) Math
+													.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+															((float) y / (tiles[0].length + yActiveSpace))) * 10)
+													/ 4f, y));
 								}
 							}
 						}
 					}
 					if (x > 0 && x < tiles.length - 1 && y > 0 && y < tiles[0].length - 1) {
-						if (tiles[x][y - 1].containsTag(Tile.TAG_FLOOR_CENTER) && tiles[x][y + 1].containsTag(Tile.TAG_FLOOR_CENTER) && tiles[x - 1][y].containsTag(Tile.TAG_FLOOR_CENTER)
+						if (tiles[x][y - 1].containsTag(Tile.TAG_FLOOR_CENTER)
+								&& tiles[x][y + 1].containsTag(Tile.TAG_FLOOR_CENTER)
+								&& tiles[x - 1][y].containsTag(Tile.TAG_FLOOR_CENTER)
 								&& tiles[x + 1][y].containsTag(Tile.TAG_FLOOR_CENTER)) {
 							tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_STANDALONE },
-									new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+									new Vector3f(x,
+											(float) Math
+													.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+															((float) y / (tiles[0].length + yActiveSpace))) * 10)
+													/ 4f,
+											y));
 						}
 					}
 				}
@@ -504,43 +671,74 @@ public class DungeonGenerator {
 				if (tiles[x][y].containsTag(Tile.TAG_FLOOR_CENTER)) {
 					if (tiles[x - 1][y].isSolid() && !tiles[x + 1][y].isSolid()) {
 						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_FLOOR_MIDDLE_LEFT },
-								new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+								new Vector3f(x,
+										(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+												((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+										y));
 					}
 					if (tiles[x + 1][y].isSolid() && !tiles[x - 1][y].isSolid()) {
 						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_FLOOR_MIDDLE_RIGHT },
-								new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+								new Vector3f(x,
+										(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+												((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+										y));
 					}
 					if (tiles[x][y - 1].isSolid() && !tiles[x][y + 1].isSolid()) {
 						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_FLOOR_TOP_MIDDLE },
-								new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+								new Vector3f(x,
+										(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+												((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+										y));
 					}
 					if (tiles[x][y + 1].isSolid() && !tiles[x][y - 1].isSolid()) {
 						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_FLOOR_BOTTOM_MIDDLE },
-								new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+								new Vector3f(x,
+										(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+												((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+										y));
 					}
 					if (tiles[x - 1][y].isSolid() && tiles[x + 1][y].isSolid()) {
 						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_FLOOR_HALLWAY_VERTICAL },
-								new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+								new Vector3f(x,
+										(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+												((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+										y));
 					}
 					if (tiles[x][y - 1].isSolid() && tiles[x][y + 1].isSolid()) {
-						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_FLOOR_HALLWAY_HORIZONTAL },
-								new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+						tiles[x][y] = Tile.getTile(
+								new String[] { pattern.palletTag, Tile.TAG_FLOOR_HALLWAY_HORIZONTAL },
+								new Vector3f(x,
+										(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+												((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+										y));
 					}
 					if (tiles[x - 1][y].isSolid() && tiles[x][y + 1].isSolid()) {
 						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_FLOOR_BOTTOM_LEFT },
-								new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+								new Vector3f(x,
+										(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+												((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+										y));
 					}
 					if (tiles[x + 1][y].isSolid() && tiles[x][y + 1].isSolid()) {
 						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_FLOOR_BOTTOM_RIGHT },
-								new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+								new Vector3f(x,
+										(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+												((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+										y));
 					}
 					if (tiles[x - 1][y].isSolid() && tiles[x][y - 1].isSolid()) {
 						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_FLOOR_TOP_LEFT },
-								new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+								new Vector3f(x,
+										(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+												((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+										y));
 					}
 					if (tiles[x + 1][y].isSolid() && tiles[x][y - 1].isSolid()) {
 						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_FLOOR_TOP_RIGHT },
-								new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+								new Vector3f(x,
+										(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+												((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+										y));
 					}
 				}
 			}
@@ -550,12 +748,16 @@ public class DungeonGenerator {
 			for (int y = 0; y < tiles[0].length; y++) {
 				if (tiles[x][y].containsTag(Tile.TAG_AIR)) {
 					tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_FILLER },
-							new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+							new Vector3f(x,
+									(float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+											((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f,
+									y));
 				}
 			}
 		}
 
-		System.out.println("[DungeonGeneration]: Map converted in: " + (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
+		System.out.println("[DungeonGeneration]: Map converted in: "
+				+ (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
 		return tiles;
 
 	}
@@ -587,7 +789,8 @@ public class DungeonGenerator {
 	}
 
 	public void generateEnemies() {
-		int rooms = (int) (this.rooms.size() / pattern.enemyRoomCountDevisor) + r.nextInt((int) (this.rooms.size() / pattern.enemyRoomCountRandomDevisor));
+		int rooms = (int) (this.rooms.size() / pattern.enemyRoomCountDevisor)
+				+ r.nextInt((int) (this.rooms.size() / pattern.enemyRoomCountRandomDevisor));
 
 		// Keeps track of rooms that already have units and checks to make sure there
 		// are no duplicates
@@ -646,14 +849,17 @@ public class DungeonGenerator {
 					type = r.nextInt(pattern.aiTypes.length);
 					value = r.nextFloat();
 				}
-				enemyPlacements.add(Unit.randomCombatUnit(this.rooms.get(room).x + x, this.rooms.get(room).y + y, new Vector4f(1, 1, 1, 1), pattern.tier * 10 - pattern.enemyLevelReduction, pattern.enemyLevelDeviation,
-						Unit.GROWTH_PROFILES.get(pattern.getRandomProfile()), AIType.get(pattern.aiTypes[type])));
+				enemyPlacements.add(Unit.randomCombatUnit(this.rooms.get(room).x + x, this.rooms.get(room).y + y,
+						new Vector4f(1, 1, 1, 1), pattern.tier * 10 - pattern.enemyLevelReduction,
+						pattern.enemyLevelDeviation, Unit.GROWTH_PROFILES.get(pattern.getRandomProfile()),
+						AIType.get(pattern.aiTypes[type])));
 			}
 		}
 	}
 
 	public void generateItems() {
-		ItemProperty[] items = ItemProperty.searchForTier(pattern.tier, ItemProperty.searchForLocation(pattern.palletTag, ItemProperty.getItemList()), false);
+		ItemProperty[] items = ItemProperty.searchForTier(pattern.tier,
+				ItemProperty.searchForLocation(pattern.palletTag, ItemProperty.getItemList()), false);
 		for (int i = 0; i < rooms.size(); i++) {
 			int drops = r.nextInt(pattern.itemCountRandom) + pattern.itemCountCertain;
 
@@ -664,8 +870,10 @@ public class DungeonGenerator {
 				do {
 					isOnItem = false;
 					for (Item k : this.items) {
-						if (tiles[(int) (rooms.get(i).x + position.getX())][(int) (rooms.get(i).y + position.getZ())].isSolid()
-								|| (int) k.position.getX() == (int) (rooms.get(i).x + position.getX()) * 16 && (int) k.position.getZ() == (int) (rooms.get(i).y + position.getZ()) * 16) {
+						if (tiles[(int) (rooms.get(i).x + position.getX())][(int) (rooms.get(i).y + position.getZ())]
+								.isSolid()
+								|| (int) k.position.getX() == (int) (rooms.get(i).x + position.getX()) * 16
+										&& (int) k.position.getZ() == (int) (rooms.get(i).y + position.getZ()) * 16) {
 							isOnItem = true;
 							position = new Vector3f(r.nextInt(rooms.get(i).width), 0, r.nextInt(rooms.get(i).height));
 							break;
@@ -679,7 +887,9 @@ public class DungeonGenerator {
 				while (r.nextFloat() > items[item].rate) {
 					item = r.nextInt(items.length);
 				}
-				this.items.add(new Item(position.add(new Vector3f(rooms.get(i).x, 16, rooms.get(i).y)).mul(new Vector3f(16, 1, 16)), items[item].copy()));
+				this.items.add(new Item(
+						position.add(new Vector3f(rooms.get(i).x, 16, rooms.get(i).y)).mul(new Vector3f(16, 1, 16)),
+						items[item].copy()));
 			}
 		}
 	}
@@ -687,6 +897,33 @@ public class DungeonGenerator {
 	public void alterDungeon() {
 		for (int p = 0; p < pattern.altTags.length; p++) {
 			switch (pattern.altTags[p]) {
+
+			case TAG_ALT_ENEMY_GOLDEN:
+				if (r.nextFloat() < Float.parseFloat(pattern.altVariables[p][0])) {
+					int amt = 1 + r.nextInt((int) Float.parseFloat(pattern.altVariables[p][1]));
+					for (int i = 0; i < Math.min(enemyPlacements.size(), amt); i++) {
+						int enemy = r.nextInt(enemyPlacements.size());
+						Unit e = enemyPlacements.get(enemy);
+						
+						e.bodyColor = new Vector4f(2, 1.843f, 1, 1);
+						e.hairColor = new Vector4f(2, 1.843f, 1, 1);
+						e.level += 10;
+						e.baseDef = 0;
+						e.baseRes = 0;
+						e.baseAtk = 0;
+						e.baseMag = 0;
+						e.baseSpd = 0;
+						
+						e.clearItems();
+						ItemProperty[] tierItems = ItemProperty.searchForTier(pattern.tier + 1, ItemProperty.getItemList(), true);
+						ItemProperty[] materialItems = ItemProperty.searchForType(ItemProperty.TYPE_OTHER, tierItems, false);
+						for(int j = 0; j < 5; j++) {
+							int item = r.nextInt(materialItems.length);
+							e.addItem(materialItems[item].copy());
+						}
+					}
+				}
+				break;
 
 			case TAG_ALT_ITEM_SURPLUS:
 				if (r.nextFloat() < Float.parseFloat(pattern.altVariables[p][0])) {
@@ -724,13 +961,15 @@ public class DungeonGenerator {
 					int tries = 0;
 					int x = r.nextInt(tiles.length);
 					int y = r.nextInt(tiles[0].length);
-					while ((tiles[x][y].containsTag(Tile.TAG_STAIRS) || tiles[x][y].isSolid() || !tiles[x][y].containsTag(Tile.TAG_FLOOR_CENTER)) && tries < pattern.testLimit) {
+					while ((tiles[x][y].containsTag(Tile.TAG_STAIRS) || tiles[x][y].isSolid()
+							|| !tiles[x][y].containsTag(Tile.TAG_FLOOR_CENTER)) && tries < pattern.testLimit) {
 						x = r.nextInt(tiles.length);
 						y = r.nextInt(tiles[0].length);
 						tries++;
 					}
 					if (tries < pattern.testLimit) {
-						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_CHEST_CLOSED }, Vector3f.div(tiles[x][y].getPosition(), new Vector3f(16, 16, 16)));
+						tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_CHEST_CLOSED },
+								Vector3f.div(tiles[x][y].getPosition(), new Vector3f(16, 16, 16)));
 						generateChestKey();
 					}
 				}
@@ -743,22 +982,31 @@ public class DungeonGenerator {
 					while (placedRooms.contains(room) && placedRooms.size() < rooms.size()) {
 						room = r.nextInt(rooms.size());
 					}
-					int amt = (int) pattern.decorationVariables[p][1] + r.nextInt((int) pattern.decorationVariables[p][2]);
+					int amt = (int) pattern.decorationVariables[p][1]
+							+ r.nextInt((int) pattern.decorationVariables[p][2]);
 					for (int a = 0; a < amt; a++) {
 						int x = r.nextInt(rooms.get(room).width);
 						int y = r.nextInt(rooms.get(room).height);
 
 						int attempts = 0;
 
-						while (attempts < pattern.testLimit && (tiles[rooms.get(room).x + x - 1][rooms.get(room).y + y].containsTag(Tile.TAG_FLOOR_CENTER)
-								|| !tiles[rooms.get(room).x + x + 1][rooms.get(room).y + y].containsTag(Tile.TAG_FLOOR_CENTER) || !tiles[rooms.get(room).x + x][rooms.get(room).y + y].containsTag(Tile.TAG_FLOOR_TOP_MIDDLE))) {
+						while (attempts < pattern.testLimit && (tiles[rooms.get(room).x + x - 1][rooms.get(room).y + y]
+								.containsTag(Tile.TAG_FLOOR_CENTER)
+								|| !tiles[rooms.get(room).x + x + 1][rooms.get(room).y + y]
+										.containsTag(Tile.TAG_FLOOR_CENTER)
+								|| !tiles[rooms.get(room).x + x][rooms.get(room).y + y]
+										.containsTag(Tile.TAG_FLOOR_TOP_MIDDLE))) {
 							attempts++;
 							x = r.nextInt(rooms.get(room).width);
 							y = r.nextInt(rooms.get(room).height);
 						}
 						if (attempts < pattern.testLimit) {
-							tiles[rooms.get(room).x + x][rooms.get(room).y + y] = new TileCompound(Tile.getRandomProperty(r, new String[] { pattern.palletTag, Tile.TAG_DECORATION_WALL }),
-									Vector3f.div(tiles[rooms.get(room).x + x][rooms.get(room).y + y].getPosition(), new Vector3f(16, 16, 16)), tiles[rooms.get(room).x + x][rooms.get(room).y + y]);
+							tiles[rooms.get(room).x + x][rooms.get(room).y + y] = new TileCompound(
+									Tile.getRandomProperty(r,
+											new String[] { pattern.palletTag, Tile.TAG_DECORATION_WALL }),
+									Vector3f.div(tiles[rooms.get(room).x + x][rooms.get(room).y + y].getPosition(),
+											new Vector3f(16, 16, 16)),
+									tiles[rooms.get(room).x + x][rooms.get(room).y + y]);
 						}
 					}
 					placedRooms.add(room);
@@ -773,7 +1021,8 @@ public class DungeonGenerator {
 					while (placedRooms.contains(room) && placedRooms.size() < rooms.size()) {
 						room = r.nextInt(rooms.size());
 					}
-					int amt = (int) pattern.decorationVariables[p][1] + r.nextInt((int) pattern.decorationVariables[p][2]);
+					int amt = (int) pattern.decorationVariables[p][1]
+							+ r.nextInt((int) pattern.decorationVariables[p][2]);
 					for (int a = 0; a < amt; a++) {
 						int x = r.nextInt(rooms.get(room).width);
 						int y = r.nextInt(rooms.get(room).height);
@@ -783,7 +1032,8 @@ public class DungeonGenerator {
 
 						for (int x2 = 0; x2 < 3; x2++) {
 							for (int y2 = 0; y2 < 3; y2++) {
-								if (!tiles[rooms.get(room).x + x + x2 - 1][rooms.get(room).y + y + y2 - 1].containsTag(Tile.TAG_FLOOR_CENTER)) {
+								if (!tiles[rooms.get(room).x + x + x2 - 1][rooms.get(room).y + y + y2 - 1]
+										.containsTag(Tile.TAG_FLOOR_CENTER)) {
 									isValid = false;
 									break;
 								}
@@ -797,7 +1047,8 @@ public class DungeonGenerator {
 							isValid = true;
 							for (int x2 = 0; x2 < 3; x2++) {
 								for (int y2 = 0; y2 < 3; y2++) {
-									if (!tiles[rooms.get(room).x + x + x2 - 1][rooms.get(room).y + y + y2 - 1].containsTag(Tile.TAG_FLOOR_CENTER)) {
+									if (!tiles[rooms.get(room).x + x + x2 - 1][rooms.get(room).y + y + y2 - 1]
+											.containsTag(Tile.TAG_FLOOR_CENTER)) {
 										isValid = false;
 										break;
 									}
@@ -806,12 +1057,16 @@ public class DungeonGenerator {
 						}
 
 						if (attempts < pattern.testLimit) {
-							tiles[rooms.get(room).x + x][rooms.get(room).y + y] = Tile.getRandomTile(r, new String[] { pattern.palletTag, Tile.TAG_DECORATION_3X3 },
-									Vector3f.div(tiles[rooms.get(room).x + x][rooms.get(room).y + y].getPosition(), new Vector3f(16, 16, 16)));
+							tiles[rooms.get(room).x + x][rooms.get(room).y + y] = Tile.getRandomTile(r,
+									new String[] { pattern.palletTag, Tile.TAG_DECORATION_3X3 },
+									Vector3f.div(tiles[rooms.get(room).x + x][rooms.get(room).y + y].getPosition(),
+											new Vector3f(16, 16, 16)));
 							for (int x2 = 0; x2 < 3; x2++) {
 								for (int y2 = 0; y2 < 3; y2++) {
 									if (!(x == 1 && y == 1)) {
-										tiles[rooms.get(room).x + x + x2 - 1][rooms.get(room).y + y + y2 - 1].setPositionY(tiles[rooms.get(room).x + x][rooms.get(room).y + y].getPosition().getY());
+										tiles[rooms.get(room).x + x + x2 - 1][rooms.get(room).y + y + y2 - 1]
+												.setPositionY(tiles[rooms.get(room).x + x][rooms.get(room).y + y]
+														.getPosition().getY());
 									}
 								}
 							}
@@ -825,19 +1080,29 @@ public class DungeonGenerator {
 				int doors = 0;
 				for (int x = 0; x < tiles.length; x++) {
 					for (int y = 0; y < tiles[0].length; y++) {
-						if (tiles[x][y].containsTag(Tile.TAG_FLOOR_HALLWAY_HORIZONTAL) && tiles[x][y - 1].containsTag(Tile.TAG_WALL_CAP_BOTTOM) && tiles[x][y + 1].containsTag(Tile.TAG_WALL_CAP_TOP)
+						if (tiles[x][y].containsTag(Tile.TAG_FLOOR_HALLWAY_HORIZONTAL)
+								&& tiles[x][y - 1].containsTag(Tile.TAG_WALL_CAP_BOTTOM)
+								&& tiles[x][y + 1].containsTag(Tile.TAG_WALL_CAP_TOP)
 								&& r.nextFloat() < pattern.decorationVariables[p][0]) {
-							tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_DOOR_LOCKED }, Vector3f.div(tiles[x][y].getPosition(), new Vector3f(16, 16, 16)));
+							tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_DOOR_LOCKED },
+									Vector3f.div(tiles[x][y].getPosition(), new Vector3f(16, 16, 16)));
 							tiles[x][y].rotate(0, 90, 0);
-							tiles[x][y - 1] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_VERTICAL }, Vector3f.div(tiles[x][y - 1].getPosition(), new Vector3f(16, 16, 16)));
-							tiles[x][y + 1] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_VERTICAL }, Vector3f.div(tiles[x][y + 1].getPosition(), new Vector3f(16, 16, 16)));
+							tiles[x][y - 1] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_VERTICAL },
+									Vector3f.div(tiles[x][y - 1].getPosition(), new Vector3f(16, 16, 16)));
+							tiles[x][y + 1] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_VERTICAL },
+									Vector3f.div(tiles[x][y + 1].getPosition(), new Vector3f(16, 16, 16)));
 							doors++;
 						}
-						if (tiles[x][y].containsTag(Tile.TAG_FLOOR_HALLWAY_VERTICAL) && tiles[x - 1][y].containsTag(Tile.TAG_WALL_CAP_RIGHT) && tiles[x + 1][y].containsTag(Tile.TAG_WALL_CAP_LEFT)
+						if (tiles[x][y].containsTag(Tile.TAG_FLOOR_HALLWAY_VERTICAL)
+								&& tiles[x - 1][y].containsTag(Tile.TAG_WALL_CAP_RIGHT)
+								&& tiles[x + 1][y].containsTag(Tile.TAG_WALL_CAP_LEFT)
 								&& r.nextFloat() < pattern.decorationVariables[p][0]) {
-							tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_DOOR_LOCKED }, Vector3f.div(tiles[x][y].getPosition(), new Vector3f(16, 16, 16)));
-							tiles[x - 1][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_HORIZONTAL }, Vector3f.div(tiles[x - 1][y].getPosition(), new Vector3f(16, 16, 16)));
-							tiles[x + 1][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_HORIZONTAL }, Vector3f.div(tiles[x + 1][y].getPosition(), new Vector3f(16, 16, 16)));
+							tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_DOOR_LOCKED },
+									Vector3f.div(tiles[x][y].getPosition(), new Vector3f(16, 16, 16)));
+							tiles[x - 1][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_HORIZONTAL },
+									Vector3f.div(tiles[x - 1][y].getPosition(), new Vector3f(16, 16, 16)));
+							tiles[x + 1][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_WALL_HORIZONTAL },
+									Vector3f.div(tiles[x + 1][y].getPosition(), new Vector3f(16, 16, 16)));
 							doors++;
 						}
 					}
@@ -855,7 +1120,8 @@ public class DungeonGenerator {
 					while (placedRooms.contains(room) && placedRooms.size() < rooms.size()) {
 						room = r.nextInt(rooms.size());
 					}
-					int amt = (int) pattern.decorationVariables[p][1] + r.nextInt((int) pattern.decorationVariables[p][2]);
+					int amt = (int) pattern.decorationVariables[p][1]
+							+ r.nextInt((int) pattern.decorationVariables[p][2]);
 					for (int a = 0; a < amt; a++) {
 						int x = r.nextInt(rooms.get(room).width);
 						int y = r.nextInt(rooms.get(room).height);
@@ -865,15 +1131,19 @@ public class DungeonGenerator {
 
 						for (int x2 = 0; x2 < 3; x2++) {
 							for (int y2 = 0; y2 < 3; y2++) {
-								if (tiles[rooms.get(room).x + x + x2 - 1][rooms.get(room).y + y + y2 - 1].containsTag(Tile.TAG_FLOOR_HALLWAY_HORIZONTAL)
-										|| tiles[rooms.get(room).x + x + x2 - 1][rooms.get(room).y + y + y2 - 1].containsTag(Tile.TAG_FLOOR_HALLWAY_VERTICAL)) {
+								if (tiles[rooms.get(room).x + x + x2 - 1][rooms.get(room).y + y + y2 - 1]
+										.containsTag(Tile.TAG_FLOOR_HALLWAY_HORIZONTAL)
+										|| tiles[rooms.get(room).x + x + x2 - 1][rooms.get(room).y + y + y2 - 1]
+												.containsTag(Tile.TAG_FLOOR_HALLWAY_VERTICAL)) {
 									blocking = true;
 									break;
 								}
 							}
 						}
 
-						while (attempts < pattern.testLimit && (blocking || !tiles[rooms.get(room).x + x][rooms.get(room).y + y].containsTag(Tile.TAG_FLOOR_CENTER))) {
+						while (attempts < pattern.testLimit
+								&& (blocking || !tiles[rooms.get(room).x + x][rooms.get(room).y + y]
+										.containsTag(Tile.TAG_FLOOR_CENTER))) {
 							attempts++;
 							x = r.nextInt(rooms.get(room).width);
 							y = r.nextInt(rooms.get(room).height);
@@ -881,8 +1151,10 @@ public class DungeonGenerator {
 							blocking = false;
 							for (int x2 = 0; x2 < 3; x2++) {
 								for (int y2 = 0; y2 < 3; y2++) {
-									if (tiles[rooms.get(room).x + x + x2 - 1][rooms.get(room).y + y + y2 - 1].containsTag(Tile.TAG_FLOOR_HALLWAY_HORIZONTAL)
-											|| tiles[rooms.get(room).x + x + x2 - 1][rooms.get(room).y + y + y2 - 1].containsTag(Tile.TAG_FLOOR_HALLWAY_VERTICAL)) {
+									if (tiles[rooms.get(room).x + x + x2 - 1][rooms.get(room).y + y + y2 - 1]
+											.containsTag(Tile.TAG_FLOOR_HALLWAY_HORIZONTAL)
+											|| tiles[rooms.get(room).x + x + x2 - 1][rooms.get(room).y + y + y2 - 1]
+													.containsTag(Tile.TAG_FLOOR_HALLWAY_VERTICAL)) {
 										blocking = true;
 										break;
 									}
@@ -890,8 +1162,10 @@ public class DungeonGenerator {
 							}
 						}
 						if (attempts < pattern.testLimit) {
-							tiles[rooms.get(room).x + x][rooms.get(room).y + y] = Tile.getRandomTile(r, new String[] { pattern.palletTag, Tile.TAG_DECORATION_FOLIAGE },
-									Vector3f.div(tiles[rooms.get(room).x + x][rooms.get(room).y + y].getPosition(), new Vector3f(16, 16, 16)));
+							tiles[rooms.get(room).x + x][rooms.get(room).y + y] = Tile.getRandomTile(r,
+									new String[] { pattern.palletTag, Tile.TAG_DECORATION_FOLIAGE },
+									Vector3f.div(tiles[rooms.get(room).x + x][rooms.get(room).y + y].getPosition(),
+											new Vector3f(16, 16, 16)));
 						}
 					}
 					placedRooms.add(room);
@@ -907,17 +1181,20 @@ public class DungeonGenerator {
 					while (placedRooms.contains(room) && placedRooms.size() < rooms.size()) {
 						room = r.nextInt(rooms.size());
 					}
-					int amt = (int) pattern.decorationVariables[p][1] + r.nextInt((int) pattern.decorationVariables[p][2]);
+					int amt = (int) pattern.decorationVariables[p][1]
+							+ r.nextInt((int) pattern.decorationVariables[p][2]);
 					for (int a = 0; a < amt; a++) {
 						int x = r.nextInt(rooms.get(room).width);
 						int y = r.nextInt(rooms.get(room).height);
 
 						int count = 0;
 						for (int t = 0; t < 2; t++) {
-							if (tiles[rooms.get(room).x + x - 1 + t * 2][rooms.get(room).y + y].containsTag(Tile.TAG_FLOOR_CENTER)) {
+							if (tiles[rooms.get(room).x + x - 1 + t * 2][rooms.get(room).y + y]
+									.containsTag(Tile.TAG_FLOOR_CENTER)) {
 								count++;
 							}
-							if (tiles[rooms.get(room).x + x][rooms.get(room).y + y - 1 + t * 2].containsTag(Tile.TAG_FLOOR_CENTER)) {
+							if (tiles[rooms.get(room).x + x][rooms.get(room).y + y - 1 + t * 2]
+									.containsTag(Tile.TAG_FLOOR_CENTER)) {
 								count++;
 							}
 						}
@@ -931,15 +1208,19 @@ public class DungeonGenerator {
 						}
 
 						int attempts = 0;
-						while (attempts < pattern.testLimit && (onItem || x % 2 == 0 || y % 2 == 0 || count < 2 || !tiles[rooms.get(room).x + x][rooms.get(room).y + y].containsTag(Tile.TAG_FLOOR_CENTER))) {
+						while (attempts < pattern.testLimit && (onItem || x % 2 == 0 || y % 2 == 0 || count < 2
+								|| !tiles[rooms.get(room).x + x][rooms.get(room).y + y]
+										.containsTag(Tile.TAG_FLOOR_CENTER))) {
 							count = 0;
 							x = r.nextInt(rooms.get(room).width);
 							y = r.nextInt(rooms.get(room).height);
 							for (int t = 0; t < 2; t++) {
-								if (tiles[rooms.get(room).x + x - 1 + t * 2][rooms.get(room).y + y].containsTag(Tile.TAG_FLOOR_CENTER)) {
+								if (tiles[rooms.get(room).x + x - 1 + t * 2][rooms.get(room).y + y]
+										.containsTag(Tile.TAG_FLOOR_CENTER)) {
 									count++;
 								}
-								if (tiles[rooms.get(room).x + x][rooms.get(room).y + y - 1 + t * 2].containsTag(Tile.TAG_FLOOR_CENTER)) {
+								if (tiles[rooms.get(room).x + x][rooms.get(room).y + y - 1 + t * 2]
+										.containsTag(Tile.TAG_FLOOR_CENTER)) {
 									count++;
 								}
 							}
@@ -954,8 +1235,10 @@ public class DungeonGenerator {
 							attempts++;
 						}
 						if (attempts < pattern.testLimit) {
-							tiles[rooms.get(room).x + x][rooms.get(room).y + y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_DECORATION_ILLUMINATION_FLOOR },
-									Vector3f.div(tiles[rooms.get(room).x + x][rooms.get(room).y + y].getPosition(), new Vector3f(16, 16, 16)));
+							tiles[rooms.get(room).x + x][rooms.get(room).y + y] = Tile.getTile(
+									new String[] { pattern.palletTag, Tile.TAG_DECORATION_ILLUMINATION_FLOOR },
+									Vector3f.div(tiles[rooms.get(room).x + x][rooms.get(room).y + y].getPosition(),
+											new Vector3f(16, 16, 16)));
 
 						}
 					}
@@ -974,15 +1257,21 @@ public class DungeonGenerator {
 								for (int y = 0; y < chunkSize; y++) {
 									int ax = Math.min(tiles.length - 1, rx * chunkSize + x);
 									int ay = Math.min(tiles[0].length - 1, ry * chunkSize + y);
-									if (tiles[ax][ay].containsTag(Tile.TAG_WALL_VERTICAL) || tiles[ax][ay].containsTag(Tile.TAG_WALL_HORIZONTAL)) {
+									if (tiles[ax][ay].containsTag(Tile.TAG_WALL_VERTICAL)
+											|| tiles[ax][ay].containsTag(Tile.TAG_WALL_HORIZONTAL)) {
 										points.add(new Point(ax, ay));
 									}
 								}
 							}
 							if (points.size() > 0) {
 								Point location = points.get(r.nextInt(points.size()));
-								tiles[location.x][location.y] = new TileBrazier(Tile.getRandomProperty(r, new String[] { pattern.palletTag, Tile.TAG_DECORATION_ILLUMINATION_WALL }),
-										Vector3f.div(tiles[location.x][location.y].getPosition(), new Vector3f(16, 16, 16)), tiles[location.x][location.y]);
+								tiles[location.x][location.y] = new TileBrazier(
+										Tile.getRandomProperty(r,
+												new String[] { pattern.palletTag,
+														Tile.TAG_DECORATION_ILLUMINATION_WALL }),
+										Vector3f.div(tiles[location.x][location.y].getPosition(),
+												new Vector3f(16, 16, 16)),
+										tiles[location.x][location.y]);
 							}
 						}
 					}
@@ -991,7 +1280,8 @@ public class DungeonGenerator {
 
 			case TAG_DECORATION_WATER:
 				ArrayList<Integer> usedRooms = new ArrayList<>();
-				int spreadLimit = (int) pattern.decorationVariables[p][0] + r.nextInt((int) pattern.decorationVariables[p][1]);
+				int spreadLimit = (int) pattern.decorationVariables[p][0]
+						+ r.nextInt((int) pattern.decorationVariables[p][1]);
 				for (int i = 0; i < rooms.size() / pattern.decorationVariables[p][2]; i++) {
 					int room = r.nextInt(rooms.size());
 					while (usedRooms.contains(room) && usedRooms.size() < rooms.size()) {
@@ -1012,22 +1302,34 @@ public class DungeonGenerator {
 					int spreads = 0;
 					for (int l = 0; l < locations.size(); l++) {
 						if (spreads < spreadLimit) {
-							if (!tiles[locations.get(l).x - 1][locations.get(l).y].isSolid() && tiles[locations.get(l).x - 1][locations.get(l).y].getPosition().getY() >= tiles[locations.get(l).x][locations.get(l).y].getPosition().getY()) {
+							if (!tiles[locations.get(l).x - 1][locations.get(l).y].isSolid()
+									&& tiles[locations.get(l).x - 1][locations.get(l).y].getPosition()
+											.getY() >= tiles[locations.get(l).x][locations.get(l).y].getPosition()
+													.getY()) {
 								if (!containsPoint(locations, locations.get(l).x - 1, locations.get(l).y)) {
 									locations.add(new Point(locations.get(l).x - 1, locations.get(l).y));
 								}
 							}
-							if (!tiles[locations.get(l).x][locations.get(l).y - 1].isSolid() && tiles[locations.get(l).x][locations.get(l).y + 1].getPosition().getY() >= tiles[locations.get(l).x][locations.get(l).y].getPosition().getY()) {
+							if (!tiles[locations.get(l).x][locations.get(l).y - 1].isSolid()
+									&& tiles[locations.get(l).x][locations.get(l).y + 1].getPosition()
+											.getY() >= tiles[locations.get(l).x][locations.get(l).y].getPosition()
+													.getY()) {
 								if (!containsPoint(locations, locations.get(l).x, locations.get(l).y - 1)) {
 									locations.add(new Point(locations.get(l).x, locations.get(l).y - 1));
 								}
 							}
-							if (!tiles[locations.get(l).x + 1][locations.get(l).y].isSolid() && tiles[locations.get(l).x - 1][locations.get(l).y].getPosition().getY() >= tiles[locations.get(l).x][locations.get(l).y].getPosition().getY()) {
+							if (!tiles[locations.get(l).x + 1][locations.get(l).y].isSolid()
+									&& tiles[locations.get(l).x - 1][locations.get(l).y].getPosition()
+											.getY() >= tiles[locations.get(l).x][locations.get(l).y].getPosition()
+													.getY()) {
 								if (!containsPoint(locations, locations.get(l).x + 1, locations.get(l).y)) {
 									locations.add(new Point(locations.get(l).x + 1, locations.get(l).y));
 								}
 							}
-							if (!tiles[locations.get(l).x][locations.get(l).y + 1].isSolid() && tiles[locations.get(l).x][locations.get(l).y + 1].getPosition().getY() >= tiles[locations.get(l).x][locations.get(l).y].getPosition().getY()) {
+							if (!tiles[locations.get(l).x][locations.get(l).y + 1].isSolid()
+									&& tiles[locations.get(l).x][locations.get(l).y + 1].getPosition()
+											.getY() >= tiles[locations.get(l).x][locations.get(l).y].getPosition()
+													.getY()) {
 								if (!containsPoint(locations, locations.get(l).x, locations.get(l).y + 1)) {
 									locations.add(new Point(locations.get(l).x, locations.get(l).y + 1));
 								}
@@ -1045,39 +1347,59 @@ public class DungeonGenerator {
 					for (Point t : locations) {
 						if (!tiles[t.x][t.y].isWaterLogged() && !tiles[t.x][t.y].isLavaLogged()) {
 							boolean sink = false;
-							if (!containsPoint(locations, t.x - 1, t.y) && tiles[t.x - 1][t.y].getPosition().getY() > tiles[t.x][t.y].getPosition().getY()
-									&& tiles[t.x - 1][t.y].getPosition().getY() - tiles[t.x][t.y].getPosition().getY() < 8) {
+							if (!containsPoint(locations, t.x - 1, t.y)
+									&& tiles[t.x - 1][t.y].getPosition().getY() > tiles[t.x][t.y].getPosition().getY()
+									&& tiles[t.x - 1][t.y].getPosition().getY()
+											- tiles[t.x][t.y].getPosition().getY() < 8) {
 								sink = true;
 							}
-							if (!containsPoint(locations, t.x + 1, t.y) && tiles[t.x + 1][t.y].getPosition().getY() > tiles[t.x][t.y].getPosition().getY()
-									&& tiles[t.x + 1][t.y].getPosition().getY() - tiles[t.x][t.y].getPosition().getY() < 8) {
+							if (!containsPoint(locations, t.x + 1, t.y)
+									&& tiles[t.x + 1][t.y].getPosition().getY() > tiles[t.x][t.y].getPosition().getY()
+									&& tiles[t.x + 1][t.y].getPosition().getY()
+											- tiles[t.x][t.y].getPosition().getY() < 8) {
 								sink = true;
 							}
-							if (!containsPoint(locations, t.x, t.y - 1) && tiles[t.x][t.y - 1].getPosition().getY() > tiles[t.x][t.y].getPosition().getY()
-									&& tiles[t.x][t.y - 1].getPosition().getY() - tiles[t.x][t.y].getPosition().getY() < 8) {
+							if (!containsPoint(locations, t.x, t.y - 1)
+									&& tiles[t.x][t.y - 1].getPosition().getY() > tiles[t.x][t.y].getPosition().getY()
+									&& tiles[t.x][t.y - 1].getPosition().getY()
+											- tiles[t.x][t.y].getPosition().getY() < 8) {
 								sink = true;
 							}
-							if (!containsPoint(locations, t.x, t.y + 1) && tiles[t.x][t.y + 1].getPosition().getY() > tiles[t.x][t.y].getPosition().getY()
-									&& tiles[t.x][t.y + 1].getPosition().getY() - tiles[t.x][t.y].getPosition().getY() < 8) {
+							if (!containsPoint(locations, t.x, t.y + 1)
+									&& tiles[t.x][t.y + 1].getPosition().getY() > tiles[t.x][t.y].getPosition().getY()
+									&& tiles[t.x][t.y + 1].getPosition().getY()
+											- tiles[t.x][t.y].getPosition().getY() < 8) {
 								sink = true;
 							}
 							while (sink) {
 								sink = false;
 								tiles[t.x][t.y].getPosition().add(new Vector3f(0, -4, 0));
-								if (!containsPoint(locations, t.x - 1, t.y) && tiles[t.x - 1][t.y].getPosition().getY() > tiles[t.x][t.y].getPosition().getY()
-										&& tiles[t.x - 1][t.y].getPosition().getY() - tiles[t.x][t.y].getPosition().getY() < 8) {
+								if (!containsPoint(locations, t.x - 1, t.y)
+										&& tiles[t.x - 1][t.y].getPosition().getY() > tiles[t.x][t.y].getPosition()
+												.getY()
+										&& tiles[t.x - 1][t.y].getPosition().getY()
+												- tiles[t.x][t.y].getPosition().getY() < 8) {
 									sink = true;
 								}
-								if (!containsPoint(locations, t.x + 1, t.y) && tiles[t.x + 1][t.y].getPosition().getY() > tiles[t.x][t.y].getPosition().getY()
-										&& tiles[t.x + 1][t.y].getPosition().getY() - tiles[t.x][t.y].getPosition().getY() < 8) {
+								if (!containsPoint(locations, t.x + 1, t.y)
+										&& tiles[t.x + 1][t.y].getPosition().getY() > tiles[t.x][t.y].getPosition()
+												.getY()
+										&& tiles[t.x + 1][t.y].getPosition().getY()
+												- tiles[t.x][t.y].getPosition().getY() < 8) {
 									sink = true;
 								}
-								if (!containsPoint(locations, t.x, t.y - 1) && tiles[t.x][t.y - 1].getPosition().getY() > tiles[t.x][t.y].getPosition().getY()
-										&& tiles[t.x][t.y - 1].getPosition().getY() - tiles[t.x][t.y].getPosition().getY() < 8) {
+								if (!containsPoint(locations, t.x, t.y - 1)
+										&& tiles[t.x][t.y - 1].getPosition().getY() > tiles[t.x][t.y].getPosition()
+												.getY()
+										&& tiles[t.x][t.y - 1].getPosition().getY()
+												- tiles[t.x][t.y].getPosition().getY() < 8) {
 									sink = true;
 								}
-								if (!containsPoint(locations, t.x, t.y + 1) && tiles[t.x][t.y + 1].getPosition().getY() > tiles[t.x][t.y].getPosition().getY()
-										&& tiles[t.x][t.y + 1].getPosition().getY() - tiles[t.x][t.y].getPosition().getY() < 8) {
+								if (!containsPoint(locations, t.x, t.y + 1)
+										&& tiles[t.x][t.y + 1].getPosition().getY() > tiles[t.x][t.y].getPosition()
+												.getY()
+										&& tiles[t.x][t.y + 1].getPosition().getY()
+												- tiles[t.x][t.y].getPosition().getY() < 8) {
 									sink = true;
 								}
 							}
@@ -1086,9 +1408,11 @@ public class DungeonGenerator {
 					for (Point t : locations) {
 						if (!tiles[t.x][t.y].isWaterLogged() && !tiles[t.x][t.y].isLavaLogged()) {
 							if (pattern.decorationVariables[p][3] < 0.5f) {
-								StateManager.currentState.effects.add(new EffectWater(tiles[t.x][t.y], new Vector3f(0.427f, 0.765f, 0.9f), tiles, locations));
+								StateManager.currentState.effects.add(new EffectWater(tiles[t.x][t.y],
+										new Vector3f(0.427f, 0.765f, 0.9f), tiles, locations));
 							} else {
-								StateManager.currentState.effects.add(new EffectLava(tiles[t.x][t.y], tiles, locations));
+								StateManager.currentState.effects
+										.add(new EffectLava(tiles[t.x][t.y], tiles, locations));
 							}
 						}
 					}
@@ -1126,7 +1450,8 @@ public class DungeonGenerator {
 			isOnItem = false;
 
 			highlightTiles(x, y, tiles.length * tiles[0].length, 1);
-			if (getPath(startRoom.x + r.nextInt(startRoom.width), startRoom.y + r.nextInt(startRoom.height)).size() > 0) {
+			if (getPath(startRoom.x + r.nextInt(startRoom.width), startRoom.y + r.nextInt(startRoom.height))
+					.size() > 0) {
 				hasPath = true;
 			}
 			clearSelectedTiles();
@@ -1139,7 +1464,8 @@ public class DungeonGenerator {
 			}
 		}
 
-		items.add(new Item(Vector3f.add(tiles[x][y].getPosition(), 0, 16, 0), ItemProperty.searchForType(ItemProperty.TYPE_KEY_CHEST, ItemProperty.getItemList(), false)[0].copy()));
+		items.add(new Item(Vector3f.add(tiles[x][y].getPosition(), 0, 16, 0),
+				ItemProperty.searchForType(ItemProperty.TYPE_KEY_CHEST, ItemProperty.getItemList(), false)[0].copy()));
 	}
 
 	public void generateChestKey() {
@@ -1167,7 +1493,8 @@ public class DungeonGenerator {
 			}
 		}
 
-		items.add(new Item(Vector3f.add(tiles[x][y].getPosition(), 0, 16, 0), ItemProperty.searchForType(ItemProperty.TYPE_KEY_CHEST, ItemProperty.getItemList(), false)[0].copy()));
+		items.add(new Item(Vector3f.add(tiles[x][y].getPosition(), 0, 16, 0),
+				ItemProperty.searchForType(ItemProperty.TYPE_KEY_CHEST, ItemProperty.getItemList(), false)[0].copy()));
 	}
 
 	public void generateStairs() {
@@ -1180,7 +1507,8 @@ public class DungeonGenerator {
 		}
 
 		tiles[x][y] = Tile.getTile(new String[] { pattern.palletTag, Tile.TAG_STAIRS },
-				new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)), ((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
+				new Vector3f(x, (float) Math.round(noise.getValue(((float) x / (tiles.length + xActiveSpace)),
+						((float) y / (tiles[0].length + yActiveSpace))) * 10) / 4f, y));
 	}
 
 	public DungeonGenerator start() {
@@ -1199,7 +1527,8 @@ public class DungeonGenerator {
 			}
 			alterDungeon();
 			map = new Map(tiles);
-			System.out.println("[DungeonGeneration]: Generation completed in: " + (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
+			System.out.println("[DungeonGeneration]: Generation completed in: "
+					+ (int) ((System.nanoTime() - time) / 100.0) / 10000.0 + "ms");
 			System.out.println("[DungeonGeneration]: Dungeon generated with seed: " + seed);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -1320,16 +1649,18 @@ public class DungeonGenerator {
 					JSONArray profileList = (JSONArray) jo.get("unit_profiles");
 					String[] profileNames = new String[profileList.size()];
 					float[] profileValues = new float[profileList.size()];
-					for(int i = 0; i < profileList.size(); i++) {
+					for (int i = 0; i < profileList.size(); i++) {
 						JSONObject profile = (JSONObject) profileList.get(i);
 						profileNames[i] = (String) profile.get("name");
 						profileValues[i] = (float) ((double) profile.get("rate"));
 					}
-					
-					patterns.put(f.getName(),
-							new GenerationPattern(f.getName(), name, palletTag, maxDepth, levelScaler, baseWorldSize, worldSizeScaler, perlinPersistance, testLimit, roomSizeMin, roomSizeRandom, itemCountRandom, itemCountCertain,
-									enemyRoomCountDevisor, enemyRoomCountRandomDevisor, enemyCountRandom, enemyCountCertain, enemyLevelReduction, enemyLevelDeviation, decorTags, decorVariables, effectTags, effectVariables, altTags,
-									altVariables, aiTypes, aiTypeRates, profileNames, profileValues, screenColors, tier));
+
+					patterns.put(f.getName(), new GenerationPattern(f.getName(), name, palletTag, maxDepth, levelScaler,
+							baseWorldSize, worldSizeScaler, perlinPersistance, testLimit, roomSizeMin, roomSizeRandom,
+							itemCountRandom, itemCountCertain, enemyRoomCountDevisor, enemyRoomCountRandomDevisor,
+							enemyCountRandom, enemyCountCertain, enemyLevelReduction, enemyLevelDeviation, decorTags,
+							decorVariables, effectTags, effectVariables, altTags, altVariables, aiTypes, aiTypeRates,
+							profileNames, profileValues, screenColors, tier));
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -1381,25 +1712,29 @@ public class DungeonGenerator {
 				path.add(new Point(x, y));
 				for (int i = 0; i < path.size(); i++) {
 					if (path.get(i).x > 0) {
-						if (tiles[path.get(i).x - 1][path.get(i).y].status > tiles[path.get(i).x][path.get(i).y].status && !tiles[path.get(i).x - 1][path.get(i).y].isSolid()) {
+						if (tiles[path.get(i).x - 1][path.get(i).y].status > tiles[path.get(i).x][path.get(i).y].status
+								&& !tiles[path.get(i).x - 1][path.get(i).y].isSolid()) {
 							path.add(new Point(path.get(i).x - 1, path.get(i).y));
 							continue;
 						}
 					}
 					if (path.get(i).x < tiles.length - 1) {
-						if (tiles[path.get(i).x + 1][path.get(i).y].status > tiles[path.get(i).x][path.get(i).y].status && !tiles[path.get(i).x + 1][path.get(i).y].isSolid()) {
+						if (tiles[path.get(i).x + 1][path.get(i).y].status > tiles[path.get(i).x][path.get(i).y].status
+								&& !tiles[path.get(i).x + 1][path.get(i).y].isSolid()) {
 							path.add(new Point(path.get(i).x + 1, path.get(i).y));
 							continue;
 						}
 					}
 					if (path.get(i).y > 0) {
-						if (tiles[path.get(i).x][path.get(i).y - 1].status > tiles[path.get(i).x][path.get(i).y].status && !tiles[path.get(i).x][path.get(i).y - 1].isSolid()) {
+						if (tiles[path.get(i).x][path.get(i).y - 1].status > tiles[path.get(i).x][path.get(i).y].status
+								&& !tiles[path.get(i).x][path.get(i).y - 1].isSolid()) {
 							path.add(new Point(path.get(i).x, path.get(i).y - 1));
 							continue;
 						}
 					}
 					if (path.get(i).y < tiles[0].length - 1) {
-						if (tiles[path.get(i).x][path.get(i).y + 1].status > tiles[path.get(i).x][path.get(i).y].status && !tiles[path.get(i).x][path.get(i).y + 1].isSolid()) {
+						if (tiles[path.get(i).x][path.get(i).y + 1].status > tiles[path.get(i).x][path.get(i).y].status
+								&& !tiles[path.get(i).x][path.get(i).y + 1].isSolid()) {
 							path.add(new Point(path.get(i).x, path.get(i).y + 1));
 							continue;
 						}
@@ -1437,7 +1772,8 @@ public class DungeonGenerator {
 							if (tiles[x - 1][y].status > tiles[x][y].status) {
 								if (tiles[x - 1][y].status > 1) {
 									if (onUnit && !tiles[x][y].isSolid()) {
-										tiles[x][y].status = Math.max(1, tiles[x - 1][y].status - tiles[x][y].movementPenalty);
+										tiles[x][y].status = Math.max(1,
+												tiles[x - 1][y].status - tiles[x][y].movementPenalty);
 									} else {
 										tiles[x][y].status = 1;
 									}
@@ -1455,7 +1791,8 @@ public class DungeonGenerator {
 							if (tiles[x][y - 1].status > tiles[x][y].status) {
 								if (tiles[x][y - 1].status > 1) {
 									if (onUnit && !tiles[x][y].isSolid()) {
-										tiles[x][y].status = Math.max(1, tiles[x][y - 1].status - tiles[x][y].movementPenalty);
+										tiles[x][y].status = Math.max(1,
+												tiles[x][y - 1].status - tiles[x][y].movementPenalty);
 									} else {
 										tiles[x][y].status = 1;
 									}
@@ -1473,7 +1810,8 @@ public class DungeonGenerator {
 							if (tiles[x + 1][y].status > tiles[x][y].status) {
 								if (tiles[x + 1][y].status > 1) {
 									if (onUnit && !tiles[x][y].isSolid()) {
-										tiles[x][y].status = Math.max(1, tiles[x + 1][y].status - tiles[x][y].movementPenalty);
+										tiles[x][y].status = Math.max(1,
+												tiles[x + 1][y].status - tiles[x][y].movementPenalty);
 									} else {
 										tiles[x][y].status = 1;
 									}
@@ -1491,7 +1829,8 @@ public class DungeonGenerator {
 							if (tiles[x][y + 1].status > tiles[x][y].status) {
 								if (tiles[x][y + 1].status > 1) {
 									if (onUnit && !tiles[x][y].isSolid()) {
-										tiles[x][y].status = Math.max(1, tiles[x][y + 1].status - tiles[x][y].movementPenalty);
+										tiles[x][y].status = Math.max(1,
+												tiles[x][y + 1].status - tiles[x][y].movementPenalty);
 									} else {
 										tiles[x][y].status = 1;
 									}
@@ -1551,9 +1890,13 @@ class GenerationPattern {
 	public float[] screenColor;
 	public int tier;
 
-	public GenerationPattern(String pattern, String name, String palletTag, int maxDepth, double levelScaler, int baseWorldSize, double worldSizeScaler, float perlinPersistance, int testLimit, int roomSizeMin, int roomSizeRandom,
-			int itemCountRandom, int itemCountCertain, double enemyRoomCountDevisor, double enemyRoomCountRandomDevisor, int enemyCountRandom, int enemyCountCertain, int enemyLevelReduction, int enemyLevelDeviation, String[] decorationTags,
-			double[][] decorationVariables, String[] effectTags, double[][] effectVariables, String[] altTags, String[][] altVariables, String[] aiTypes, float[] aiRates, String[] profileNames, float[] profileValues, float[] screenColor, int tier) {
+	public GenerationPattern(String pattern, String name, String palletTag, int maxDepth, double levelScaler,
+			int baseWorldSize, double worldSizeScaler, float perlinPersistance, int testLimit, int roomSizeMin,
+			int roomSizeRandom, int itemCountRandom, int itemCountCertain, double enemyRoomCountDevisor,
+			double enemyRoomCountRandomDevisor, int enemyCountRandom, int enemyCountCertain, int enemyLevelReduction,
+			int enemyLevelDeviation, String[] decorationTags, double[][] decorationVariables, String[] effectTags,
+			double[][] effectVariables, String[] altTags, String[][] altVariables, String[] aiTypes, float[] aiRates,
+			String[] profileNames, float[] profileValues, float[] screenColor, int tier) {
 		this.pattern = pattern;
 		this.name = name;
 		this.palletTag = palletTag;
@@ -1594,7 +1937,7 @@ class GenerationPattern {
 			n = new Random().nextInt(profileNames.length);
 			r = new Random().nextFloat();
 		}
-		
+
 		return profileNames[n];
 	}
 
