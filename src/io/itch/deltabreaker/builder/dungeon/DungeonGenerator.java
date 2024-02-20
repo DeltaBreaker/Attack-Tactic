@@ -905,6 +905,8 @@ public class DungeonGenerator {
 						int enemy = r.nextInt(enemyPlacements.size());
 						Unit e = enemyPlacements.get(enemy);
 						
+						e.applyStatus(Unit.STATUS_GOLDEN);
+						
 						e.bodyColor = new Vector4f(2, 1.843f, 1, 1);
 						e.hairColor = new Vector4f(2, 1.843f, 1, 1);
 						e.level += 10;

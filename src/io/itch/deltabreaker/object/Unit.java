@@ -53,6 +53,7 @@ public class Unit {
 	public static final String STATUS_SLEEP = "unit.status.sleep";
 	public static final String STATUS_CONFUSION = "unit.status.confusion";
 	public static final String STATUS_DAZE = "unit.status.daze";
+	public static final String STATUS_GOLDEN = "unit.status.golden";
 
 	public static ArrayList<String> names = new ArrayList<>();
 	public static HashMap<String, float[]> GROWTH_PROFILES = new HashMap<>();
@@ -605,6 +606,11 @@ public class Unit {
 	}
 
 	public void applyStatus(String status) {
+		if(this.status.equals(STATUS_GOLDEN)) {
+			StateManager.currentState.effects.add(new EffectText("Immune", new Vector3f(x - ("Immune").length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8), Vector4f.COLOR_GREEN));
+			return;
+		}
+		
 		switch (status) {
 
 		case STATUS_POISON:
@@ -648,6 +654,14 @@ public class Unit {
 			StateManager.currentState.effects.add(new EffectDebuff(new Vector3f(x, 10 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y)));
 			break;
 
+		case STATUS_GOLDEN:
+			statusTimer = 9999999;
+			this.status = STATUS_GOLDEN;
+			statusEffect.die = true;
+			statusEffect = new EffectHeated(new Vector3f(x, height, y), Vector4f.COLOR_GOLD);
+			StateManager.currentState.effects.add(statusEffect);
+			break;
+			
 		}
 	}
 
