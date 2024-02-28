@@ -31,7 +31,8 @@ public class MenuDungeonAction extends Menu {
 
 	public MenuDungeonAction(Vector3f position, Unit unit, StateDungeon context) {
 		super(position, getOptions(unit, context));
-		Startup.staticView.position = new Vector3f(position.getX() / 2 - 4 + getDimensions(options).width / 4, position.getY() / 2 - getDimensions(options).height / 4, Startup.staticView.position.getZ());
+		Startup.staticView.position = new Vector3f(position.getX() / 2 - 4 + getDimensions(options).width / 4,
+				position.getY() / 2 - getDimensions(options).height / 4, Startup.staticView.position.getZ());
 		StateManager.currentState.cursor.staticView = true;
 		cursorPos = Vector3f.add(StateManager.currentState.cursor.position, 0, 0, 0);
 		StateManager.currentState.cursor.warpLocation(Vector3f.add(position, 0, -9, 0));
@@ -99,11 +100,14 @@ public class MenuDungeonAction extends Menu {
 
 							// Determines which tile to use as reference
 							Tile t = StateManager.currentState.tiles[unit.locX - 1][unit.locY];
-							if (StateManager.currentState.tiles[unit.locX][unit.locY - 1].getProperty().equals(Tile.PROPERTY_CHEST)) {
+							if (StateManager.currentState.tiles[unit.locX][unit.locY - 1].getProperty()
+									.equals(Tile.PROPERTY_CHEST)) {
 								t = StateManager.currentState.tiles[unit.locX][unit.locY - 1];
-							} else if (StateManager.currentState.tiles[unit.locX + 1][unit.locY].getProperty().equals(Tile.PROPERTY_CHEST)) {
+							} else if (StateManager.currentState.tiles[unit.locX + 1][unit.locY].getProperty()
+									.equals(Tile.PROPERTY_CHEST)) {
 								t = StateManager.currentState.tiles[unit.locX + 1][unit.locY];
-							} else if (StateManager.currentState.tiles[unit.locX][unit.locY + 1].getProperty().equals(Tile.PROPERTY_CHEST)) {
+							} else if (StateManager.currentState.tiles[unit.locX][unit.locY + 1].getProperty()
+									.equals(Tile.PROPERTY_CHEST)) {
 								t = StateManager.currentState.tiles[unit.locX][unit.locY + 1];
 							}
 
@@ -122,14 +126,20 @@ public class MenuDungeonAction extends Menu {
 						case "Door":
 							// Determines which tile to use as reference
 							Tile t1 = StateManager.currentState.tiles[unit.locX - 1][unit.locY];
-							if (StateManager.currentState.tiles[unit.locX][unit.locY - 1].getProperty().equals(Tile.PROPERTY_DOOR_LOCKED)
-									|| StateManager.currentState.tiles[unit.locX][unit.locY - 1].getProperty().equals(Tile.PROPERTY_DOOR)) {
+							if (StateManager.currentState.tiles[unit.locX][unit.locY - 1].getProperty()
+									.equals(Tile.PROPERTY_DOOR_LOCKED)
+									|| StateManager.currentState.tiles[unit.locX][unit.locY - 1].getProperty()
+											.equals(Tile.PROPERTY_DOOR)) {
 								t1 = StateManager.currentState.tiles[unit.locX][unit.locY - 1];
-							} else if (StateManager.currentState.tiles[unit.locX + 1][unit.locY].getProperty().equals(Tile.PROPERTY_DOOR_LOCKED)
-									|| StateManager.currentState.tiles[unit.locX + 1][unit.locY].getProperty().equals(Tile.PROPERTY_DOOR)) {
+							} else if (StateManager.currentState.tiles[unit.locX + 1][unit.locY].getProperty()
+									.equals(Tile.PROPERTY_DOOR_LOCKED)
+									|| StateManager.currentState.tiles[unit.locX + 1][unit.locY].getProperty()
+											.equals(Tile.PROPERTY_DOOR)) {
 								t1 = StateManager.currentState.tiles[unit.locX + 1][unit.locY];
-							} else if (StateManager.currentState.tiles[unit.locX][unit.locY + 1].getProperty().equals(Tile.PROPERTY_DOOR_LOCKED)
-									|| StateManager.currentState.tiles[unit.locX][unit.locY + 1].getProperty().equals(Tile.PROPERTY_DOOR)) {
+							} else if (StateManager.currentState.tiles[unit.locX][unit.locY + 1].getProperty()
+									.equals(Tile.PROPERTY_DOOR_LOCKED)
+									|| StateManager.currentState.tiles[unit.locX][unit.locY + 1].getProperty()
+											.equals(Tile.PROPERTY_DOOR)) {
 								t1 = StateManager.currentState.tiles[unit.locX][unit.locY + 1];
 							}
 
@@ -151,7 +161,11 @@ public class MenuDungeonAction extends Menu {
 									if (unit.canAddItem(item)) {
 										int overflow = unit.addItem(item);
 										if (overflow == 0) {
-											StateManager.currentState.effects.add(new EffectPoof(Vector3f.add(context.items.get(k).position, 0, StateManager.currentState.tiles[unit.locX][unit.locY].getPosition().getY(), 0)));
+											StateManager.currentState.effects
+													.add(new EffectPoof(Vector3f.add(context.items.get(k).position, 0,
+															StateManager.currentState.tiles[unit.locX][unit.locY]
+																	.getPosition().getY(),
+															0)));
 											context.items.remove(context.items.get(k));
 											k--;
 										}
@@ -162,12 +176,15 @@ public class MenuDungeonAction extends Menu {
 											context.clearUnit();
 										}
 										if (context.multiplayerMode) {
-											context.comThread.eventQueue.add(new String[] { "PICK_UP_ITEM", item.uuid, unit.uuid });
+											context.comThread.eventQueue
+													.add(new String[] { "PICK_UP_ITEM", item.uuid, unit.uuid });
 										}
-										AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+										AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain,
+												false);
 										AudioManager.getSound("loot.ogg").play(AudioManager.defaultMainSFXGain, false);
 									} else {
-										AudioManager.getSound("invalid.ogg").play(AudioManager.defaultMainSFXGain, false);
+										AudioManager.getSound("invalid.ogg").play(AudioManager.defaultMainSFXGain,
+												false);
 									}
 									break;
 								}
@@ -178,7 +195,8 @@ public class MenuDungeonAction extends Menu {
 							// Check if the unit has any items and display a message if not. Add a new sub
 							// menu if so.
 							if (unit.getItemList().size() > 0) {
-								subMenu.add(new MenuDungeonActionItems(Vector3f.add(position, width + 5, 0, 0), unit, context).setParent(this));
+								subMenu.add(new MenuDungeonActionItems(Vector3f.add(position, width + 5, 0, 0), unit,
+										context).setParent(this));
 							} else {
 								AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 							}
@@ -193,7 +211,8 @@ public class MenuDungeonAction extends Menu {
 
 							for (EventScript e : context.eventList.values()) {
 								String[] args = e.activator.split(" ");
-								if (args[0].equals(EventScript.ACTIVATOR_WAIT) && unit.locX == Integer.parseInt(args[1]) && unit.locY == Integer.parseInt(args[2])) {
+								if (args[0].equals(EventScript.ACTIVATOR_WAIT) && unit.locX == Integer.parseInt(args[1])
+										&& unit.locY == Integer.parseInt(args[2])) {
 									context.events.add(new Event(e));
 								}
 							}
@@ -205,7 +224,8 @@ public class MenuDungeonAction extends Menu {
 							break;
 
 						case "Switch":
-							subMenu.add(new MenuDungeonActionSwitch(Vector3f.add(position, width + 5, 0, 0), context).setParent(this));
+							subMenu.add(new MenuDungeonActionSwitch(Vector3f.add(position, width + 5, 0, 0), context)
+									.setParent(this));
 							break;
 
 						}
@@ -264,7 +284,9 @@ public class MenuDungeonAction extends Menu {
 				// Check if weapon has a usable ability
 				for (String s : unit.weapon.abilities) {
 					ItemAbility a = ItemAbility.valueOf(s);
-					if (a.activated && (a.target.equals(ItemAbility.TARGET_NONE) || (assist && a.target.equals(ItemAbility.TARGET_UNIT)) || (attack && a.target.equals(ItemAbility.TARGET_ENEMY)))) {
+					if (a.activated && (a.target.equals(ItemAbility.TARGET_NONE)
+							|| (assist && a.target.equals(ItemAbility.TARGET_UNIT))
+							|| (attack && a.target.equals(ItemAbility.TARGET_ENEMY)))) {
 						options.add(ItemAbility.valueOf(s).toString());
 					}
 				}
@@ -281,20 +303,28 @@ public class MenuDungeonAction extends Menu {
 			}
 		}
 		if ((xPos > 0 && StateManager.currentState.tiles[xPos - 1][yPos].getProperty().equals(Tile.PROPERTY_CHEST))
-				|| (xPos < StateManager.currentState.tiles.length - 1 && StateManager.currentState.tiles[xPos + 1][yPos].getProperty().equals(Tile.PROPERTY_CHEST))
-				|| (yPos > 0 && StateManager.currentState.tiles[xPos][yPos - 1].getProperty().equals(Tile.PROPERTY_CHEST))
-				|| (yPos < StateManager.currentState.tiles[0].length - 1 && StateManager.currentState.tiles[xPos][yPos + 1].getProperty().equals(Tile.PROPERTY_CHEST))) {
+				|| (xPos < StateManager.currentState.tiles.length - 1
+						&& StateManager.currentState.tiles[xPos + 1][yPos].getProperty().equals(Tile.PROPERTY_CHEST))
+				|| (yPos > 0
+						&& StateManager.currentState.tiles[xPos][yPos - 1].getProperty().equals(Tile.PROPERTY_CHEST))
+				|| (yPos < StateManager.currentState.tiles[0].length - 1
+						&& StateManager.currentState.tiles[xPos][yPos + 1].getProperty().equals(Tile.PROPERTY_CHEST))) {
 			besideChest = true;
 		}
-		if (besideChest && (hasKey || (unit.weapon.hasAbility(ItemAbility.ITEM_ABILITY_LOCKSMITH) && ItemAbility.ITEM_ABILITY_LOCKSMITH.isUnlocked(unit.weapon)))) {
+		if (besideChest && (hasKey || (unit.accessory.hasAbility(ItemAbility.ITEM_ABILITY_LOCKSMITH)))) {
 			options.add("Chest");
 		}
 
 		// Check for keys in units inventory and then chests around the unit
-		if ((xPos > 0 && StateManager.currentState.tiles[xPos - 1][yPos].getProperty().equals(Tile.PROPERTY_DOOR_LOCKED))
-				|| (xPos < StateManager.currentState.tiles.length - 1 && StateManager.currentState.tiles[xPos + 1][yPos].getProperty().equals(Tile.PROPERTY_DOOR_LOCKED))
-				|| (yPos > 0 && StateManager.currentState.tiles[xPos][yPos - 1].getProperty().equals(Tile.PROPERTY_DOOR_LOCKED))
-				|| (yPos < StateManager.currentState.tiles[0].length - 1 && StateManager.currentState.tiles[xPos][yPos + 1].getProperty().equals(Tile.PROPERTY_DOOR_LOCKED))) {
+		if ((xPos > 0
+				&& StateManager.currentState.tiles[xPos - 1][yPos].getProperty().equals(Tile.PROPERTY_DOOR_LOCKED))
+				|| (xPos < StateManager.currentState.tiles.length - 1 && StateManager.currentState.tiles[xPos + 1][yPos]
+						.getProperty().equals(Tile.PROPERTY_DOOR_LOCKED))
+				|| (yPos > 0 && StateManager.currentState.tiles[xPos][yPos - 1].getProperty()
+						.equals(Tile.PROPERTY_DOOR_LOCKED))
+				|| (yPos < StateManager.currentState.tiles[0].length - 1
+						&& StateManager.currentState.tiles[xPos][yPos + 1].getProperty()
+								.equals(Tile.PROPERTY_DOOR_LOCKED))) {
 			if (!hasKey) {
 				for (ItemProperty i : unit.getItemList()) {
 					if (i.type.equals(ItemProperty.TYPE_KEY_CHEST)) {
@@ -303,13 +333,17 @@ public class MenuDungeonAction extends Menu {
 					}
 				}
 			}
-			if (hasKey || (unit.weapon.hasAbility(ItemAbility.ITEM_ABILITY_LOCKSMITH) && ItemAbility.ITEM_ABILITY_LOCKSMITH.isUnlocked(unit.weapon))) {
+			if (hasKey || (unit.accessory.hasAbility(ItemAbility.ITEM_ABILITY_LOCKSMITH))) {
 				options.add("Door");
 			}
-		} else if ((xPos > 0 && StateManager.currentState.tiles[xPos - 1][yPos].getProperty().equals(Tile.PROPERTY_DOOR))
-				|| (xPos < StateManager.currentState.tiles.length - 1 && StateManager.currentState.tiles[xPos + 1][yPos].getProperty().equals(Tile.PROPERTY_DOOR))
-				|| (yPos > 0 && StateManager.currentState.tiles[xPos][yPos - 1].getProperty().equals(Tile.PROPERTY_DOOR))
-				|| (yPos < StateManager.currentState.tiles[0].length - 1 && StateManager.currentState.tiles[xPos][yPos + 1].getProperty().equals(Tile.PROPERTY_DOOR))) {
+		} else if ((xPos > 0
+				&& StateManager.currentState.tiles[xPos - 1][yPos].getProperty().equals(Tile.PROPERTY_DOOR))
+				|| (xPos < StateManager.currentState.tiles.length - 1
+						&& StateManager.currentState.tiles[xPos + 1][yPos].getProperty().equals(Tile.PROPERTY_DOOR))
+				|| (yPos > 0
+						&& StateManager.currentState.tiles[xPos][yPos - 1].getProperty().equals(Tile.PROPERTY_DOOR))
+				|| (yPos < StateManager.currentState.tiles[0].length - 1
+						&& StateManager.currentState.tiles[xPos][yPos + 1].getProperty().equals(Tile.PROPERTY_DOOR))) {
 			options.add("Door");
 		}
 
@@ -430,7 +464,8 @@ class MenuDungeonActionItems extends Menu {
 		selected = AdvMath.inRange(selected, 0, options.length - 1);
 
 		if (subMenu.size() == 0 && open) {
-			StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() - 10, position.getY() - 12 - 18 * Math.min(3, selected), position.getZ() + 2));
+			StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() - 10,
+					position.getY() - 12 - 18 * Math.min(3, selected), position.getZ() + 2));
 		}
 	}
 
@@ -440,13 +475,18 @@ class MenuDungeonActionItems extends Menu {
 		for (int i = 0; i < Math.min(4, options.length); i++) {
 			int item = i + AdvMath.inRange(selected - 3, 0, unit.getItemList().size() - 1);
 			if (i * 18 + 12 < height) {
-				TextRenderer.render(options[item], Vector3f.add(position, 4, -i * 18 - 9, 1), new Vector3f(0, 0, 0), scale, new Vector4f(ItemProperty.colorList[unit.getItemList().get(item).tier], 1), true);
+				TextRenderer.render(options[item], Vector3f.add(position, 4, -i * 18 - 9, 1), new Vector3f(0, 0, 0),
+						scale, new Vector4f(ItemProperty.colorList[unit.getItemList().get(item).tier], 1), true);
 			}
 			if (i * 18 + 16 < height && open) {
-				BatchSorter.add(unit.getItemList().get(item).model, unit.getItemList().get(item).texture, "static_3d", unit.getItemList().get(item).material, Vector3f.add(position, width - 24, -i * 18 - 8, 1), new Vector3f(0, 0, 0),
-						Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, true);
-				if (unit.getItemList().get(item).type.equals(ItemProperty.TYPE_USABLE) || unit.getItemList().get(item).type.equals(ItemProperty.TYPE_OTHER)) {
-					TextRenderer.render("" + unit.getItemList().get(item).stack, Vector3f.add(position, width - 18, -i * 18 - 14, 2), new Vector3f(0, 0, 0), Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, true);
+				BatchSorter.add(unit.getItemList().get(item).model, unit.getItemList().get(item).texture, "static_3d",
+						unit.getItemList().get(item).material, Vector3f.add(position, width - 24, -i * 18 - 8, 1),
+						new Vector3f(0, 0, 0), Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, true);
+				if (unit.getItemList().get(item).type.equals(ItemProperty.TYPE_USABLE)
+						|| unit.getItemList().get(item).type.equals(ItemProperty.TYPE_OTHER)) {
+					TextRenderer.render("" + unit.getItemList().get(item).stack,
+							Vector3f.add(position, width - 18, -i * 18 - 14, 2), new Vector3f(0, 0, 0),
+							Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, true);
 				}
 			}
 		}
@@ -462,13 +502,15 @@ class MenuDungeonActionItems extends Menu {
 				if (command.equals("")) {
 					ArrayList<String> options = new ArrayList<String>();
 
-					if (!unit.getStatus().equals(Unit.STATUS_DAZE) && !StateDungeon.getCurrentContext().freeRoamMode && unit.getItemList().get(selected).type.equals(ItemProperty.TYPE_USABLE)) {
+					if (!unit.getStatus().equals(Unit.STATUS_DAZE) && !StateDungeon.getCurrentContext().freeRoamMode
+							&& unit.getItemList().get(selected).type.equals(ItemProperty.TYPE_USABLE)) {
 						options.add("Use");
 					}
 
 					// Get item type and add equip option if applicable
 					String type = unit.getItemList().get(selected).type;
-					if (type.equals(ItemProperty.TYPE_WEAPON) || type.equals(ItemProperty.TYPE_ARMOR) || type.equals(ItemProperty.TYPE_ACCESSORY)) {
+					if (type.equals(ItemProperty.TYPE_WEAPON) || type.equals(ItemProperty.TYPE_ARMOR)
+							|| type.equals(ItemProperty.TYPE_ACCESSORY)) {
 						options.add("Equip");
 					}
 
@@ -485,7 +527,8 @@ class MenuDungeonActionItems extends Menu {
 						options.add("Drop");
 					}
 
-					subMenu.add(new MenuDungeonActionItemsAction(Vector3f.add(position, width + 5, 0, 0), options.toArray(new String[options.size()]), context).setParent(this));
+					subMenu.add(new MenuDungeonActionItemsAction(Vector3f.add(position, width + 5, 0, 0),
+							options.toArray(new String[options.size()]), context).setParent(this));
 				}
 			} else {
 				close();
@@ -577,20 +620,25 @@ class MenuDungeonActionItemsAction extends Menu {
 						break;
 
 					case "Info":
-						subMenu.add(new MenuItemInfoCard(Vector3f.add(position, width + 5, 0, 0), unit.getItemList().get(parent.selected), unit));
+						subMenu.add(new MenuItemInfoCard(Vector3f.add(position, width + 5, 0, 0),
+								unit.getItemList().get(parent.selected), unit));
 						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 						break;
 
 					case "Drop":
 						if (unit.getItemList().get(parent.selected).stack > 1) {
-							subMenu.add(new MenuDungeonActionItemsActionDrop(Vector3f.add(position, width + 5, 0, 0), context, unit.getItemList().get(parent.selected)).setParent(this));
+							subMenu.add(new MenuDungeonActionItemsActionDrop(Vector3f.add(position, width + 5, 0, 0),
+									context, unit.getItemList().get(parent.selected)).setParent(this));
 						} else {
 							ItemProperty itemCopy = unit.getItemList().get(parent.selected).copy();
 							context.items.add(new Item(new Vector3f(unit.locX * 16, 24, unit.locY * 16), itemCopy));
-							StateManager.currentState.effects.add(new EffectPoof(Vector3f.add(new Vector3f(unit.locX * 16, 20, unit.locY * 16), 0, StateManager.currentState.tiles[unit.locX][unit.locY].getPosition().getY(), 0)));
+							StateManager.currentState.effects.add(new EffectPoof(Vector3f.add(
+									new Vector3f(unit.locX * 16, 20, unit.locY * 16), 0,
+									StateManager.currentState.tiles[unit.locX][unit.locY].getPosition().getY(), 0)));
 
 							if (context.multiplayerMode) {
-								context.comThread.eventQueue.add(new String[] { "DROP_ITEM", unit.uuid, unit.getItemList().get(parent.selected).uuid, itemCopy.uuid, "1" });
+								context.comThread.eventQueue.add(new String[] { "DROP_ITEM", unit.uuid,
+										unit.getItemList().get(parent.selected).uuid, itemCopy.uuid, "1" });
 							}
 
 							unit.removeItem(unit.getItemList().get(parent.selected));
@@ -650,7 +698,9 @@ class MenuDungeonActionItemsActionDrop extends Menu {
 					ItemProperty newItem = unit.getItemList().get(parent.parent.selected).copy();
 					newItem.stack = amt;
 					context.items.add(new Item(new Vector3f(unit.locX * 16, 24, unit.locY * 16), newItem));
-					StateManager.currentState.effects.add(new EffectPoof(Vector3f.add(new Vector3f(unit.locX * 16, 20, unit.locY * 16), 0, StateManager.currentState.tiles[unit.locX][unit.locY].getPosition().getY(), 0)));
+					StateManager.currentState.effects
+							.add(new EffectPoof(Vector3f.add(new Vector3f(unit.locX * 16, 20, unit.locY * 16), 0,
+									StateManager.currentState.tiles[unit.locX][unit.locY].getPosition().getY(), 0)));
 					unit.removeItem(item, amt);
 					close();
 					parent.close();
@@ -658,7 +708,8 @@ class MenuDungeonActionItemsActionDrop extends Menu {
 					AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 
 					if (context.multiplayerMode) {
-						context.comThread.eventQueue.add(new String[] { "DROP_ITEM", unit.uuid, item.uuid, newItem.uuid, "" + amt });
+						context.comThread.eventQueue
+								.add(new String[] { "DROP_ITEM", unit.uuid, item.uuid, newItem.uuid, "" + amt });
 					}
 				}
 			} else {
@@ -686,9 +737,13 @@ class MenuDungeonActionSwitch extends Menu {
 		if (subMenu.size() == 0) {
 			if (!command.equals("back")) {
 				if (command.equals("")) {
-					StateManager.currentState.effects.add(new EffectPoof(new Vector3f(Inventory.active.get(context.roamUnit).x, 13 + Inventory.active.get(context.roamUnit).height, Inventory.active.get(context.roamUnit).y + 2)));
+					StateManager.currentState.effects
+							.add(new EffectPoof(new Vector3f(Inventory.active.get(context.roamUnit).x,
+									13 + Inventory.active.get(context.roamUnit).height,
+									Inventory.active.get(context.roamUnit).y + 2)));
 					int nextUnit = selected;
-					Inventory.active.get(nextUnit).placeAt(Inventory.active.get(context.roamUnit).locX, Inventory.active.get(context.roamUnit).locY);
+					Inventory.active.get(nextUnit).placeAt(Inventory.active.get(context.roamUnit).locX,
+							Inventory.active.get(context.roamUnit).locY);
 					Inventory.active.get(nextUnit).height = Inventory.active.get(context.roamUnit).height;
 					context.roamUnit = nextUnit;
 					closeAll();

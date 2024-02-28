@@ -424,59 +424,6 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_LOCKSMITH("Locksmith", "target.none", false, false, false, false, true) {
-
-		@Override
-		public boolean isUnlocked(ItemProperty item) {
-			return true;
-		}
-
-		@Override
-		public boolean use(Unit u, StateDungeon context) {
-			return false;
-		}
-
-		@Override
-		public boolean followUp(Unit u, StateDungeon context) {
-			return false;
-		}
-
-		@Override
-		public int[] calculateAttackingDamage(Unit attacker, Unit defender, boolean ignoreRange) {
-			return null;
-		}
-
-		@Override
-		public int[] calculateDefendingDamage(Unit attacker, Unit defender, boolean ignoreRange) {
-			return null;
-		}
-
-		@Override
-		public int calculateHealing(Unit healer, Unit healed) {
-			return 0;
-		}
-
-		@Override
-		public int[] getStats() {
-			return null;
-		}
-
-		@Override
-		public void onCombatEnd(Unit unit, StateDungeon context) {
-
-		}
-
-		@Override
-		public void onHit(StateDungeon context) {
-			// Empty
-		}
-
-		@Override
-		public void onRetaliation(StateDungeon context) {
-			// Empty
-		}
-	},
-
 	ITEM_ABILITY_DISARM("Disarm", "target.enemy", true, false, true, false, true) {
 
 		@Override
@@ -1620,6 +1567,59 @@ public enum ItemAbility {
 		@Override
 		public void onCombatEnd(Unit unit, StateDungeon context) {
 			// Empty
+		}
+
+		@Override
+		public void onHit(StateDungeon context) {
+			// Empty
+		}
+
+		@Override
+		public void onRetaliation(StateDungeon context) {
+			// Empty
+		}
+	},
+	
+	ITEM_ABILITY_LOCKSMITH("Locksmith", "target.none", false, false, false, false, true) {
+
+		@Override
+		public boolean isUnlocked(ItemProperty item) {
+			return true;
+		}
+
+		@Override
+		public boolean use(Unit u, StateDungeon context) {
+			return false;
+		}
+
+		@Override
+		public boolean followUp(Unit u, StateDungeon context) {
+			return false;
+		}
+
+		@Override
+		public int[] calculateAttackingDamage(Unit attacker, Unit defender, boolean ignoreRange) {
+			return null;
+		}
+
+		@Override
+		public int[] calculateDefendingDamage(Unit attacker, Unit defender, boolean ignoreRange) {
+			return null;
+		}
+
+		@Override
+		public int calculateHealing(Unit healer, Unit healed) {
+			return 0;
+		}
+
+		@Override
+		public int[] getStats() {
+			return null;
+		}
+
+		@Override
+		public void onCombatEnd(Unit unit, StateDungeon context) {
+
 		}
 
 		@Override
