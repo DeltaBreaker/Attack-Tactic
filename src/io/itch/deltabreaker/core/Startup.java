@@ -290,7 +290,7 @@ public class Startup implements Runnable {
 //				Inventory.saveHeader(2);
 //				Inventory.saveGame(2);
 //				StateDungeon.startDungeon("seabed_cove.json", 14, -1932052909105962160L);
-				StateDungeon.startDungeon("seabed_cove.json", 99, -274341930193026469L);
+				StateDungeon.startDungeon("seabed_cove.json", 0, -274341930193026469L);
 
 //				ArrayList<float[]> profiles = new ArrayList<>();
 //				for (float[] profile : Unit.GROWTH_PROFILES.values()) {

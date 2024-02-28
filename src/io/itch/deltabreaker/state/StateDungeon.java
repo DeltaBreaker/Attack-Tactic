@@ -1899,7 +1899,7 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-			tiles[cursorPos.x][cursorPos.y].trap = Tile.TRAP_POISON;
+			dungeon.map.toggle();
 			break;
 
 		case HIGHLIGHT:
