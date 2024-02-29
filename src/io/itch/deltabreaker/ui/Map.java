@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import io.itch.deltabreaker.core.Inventory;
+import io.itch.deltabreaker.core.Startup;
+import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.graphics.BatchSorter;
 import io.itch.deltabreaker.graphics.Material;
+import io.itch.deltabreaker.math.AdvMath;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
 import io.itch.deltabreaker.object.Unit;
@@ -26,6 +29,7 @@ public class Map {
 	private int target = 120;
 	private float alphaTarget = 0;
 	private float alpha = 0;
+	private int sin = 0;
 
 	public Map(Tile[][] tiles) {
 		this.tiles = tiles;
@@ -51,6 +55,7 @@ public class Map {
 				moveList.add(m);
 			}
 			alphaTarget = 1;
+			AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 		} else {
 			moveList.clear();
 			for (MapPixel m : pixels) {
@@ -58,10 +63,24 @@ public class Map {
 				moveList.add(m);
 			}
 			alphaTarget = 0;
+			AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 		}
 	}
 
+	public boolean isVisible() {
+		return visible;
+	}
+	
+	public float getAlpha() {
+		return alpha;
+	}
+	
 	public void tick() {
+		if(sin < 359) {
+			sin++;
+		} else {
+			sin = 0;
+		}
 		for (int x = 0; x < Math.max(1, time); x++) {
 			if (moveList.size() > 0) {
 				int i = r.nextInt(moveList.size());
@@ -73,14 +92,18 @@ public class Map {
 			m.tick();
 		}
 		if(alpha > alphaTarget) {
-			alpha -= (alpha - alphaTarget) * 0.02f;
+			alpha -= (alpha - alphaTarget) * 0.05f;
 		}
 		if(alpha < alphaTarget) {
-			alpha += (alphaTarget - alpha) * 0.02f;
+			alpha += (alphaTarget - alpha) * 0.05f;
 		}
 	}
 
 	public void render() {
+		if(!visible && alpha - alphaTarget < 0.01f) {
+			return;
+		}
+		
 		ArrayList<Vector3f> positions = new ArrayList<>();
 		ArrayList<Vector3f> rotations = new ArrayList<>();
 		ArrayList<Vector3f> scales = new ArrayList<>();
@@ -90,29 +113,29 @@ public class Map {
 			positions.add(p.position);
 			rotations.add(p.rotation);
 			scales.add(Vector3f.SCALE_HALF.copy());
-			colors.add(p.color);
+			colors.add(p.color.copy().setW(alpha));
 		}
 
 		if (StateManager.currentState.STATE_ID.equals(StateDungeon.STATE_ID)) {
 			for (Unit u : StateDungeon.getCurrentContext().enemies) {
-				positions.add(new Vector3f(u.locX - tiles.length / 2, -u.locY * 0.99f + tiles[0].length / 2, -79.75f));
+				positions.add(new Vector3f(u.locX - tiles.length / 2 + Startup.staticView.targetPosition.getX() * 2, -u.locY * 0.99f + tiles[0].length / 2 + Startup.staticView.targetPosition.getY() * 2, -79.75f));
 				rotations.add(Vector3f.EMPTY);
 				scales.add(Vector3f.SCALE_HALF);
-				colors.add(Vector4f.COLOR_RED.copy().setW(alpha));
+				colors.add(Vector4f.COLOR_RED.copy().setW(alpha * (0.75f + AdvMath.sin[sin] * 0.25f)));
 			}
 
 			for (Unit u : Inventory.active) {
-				positions.add(new Vector3f(u.locX - tiles.length / 2, -u.locY * 0.99f + tiles[0].length / 2, -79.75f));
+				positions.add(new Vector3f(u.locX - tiles.length / 2 + Startup.staticView.targetPosition.getX() * 2, -u.locY * 0.99f + tiles[0].length / 2 + Startup.staticView.targetPosition.getY() * 2, -79.75f));
 				rotations.add(Vector3f.EMPTY);
 				scales.add(Vector3f.SCALE_HALF);
-				colors.add(Vector4f.COLOR_BLUE.copy().setW(alpha));
+				colors.add(Vector4f.COLOR_BLUE.copy().setW(alpha * (0.75f + AdvMath.sin[sin] * 0.25f)));
 			}
 
 			for (Item i : StateDungeon.getCurrentContext().items) {
-				positions.add(new Vector3f(i.locX - tiles.length / 2, -i.locY * 0.99f + tiles[0].length / 2, -79.75f));
+				positions.add(new Vector3f(i.locX - tiles.length / 2 + Startup.staticView.targetPosition.getX() * 2, -i.locY * 0.99f + tiles[0].length / 2 + Startup.staticView.targetPosition.getY() * 2, -79.75f));
 				rotations.add(Vector3f.EMPTY);
 				scales.add(Vector3f.SCALE_HALF);
-				colors.add(Vector4f.COLOR_GREEN.copy().setW(alpha));
+				colors.add(Vector4f.COLOR_GREEN.copy().setW(alpha * (0.75f + AdvMath.sin[sin] * 0.25f)));
 			}
 		}
 
@@ -139,12 +162,13 @@ class MapPixel {
 
 	public void tick() {
 		if (height > target) {
-			height -= (height - target) * 0.05f;
+			height -= (height - target) * 0.075f;
 		}
 		if (height < target) {
-			height += (target - height) * 0.05f;
+			height += (target - height) * 0.075f;
 		}
-		position.setX(origin.getX() + height);
+		position.setX(origin.getX() + height + Startup.staticView.targetPosition.getX() * 2);
+		position.setY(origin.getY() + Startup.staticView.targetPosition.getY() * 2);
 	}
 
 }

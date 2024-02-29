@@ -385,7 +385,7 @@ public class Unit {
 		int[] abilityStats = new int[7];
 		for (String s : weapon.abilities) {
 			ItemAbility ability = ItemAbility.valueOf(s);
-			if (ability.hasStats && ability.isUnlocked(weapon)) {
+			if (ability.hasStats) {
 				int[] abilityBonus = ability.getStats();
 				for (int i = 0; i < abilityBonus.length; i++) {
 					abilityStats[i] += abilityBonus[i];
@@ -866,7 +866,7 @@ public class Unit {
 		int[] abilityStats = new int[7];
 		for (String s : weapon.abilities) {
 			ItemAbility ability = ItemAbility.valueOf(s);
-			if (ability.hasStats && ability.isUnlocked(weapon)) {
+			if (ability.hasStats) {
 				int[] abilityBonus = ability.getStats();
 				for (int i = 0; i < abilityBonus.length; i++) {
 					abilityStats[i] += abilityBonus[i];

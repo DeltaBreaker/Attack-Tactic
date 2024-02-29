@@ -114,5 +114,13 @@ public class Vector4f {
 	public void printValues() {
 		System.out.println(x + " | " + y + " | " + z + " | " + w);
 	}
+
+	public Vector4f mul(int x, int y, int z, int w) {
+		this.x *= x;
+		this.y *= y;
+		this.z *= z;
+		this.w *= w;
+		return this;
+	}
 	
 }

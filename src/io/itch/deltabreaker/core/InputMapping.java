@@ -73,6 +73,14 @@ public enum InputMapping {
 			buttonCode = 3;
 		}
 	},
+	
+	SHOW_MINIMAP {
+		@Override
+		public void reset() {
+			keyCode = 256;
+			buttonCode = 2;
+		}
+	},
 
 	SHOW_INFO {
 		@Override

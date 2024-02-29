@@ -209,8 +209,7 @@ public class StateDungeon extends State {
 			}
 
 			if (menus.size() == 0 && !cursorFloat) {
-				cursor.targetPosition.set((int) cursorPos.getX() * 16 + 3,
-						34 + tiles[cursorPos.x][cursorPos.y].getPosition().getY(), (int) cursorPos.getY() * 16 - 8);
+				cursor.targetPosition.set((int) cursorPos.getX() * 16 + 3, 34 + tiles[cursorPos.x][cursorPos.y].getPosition().getY(), (int) cursorPos.getY() * 16 - 8);
 			}
 			cursor.tick();
 
@@ -233,13 +232,11 @@ public class StateDungeon extends State {
 		info = "";
 
 		dungeon.map.tick();
-		
+
 		// Moves the shadow camera along with the normal camera
-		Startup.shadowCamera.setPosition(Startup.camera.position.getX(), Startup.shadowCamera.position.getY(),
-				Startup.camera.position.getZ());
+		Startup.shadowCamera.setPosition(Startup.camera.position.getX(), Startup.shadowCamera.position.getY(), Startup.camera.position.getZ());
 		Startup.shadowCamera.targetPosition.setY(80 + tiles[cursorPos.x][cursorPos.y].getPosition().getY() / 2);
-		overheadLight.position.set(Startup.shadowCamera.position.getX(), Startup.shadowCamera.position.getY() + 48,
-				Startup.shadowCamera.position.getZ());
+		overheadLight.position.set(Startup.shadowCamera.position.getX(), Startup.shadowCamera.position.getY() + 48, Startup.shadowCamera.position.getZ());
 
 		// This handles how long the exclamation mark appears when being caught
 		if (caught) {
@@ -252,9 +249,7 @@ public class StateDungeon extends State {
 			}
 		}
 		// Handles rotating the text when transitioning phases
-		if (events.size() == 0 && swap && noUIOnScreen() && alpha == alphaTo
-				&& Startup.screenColor.equals(Startup.screenColorTarget) && xpAlpha == 0
-				&& displayXP == displayXPTarget) {
+		if (events.size() == 0 && swap && noUIOnScreen() && alpha == alphaTo && Startup.screenColor.equals(Startup.screenColorTarget) && xpAlpha == 0 && displayXP == displayXPTarget) {
 			if (swapTimer == 0) {
 				AudioManager.getSound("phase_" + phase + ".ogg").play(AudioManager.defaultMainSFXGain, false);
 			}
@@ -279,28 +274,19 @@ public class StateDungeon extends State {
 			// Opacity / reduction / effects
 			if (attacker.currentHp < attackerDisplayHealth) {
 				int currentLength = (int) Math.round(40.0 / (double) attacker.hp * attackerDisplayHealth);
-				int nextLength = (int) Math.round(40.0 / (double) attacker.hp
-						* Math.max(attackerDisplayHealth - healthDrainSpeed, attacker.currentHp));
+				int nextLength = (int) Math.round(40.0 / (double) attacker.hp * Math.max(attackerDisplayHealth - healthDrainSpeed, attacker.currentHp));
 				if (currentLength != nextLength) {
-					effects.add(new EffectHealthBarDeplete(
-							new Vector3f(
-									-38 + (int) Math.round(40.0 / (double) attacker.hp * attackerDisplayHealth) - 21.5f,
-									36, -79),
-							(Inventory.active.contains(attacker)) ? new Vector4f(0, 0.580f, 1, 1)
-									: new Vector4f(1, 0.317f, 0.341f, 1)));
+					effects.add(new EffectHealthBarDeplete(new Vector3f(-38 + (int) Math.round(40.0 / (double) attacker.hp * attackerDisplayHealth) - 21.5f, 36, -79),
+							(Inventory.active.contains(attacker)) ? new Vector4f(0, 0.580f, 1, 1) : new Vector4f(1, 0.317f, 0.341f, 1)));
 				}
 				attackerDisplayHealth = Math.max(attackerDisplayHealth - healthDrainSpeed, attacker.currentHp);
 			}
 			if (defender.currentHp < defenderDisplayHealth) {
 				int currentLength = (int) Math.round(40.0 / (double) defender.hp * defenderDisplayHealth);
-				int nextLength = (int) Math.round(40.0 / (double) defender.hp
-						* Math.max(defenderDisplayHealth - healthDrainSpeed, defender.currentHp));
+				int nextLength = (int) Math.round(40.0 / (double) defender.hp * Math.max(defenderDisplayHealth - healthDrainSpeed, defender.currentHp));
 				if (currentLength != nextLength) {
-					effects.add(new EffectHealthBarDeplete(
-							new Vector3f(38 + Math.round(40.0 / (double) defender.hp * defenderDisplayHealth) - 21.5f,
-									36, -79),
-							(Inventory.active.contains(defender)) ? new Vector4f(0, 0.580f, 1, 1)
-									: new Vector4f(1, 0.317f, 0.341f, 1)));
+					effects.add(new EffectHealthBarDeplete(new Vector3f(38 + Math.round(40.0 / (double) defender.hp * defenderDisplayHealth) - 21.5f, 36, -79),
+							(Inventory.active.contains(defender)) ? new Vector4f(0, 0.580f, 1, 1) : new Vector4f(1, 0.317f, 0.341f, 1)));
 				}
 				defenderDisplayHealth = Math.max(defenderDisplayHealth - healthDrainSpeed, defender.currentHp);
 			}
@@ -370,15 +356,11 @@ public class StateDungeon extends State {
 							// Activate abilities after combat ends
 							for (String s : attacker.weapon.abilities) {
 								ItemAbility a = ItemAbility.valueOf(s);
-								if (a.isUnlocked(attacker.weapon)) {
-									a.onCombatEnd(attacker, this);
-								}
+								a.onCombatEnd(attacker, this);
 							}
 							for (String s : defender.weapon.abilities) {
 								ItemAbility a = ItemAbility.valueOf(s);
-								if (a.isUnlocked(defender.weapon)) {
-									a.onCombatEnd(defender, this);
-								}
+								a.onCombatEnd(defender, this);
 							}
 
 							attacker.setTurn(false);
@@ -396,10 +378,7 @@ public class StateDungeon extends State {
 											exp = (int) Math.round(exp * 1.1);
 										}
 										attacker.exp += exp;
-										effects.add(new EffectText("+" + exp + " Exp",
-												new Vector3f(attacker.x - ("+" + exp + " Exp").length(),
-														20 + tiles[attacker.locX][attacker.locY].getPosition().getY(),
-														attacker.y),
+										effects.add(new EffectText("+" + exp + " Exp", new Vector3f(attacker.x - ("+" + exp + " Exp").length(), 20 + tiles[attacker.locX][attacker.locY].getPosition().getY(), attacker.y),
 												new Vector4f(ItemProperty.colorList[1], 1)));
 										if (displayXPTarget == 0) {
 											displayXPTarget = Math.min(displayXP + exp, 100);
@@ -425,10 +404,7 @@ public class StateDungeon extends State {
 											exp = (int) Math.round(exp * 1.1);
 										}
 										defender.exp += exp;
-										effects.add(new EffectText("+" + exp + " Exp",
-												new Vector3f(defender.x - ("+" + exp + " Exp").length(),
-														20 + tiles[defender.locX][defender.locY].getPosition().getY(),
-														defender.y),
+										effects.add(new EffectText("+" + exp + " Exp", new Vector3f(defender.x - ("+" + exp + " Exp").length(), 20 + tiles[defender.locX][defender.locY].getPosition().getY(), defender.y),
 												new Vector4f(ItemProperty.colorList[1], 1)));
 										if (displayXPTarget == 0) {
 											displayXPTarget = Math.min(displayXP + exp, 100);
@@ -457,8 +433,7 @@ public class StateDungeon extends State {
 			// Opacity / reduction / effects
 			if (displayXP < displayXPTarget) {
 				if (xpAlpha < 1) {
-					if (noUIOnScreen() && (!attacker.dead || (attacker.dead && attacker.unitColor.getW() <= 0))
-							&& (!defender.dead || (defender.dead && defender.unitColor.getW() <= 0))) {
+					if (noUIOnScreen() && (!attacker.dead || (attacker.dead && attacker.unitColor.getW() <= 0)) && (!defender.dead || (defender.dead && defender.unitColor.getW() <= 0))) {
 						xpAlpha = Math.min(xpAlpha + xpAlphaSpeed, 1);
 					}
 				} else {
@@ -468,8 +443,7 @@ public class StateDungeon extends State {
 						int currentLength = (int) displayXP;
 						int nextLength = (int) Math.min(displayXP + xpGainSpeed, displayXPTarget);
 						if (currentLength != nextLength) {
-							effects.add(new EffectHealthBarDeplete(new Vector3f(displayXP - 47.5f, -45, -79),
-									new Vector4f(ItemProperty.colorList[1], 1)));
+							effects.add(new EffectHealthBarDeplete(new Vector3f(displayXP - 47.5f, -45, -79), new Vector4f(ItemProperty.colorList[1], 1)));
 							AudioManager.getSound("xp.ogg").playWithoutReset(AudioManager.defaultSubSFXGain, false);
 						}
 						displayXP = Math.min(displayXP + xpGainSpeed, displayXPTarget);
@@ -522,15 +496,12 @@ public class StateDungeon extends State {
 		// units
 		boolean changePhase = true;
 		for (int u = 0; u < Inventory.active.size(); u++) {
-			if (!freeRoamMode && cursorPos.x == Inventory.active.get(u).locX
-					&& cursorPos.y == Inventory.active.get(u).locY) {
-				info = Inventory.active.get(u).name + " " + Inventory.active.get(u).currentHp + "_"
-						+ Inventory.active.get(u).hp;
+			if (!freeRoamMode && cursorPos.x == Inventory.active.get(u).locX && cursorPos.y == Inventory.active.get(u).locY) {
+				info = Inventory.active.get(u).name + " " + Inventory.active.get(u).currentHp + "_" + Inventory.active.get(u).hp;
 			}
 			Inventory.active.get(u).tick();
 			if (Inventory.active.get(u).unitColor.getW() <= 0) {
-				effects.add(new EffectPoof(new Vector3f(Inventory.active.get(u).x, Inventory.active.get(u).height + 13,
-						Inventory.active.get(u).y)));
+				effects.add(new EffectPoof(new Vector3f(Inventory.active.get(u).x, Inventory.active.get(u).height + 13, Inventory.active.get(u).y)));
 
 				if (multiplayerMode) {
 					for (ItemProperty e : Inventory.active.get(u).getItemList()) {
@@ -564,8 +535,7 @@ public class StateDungeon extends State {
 		}
 
 		for (int u = 0; u < enemies.size(); u++) {
-			if (cursorPos.x == enemies.get(u).locX && cursorPos.y == enemies.get(u).locY
-					&& enemies.get(u).currentHp > 0) {
+			if (cursorPos.x == enemies.get(u).locX && cursorPos.y == enemies.get(u).locY && enemies.get(u).currentHp > 0) {
 				info = enemies.get(u).name + " " + enemies.get(u).currentHp + "_" + enemies.get(u).hp;
 			}
 			enemies.get(u).tick();
@@ -592,9 +562,7 @@ public class StateDungeon extends State {
 								exp = (int) Math.round(exp * 1.1);
 							}
 							attacker.exp += exp;
-							effects.add(new EffectText("+" + exp + " Exp",
-									new Vector3f(attacker.x - ("+" + exp + " Exp").length(),
-											20 + tiles[attacker.locX][attacker.locY].getPosition().getY(), attacker.y),
+							effects.add(new EffectText("+" + exp + " Exp", new Vector3f(attacker.x - ("+" + exp + " Exp").length(), 20 + tiles[attacker.locX][attacker.locY].getPosition().getY(), attacker.y),
 									new Vector4f(ItemProperty.colorList[1], 1)));
 							if (displayXPTarget == 0) {
 								displayXPTarget = Math.min(displayXP + exp, 100);
@@ -620,9 +588,7 @@ public class StateDungeon extends State {
 								exp = (int) Math.round(exp * 1.1);
 							}
 							defender.exp += exp;
-							effects.add(new EffectText("+" + exp + " Exp",
-									new Vector3f(defender.x - ("+" + exp + " Exp").length(),
-											20 + tiles[defender.locX][defender.locY].getPosition().getY(), defender.y),
+							effects.add(new EffectText("+" + exp + " Exp", new Vector3f(defender.x - ("+" + exp + " Exp").length(), 20 + tiles[defender.locX][defender.locY].getPosition().getY(), defender.y),
 									new Vector4f(ItemProperty.colorList[1], 1)));
 							if (displayXPTarget == 0) {
 								displayXPTarget = Math.min(displayXP + exp, 100);
@@ -652,8 +618,7 @@ public class StateDungeon extends State {
 						findLocationForItem(enemies.get(u), e);
 					}
 				}
-				effects.add(
-						new EffectPoof(new Vector3f(enemies.get(u).x, enemies.get(u).height + 13, enemies.get(u).y)));
+				effects.add(new EffectPoof(new Vector3f(enemies.get(u).x, enemies.get(u).height + 13, enemies.get(u).y)));
 
 				for (EventScript e : eventList.values()) {
 					if (e.activator.equals(EventScript.ACTIVATOR_DEATH + " " + enemies.get(u).uuid)) {
@@ -681,8 +646,7 @@ public class StateDungeon extends State {
 
 		for (Item i : items) {
 			if (i.position.getX() > (int) camX * 2 - 208 && i.position.getX() < (int) camX * 2 + 192) {
-				if (i.position.getZ() > (int) camY * 2 - DungeonGenerator.yActiveSpace * 16
-						&& i.position.getZ() < (int) camY * 2 + 96) {
+				if (i.position.getZ() > (int) camY * 2 - DungeonGenerator.yActiveSpace * 16 && i.position.getZ() < (int) camY * 2 + 96) {
 					i.tick();
 					if (cursorPos.x == i.locX && cursorPos.y == i.locY) {
 						if (info.length() == 0) {
@@ -711,8 +675,7 @@ public class StateDungeon extends State {
 			Effect closest = effects.get(0);
 
 			for (int i = 0; i < effects.size(); i++) {
-				float distA = Vector3f.distance(effects.get(i).position,
-						Vector3f.mul(Startup.camera.position, 2, 2, 2));
+				float distA = Vector3f.distance(effects.get(i).position, Vector3f.mul(Startup.camera.position, 2, 2, 2));
 				float distB = Vector3f.distance(closest.position, Vector3f.mul(Startup.camera.position, 2, 2, 2));
 
 				if (distA < distB) {
@@ -760,15 +723,15 @@ public class StateDungeon extends State {
 			info += tiles[cursorPos.x][cursorPos.y].defense + " Def";
 		}
 
+		if (menus.size() == 0) {
+			Startup.staticView.setPosition(0, 0, 0);
+		}
 		if (PerformanceManager.developerMode) {
-			info += " " + tiles[cursorPos.x][cursorPos.y].getProperty() + " " + cursorPos.x + "x " + cursorPos.y + "y"
-					+ " status " + tiles[cursorPos.x][cursorPos.y].status + " mp "
-					+ tiles[cursorPos.x][cursorPos.y].movementPenalty;
+			info += " " + tiles[cursorPos.x][cursorPos.y].getProperty() + " " + cursorPos.x + "x " + cursorPos.y + "y" + " status " + tiles[cursorPos.x][cursorPos.y].status + " mp " + tiles[cursorPos.x][cursorPos.y].movementPenalty;
 		}
 		int lengthTarget = info.length() * 6 + 10;
 		int lengthSpeed = (int) Math.max(2, Math.abs(infoLength - lengthTarget) / 8.0f);
-		if (info.length() > 0 && phase == 0 && menus.size() == 0 && !combatMode && !inCombat && alpha < 0.1
-				&& alpha == alphaTo && alphaTo != 1 && !hideCursor && !swap) {
+		if (info.length() > 0 && phase == 0 && menus.size() == 0 && !combatMode && !inCombat && alpha < 0.1 && alpha == alphaTo && alphaTo != 1 && !hideCursor && !swap) {
 			Startup.staticView.setPosition(0, 0, 0);
 			if (infoLength < lengthTarget) {
 				infoLength = Math.min(lengthTarget, infoLength + lengthSpeed);
@@ -788,8 +751,7 @@ public class StateDungeon extends State {
 					break;
 				}
 			}
-			if (!inCombat && (noUIOnScreen() || events.get(0).canProcessDuringMenu()) && !unitMoving && xpAlpha == 0
-					&& displayXP == displayXPTarget) {
+			if (!inCombat && (noUIOnScreen() || events.get(0).canProcessDuringMenu()) && !unitMoving && xpAlpha == 0 && displayXP == displayXPTarget) {
 				events.get(0).tick();
 				if (events.get(0).finished) {
 					events.remove(0);
@@ -797,8 +759,7 @@ public class StateDungeon extends State {
 			}
 		}
 
-		if (!aiHandler.processing && changePhase && noUIOnScreen() && phase == 1 && !usingItem && xpAlpha == 0
-				&& this.displayXP == displayXPTarget && !multiplayerMode) {
+		if (!aiHandler.processing && changePhase && noUIOnScreen() && phase == 1 && !usingItem && xpAlpha == 0 && this.displayXP == displayXPTarget && !multiplayerMode) {
 			changePhase(0);
 		}
 
@@ -839,15 +800,10 @@ public class StateDungeon extends State {
 					}
 				} else {
 					Vector3f position = Vector3f.add(filler.getOffset(), (rcamX + x) * 16,
-							(float) Math.round(dungeon.noise.getValue(
-									((float) (rcamX + x) / (tiles.length + DungeonGenerator.xActiveSpace)),
-									((float) (rcamY + y) / (tiles[0].length + DungeonGenerator.yActiveSpace))) * 10)
-									* 4f,
+							(float) Math.round(dungeon.noise.getValue(((float) (rcamX + x) / (tiles.length + DungeonGenerator.xActiveSpace)), ((float) (rcamY + y) / (tiles[0].length + DungeonGenerator.yActiveSpace))) * 10) * 4f,
 							(rcamY + y) * 16);
 					if (Startup.camera.isInsideView(position, 0.5f, 0.5f, 0.5f, 8)) {
-						BatchSorter.add(filler.getModel(), filler.getTexture(), filler.getShader(),
-								filler.getMaterial().toString(), position, Vector3f.EMPTY, Vector3f.SCALE_HALF,
-								Vector4f.COLOR_BASE, true, false);
+						BatchSorter.add(filler.getModel(), filler.getTexture(), filler.getShader(), filler.getMaterial().toString(), position, Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, true, false);
 					}
 				}
 			}
@@ -864,26 +820,19 @@ public class StateDungeon extends State {
 				u.render();
 				if (Startup.camera.isInsideView(position, 0.5f, 0.5f, 0.5f, 8) && u.unitColor.getW() > 0) {
 					for (int i = 0; i < Math.round(12.0 / (double) u.hp * u.currentHp); i++) {
-						BatchSorter.add("pixel.dae", "pixel.png", "main_3d", Material.DEFAULT.toString(),
-								Vector3f.add(position, i - 6, -3, 8), Vector3f.DEFAULT_CAMERA_ROTATION,
-								Vector3f.SCALE_HALF, new Vector4f(0, 0.580f, 1, 1), true, false);
+						BatchSorter.add("pixel.dae", "pixel.png", "main_3d", Material.DEFAULT.toString(), Vector3f.add(position, i - 6, -3, 8), Vector3f.DEFAULT_CAMERA_ROTATION, Vector3f.SCALE_HALF, new Vector4f(0, 0.580f, 1, 1), true,
+								false);
 					}
-					BatchSorter.add("pixel.dae", "pixel.png", "main_3d", Material.DEFAULT.toString(),
-							Vector3f.add(position, -7, -3, 8), Vector3f.DEFAULT_CAMERA_ROTATION, Vector3f.SCALE_HALF,
-							Vector4f.COLOR_BLACK, true, false);
-					BatchSorter.add("pixel.dae", "pixel.png", "main_3d", Material.DEFAULT.toString(),
-							Vector3f.add(position, 6, -3, 8), Vector3f.DEFAULT_CAMERA_ROTATION, Vector3f.SCALE_HALF,
-							Vector4f.COLOR_BLACK, true, false);
+					BatchSorter.add("pixel.dae", "pixel.png", "main_3d", Material.DEFAULT.toString(), Vector3f.add(position, -7, -3, 8), Vector3f.DEFAULT_CAMERA_ROTATION, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK, true, false);
+					BatchSorter.add("pixel.dae", "pixel.png", "main_3d", Material.DEFAULT.toString(), Vector3f.add(position, 6, -3, 8), Vector3f.DEFAULT_CAMERA_ROTATION, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK, true, false);
 				}
 			}
 		} else {
 			Inventory.active.get(roamUnit).render();
 			if (caught) {
-				Vector3f position = new Vector3f(Inventory.active.get(roamUnit).x,
-						13 + Inventory.active.get(roamUnit).height, Inventory.active.get(roamUnit).y);
-				BatchSorter.add("exclamation.dae", "exclamation.png", "main_3d", Material.DEFAULT.toString(),
-						Vector3f.add(position, 9, 14, -4), Vector3f.DEFAULT_INVERSE_CAMERA_ROTATION,
-						Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, false);
+				Vector3f position = new Vector3f(Inventory.active.get(roamUnit).x, 13 + Inventory.active.get(roamUnit).height, Inventory.active.get(roamUnit).y);
+				BatchSorter.add("exclamation.dae", "exclamation.png", "main_3d", Material.DEFAULT.toString(), Vector3f.add(position, 9, 14, -4), Vector3f.DEFAULT_INVERSE_CAMERA_ROTATION, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false,
+						false);
 			}
 		}
 		for (Unit u : enemies) {
@@ -892,75 +841,46 @@ public class StateDungeon extends State {
 			u.render();
 			if (Startup.camera.isInsideView(position, 0.5f, 0.5f, 0.5f, 8) && !freeRoamMode && u.unitColor.getW() > 0) {
 				for (int i = 0; i < Math.round(12.0 / (double) u.hp * u.currentHp); i++) {
-					BatchSorter.add("pixel.dae", "pixel.png", "main_3d", Material.DEFAULT.toString(),
-							Vector3f.add(position, i - 6, -3, 8), Vector3f.DEFAULT_CAMERA_ROTATION, Vector3f.SCALE_HALF,
-							new Vector4f(1, 0.317f, 0.341f, 1), true, false);
+					BatchSorter.add("pixel.dae", "pixel.png", "main_3d", Material.DEFAULT.toString(), Vector3f.add(position, i - 6, -3, 8), Vector3f.DEFAULT_CAMERA_ROTATION, Vector3f.SCALE_HALF, new Vector4f(1, 0.317f, 0.341f, 1), true,
+							false);
 				}
-				BatchSorter.add("pixel.dae", "pixel.png", "main_3d", Material.DEFAULT.toString(),
-						Vector3f.add(position, -7, -3, 8), Vector3f.DEFAULT_CAMERA_ROTATION, Vector3f.SCALE_HALF,
-						Vector4f.COLOR_BLACK, true, false);
-				BatchSorter.add("pixel.dae", "pixel.png", "main_3d", Material.DEFAULT.toString(),
-						Vector3f.add(position, 6, -3, 8), Vector3f.DEFAULT_CAMERA_ROTATION, Vector3f.SCALE_HALF,
-						Vector4f.COLOR_BLACK, true, false);
+				BatchSorter.add("pixel.dae", "pixel.png", "main_3d", Material.DEFAULT.toString(), Vector3f.add(position, -7, -3, 8), Vector3f.DEFAULT_CAMERA_ROTATION, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK, true, false);
+				BatchSorter.add("pixel.dae", "pixel.png", "main_3d", Material.DEFAULT.toString(), Vector3f.add(position, 6, -3, 8), Vector3f.DEFAULT_CAMERA_ROTATION, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK, true, false);
 			}
 		}
 		if (inCombat || healthAlpha > 0) {
 			Startup.staticView.setPosition(0, 0, 0);
 			Vector3f position = new Vector3f(-38, 42, -80);
-			Vector4f color = (Inventory.active.contains(attacker)) ? new Vector4f(0, 0.580f, 1, healthAlpha)
-					: new Vector4f(1, 0.317f, 0.341f, healthAlpha);
+			Vector4f color = (Inventory.active.contains(attacker)) ? new Vector4f(0, 0.580f, 1, healthAlpha) : new Vector4f(1, 0.317f, 0.341f, healthAlpha);
 			Vector4f fadeColor = new Vector4f(1, 1, 1, healthAlpha);
 			for (int i = (int) Math.round(40.0 / (double) attacker.hp * attackerDisplayHealth); i > 0; i--) {
-				BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(),
-						Vector3f.add(position, i - 21.5f, -6, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, color, false,
-						true);
+				BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(), Vector3f.add(position, i - 21.5f, -6, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, color, false, true);
 			}
-			BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(),
-					Vector3f.add(position, -22.5f, -6, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK,
-					false, true);
-			BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(),
-					Vector3f.add(position, 19.5f, -6, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK,
-					false, true);
-			TextRenderer.render(attacker.name, Vector3f.add(position, 3 - attacker.name.length() * 3, 0, 0),
-					Vector3f.EMPTY, Vector3f.SCALE_HALF, fadeColor, true);
-			UIBox.render(Vector3f.add(position, -Math.max(attacker.name.length() * 6 + 9, 54) / 2 + 3.5f, 2, -1),
-					Math.max(attacker.name.length() * 6 + 9, 54), 16);
+			BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(), Vector3f.add(position, -22.5f, -6, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK, false, true);
+			BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(), Vector3f.add(position, 19.5f, -6, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK, false, true);
+			TextRenderer.render(attacker.name, Vector3f.add(position, 3 - attacker.name.length() * 3, 0, 0), Vector3f.EMPTY, Vector3f.SCALE_HALF, fadeColor, true);
+			UIBox.render(Vector3f.add(position, -Math.max(attacker.name.length() * 6 + 9, 54) / 2 + 3.5f, 2, -1), Math.max(attacker.name.length() * 6 + 9, 54), 16);
 
 			position = new Vector3f(38, 42, -80);
-			color = (Inventory.active.contains(defender)) ? new Vector4f(0, 0.580f, 1, healthAlpha)
-					: new Vector4f(1, 0.317f, 0.341f, healthAlpha);
+			color = (Inventory.active.contains(defender)) ? new Vector4f(0, 0.580f, 1, healthAlpha) : new Vector4f(1, 0.317f, 0.341f, healthAlpha);
 			for (int i = (int) Math.round(40.0 / (double) defender.hp * defenderDisplayHealth); i > 0; i--) {
-				BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(),
-						Vector3f.add(position, i - 21.5f, -6, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, color, false,
-						true);
+				BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(), Vector3f.add(position, i - 21.5f, -6, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, color, false, true);
 			}
-			BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(),
-					Vector3f.add(position, -21.5f, -6, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK,
-					false, true);
-			BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(),
-					Vector3f.add(position, 19.6f, -6, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK,
-					false, true);
-			TextRenderer.render(defender.name, Vector3f.add(position, 3 - defender.name.length() * 3, 0, 0),
-					Vector3f.EMPTY, Vector3f.SCALE_HALF, fadeColor, true);
-			UIBox.render(Vector3f.add(position, -Math.max(defender.name.length() * 6 + 9, 54) / 2 + 3.5f, 2, -1),
-					Math.max(defender.name.length() * 6 + 9, 54), 16);
+			BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(), Vector3f.add(position, -21.5f, -6, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK, false, true);
+			BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(), Vector3f.add(position, 19.6f, -6, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK, false, true);
+			TextRenderer.render(defender.name, Vector3f.add(position, 3 - defender.name.length() * 3, 0, 0), Vector3f.EMPTY, Vector3f.SCALE_HALF, fadeColor, true);
+			UIBox.render(Vector3f.add(position, -Math.max(defender.name.length() * 6 + 9, 54) / 2 + 3.5f, 2, -1), Math.max(defender.name.length() * 6 + 9, 54), 16);
 		}
 		if (xpAlpha > 0) {
 			Startup.staticView.setPosition(0, 0, 0);
 			Vector3f position = new Vector3f(0, -45, -80);
 			for (int i = 0; i < displayXP; i++) {
-				BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(),
-						Vector3f.add(position, i - 50.5f, 0, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF,
-						new Vector4f(ItemProperty.colorList[1], xpAlpha), false, true);
+				BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(), Vector3f.add(position, i - 50.5f, 0, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, new Vector4f(ItemProperty.colorList[1], xpAlpha), false,
+						true);
 			}
-			BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(),
-					Vector3f.add(position, -51.5f, 0, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK,
-					false, true);
-			BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(),
-					Vector3f.add(position, 49.5f, 0, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK,
-					false, true);
-			TextRenderer.render(xpGainUnit, Vector3f.add(position, -xpGainUnit.length() * 3 + 3, 4, 1), Vector3f.EMPTY,
-					Vector3f.SCALE_HALF, new Vector4f(1, 1, 1, xpAlpha), true);
+			BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(), Vector3f.add(position, -51.5f, 0, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK, false, true);
+			BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(), Vector3f.add(position, 49.5f, 0, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK, false, true);
+			TextRenderer.render(xpGainUnit, Vector3f.add(position, -xpGainUnit.length() * 3 + 3, 4, 1), Vector3f.EMPTY, Vector3f.SCALE_HALF, new Vector4f(1, 1, 1, xpAlpha), true);
 			UIBox.render(Vector3f.add(position, -52, 7, -1), 110, 16, new Vector4f(1, 1, 1, xpAlpha));
 		}
 		for (int i = 0; i < effects.size(); i++) {
@@ -975,15 +895,11 @@ public class StateDungeon extends State {
 		for (TextBox t : text) {
 			t.render();
 		}
-		if (((phase == 0 || multiplayerMode) || (menus.size() > 0 && menus.get(0).open))
-				&& (!freeRoamMode || (menus.size() > 0 && menus.get(0).open))
-				&& (!hideCursor || (menus.size() > 0 && menus.get(0).open))) {
+		if (((phase == 0 || multiplayerMode) || (menus.size() > 0 && menus.get(0).open)) && (!freeRoamMode || (menus.size() > 0 && menus.get(0).open)) && (!hideCursor || (menus.size() > 0 && menus.get(0).open))) {
 			cursor.render();
 		}
 		if ((phase == 0 || multiplayerMode) && !hideCursor && !freeRoamMode) {
-			BatchSorter.add("marker.dae", "marker.png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(),
-					new Vector3f(cursorPos.x * 16, 8.5f + tiles[cursorPos.x][cursorPos.y].getPosition().getY(),
-							cursorPos.y * 16),
+			BatchSorter.add("marker.dae", "marker.png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(), new Vector3f(cursorPos.x * 16, 8.5f + tiles[cursorPos.x][cursorPos.y].getPosition().getY(), cursorPos.y * 16),
 					new Vector3f(0, curRotateInt, 0), Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, false);
 		}
 
@@ -991,11 +907,8 @@ public class StateDungeon extends State {
 		if (phase == 0 && Inventory.active.contains(selectedUnit)) {
 			for (int i = 0; i < path.size() - 1; i++) {
 				int direction = getArrowDirection(i);
-				BatchSorter.add("d", "arrow_" + direction + ".dae", "arrow_" + direction + ".png",
-						"main_3d_nobloom_texcolor", Material.DEFAULT.toString(),
-						new Vector3f(path.get(i).x * 16,
-								8.5f + tiles[path.get(i).x][path.get(i).y].getPosition().getY(), path.get(i).y * 16),
-						new Vector3f(0, curRotateInt, 0), Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, false);
+				BatchSorter.add("d", "arrow_" + direction + ".dae", "arrow_" + direction + ".png", "main_3d_nobloom_texcolor", Material.DEFAULT.toString(),
+						new Vector3f(path.get(i).x * 16, 8.5f + tiles[path.get(i).x][path.get(i).y].getPosition().getY(), path.get(i).y * 16), new Vector3f(0, curRotateInt, 0), Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false, false);
 			}
 		}
 
@@ -1005,10 +918,8 @@ public class StateDungeon extends State {
 					if (u.locX == cursorPos.x && u.locY == cursorPos.y && tiles[u.locX][u.locY].status > 0) {
 						if (selectedAbility.showCombat) {
 							Startup.staticView.setPosition(0, 0, 0);
-							CombatCard.renderRightToLeft(new Vector3f(2, 48, -80), selectedUnit,
-									selectedAbility.calculateAttackingDamage(selectedUnit, u, false));
-							CombatCard.renderLeftToRight(new Vector3f(4, 48, -80), u,
-									selectedAbility.calculateDefendingDamage(selectedUnit, u, false));
+							CombatCard.renderRightToLeft(new Vector3f(2, 48, -80), selectedUnit, selectedAbility.calculateAttackingDamage(selectedUnit, u, false));
+							CombatCard.renderLeftToRight(new Vector3f(4, 48, -80), u, selectedAbility.calculateDefendingDamage(selectedUnit, u, false));
 						} else if (selectedAbility.showHealing) {
 							Startup.staticView.setPosition(0, 0, 0);
 							HealingCard.render(new Vector3f(2, 48, -80), selectedUnit, u, selectedAbility);
@@ -1021,10 +932,8 @@ public class StateDungeon extends State {
 						if (u.locX == cursorPos.x && u.locY == cursorPos.y && tiles[u.locX][u.locY].status > 0) {
 							if (selectedAbility.showCombat) {
 								Startup.staticView.setPosition(0, 0, 0);
-								CombatCard.renderRightToLeft(new Vector3f(2, 48, -80), selectedUnit,
-										selectedAbility.calculateAttackingDamage(selectedUnit, u, false));
-								CombatCard.renderLeftToRight(new Vector3f(4, 48, -80), u,
-										selectedAbility.calculateDefendingDamage(selectedUnit, u, false));
+								CombatCard.renderRightToLeft(new Vector3f(2, 48, -80), selectedUnit, selectedAbility.calculateAttackingDamage(selectedUnit, u, false));
+								CombatCard.renderLeftToRight(new Vector3f(4, 48, -80), u, selectedAbility.calculateDefendingDamage(selectedUnit, u, false));
 							} else if (selectedAbility.showHealing) {
 								Startup.staticView.setPosition(0, 0, 0);
 								HealingCard.render(new Vector3f(2, 48, -80), selectedUnit, u, selectedAbility);
@@ -1036,42 +945,28 @@ public class StateDungeon extends State {
 		}
 		if (phase == 0 && menus.size() == 0 && !combatMode) {
 			UIBox.render(new Vector3f(-infoLength / 2 + 1.5f, 93, -160), infoLength + 1, 17);
-			TextRenderer.render(info.substring(0, AdvMath.inRange((infoLength - 10) / 6, 0, info.length())),
-					new Vector3f(-infoLength / 2 + 6.5f, 88, -159), Vector3f.EMPTY, Vector3f.SCALE_HALF,
-					Vector4f.COLOR_BASE, true);
+			TextRenderer.render(info.substring(0, AdvMath.inRange((infoLength - 10) / 6, 0, info.length())), new Vector3f(-infoLength / 2 + 6.5f, 88, -159), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, true);
 		}
 
 		if (action == ACTION_PROGRESS && alpha > 0) {
-			BatchSorter.add("fade.dae", "fade.png", "static_3d", Material.MATTE.toString(),
-					Vector3f.add(Vector3f.div(Startup.staticView.position, 14, 8, 1), 0, 0, -81),
-					Vector3f.mul(Startup.staticView.getRotation(), -1, -1, -1), new Vector3f(14, 8, 1),
-					new Vector4f(0, 0, 0, alpha), false, true);
-			TextRenderer.render(title, Vector3f.add(Startup.staticView.position, -(title.length() - 1) * 3, 4, -80),
-					Vector3f.EMPTY, Vector3f.SCALE_FULL, new Vector4f(1, 1, 1, alpha), true);
-			TextRenderer.render(subTitle,
-					Vector3f.add(Startup.staticView.position, -(subTitle.length() - 1) * 3, -4, -80), Vector3f.EMPTY,
-					Vector3f.SCALE_FULL, new Vector4f(1, 1, 1, alpha), true);
+			BatchSorter.add("fade.dae", "fade.png", "static_3d", Material.MATTE.toString(), Vector3f.add(Vector3f.div(Startup.staticView.position, 14, 8, 1), 0, 0, -81), Vector3f.mul(Startup.staticView.getRotation(), -1, -1, -1),
+					new Vector3f(14, 8, 1), new Vector4f(0, 0, 0, alpha), false, true);
+			TextRenderer.render(title, Vector3f.add(Startup.staticView.position, -(title.length() - 1) * 3, 4, -80), Vector3f.EMPTY, Vector3f.SCALE_FULL, new Vector4f(1, 1, 1, alpha), true);
+			TextRenderer.render(subTitle, Vector3f.add(Startup.staticView.position, -(subTitle.length() - 1) * 3, -4, -80), Vector3f.EMPTY, Vector3f.SCALE_FULL, new Vector4f(1, 1, 1, alpha), true);
 		}
 		if (swap && noUIOnScreen()) {
 			Startup.staticView.position.set(0, 0, 0);
 			Vector3f pos = new Vector3f(swapTime - swapTimer, 0, -80).add(phases[phase].length() * -3f, 0, 0);
 			TextRenderer.render(phases[phase], pos, Vector3f.EMPTY, Vector3f.SCALE_HALF, phaseColor[phase], true);
-			TextRenderer.render(phases[phase], pos.add(-1, 0, -1), Vector3f.EMPTY, Vector3f.SCALE_HALF,
-					Vector4f.COLOR_BLACK, true);
-			TextRenderer.render(phases[phase], pos.add(2, 0, 0), Vector3f.EMPTY, Vector3f.SCALE_HALF,
-					Vector4f.COLOR_BLACK, true);
-			TextRenderer.render(phases[phase], pos.add(-1, -1, 0), Vector3f.EMPTY, Vector3f.SCALE_HALF,
-					Vector4f.COLOR_BLACK, true);
-			TextRenderer.render(phases[phase], pos.add(0, 2, 0), Vector3f.EMPTY, Vector3f.SCALE_HALF,
-					Vector4f.COLOR_BLACK, true);
+			TextRenderer.render(phases[phase], pos.add(-1, 0, -1), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK, true);
+			TextRenderer.render(phases[phase], pos.add(2, 0, 0), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK, true);
+			TextRenderer.render(phases[phase], pos.add(-1, -1, 0), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK, true);
+			TextRenderer.render(phases[phase], pos.add(0, 2, 0), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK, true);
 
 			float percent = swapTimer / swapTime;
 			Vector3f fadePos = new Vector3f(15 - 15 * percent, 9, -5);
-			BatchSorter.add("fade.dae", "fade.png", "static_3d", Material.MATTE.toString(), fadePos, Vector3f.EMPTY,
-					Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK.copy().setW(0.5f), false, true);
-			BatchSorter.add("fade.dae", "fade.png", "static_3d", Material.MATTE.toString(),
-					Vector3f.add(fadePos, -30 + 15 * percent * 2, -18, 0), Vector3f.EMPTY, Vector3f.SCALE_HALF,
-					Vector4f.COLOR_BLACK.copy().setW(0.5f), false, true);
+			BatchSorter.add("fade.dae", "fade.png", "static_3d", Material.MATTE.toString(), fadePos, Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK.copy().setW(0.5f), false, true);
+			BatchSorter.add("fade.dae", "fade.png", "static_3d", Material.MATTE.toString(), Vector3f.add(fadePos, -30 + 15 * percent * 2, -18, 0), Vector3f.EMPTY, Vector3f.SCALE_HALF, Vector4f.COLOR_BLACK.copy().setW(0.5f), false, true);
 		}
 
 		dungeon.map.render();
@@ -1184,29 +1079,25 @@ public class StateDungeon extends State {
 				path.add(new Point(x, y));
 				for (int i = 0; i < path.size(); i++) {
 					if (path.get(i).x > 0) {
-						if (tiles[path.get(i).x - 1][path.get(i).y].status > tiles[path.get(i).x][path.get(i).y].status
-								&& !tiles[path.get(i).x - 1][path.get(i).y].isSolid()) {
+						if (tiles[path.get(i).x - 1][path.get(i).y].status > tiles[path.get(i).x][path.get(i).y].status && !tiles[path.get(i).x - 1][path.get(i).y].isSolid()) {
 							path.add(new Point(path.get(i).x - 1, path.get(i).y));
 							continue;
 						}
 					}
 					if (path.get(i).x < tiles.length - 1) {
-						if (tiles[path.get(i).x + 1][path.get(i).y].status > tiles[path.get(i).x][path.get(i).y].status
-								&& !tiles[path.get(i).x + 1][path.get(i).y].isSolid()) {
+						if (tiles[path.get(i).x + 1][path.get(i).y].status > tiles[path.get(i).x][path.get(i).y].status && !tiles[path.get(i).x + 1][path.get(i).y].isSolid()) {
 							path.add(new Point(path.get(i).x + 1, path.get(i).y));
 							continue;
 						}
 					}
 					if (path.get(i).y > 0) {
-						if (tiles[path.get(i).x][path.get(i).y - 1].status > tiles[path.get(i).x][path.get(i).y].status
-								&& !tiles[path.get(i).x][path.get(i).y - 1].isSolid()) {
+						if (tiles[path.get(i).x][path.get(i).y - 1].status > tiles[path.get(i).x][path.get(i).y].status && !tiles[path.get(i).x][path.get(i).y - 1].isSolid()) {
 							path.add(new Point(path.get(i).x, path.get(i).y - 1));
 							continue;
 						}
 					}
 					if (path.get(i).y < tiles[0].length - 1) {
-						if (tiles[path.get(i).x][path.get(i).y + 1].status > tiles[path.get(i).x][path.get(i).y].status
-								&& !tiles[path.get(i).x][path.get(i).y + 1].isSolid()) {
+						if (tiles[path.get(i).x][path.get(i).y + 1].status > tiles[path.get(i).x][path.get(i).y].status && !tiles[path.get(i).x][path.get(i).y + 1].isSolid()) {
 							path.add(new Point(path.get(i).x, path.get(i).y + 1));
 							continue;
 						}
@@ -1286,23 +1177,16 @@ public class StateDungeon extends State {
 		lastRound = false;
 
 		if (selectedAbility != ItemAbility.ITEM_ABILITY_ATTACK) {
-			StateManager.currentState.effects.add(new EffectText(selectedAbility.toString(),
-					new Vector3f(attacker.x - selectedAbility.toString().length() * 1.5f,
-							20 + StateManager.currentState.tiles[attacker.locX][attacker.locY].getPosition().getY(),
-							attacker.y - 8),
-					new Vector4f(ItemProperty.colorList[0], 1)));
-			StateManager.currentState.effects.add(new EffectEnergize(
-					new Vector3f(atker.x,
-							10 + StateManager.currentState.tiles[atker.locX][atker.locY].getPosition().getY(), atker.y),
-					Vector4f.COLOR_BASE));
+			StateManager.currentState.effects.add(
+					new EffectText(selectedAbility.toString(), new Vector3f(attacker.x - selectedAbility.toString().length() * 1.5f, 20 + StateManager.currentState.tiles[attacker.locX][attacker.locY].getPosition().getY(), attacker.y - 8),
+							new Vector4f(ItemProperty.colorList[0], 1)));
+			StateManager.currentState.effects.add(new EffectEnergize(new Vector3f(atker.x, 10 + StateManager.currentState.tiles[atker.locX][atker.locY].getPosition().getY(), atker.y), Vector4f.COLOR_BASE));
 		}
 	}
 
 	public void attack() {
 		if (attacker.inCombat) {
-			effects.add(EffectBattle.getEffect(attacker.weapon.animation,
-					new Vector3f(defender.x, 16 + tiles[defender.locX][defender.locY].getPosition().getY(), defender.y),
-					defender.dir == 1 ? true : false));
+			effects.add(EffectBattle.getEffect(attacker.weapon.animation, new Vector3f(defender.x, 16 + tiles[defender.locX][defender.locY].getPosition().getY(), defender.y), defender.dir == 1 ? true : false));
 			defender.hurt(selectedAbility.calculateAttackingDamage(attacker, defender, false)[0]);
 			selectedAbility.onHit(this);
 			if (defender.dead) {
@@ -1310,9 +1194,7 @@ public class StateDungeon extends State {
 				defRounds = 0;
 			}
 		} else {
-			effects.add(EffectBattle.getEffect(defender.weapon.animation,
-					new Vector3f(attacker.x, 16 + tiles[attacker.locX][attacker.locY].getPosition().getY(), attacker.y),
-					attacker.dir == 1 ? true : false));
+			effects.add(EffectBattle.getEffect(defender.weapon.animation, new Vector3f(attacker.x, 16 + tiles[attacker.locX][attacker.locY].getPosition().getY(), attacker.y), attacker.dir == 1 ? true : false));
 			attacker.hurt(selectedAbility.calculateDefendingDamage(attacker, defender, false)[0]);
 			selectedAbility.onRetaliation(this);
 			if (attacker.dead) {
@@ -1363,31 +1245,23 @@ public class StateDungeon extends State {
 			tiles[x][y].range = range;
 
 			if (x > 0) {
-				if (tiles[x - 1][y].status < status - tiles[x - 1][y].movementPenalty
-						|| (tiles[x - 1][y].status <= 1 && tiles[x - 1][y].range < range)) {
-					highlightTiles(x - 1, y, (status > 1) ? Math.max(status - tiles[x - 1][y].movementPenalty, 1) : 1,
-							(status > 1) ? range : range - 1, type);
+				if (tiles[x - 1][y].status < status - tiles[x - 1][y].movementPenalty || (tiles[x - 1][y].status <= 1 && tiles[x - 1][y].range < range)) {
+					highlightTiles(x - 1, y, (status > 1) ? Math.max(status - tiles[x - 1][y].movementPenalty, 1) : 1, (status > 1) ? range : range - 1, type);
 				}
 			}
 			if (x < tiles.length - 1) {
-				if (tiles[x + 1][y].status < status - tiles[x + 1][y].movementPenalty
-						|| (tiles[x + 1][y].status <= 1 && tiles[x + 1][y].range < range)) {
-					highlightTiles(x + 1, y, (status > 1) ? Math.max(status - tiles[x + 1][y].movementPenalty, 1) : 1,
-							(status > 1) ? range : range - 1, type);
+				if (tiles[x + 1][y].status < status - tiles[x + 1][y].movementPenalty || (tiles[x + 1][y].status <= 1 && tiles[x + 1][y].range < range)) {
+					highlightTiles(x + 1, y, (status > 1) ? Math.max(status - tiles[x + 1][y].movementPenalty, 1) : 1, (status > 1) ? range : range - 1, type);
 				}
 			}
 			if (y > 0) {
-				if (tiles[x][y - 1].status < status - tiles[x][y - 1].movementPenalty
-						|| (tiles[x][y - 1].status <= 1 && tiles[x][y - 1].range < range)) {
-					highlightTiles(x, y - 1, (status > 1) ? Math.max(status - tiles[x][y - 1].movementPenalty, 1) : 1,
-							(status > 1) ? range : range - 1, type);
+				if (tiles[x][y - 1].status < status - tiles[x][y - 1].movementPenalty || (tiles[x][y - 1].status <= 1 && tiles[x][y - 1].range < range)) {
+					highlightTiles(x, y - 1, (status > 1) ? Math.max(status - tiles[x][y - 1].movementPenalty, 1) : 1, (status > 1) ? range : range - 1, type);
 				}
 			}
 			if (y < tiles[0].length - 1) {
-				if (tiles[x][y + 1].status < status - tiles[x][y + 1].movementPenalty
-						|| (tiles[x][y + 1].status <= 1 && tiles[x][y + 1].range < range)) {
-					highlightTiles(x, y + 1, (status > 1) ? Math.max(status - tiles[x][y + 1].movementPenalty, 1) : 1,
-							(status > 1) ? range : range - 1, type);
+				if (tiles[x][y + 1].status < status - tiles[x][y + 1].movementPenalty || (tiles[x][y + 1].status <= 1 && tiles[x][y + 1].range < range)) {
+					highlightTiles(x, y + 1, (status > 1) ? Math.max(status - tiles[x][y + 1].movementPenalty, 1) : 1, (status > 1) ? range : range - 1, type);
 				}
 			}
 		}
@@ -1433,15 +1307,13 @@ public class StateDungeon extends State {
 		initUnits();
 	}
 
-	public static void startMultiplayerDungeon(String pattern, int level, long seed, boolean starting, Unit[] enemies,
-			Socket socket, GameInputStream in, GameOutputStream out, String name, String opponent) {
+	public static void startMultiplayerDungeon(String pattern, int level, long seed, boolean starting, Unit[] enemies, Socket socket, GameInputStream in, GameOutputStream out, String name, String opponent) {
 		setUpMultiplayerDungeon(pattern, level, seed, starting, enemies.clone(), socket, in, out, name, opponent);
 		initUnits();
 	}
 
 	public void progressDungeon() {
-		setUpDungeon((dungeon.baseLevel + 2 < dungeon.getBottomFloor())
-				? new DungeonGenerator(dungeon.getPattern(), dungeon.baseLevel + 1, dungeon.seed).start()
+		setUpDungeon((dungeon.baseLevel + 2 < dungeon.getBottomFloor()) ? new DungeonGenerator(dungeon.getPattern(), dungeon.baseLevel + 1, dungeon.seed).start()
 				: new DungeonGeneratorRestArea(dungeon.getPattern(), dungeon.baseLevel + 1, dungeon.seed));
 		refreshUnits();
 	}
@@ -1453,8 +1325,7 @@ public class StateDungeon extends State {
 
 		state.dungeon = dungeon.start();
 		state.tiles = state.dungeon.tiles;
-		state.filler = Tile.getTile(new String[] { state.dungeon.getPalletTag(), Tile.TAG_FILLER },
-				new Vector3f(-1, -1, -1));
+		state.filler = Tile.getTile(new String[] { state.dungeon.getPalletTag(), Tile.TAG_FILLER }, new Vector3f(-1, -1, -1));
 		state.items = state.dungeon.items;
 
 		state.enemies = state.dungeon.enemyPlacements;
@@ -1462,15 +1333,12 @@ public class StateDungeon extends State {
 			u.prepare();
 		}
 
-		state.cursorPos = new Point(Inventory.active.get(Inventory.active.size() - 1).locX,
-				Inventory.active.get(Inventory.active.size() - 1).locY);
+		state.cursorPos = new Point(Inventory.active.get(Inventory.active.size() - 1).locX, Inventory.active.get(Inventory.active.size() - 1).locY);
 		state.cursor = new Cursor(new Vector3f(state.cursorPos.x * 16, 32, state.cursorPos.y * 16));
 		state.setCamera((int) state.cursor.position.getX() / 2, (int) state.cursor.position.getZ() / 2 + 16);
 		Startup.camera.setPosition(new Vector3f((float) state.camX, 32, (float) state.camY));
 		Startup.camera.setRotation(new Vector3f(-60, 0, 0));
-		Startup.shadowCamera.setPosition(new Vector3f(Startup.camera.position.getX(),
-				80 + state.tiles[state.cursorPos.x][state.cursorPos.y].getPosition().getY() / 2,
-				Startup.camera.position.getZ() + 5));
+		Startup.shadowCamera.setPosition(new Vector3f(Startup.camera.position.getX(), 80 + state.tiles[state.cursorPos.x][state.cursorPos.y].getPosition().getY() / 2, Startup.camera.position.getZ() + 5));
 
 		state.setEffects(dungeon.getEffectTags(), dungeon.getEffectVars());
 
@@ -1501,16 +1369,14 @@ public class StateDungeon extends State {
 				int height = in.readInt();
 
 				state.dungeon = new DungeonGeneratorVillage(width, height, pallet, seed).start();
-				state.filler = Tile.getTile(new String[] { state.dungeon.getPalletTag(), Tile.TAG_FILLER },
-						new Vector3f(0, 0, 0));
+				state.filler = Tile.getTile(new String[] { state.dungeon.getPalletTag(), Tile.TAG_FILLER }, new Vector3f(0, 0, 0));
 
 				ArrayList<Point> waterPoints = new ArrayList<>();
 				ArrayList<Point> lavaPoints = new ArrayList<>();
 				state.tiles = new Tile[width][height];
 				for (int x = 0; x < width; x++) {
 					for (int y = 0; y < height; y++) {
-						state.tiles[x][y] = Tile.getTile(Tile.getProperty(in.readUTF()),
-								new Vector3f(in.readFloat() / 16, in.readFloat() / 16, in.readFloat() / 16));
+						state.tiles[x][y] = Tile.getTile(Tile.getProperty(in.readUTF()), new Vector3f(in.readFloat() / 16, in.readFloat() / 16, in.readFloat() / 16));
 						state.tiles[x][y].setRotation(in.readFloat(), in.readFloat(), in.readFloat());
 
 						if (in.readBoolean()) {
@@ -1526,8 +1392,7 @@ public class StateDungeon extends State {
 					}
 				}
 				for (Point p : waterPoints) {
-					EffectWater e = new EffectWater(state.tiles[p.x][p.y], new Vector3f(0.427f, 0.765f, 0.9f),
-							state.tiles, waterPoints);
+					EffectWater e = new EffectWater(state.tiles[p.x][p.y], new Vector3f(0.427f, 0.765f, 0.9f), state.tiles, waterPoints);
 					state.effects.add(e);
 				}
 				for (Point p : lavaPoints) {
@@ -1540,11 +1405,9 @@ public class StateDungeon extends State {
 					String uuid = in.readUTF();
 					File unit = new File(StateCreatorHub.LOAD_PATH + "/" + map + "/unit/" + uuid + ".dat");
 					if (unit.exists()) {
-						state.enemies.add(Unit.loadUnit(in.readInt(), in.readInt(), Vector4f.COLOR_BASE.copy(),
-								StateCreatorHub.LOAD_PATH + "/" + map + "/unit/" + uuid + ".dat"));
+						state.enemies.add(Unit.loadUnit(in.readInt(), in.readInt(), Vector4f.COLOR_BASE.copy(), StateCreatorHub.LOAD_PATH + "/" + map + "/unit/" + uuid + ".dat"));
 					} else {
-						System.out.println("[StsteDungeon]: The unit file for " + StateCreatorHub.LOAD_PATH + "/" + map
-								+ "/" + uuid + " is missing");
+						System.out.println("[StsteDungeon]: The unit file for " + StateCreatorHub.LOAD_PATH + "/" + map + "/" + uuid + " is missing");
 					}
 				}
 				for (Unit u : state.enemies) {
@@ -1562,8 +1425,7 @@ public class StateDungeon extends State {
 				in.close();
 
 				if (Inventory.active.size() > 0) {
-					state.cursorPos = new Point(Inventory.active.get(Inventory.active.size() - 1).locX,
-							Inventory.active.get(Inventory.active.size() - 1).locY);
+					state.cursorPos = new Point(Inventory.active.get(Inventory.active.size() - 1).locX, Inventory.active.get(Inventory.active.size() - 1).locY);
 				} else {
 					state.cursorPos = new Point(state.startPositions[0].x, state.startPositions[0].y);
 				}
@@ -1571,9 +1433,7 @@ public class StateDungeon extends State {
 				state.setCamera((int) state.cursor.position.getX() / 2, (int) state.cursor.position.getZ() / 2 + 16);
 				Startup.camera.setPosition(new Vector3f((float) state.camX, 32, (float) state.camY));
 				Startup.camera.setRotation(new Vector3f(-60, 0, 0));
-				Startup.shadowCamera.setPosition(new Vector3f(Startup.camera.position.getX(),
-						80 + state.tiles[state.cursorPos.x][state.cursorPos.y].getPosition().getY() / 2,
-						Startup.camera.position.getZ() + 5));
+				Startup.shadowCamera.setPosition(new Vector3f(Startup.camera.position.getX(), 80 + state.tiles[state.cursorPos.x][state.cursorPos.y].getPosition().getY() / 2, Startup.camera.position.getZ() + 5));
 
 				state.setEffects(state.dungeon.getEffectTags(), state.dungeon.getEffectVars());
 
@@ -1602,8 +1462,7 @@ public class StateDungeon extends State {
 		}
 	}
 
-	private static void setUpMultiplayerDungeon(String map, int floor, long seed, boolean starting, Unit[] enemies,
-			Socket socket, GameInputStream in, GameOutputStream out, String name, String opponent) {
+	private static void setUpMultiplayerDungeon(String map, int floor, long seed, boolean starting, Unit[] enemies, Socket socket, GameInputStream in, GameOutputStream out, String name, String opponent) {
 		StateDungeon state = new StateDungeon();
 		StateManager.initState(state);
 		StateManager.swapState(STATE_ID);
@@ -1618,8 +1477,7 @@ public class StateDungeon extends State {
 
 		state.dungeon = dungeon.start();
 		state.tiles = state.dungeon.tiles;
-		state.filler = Tile.getTile(new String[] { state.dungeon.getPalletTag(), Tile.TAG_FILLER },
-				new Vector3f(-1, -1, -1));
+		state.filler = Tile.getTile(new String[] { state.dungeon.getPalletTag(), Tile.TAG_FILLER }, new Vector3f(-1, -1, -1));
 		state.items = state.dungeon.items;
 
 		int offset = (starting) ? 0 : enemies.length;
@@ -1643,9 +1501,7 @@ public class StateDungeon extends State {
 		state.setCamera((int) state.cursor.position.getX() / 2, (int) state.cursor.position.getZ() / 2 + 16);
 		Startup.camera.setPosition(new Vector3f((float) state.camX, 32, (float) state.camY));
 		Startup.camera.setRotation(new Vector3f(-60, 0, 0));
-		Startup.shadowCamera.setPosition(new Vector3f(Startup.camera.position.getX(),
-				80 + state.tiles[state.cursorPos.x][state.cursorPos.y].getPosition().getY() / 2,
-				Startup.camera.position.getZ() + 5));
+		Startup.shadowCamera.setPosition(new Vector3f(Startup.camera.position.getX(), 80 + state.tiles[state.cursorPos.x][state.cursorPos.y].getPosition().getY() / 2, Startup.camera.position.getZ() + 5));
 
 		state.setEffects(state.dungeon.getEffectTags(), state.dungeon.getEffectVars());
 
@@ -1666,9 +1522,7 @@ public class StateDungeon extends State {
 			switch (tags[i]) {
 
 			case DungeonGenerator.TAG_LIGHT_MAIN:
-				overheadLight = new Light(Startup.shadowCamera.position.copy(),
-						new Vector3f((float) vars[i][0], (float) vars[i][1], (float) vars[i][2]), (float) vars[i][3],
-						(float) vars[i][4], (float) vars[i][5], Vector3f.DOWN);
+				overheadLight = new Light(Startup.shadowCamera.position.copy(), new Vector3f((float) vars[i][0], (float) vars[i][1], (float) vars[i][2]), (float) vars[i][3], (float) vars[i][4], (float) vars[i][5], Vector3f.DOWN);
 				lights.add(overheadLight);
 				break;
 
@@ -1717,16 +1571,14 @@ public class StateDungeon extends State {
 
 		freeRoamMode = false;
 
-		effects.add(new EffectPoof(new Vector3f(Inventory.active.get(roamUnit).x,
-				13 + Inventory.active.get(roamUnit).height, Inventory.active.get(roamUnit).y + 2)));
+		effects.add(new EffectPoof(new Vector3f(Inventory.active.get(roamUnit).x, 13 + Inventory.active.get(roamUnit).height, Inventory.active.get(roamUnit).y + 2)));
 
 		// Get and set unit positions
 		// Get loop count based on distance from the center of the map
 		Unit location = Inventory.active.get(roamUnit);
 		int widthCenter = tiles.length / 2;
 		int heightCenter = tiles[0].length / 2;
-		int loopCount = Math.max(widthCenter + Math.abs(widthCenter - location.locX),
-				heightCenter + Math.abs(heightCenter - location.locY));
+		int loopCount = Math.max(widthCenter + Math.abs(widthCenter - location.locX), heightCenter + Math.abs(heightCenter - location.locY));
 
 		// Loop through "rings" of tiles around the main unit, search for valid
 		// positions, then place the units
@@ -1760,8 +1612,7 @@ public class StateDungeon extends State {
 
 		// Add effects
 		for (Unit u : Inventory.active) {
-			effects.add(new EffectBurst(new Vector3f(Inventory.active.get(roamUnit).x,
-					13 + Inventory.active.get(roamUnit).height, Inventory.active.get(roamUnit).y), u));
+			effects.add(new EffectBurst(new Vector3f(Inventory.active.get(roamUnit).x, 13 + Inventory.active.get(roamUnit).height, Inventory.active.get(roamUnit).y), u));
 		}
 		for (Unit u : enemies) {
 			effects.add(new EffectPoof(new Vector3f(u.x, 13 + u.height, u.y + 2)));
@@ -1823,8 +1674,7 @@ public class StateDungeon extends State {
 					int cursorYNext = (int) ((cursor.position.getZ() + 16 + axes[1]) / 16);
 
 					if (cursorXNow != cursorXNext || cursorYNow != cursorYNext) {
-						if (cursorXNext > -1 && cursorYNext > -1 && cursorXNext < tiles.length
-								&& cursorYNext < tiles[0].length) {
+						if (cursorXNext > -1 && cursorYNext > -1 && cursorXNext < tiles.length && cursorYNext < tiles[0].length) {
 							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 							cursorPos.x = cursorXNext;
 							cursorPos.y = cursorYNext;
@@ -1833,14 +1683,12 @@ public class StateDungeon extends State {
 							}
 						}
 					}
-					if ((cursor.targetPosition.getX() > -16 || axes[0] > 0)
-							&& (cursor.targetPosition.getX() < tiles.length * 16 - 16 || axes[0] < 0)) {
+					if ((cursor.targetPosition.getX() > -16 || axes[0] > 0) && (cursor.targetPosition.getX() < tiles.length * 16 - 16 || axes[0] < 0)) {
 						cursor.targetPosition.add(axes[0] * cursor.speed, 0, 0);
 						cursor.position.add(axes[0] * cursor.speed, 0, 0);
 					}
 
-					if ((cursor.targetPosition.getZ() > -16 || axes[1] > 0)
-							&& (cursor.targetPosition.getZ() < tiles[0].length * 16 - 24 || axes[1] < 0)) {
+					if ((cursor.targetPosition.getZ() > -16 || axes[1] > 0) && (cursor.targetPosition.getZ() < tiles[0].length * 16 - 24 || axes[1] < 0)) {
 						cursor.targetPosition.add(0, 0, axes[1] * cursor.speed);
 						cursor.position.add(0, 0, axes[1] * cursor.speed);
 					}
@@ -1899,16 +1747,34 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-			dungeon.map.toggle();
+
+			break;
+
+		case SHOW_MINIMAP:
+			if (Inventory.active.contains(selectedUnit)) {
+				break;
+			}
+
+			if (noUIOnScreen() && !controlLock && phase == 0 && Startup.screenColor.getW() == alphaTo) {
+				dungeon.map.toggle();
+			}
 			break;
 
 		case HIGHLIGHT:
+			if (dungeon.map.isVisible()) {
+				break;
+			}
+
 			if (noUIOnScreen() && !controlLock && phase == 0 && Startup.screenColor.getW() == alphaTo) {
 				showEnemyRange();
 			}
 			break;
 
 		case WEAPON_LEFT:
+			if (dungeon.map.isVisible()) {
+				break;
+			}
+
 			if (combatMode && messages.size() == 0) {
 				if (selectedAbility.target.equals(ItemAbility.TARGET_ENEMY)) {
 					for (Unit u : enemies) {
@@ -1921,16 +1787,14 @@ public class StateDungeon extends State {
 											selectedUnit.weapon = i;
 											selectedUnit.removeItem(i);
 											selectedUnit.addItem(weapon);
-											AudioManager.getSound("move_cursor.ogg")
-													.play(AudioManager.defaultMainSFXGain, false);
+											AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 
 											clearSelectedTiles();
 											highlightTiles(selectedUnit.locX, selectedUnit.locY, 1, i.range + 1, "");
 											break;
 										}
 									}
-								} while (u.locX == cursorPos.x && u.locY == cursorPos.y
-										&& tiles[u.locX][u.locY].status == 0);
+								} while (u.locX == cursorPos.x && u.locY == cursorPos.y && tiles[u.locX][u.locY].status == 0);
 								break;
 							}
 						}
@@ -1941,16 +1805,14 @@ public class StateDungeon extends State {
 				if (!noUIOnScreen()) {
 					break;
 				}
-				effects.add(new EffectPoof(new Vector3f(Inventory.active.get(roamUnit).x,
-						13 + Inventory.active.get(roamUnit).height, Inventory.active.get(roamUnit).y + 2)));
+				effects.add(new EffectPoof(new Vector3f(Inventory.active.get(roamUnit).x, 13 + Inventory.active.get(roamUnit).height, Inventory.active.get(roamUnit).y + 2)));
 				int nextUnit = roamUnit;
 				if (roamUnit > 0) {
 					nextUnit--;
 				} else {
 					nextUnit = Inventory.active.size() - 1;
 				}
-				Inventory.active.get(nextUnit).placeAt(Inventory.active.get(roamUnit).locX,
-						Inventory.active.get(roamUnit).locY);
+				Inventory.active.get(nextUnit).placeAt(Inventory.active.get(roamUnit).locX, Inventory.active.get(roamUnit).locY);
 				Inventory.active.get(nextUnit).height = Inventory.active.get(roamUnit).height;
 				roamUnit = nextUnit;
 				AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
@@ -1959,6 +1821,10 @@ public class StateDungeon extends State {
 			break;
 
 		case WEAPON_RIGHT:
+			if (dungeon.map.isVisible()) {
+				break;
+			}
+
 			if (combatMode && messages.size() == 0) {
 				if (selectedAbility.target.equals(ItemAbility.TARGET_ENEMY)) {
 					for (Unit u : enemies) {
@@ -1972,16 +1838,14 @@ public class StateDungeon extends State {
 											selectedUnit.weapon = item;
 											selectedUnit.removeItem(item);
 											selectedUnit.addItemInFront(weapon);
-											AudioManager.getSound("move_cursor.ogg")
-													.play(AudioManager.defaultMainSFXGain, false);
+											AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 
 											clearSelectedTiles();
 											highlightTiles(selectedUnit.locX, selectedUnit.locY, 1, item.range + 1, "");
 											break;
 										}
 									}
-								} while (u.locX == cursorPos.x && u.locY == cursorPos.y
-										&& tiles[u.locX][u.locY].status == 0);
+								} while (u.locX == cursorPos.x && u.locY == cursorPos.y && tiles[u.locX][u.locY].status == 0);
 								break;
 							}
 						}
@@ -1992,16 +1856,14 @@ public class StateDungeon extends State {
 				if (!noUIOnScreen()) {
 					break;
 				}
-				effects.add(new EffectPoof(new Vector3f(Inventory.active.get(roamUnit).x,
-						13 + Inventory.active.get(roamUnit).height, Inventory.active.get(roamUnit).y + 2)));
+				effects.add(new EffectPoof(new Vector3f(Inventory.active.get(roamUnit).x, 13 + Inventory.active.get(roamUnit).height, Inventory.active.get(roamUnit).y + 2)));
 				int nextUnit = roamUnit;
 				if (roamUnit < Inventory.active.size() - 1) {
 					nextUnit++;
 				} else {
 					nextUnit = 0;
 				}
-				Inventory.active.get(nextUnit).placeAt(Inventory.active.get(roamUnit).locX,
-						Inventory.active.get(roamUnit).locY);
+				Inventory.active.get(nextUnit).placeAt(Inventory.active.get(roamUnit).locX, Inventory.active.get(roamUnit).locY);
 				Inventory.active.get(nextUnit).height = Inventory.active.get(roamUnit).height;
 				roamUnit = nextUnit;
 				AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
@@ -2027,6 +1889,10 @@ public class StateDungeon extends State {
 			break;
 
 		case CONFIRM:
+			if (dungeon.map.isVisible()) {
+				break;
+			}
+
 			if (alpha < 0.95 && swapTimer == 0 && displayXP == displayXPTarget && xpAlpha == 0) {
 				if (messages.size() == 0) {
 					if (text.size() == 0) {
@@ -2041,8 +1907,7 @@ public class StateDungeon extends State {
 														clearSelectedTiles();
 														u.select();
 														curRotate = true;
-														AudioManager.getSound("menu_open.ogg")
-																.play(AudioManager.defaultMainSFXGain, false);
+														AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 														break;
 													}
 												}
@@ -2052,21 +1917,16 @@ public class StateDungeon extends State {
 													if (u != selectedUnit) {
 														u.select();
 														curRotate = true;
-														AudioManager.getSound("menu_open.ogg")
-																.play(AudioManager.defaultMainSFXGain, false);
+														AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 														break;
 													} else {
-														menus.add(new MenuStatusCard(new Vector3f(0, 0, -80),
-																selectedUnit, true));
-														Startup.staticView.position = new Vector3f(126 / 4, -90 / 4 + 1,
-																0);
-														AudioManager.getSound("menu_open.ogg")
-																.play(AudioManager.defaultMainSFXGain, false);
+														menus.add(new MenuStatusCard(new Vector3f(0, 0, -80), selectedUnit, true));
+														Startup.staticView.position = new Vector3f(126 / 4, -90 / 4 + 1, 0);
+														AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 													}
 												}
 											}
-											if (!Inventory.active.contains(selectedUnit)
-													&& !enemies.contains(selectedUnit)) {
+											if (!Inventory.active.contains(selectedUnit) && !enemies.contains(selectedUnit)) {
 												menus.add(new MenuDungeonMain(new Vector3f(0, 0, -80)));
 											}
 										}
@@ -2074,8 +1934,7 @@ public class StateDungeon extends State {
 										if (!combatMode) {
 											boolean notOnUnit = true;
 											for (Unit u : Inventory.active) {
-												if ((u.locX == cursorPos.getX() && u.locY == cursorPos.getY())
-														&& u != selectedUnit) {
+												if ((u.locX == cursorPos.getX() && u.locY == cursorPos.getY()) && u != selectedUnit) {
 													notOnUnit = false;
 													break;
 												}
@@ -2084,18 +1943,12 @@ public class StateDungeon extends State {
 												selectedUnit.move(path);
 												curRotate = true;
 												clearSelectedTiles();
-												highlightTiles(path.get(0).x, path.get(0).y, 1,
-														selectedUnit.weapon.range + 1, "");
-												menus.add(new MenuDungeonAction(new Vector3f(0, 0, -80), selectedUnit,
-														this));
+												highlightTiles(path.get(0).x, path.get(0).y, 1, selectedUnit.weapon.range + 1, "");
+												menus.add(new MenuDungeonAction(new Vector3f(0, 0, -80), selectedUnit, this));
 												if (multiplayerMode) {
-													comThread.eventQueue
-															.add(new String[] { "MOVE_UNIT_PATH", selectedUnit.uuid,
-																	"" + path.get(0).x, "" + path.get(0).y });
+													comThread.eventQueue.add(new String[] { "MOVE_UNIT_PATH", selectedUnit.uuid, "" + path.get(0).x, "" + path.get(0).y });
 													comThread.eventQueue.add(new String[] { "CLEAR_TILE_HIGHLIGHT" });
-													comThread.eventQueue.add(new String[] { "HIGHLIGHT_TILES",
-															"" + path.get(0).x, "" + path.get(0).y, "1",
-															"" + (selectedUnit.weapon.range + 1), "" });
+													comThread.eventQueue.add(new String[] { "HIGHLIGHT_TILES", "" + path.get(0).x, "" + path.get(0).y, "1", "" + (selectedUnit.weapon.range + 1), "" });
 												}
 											}
 										} else {
@@ -2103,29 +1956,22 @@ public class StateDungeon extends State {
 
 											case ItemAbility.TARGET_ENEMY:
 												for (Unit u : enemies) {
-													if (cursorPos.x == u.locX && cursorPos.y == u.locY
-															&& tiles[cursorPos.x][cursorPos.y].range > 0
-															&& selectedAbility.followUp(u, this)) {
+													if (cursorPos.x == u.locX && cursorPos.y == u.locY && tiles[cursorPos.x][cursorPos.y].range > 0 && selectedAbility.followUp(u, this)) {
 														combatMode = false;
 														clearSelectedTiles();
 														curRotate = true;
-														AudioManager.getSound("menu_open.ogg")
-																.play(AudioManager.defaultMainSFXGain, false);
+														AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 													}
 												}
 												break;
 
 											case ItemAbility.TARGET_UNIT:
 												for (Unit u : Inventory.active) {
-													if (cursorPos.x == u.locX && cursorPos.y == u.locY
-															&& u != selectedUnit
-															&& tiles[cursorPos.x][cursorPos.y].range > 0
-															&& selectedAbility.followUp(u, this)) {
+													if (cursorPos.x == u.locX && cursorPos.y == u.locY && u != selectedUnit && tiles[cursorPos.x][cursorPos.y].range > 0 && selectedAbility.followUp(u, this)) {
 														combatMode = false;
 														clearSelectedTiles();
 														curRotate = true;
-														AudioManager.getSound("menu_open.ogg")
-																.play(AudioManager.defaultMainSFXGain, false);
+														AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 													}
 												}
 												break;
@@ -2135,8 +1981,7 @@ public class StateDungeon extends State {
 													combatMode = false;
 													clearSelectedTiles();
 													curRotate = true;
-													AudioManager.getSound("menu_open.ogg")
-															.play(AudioManager.defaultMainSFXGain, false);
+													AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 												}
 												break;
 
@@ -2146,8 +1991,7 @@ public class StateDungeon extends State {
 								} else if (!caught) {
 									selectedUnit = Inventory.active.get(roamUnit);
 									selectedUnit.path.add(new Point(selectedUnit.locX, selectedUnit.locY));
-									menus.add(new MenuDungeonAction(new Vector3f(0, 0, -80),
-											Inventory.active.get(roamUnit), this));
+									menus.add(new MenuDungeonAction(new Vector3f(0, 0, -80), Inventory.active.get(roamUnit), this));
 								}
 
 							}
@@ -2163,6 +2007,11 @@ public class StateDungeon extends State {
 			break;
 
 		case BACK:
+			if (dungeon.map.isVisible()) {
+				dungeon.map.toggle();
+				break;
+			}
+
 			if (alpha < 0.95) {
 				if (messages.size() == 0) {
 					if (text.size() == 0) {
@@ -2170,13 +2019,11 @@ public class StateDungeon extends State {
 							if (menus.size() == 0) {
 								if (phase == 0 && !freeRoamMode) {
 									if (!combatMode) {
-										if ((enemies.contains(selectedUnit) || Inventory.active.contains(selectedUnit)
-												|| showingRange) && !usingItem) {
+										if ((enemies.contains(selectedUnit) || Inventory.active.contains(selectedUnit) || showingRange) && !usingItem) {
 											showingRange = false;
 											clearSelectedTiles();
 											clearUnit();
-											AudioManager.getSound("menu_close.ogg")
-													.play(AudioManager.defaultMainSFXGain, false);
+											AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 											if (multiplayerMode) {
 												comThread.eventQueue.add(new String[] { "CLEAR_SEL_UNIT" });
 											}
@@ -2188,8 +2035,7 @@ public class StateDungeon extends State {
 										if (multiplayerMode) {
 											comThread.eventQueue.add(new String[] { "RESET_UNIT" });
 										}
-										AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain,
-												false);
+										AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 									}
 								}
 							} else {
@@ -2220,6 +2066,10 @@ public class StateDungeon extends State {
 		switch (key) {
 
 		case CONFIRM:
+			if (dungeon.map.isVisible()) {
+				break;
+			}
+
 			if (alpha < 0.95) {
 				if (messages.size() == 0) {
 					if (text.size() > 0) {
@@ -2243,8 +2093,7 @@ public class StateDungeon extends State {
 							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
 					}
-					if (((freeRoamMode && walkable) || (Math.floorDiv((int) tcamY, 8) - 12 > -12
-							&& cursorPos.getY() == Math.floorDiv((int) tcamY, 8) - 12 + 6)) && !caught) {
+					if (((freeRoamMode && walkable) || (Math.floorDiv((int) tcamY, 8) - 12 > -12 && cursorPos.getY() == Math.floorDiv((int) tcamY, 8) - 12 + 6)) && !caught) {
 						tcamY -= 8;
 					}
 					if (freeRoamMode && walkable && !caught) {
@@ -2269,8 +2118,7 @@ public class StateDungeon extends State {
 							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
 					}
-					if (((freeRoamMode && walkable) || (Math.floorDiv((int) tcamY, 8) - 12 == cursorPos.getY() - 13))
-							&& !caught) {
+					if (((freeRoamMode && walkable) || (Math.floorDiv((int) tcamY, 8) - 12 == cursorPos.getY() - 13)) && !caught) {
 						tcamY += 8;
 					}
 					if (freeRoamMode && walkable && !caught) {
@@ -2299,8 +2147,7 @@ public class StateDungeon extends State {
 							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
 					}
-					if (((freeRoamMode && walkable) || (Math.floorDiv((int) tcamX, 8) - 12 > -10
-							&& cursorPos.getX() == Math.floorDiv((int) tcamX, 8) - 12 + 8)) && !caught) {
+					if (((freeRoamMode && walkable) || (Math.floorDiv((int) tcamX, 8) - 12 > -10 && cursorPos.getX() == Math.floorDiv((int) tcamX, 8) - 12 + 8)) && !caught) {
 						tcamX -= 8;
 					}
 					if (freeRoamMode && walkable && !caught) {
@@ -2329,8 +2176,7 @@ public class StateDungeon extends State {
 							AudioManager.getSound("move_cursor.ogg").play(AudioManager.defaultMainSFXGain, false);
 						}
 					}
-					if (((freeRoamMode && walkable) || (Math.floorDiv((int) tcamX, 8) - 12 == cursorPos.getX() - 16))
-							&& !caught) {
+					if (((freeRoamMode && walkable) || (Math.floorDiv((int) tcamX, 8) - 12 == cursorPos.getX() - 16)) && !caught) {
 						tcamX += 8;
 					}
 					if (freeRoamMode && walkable && !caught) {
@@ -2346,8 +2192,7 @@ public class StateDungeon extends State {
 	public void findLocationForItem(Unit location, ItemProperty e) {
 		int widthCenter = tiles.length / 2;
 		int heightCenter = tiles[0].length / 2;
-		int loopCount = Math.max(widthCenter + Math.abs(widthCenter - location.locX),
-				heightCenter + Math.abs(heightCenter - location.locY));
+		int loopCount = Math.max(widthCenter + Math.abs(widthCenter - location.locX), heightCenter + Math.abs(heightCenter - location.locY));
 
 		// Loop through "rings" of tiles around the main unit, search for valid
 		// positions, then place the units
@@ -2360,8 +2205,7 @@ public class StateDungeon extends State {
 					if (locX > -1 && locX < tiles.length && locY > -1 && locY < tiles[0].length) {
 						if (isTileAvailableForItem(locX, locY)) {
 							items.add(new Item(new Vector3f(locX * 16, 24, locY * 16), e.copy()));
-							effects.add(new EffectPoof(Vector3f.add(new Vector3f(locX * 16, 20, locY * 16), 0,
-									StateManager.currentState.tiles[locX][locY].getPosition().getY(), 0)));
+							effects.add(new EffectPoof(Vector3f.add(new Vector3f(locX * 16, 20, locY * 16), 0, StateManager.currentState.tiles[locX][locY].getPosition().getY(), 0)));
 							break mainLoop;
 						}
 					}

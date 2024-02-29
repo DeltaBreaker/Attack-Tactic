@@ -22,7 +22,7 @@ public enum ItemAbility {
 	ITEM_ABILITY_ATTACK("Attack", "target.enemy", true, false, true, false, false) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
+		public boolean isMoveable(ItemProperty item) {
 			return true;
 		}
 
@@ -121,7 +121,7 @@ public enum ItemAbility {
 	ITEM_ABILITY_TRADE("Trade", "target.unit", false, false, true, false, false) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
+		public boolean isMoveable(ItemProperty item) {
 			return true;
 		}
 
@@ -180,7 +180,7 @@ public enum ItemAbility {
 	ITEM_ABILITY_USE_ITEM_ALLY("", "target.unit", false, false, true, false, false) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
+		public boolean isMoveable(ItemProperty item) {
 			return false;
 		}
 
@@ -235,7 +235,7 @@ public enum ItemAbility {
 	ITEM_ABILITY_USE_ITEM_ENEMY("", "target.enemy", false, false, true, false, false) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
+		public boolean isMoveable(ItemProperty item) {
 			return true;
 		}
 
@@ -290,7 +290,7 @@ public enum ItemAbility {
 	ITEM_ABILITY_SWAP("Swap", "target.unit", false, false, true, false, true) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
+		public boolean isMoveable(ItemProperty item) {
 			return true;
 		}
 
@@ -359,7 +359,7 @@ public enum ItemAbility {
 	ITEM_ABILITY_STEAL("Steal", "target.enemy", false, false, true, false, true) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
+		public boolean isMoveable(ItemProperty item) {
 			return true;
 		}
 
@@ -427,7 +427,7 @@ public enum ItemAbility {
 	ITEM_ABILITY_DISARM("Disarm", "target.enemy", true, false, true, false, true) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
+		public boolean isMoveable(ItemProperty item) {
 			return true;
 		}
 
@@ -535,7 +535,7 @@ public enum ItemAbility {
 	ITEM_ABILITY_FORTIFIED("Fortified", "target.none", false, false, false, true, true) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
+		public boolean isMoveable(ItemProperty item) {
 			return true;
 		}
 
@@ -588,7 +588,7 @@ public enum ItemAbility {
 	ITEM_ABILITY_SHELTER("Shelter", "target.none", false, false, false, false, true) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
+		public boolean isMoveable(ItemProperty item) {
 			return true;
 		}
 
@@ -647,7 +647,7 @@ public enum ItemAbility {
 	ITEM_ABILITY_HARDEN("Harden", "target.none", false, false, true, false, true) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
+		public boolean isMoveable(ItemProperty item) {
 			return true;
 		}
 
@@ -710,11 +710,113 @@ public enum ItemAbility {
 		}
 	},
 
+	// One attack that confuses target
+	ITEM_ABILITY_BASH("Bash", "target.enemy", true, false, true, false, true) {
+
+		@Override
+		public boolean isMoveable(ItemProperty item) {
+			return true;
+		}
+
+		@Override
+		public boolean use(Unit u, StateDungeon context) {
+			context.combatMode = true;
+			return true;
+		}
+
+		@Override
+		public boolean followUp(Unit u, StateDungeon context) {
+			context.setCombat(context.selectedUnit, u);
+			if (context.multiplayerMode) {
+				context.comThread.eventQueue.add(new String[] { "USE_ATTACKING_ABILITY", "ITEM_ABILITY_ATTACK_SLEEP", context.selectedUnit.weapon.uuid, context.selectedUnit.uuid, u.uuid });
+				context.comThread.eventQueue.add(new String[] { "CLEAR_TILE_HIGHLIGHT" });
+			}
+			return true;
+		}
+
+		@Override
+		public int[] calculateAttackingDamage(Unit atk, Unit def, boolean ignoreRange) {
+			int[] results = new int[2];
+
+			int reduction = StateManager.currentState.tiles[def.locX][def.locY].defense;
+
+			// Returns damage dealt
+			if (atk.weapon.damageType.equals(ItemProperty.TYPE_DAMAGE_PHYSICAL)) {
+				results[0] = Math.max(0, atk.atk - (def.def + reduction));
+			} else if (atk.weapon.damageType.equals(ItemProperty.TYPE_DAMAGE_MAGIC)) {
+				results[0] = Math.max(0, atk.mag - (def.res + reduction));
+			} else {
+				results[0] = Math.max(0, (atk.atk + atk.mag) - (def.def + def.res + reduction));
+			}
+
+			// Returns the number of attacks
+			if (ignoreRange || atk.weapon.range >= (Math.abs(atk.locX - def.locX) + Math.abs(atk.locY - def.locY))) {
+				results[1] = 1;
+			} else {
+				results[1] = 0;
+			}
+
+			return results;
+		}
+
+		@Override
+		public int[] calculateDefendingDamage(Unit atk, Unit def, boolean ignoreRange) {
+			int[] results = new int[2];
+
+			int reduction = StateManager.currentState.tiles[atk.locX][atk.locY].defense;
+
+			// Returns damage dealt
+			if (def.weapon.damageType.equals(ItemProperty.TYPE_DAMAGE_PHYSICAL)) {
+				results[0] = Math.max(0, def.atk - (atk.def + reduction));
+			} else if (def.weapon.damageType.equals(ItemProperty.TYPE_DAMAGE_MAGIC)) {
+				results[0] = Math.max(0, def.mag - (atk.res + reduction));
+			} else {
+				results[0] = Math.max(0, (def.atk + def.mag) - (atk.def + atk.res + reduction));
+			}
+
+			// Returns the number of attacks
+			if (ignoreRange || def.weapon.range >= (Math.abs(def.locX - atk.locX) + Math.abs(def.locY - atk.locY))) {
+				results[1] = Math.max(1, 1 + Math.floorDiv((def.spd - atk.spd) + (int) (def.height - atk.height), 5));
+			} else {
+				results[1] = 0;
+			}
+
+			return results;
+		}
+
+		@Override
+		public int calculateHealing(Unit healer, Unit healed) {
+			return 0;
+		}
+
+		@Override
+		public int[] getStats() {
+			return null;
+		}
+
+		@Override
+		public void onCombatEnd(Unit unit, StateDungeon context) {
+			if (context.selectedAbility == this) {
+				context.defender.applyStatus(Unit.STATUS_SLEEP);
+			}
+		}
+
+		@Override
+		public void onHit(StateDungeon context) {
+			// Empty
+		}
+
+		@Override
+		public void onRetaliation(StateDungeon context) {
+			// Empty
+		}
+	},
+	
 	ITEM_ABILITY_HEAL_10("S Heal", "target.unit", false, true, true, false, false) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
-			return true;
+		public boolean isMoveable(ItemProperty item) {
+			return false;
 		}
 
 		@Override
@@ -780,8 +882,8 @@ public enum ItemAbility {
 	ITEM_ABILITY_HEAL_20("M Heal", "target.unit", false, true, true, false, false) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
-			return true;
+		public boolean isMoveable(ItemProperty item) {
+			return false;
 		}
 
 		@Override
@@ -847,8 +949,8 @@ public enum ItemAbility {
 	ITEM_ABILITY_HEAL_30("L Heal", "target.unit", false, true, true, false, false) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
-			return true;
+		public boolean isMoveable(ItemProperty item) {
+			return false;
 		}
 
 		@Override
@@ -914,8 +1016,8 @@ public enum ItemAbility {
 	ITEM_ABILITY_CURE("Cure", "target.unit", false, false, true, false, false) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
-			return true;
+		public boolean isMoveable(ItemProperty item) {
+			return false;
 		}
 
 		@Override
@@ -983,8 +1085,8 @@ public enum ItemAbility {
 	ITEM_ABILITY_WARP("Warp", "target.none", false, false, true, false, false) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
-			return true;
+		public boolean isMoveable(ItemProperty item) {
+			return false;
 		}
 
 		@Override
@@ -1056,8 +1158,8 @@ public enum ItemAbility {
 	ITEM_ABILITY_IMMOLATION("Immolation", "target.none", false, false, true, false, false) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
-			return true;
+		public boolean isMoveable(ItemProperty item) {
+			return false;
 		}
 
 		@Override
@@ -1125,7 +1227,7 @@ public enum ItemAbility {
 	ITEM_ABILITY_WEAK_POINT("Weak Point", "target.enemy", true, false, true, false, true) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
+		public boolean isMoveable(ItemProperty item) {
 			return true;
 		}
 
@@ -1224,7 +1326,7 @@ public enum ItemAbility {
 	ITEM_ABILITY_ATTACK_POISON("Toxic Cut", "target.enemy", true, false, true, false, true) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
+		public boolean isMoveable(ItemProperty item) {
 			return true;
 		}
 
@@ -1323,7 +1425,7 @@ public enum ItemAbility {
 	ITEM_ABILITY_ATTACK_SLEEP("Tranq Cut", "target.enemy", true, false, true, false, true) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
+		public boolean isMoveable(ItemProperty item) {
 			return true;
 		}
 
@@ -1424,7 +1526,7 @@ public enum ItemAbility {
 	ITEM_ABILITY_BRUTE("Brute", "target.none", false, false, false, true, true) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
+		public boolean isMoveable(ItemProperty item) {
 			return true;
 		}
 
@@ -1477,7 +1579,7 @@ public enum ItemAbility {
 	ITEM_ABILITY_REFLECT("Reflect", "target.none", false, false, false, false, true) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
+		public boolean isMoveable(ItemProperty item) {
 			return true;
 		}
 
@@ -1530,7 +1632,7 @@ public enum ItemAbility {
 	ITEM_ABILITY_XPGAIN_10("Growth", "target.none", false, false, false, false, true) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
+		public boolean isMoveable(ItemProperty item) {
 			return true;
 		}
 
@@ -1583,7 +1685,7 @@ public enum ItemAbility {
 	ITEM_ABILITY_LOCKSMITH("Locksmith", "target.none", false, false, false, false, true) {
 
 		@Override
-		public boolean isUnlocked(ItemProperty item) {
+		public boolean isMoveable(ItemProperty item) {
 			return true;
 		}
 
@@ -1650,7 +1752,7 @@ public enum ItemAbility {
 
 	// This is called to check if a certain weapon has met the requirements to use a
 	// certain ability
-	public abstract boolean isUnlocked(ItemProperty item);
+	public abstract boolean isMoveable(ItemProperty item);
 
 	// These are used for the inital action (use) and what to do after targeting
 	// (followUp)
