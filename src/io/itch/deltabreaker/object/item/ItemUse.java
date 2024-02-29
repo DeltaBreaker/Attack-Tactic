@@ -1542,6 +1542,49 @@ public enum ItemUse {
 		}
 	},
 
+	ITEM_USE_SLAPPY(false) {
+		@Override
+		public void use(Unit u, StateDungeon context) {
+			context.selectedAbility = ItemAbility.ITEM_ABILITY_USE_ITEM_ENEMY;
+			context.selectedItemUse = this;
+			context.selectedAbility.use(u, context);
+
+			context.clearSelectedTiles();
+			context.highlightTiles(u.locX, u.locY, 0, getRange(u, context), "");
+		}
+
+		@Override
+		public void followUp(Unit u, StateDungeon context) {
+			context.effects.add(new EffectItemUse(u, context.selectedItem, context));
+			context.clearSelectedTiles();
+			context.selectedUnit.removeItem(context.selectedItem);
+		}
+
+		@Override
+		public void afterAnimation(Unit u, StateDungeon context) {
+			context.effects.add(new EffectProjectile(context.selectedUnit, u, 4, calculateDamage(context.selectedUnit, context)));
+			context.selectedUnit.setTurn(false);
+			context.clearUnit();
+			context.clearAtkDefUnit();
+		}
+
+		@Override
+		public int calculateHealing(Unit u, StateDungeon context) {
+			return 0;
+		}
+
+		@Override
+		public int calculateDamage(Unit u, StateDungeon context) {
+			boolean hasReflect = u.weapon.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT) || u.accessory.hasAbility(ItemAbility.ITEM_ABILITY_REFLECT);
+			return (hasReflect || !u.getStatus().equals("")) ? 0 : u.weapon.abilities.length;
+		}
+
+		@Override
+		public int getRange(Unit u, StateDungeon context) {
+			return 4;
+		}
+	},
+	
 	ITEM_USE_MONEY(true) {
 		@Override
 		public void use(Unit u, StateDungeon context) {

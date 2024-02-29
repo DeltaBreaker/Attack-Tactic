@@ -1747,7 +1747,7 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-
+			Inventory.active.get(0).addItem(ItemProperty.get("item.other.carp"));
 			break;
 
 		case SHOW_MINIMAP:

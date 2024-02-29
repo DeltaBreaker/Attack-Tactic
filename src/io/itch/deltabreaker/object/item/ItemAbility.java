@@ -19,12 +19,7 @@ import io.itch.deltabreaker.ui.menu.MenuTrade;
 public enum ItemAbility {
 
 	// The standard attack
-	ITEM_ABILITY_ATTACK("Attack", "target.enemy", true, false, true, false, false) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return true;
-		}
+	ITEM_ABILITY_ATTACK("Attack", "target.enemy", true, false, true, false, false, 99) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -118,12 +113,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_TRADE("Trade", "target.unit", false, false, true, false, false) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return true;
-		}
+	ITEM_ABILITY_TRADE("Trade", "target.unit", false, false, true, false, false, 99) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -177,12 +167,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_USE_ITEM_ALLY("", "target.unit", false, false, true, false, false) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return false;
-		}
+	ITEM_ABILITY_USE_ITEM_ALLY("", "target.unit", false, false, true, false, false, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -232,12 +217,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_USE_ITEM_ENEMY("", "target.enemy", false, false, true, false, false) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return true;
-		}
+	ITEM_ABILITY_USE_ITEM_ENEMY("", "target.enemy", false, false, true, false, false, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -287,12 +267,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_SWAP("Swap", "target.unit", false, false, true, false, true) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return true;
-		}
+	ITEM_ABILITY_SWAP("Swap", "target.unit", false, false, true, false, true, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -356,12 +331,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_STEAL("Steal", "target.enemy", false, false, true, false, true) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return true;
-		}
+	ITEM_ABILITY_STEAL("Steal", "target.enemy", false, false, true, false, true, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -424,12 +394,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_DISARM("Disarm", "target.enemy", true, false, true, false, true) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return true;
-		}
+	ITEM_ABILITY_DISARM("Disarm", "target.enemy", true, false, true, false, true, 2) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -532,12 +497,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_FORTIFIED("Fortified", "target.none", false, false, false, true, true) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return true;
-		}
+	ITEM_ABILITY_FORTIFIED("Fortified", "target.none", false, false, false, true, true, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -585,12 +545,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_SHELTER("Shelter", "target.none", false, false, false, false, true) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return true;
-		}
+	ITEM_ABILITY_SHELTER("Shelter", "target.none", false, false, false, false, true, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -644,12 +599,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_HARDEN("Harden", "target.none", false, false, true, false, true) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return true;
-		}
+	ITEM_ABILITY_HARDEN("Harden", "target.none", false, false, true, false, true, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -659,7 +609,7 @@ public enum ItemAbility {
 					.add(new EffectText("+4 Def_Res", new Vector3f(u.x - ("+4 Def_Res").length() * 1.5f, 20 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y - 8), new Vector4f(ItemProperty.colorList[1], 1)));
 			context.effects.add(new EffectShield(new Vector3f(u.x, 10 + StateManager.currentState.tiles[u.locX][u.locY].getPosition().getY(), u.y)));
 			u.setTurn(false);
-			
+
 			if (context.multiplayerMode && context.phase == 0) {
 				context.comThread.eventQueue.add(new String[] { "USE_ABILITY", name(), context.selectedUnit.uuid, u.uuid, "true" });
 			}
@@ -711,12 +661,7 @@ public enum ItemAbility {
 	},
 
 	// One attack that confuses target
-	ITEM_ABILITY_BASH("Bash", "target.enemy", true, false, true, false, true) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return true;
-		}
+	ITEM_ABILITY_BASH("Bash", "target.enemy", true, false, true, false, true, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -728,7 +673,7 @@ public enum ItemAbility {
 		public boolean followUp(Unit u, StateDungeon context) {
 			context.setCombat(context.selectedUnit, u);
 			if (context.multiplayerMode) {
-				context.comThread.eventQueue.add(new String[] { "USE_ATTACKING_ABILITY", "ITEM_ABILITY_ATTACK_SLEEP", context.selectedUnit.weapon.uuid, context.selectedUnit.uuid, u.uuid });
+				context.comThread.eventQueue.add(new String[] { "USE_ATTACKING_ABILITY", "ITEM_ABILITY_BASH", context.selectedUnit.weapon.uuid, context.selectedUnit.uuid, u.uuid });
 				context.comThread.eventQueue.add(new String[] { "CLEAR_TILE_HIGHLIGHT" });
 			}
 			return true;
@@ -797,7 +742,7 @@ public enum ItemAbility {
 		@Override
 		public void onCombatEnd(Unit unit, StateDungeon context) {
 			if (context.selectedAbility == this) {
-				context.defender.applyStatus(Unit.STATUS_SLEEP);
+				context.defender.applyStatus(Unit.STATUS_DAZE);
 			}
 		}
 
@@ -811,13 +756,8 @@ public enum ItemAbility {
 			// Empty
 		}
 	},
-	
-	ITEM_ABILITY_HEAL_10("S Heal", "target.unit", false, true, true, false, false) {
 
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return false;
-		}
+	ITEM_ABILITY_HEAL_10("S Heal", "target.unit", false, true, true, false, false, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -879,12 +819,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_HEAL_20("M Heal", "target.unit", false, true, true, false, false) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return false;
-		}
+	ITEM_ABILITY_HEAL_20("M Heal", "target.unit", false, true, true, false, false, 2) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -946,12 +881,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_HEAL_30("L Heal", "target.unit", false, true, true, false, false) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return false;
-		}
+	ITEM_ABILITY_HEAL_30("L Heal", "target.unit", false, true, true, false, false, 2) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1013,12 +943,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_CURE("Cure", "target.unit", false, false, true, false, false) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return false;
-		}
+	ITEM_ABILITY_CURE("Cure", "target.unit", false, false, true, false, false, 2) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1082,12 +1007,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_WARP("Warp", "target.none", false, false, true, false, false) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return false;
-		}
+	ITEM_ABILITY_WARP("Warp", "target.none", false, false, true, false, false, 3) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1155,12 +1075,7 @@ public enum ItemAbility {
 
 	},
 
-	ITEM_ABILITY_IMMOLATION("Immolation", "target.none", false, false, true, false, false) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return false;
-		}
+	ITEM_ABILITY_IMMOLATION("Immolation", "target.none", false, false, true, false, false, 3) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1224,12 +1139,7 @@ public enum ItemAbility {
 	},
 
 	// Adds half of enemy def as damage but with 1/3rd attack
-	ITEM_ABILITY_WEAK_POINT("Weak Point", "target.enemy", true, false, true, false, true) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return true;
-		}
+	ITEM_ABILITY_WEAK_POINT("Weak Point", "target.enemy", true, false, true, false, true, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1323,12 +1233,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_ATTACK_POISON("Toxic Cut", "target.enemy", true, false, true, false, true) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return true;
-		}
+	ITEM_ABILITY_ATTACK_POISON("Toxic Cut", "target.enemy", true, false, true, false, true, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1422,12 +1327,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_ATTACK_SLEEP("Tranq Cut", "target.enemy", true, false, true, false, true) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return true;
-		}
+	ITEM_ABILITY_ATTACK_SLEEP("Tranq Cut", "target.enemy", true, false, true, false, true, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1523,12 +1423,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_BRUTE("Brute", "target.none", false, false, false, true, true) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return true;
-		}
+	ITEM_ABILITY_BRUTE("Brute", "target.none", false, false, false, true, true, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1576,12 +1471,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_REFLECT("Reflect", "target.none", false, false, false, false, true) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return true;
-		}
+	ITEM_ABILITY_REFLECT("Reflect", "target.none", false, false, false, false, true, 2) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1629,12 +1519,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_XPGAIN_10("Growth", "target.none", false, false, false, false, true) {
-
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return true;
-		}
+	ITEM_ABILITY_XPGAIN_10("Growth", "target.none", false, false, false, false, true, 3) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1681,13 +1566,8 @@ public enum ItemAbility {
 			// Empty
 		}
 	},
-	
-	ITEM_ABILITY_LOCKSMITH("Locksmith", "target.none", false, false, false, false, true) {
 
-		@Override
-		public boolean isMoveable(ItemProperty item) {
-			return true;
-		}
+	ITEM_ABILITY_LOCKSMITH("Locksmith", "target.none", false, false, false, false, true, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1735,7 +1615,7 @@ public enum ItemAbility {
 		}
 	};
 
-	ItemAbility(String name, String target, boolean showCombat, boolean showHealing, boolean activated, boolean hasStats, boolean canInherit) {
+	ItemAbility(String name, String target, boolean showCombat, boolean showHealing, boolean activated, boolean hasStats, boolean canInherit, int size) {
 		this.name = name;
 		this.target = target;
 		this.showCombat = showCombat;
@@ -1743,16 +1623,13 @@ public enum ItemAbility {
 		this.activated = activated;
 		this.hasStats = hasStats;
 		this.canInherit = canInherit;
+		this.size = size;
 	}
 
 	@Override
 	public String toString() {
 		return name;
 	}
-
-	// This is called to check if a certain weapon has met the requirements to use a
-	// certain ability
-	public abstract boolean isMoveable(ItemProperty item);
 
 	// These are used for the inital action (use) and what to do after targeting
 	// (followUp)
@@ -1789,6 +1666,7 @@ public enum ItemAbility {
 	public boolean activated;
 	public boolean hasStats;
 	public boolean canInherit;
+	public int size;
 
 	public static ItemAbility getAbilityFromName(String name) {
 		for (ItemAbility values : values()) {

@@ -15,6 +15,7 @@ public class Vector4f {
 	public static final Vector4f COLOR_LAVA_HEAT = new Vector4f(1f, 0.35f, 0.35f, 1f);
 	public static final Vector4f COLOR_POISON = new Vector4f(0.498f, 0.003f, 0.996f, 1f);
 	public static final Vector4f COLOR_PEBBLE = new Vector4f(0.290f, 0.329f, 0.384f, 1);
+	public static final Vector4f COLOR_CARP = new Vector4f(0.427f, 0.667f, 0.173f, 1);
 	public static final Vector4f COLOR_GOLD = new Vector4f(2, 1.843f, 1, 1);
 	public static final Vector4f CLEAR = new Vector4f(0, 0, 0, 0);
 	

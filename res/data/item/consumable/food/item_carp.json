@@ -4,7 +4,7 @@
 	"type": "item.type.usable",
 	"tier": 1,
 	"rate": 0.25,
-	"use": "ITEM_USE_HEAL_20",
+	"use": "ITEM_USE_SLAPPY",
 	"fish_rate": 0.5,
 	"locations": [
 		"pallet.seabed_cove",

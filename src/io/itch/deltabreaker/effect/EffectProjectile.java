@@ -13,7 +13,7 @@ import io.itch.deltabreaker.object.item.ItemAbility;
 
 public class EffectProjectile extends Effect {
 
-	private static final Vector4f[] COLORS = { Vector4f.COLOR_PEBBLE, Vector4f.COLOR_LAVA_HEAT, Vector4f.COLOR_POISON, Vector4f.COLOR_BASE };
+	private static final Vector4f[] COLORS = { Vector4f.COLOR_PEBBLE, Vector4f.COLOR_LAVA_HEAT, Vector4f.COLOR_POISON, Vector4f.COLOR_BASE, Vector4f.COLOR_CARP };
 
 	private Unit target;
 
@@ -26,7 +26,7 @@ public class EffectProjectile extends Effect {
 	private boolean bounce = false;
 	private Vector3f bounceRotation = new Vector3f(new Random().nextFloat(), new Random().nextFloat(), new Random().nextFloat());
 	private int damage;
-	
+
 	private int type;
 
 	private Vector4f color;
@@ -73,6 +73,10 @@ public class EffectProjectile extends Effect {
 
 					case 3:
 						target.applyStatus(Unit.STATUS_SLEEP);
+						break;
+
+					case 4:
+						target.applyStatus(Unit.STATUS_DAZE);
 						break;
 
 					}
