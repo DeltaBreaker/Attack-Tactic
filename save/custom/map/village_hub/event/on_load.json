@@ -1,0 +1,56 @@
+{
+	"activator": "event.activator.map.load",
+	"script": [
+		"controllock true",
+		"loadheaders",
+		
+		"fade 1 1 1 1",
+		
+		"continuous true",
+		"init hub_entry 0",
+		"if hub_entry 0",
+		"loadunit res/data/map/village_hub/unit/bfce0c80-ebe4-487d-90a1-a869e0c4e8b9.dat",
+		"spawnunit bfce0c80-ebe4-487d-90a1-a869e0c4e8b9 13 32 true true",
+		"set hub_entry 1",
+		"end",
+		
+		"if hub_entry 1",
+		"warpunit bfce0c80-ebe4-487d-90a1-a869e0c4e8b9 13 32",
+		"end",
+		
+		"init david_pos_state 0",
+		"if david_pos_state 0",
+		"loadunit res/data/map/village_hub/unit/a0da0e0a-6b0d-4d94-91e2-53880f64b2f7.dat",
+		"spawnunit a0da0e0a-6b0d-4d94-91e2-53880f64b2f7 17 40 false true",
+		"poselock a0da0e0a-6b0d-4d94-91e2-53880f64b2f7 true",
+		"end",
+		
+		"init ciel_pos_state 0",
+		"if ciel_pos_state 0",
+		"loadunit res/data/map/village_hub/unit/92b9efeb-b5e8-49c3-b04f-abf29843650c.dat",
+		"spawnunit 92b9efeb-b5e8-49c3-b04f-abf29843650c 21 32 false true",
+		"poselock 92b9efeb-b5e8-49c3-b04f-abf29843650c true",
+		"end",
+		"continuous false",
+		
+		"wait 72",
+		"fade 1 1 1 0",
+		"wait 144",
+		
+		"init new_game_start_pep 0",
+		"if new_game_start_pep 0",
+		"script new_game_start_pep.json",
+		"set new_game_start_pep 1",
+		"end",
+		
+		"controllock false",
+		"init hub_state 0",
+		"init load_state 0",
+		
+		"if load_state 0",
+		"setheader Humble Beginnings",
+		"setloadmap village_hub",
+		"set load_state 1",
+		"end"
+	]
+}

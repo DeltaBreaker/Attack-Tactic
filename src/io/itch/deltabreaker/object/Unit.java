@@ -607,7 +607,7 @@ public class Unit {
 
 	public void applyStatus(String status) {
 		if(this.status.equals(STATUS_GOLDEN)) {
-			StateManager.currentState.effects.add(new EffectText("Immune", new Vector3f(x - ("Immune").length() * 1.5f, 20 + StateManager.currentState.tiles[locX][locY].getPosition().getY(), y - 8), Vector4f.COLOR_GREEN));
+			StateManager.currentState.effects.add(new EffectText("Immune", new Vector3f(x - ("Immune").length() * 1.5f, 20, y - 8), Vector4f.COLOR_GREEN));
 			return;
 		}
 		

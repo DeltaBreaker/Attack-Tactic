@@ -1,0 +1,29 @@
+{
+	"id": "item.material.gem.ability",
+	"name": "Ability Gem",
+	"type": "item.type.gem.ability",
+	"tier": 0,
+	"rate": 0.2,
+	"fish_rate": 0.05,
+	"locations": [
+		"pallet.snow_forrest",
+		"pallet.village",
+		"pallet.flooded_forrest",
+		"pallet.seabed_cove",
+		"pallet.scorched_crater",
+		"pallet.medial_plane",
+		"pallet.castle_depths"
+	],
+	"price": 0,
+	"text": [
+		"A shiny gem containing",
+		"the power of a",
+		"weapon skill"
+	],
+	"model": "item_material_gem.dae",
+	"texture": "item_material_diamond.png",
+	"material": "SILVER",
+	"recipe": {
+		"cost": -1
+	}
+}

@@ -25,7 +25,6 @@ import io.itch.deltabreaker.event.DialogueScript;
 import io.itch.deltabreaker.exception.MissingMetaFileException;
 import io.itch.deltabreaker.graphics.BatchSorter;
 import io.itch.deltabreaker.graphics.Camera;
-import io.itch.deltabreaker.graphics.Light;
 import io.itch.deltabreaker.graphics.Material;
 import io.itch.deltabreaker.graphics.Model;
 import io.itch.deltabreaker.graphics.ShadowMap;
@@ -40,6 +39,7 @@ import io.itch.deltabreaker.object.item.ItemProperty;
 import io.itch.deltabreaker.object.tile.Tile;
 import io.itch.deltabreaker.state.StateCreatorHub;
 import io.itch.deltabreaker.state.StateDungeon;
+import io.itch.deltabreaker.state.StateHub;
 import io.itch.deltabreaker.state.StateManager;
 import io.itch.deltabreaker.state.StateSplash;
 import io.itch.deltabreaker.state.StateTitle;
@@ -280,6 +280,10 @@ public class Startup implements Runnable {
 				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
 				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.tank.magic"), AIType.get("standard_dungeon.json")));
 
+				for(int i = 0; i < 10; i++) {
+					Inventory.addItem(ItemProperty.get("item.material.gem.ability").copy());
+				}
+				
 //				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
 //				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
 //				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
@@ -289,8 +293,8 @@ public class Startup implements Runnable {
 //				Inventory.loadMap = "title_scene";
 //				Inventory.saveHeader(2);
 //				Inventory.saveGame(2);
-//				StateDungeon.startDungeon("seabed_cove.json", 14, -1932052909105962160L);
-				StateDungeon.startDungeon("seabed_cove.json", 0, -274341930193026469L);
+				StateDungeon.startDungeon("snow_forrest.json", 99, -1932052909105962160L);
+//				StateDungeon.startDungeon("seabed_cove.json", 0, -274341930193026469L);
 
 //				ArrayList<float[]> profiles = new ArrayList<>();
 //				for (float[] profile : Unit.GROWTH_PROFILES.values()) {

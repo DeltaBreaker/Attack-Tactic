@@ -81,7 +81,13 @@
 			"tag": "dungeon.decoration.chest",
 			"vars": [
 				1.0,
-				5.0
+				10.0
+			]
+		},
+		{
+			"tag": "dungeon.decoration.terrain",
+			"vars": [
+				0.01
 			]
 		}
 	],

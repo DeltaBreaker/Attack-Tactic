@@ -60,9 +60,12 @@ public class Item {
 	}
 
 	public void render() {
-		BatchSorter.add("u", item.model, item.texture, "main_3d", item.material.toString(),
-				Vector3f.add(Vector3f.add(position, 0, (float) (Math.sin(Math.toRadians(bob)) * 1.5), 0), 0, StateManager.currentState.tiles[locX][locY].getPosition().getY(), 0), rotation, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, true,
-				false);
+		if (item.type.equals(ItemProperty.TYPE_GEM_ABILITY)) {
+			BatchSorter.add("u", item.model, item.texture, "main_3d", item.material.toString(),
+					Vector3f.add(Vector3f.add(position, 0, (float) (Math.sin(Math.toRadians(bob)) * 1.5), 0), 0, StateManager.currentState.tiles[locX][locY].getPosition().getY(), 0), rotation, Vector3f.SCALE_HALF,
+					(item.type.equals(ItemProperty.TYPE_GEM_ABILITY)) ? ItemAbility.valueOf(item.abilities[0]).getColor() : Vector4f.COLOR_BASE, true, false);
+			ItemAbility.valueOf(item.abilities[0]).getColor().printValues();
+		}
 		if (item.stack > 1) {
 			TextRenderer.render("" + item.stack, Vector3f.add(Vector3f.add(position, 6, (float) (Math.sin(Math.toRadians(bob)) * 1.5 - 1.75), 4.75f), 0, StateManager.currentState.tiles[locX][locY].getPosition().getY(), 0),
 					Vector3f.DEFAULT_CAMERA_ROTATION, Vector3f.SCALE_HALF, Vector4f.COLOR_BASE, false);

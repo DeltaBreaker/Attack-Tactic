@@ -15,6 +15,7 @@
 	"mov": 0,
 	"abilities": [
 	],
+	"capacity": 0,
 	"traits": [
 	],
 	"rate": 0.0,

@@ -13,7 +13,11 @@
 	"def": 0,
 	"res": 0,
 	"mov": 0,
-	"abilities": [],
+	"abilities": [
+		"ITEM_ABILITY_STEAL",
+		"ITEM_ABILITY_TRICKSTER"
+	],
+	"capacity": 5,
 	"rate": 0.0,
 	"fish_rate": 0.0,
 	"locations": [

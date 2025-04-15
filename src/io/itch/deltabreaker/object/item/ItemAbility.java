@@ -1,5 +1,8 @@
 package io.itch.deltabreaker.object.item;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.effect.EffectEnergize;
@@ -19,7 +22,7 @@ import io.itch.deltabreaker.ui.menu.MenuTrade;
 public enum ItemAbility {
 
 	// The standard attack
-	ITEM_ABILITY_ATTACK("Attack", "target.enemy", true, false, true, false, false, 99) {
+	ITEM_ABILITY_ATTACK("Attack", "target.enemy", true, false, true, false, false, 99, -1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -111,9 +114,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return null;
+		}
 	},
 
-	ITEM_ABILITY_TRADE("Trade", "target.unit", false, false, true, false, false, 99) {
+	ITEM_ABILITY_TRADE("Trade", "target.unit", false, false, true, false, false, 99, -1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -165,9 +173,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return null;
+		}
 	},
 
-	ITEM_ABILITY_USE_ITEM_ALLY("", "target.unit", false, false, true, false, false, 1) {
+	ITEM_ABILITY_USE_ITEM_ALLY("", "target.unit", false, false, true, false, false, 99, -1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -215,9 +228,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return null;
+		}
 	},
 
-	ITEM_ABILITY_USE_ITEM_ENEMY("", "target.enemy", false, false, true, false, false, 1) {
+	ITEM_ABILITY_USE_ITEM_ENEMY("", "target.enemy", false, false, true, false, false, 99, -1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -265,9 +283,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return null;
+		}
 	},
 
-	ITEM_ABILITY_SWAP("Swap", "target.unit", false, false, true, false, true, 1) {
+	ITEM_ABILITY_SWAP("Swap", "target.unit", false, false, true, false, true, 1, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -329,9 +352,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Swaps the placements of", "the user and target" };
+		}
 	},
 
-	ITEM_ABILITY_STEAL("Steal", "target.enemy", false, false, true, false, true, 1) {
+	ITEM_ABILITY_STEAL("Steal", "target.enemy", false, false, true, false, true, 1, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -352,7 +380,7 @@ public enum ItemAbility {
 				context.clearSelectedTiles();
 				context.clearUnit();
 			} else {
-				context.messages.add(new Message(new String[] { "Theres nothing to steal" }));
+				AudioManager.getSound("invalid.ogg").play(AudioManager.defaultMainSFXGain, false);
 				return false;
 			}
 			return true;
@@ -392,9 +420,67 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Offers the user a chance", "to steal an item", "from the target" };
+		}
 	},
 
-	ITEM_ABILITY_DISARM("Disarm", "target.enemy", true, false, true, false, true, 2) {
+	ITEM_ABILITY_TRICKSTER("Trickster", "target.none", false, false, false, false, true, 1, 1) {
+
+		@Override
+		public boolean use(Unit u, StateDungeon context) {
+			return false;
+		}
+
+		@Override
+		public boolean followUp(Unit u, StateDungeon context) {
+			return false;
+		}
+
+		@Override
+		public int[] calculateAttackingDamage(Unit attacker, Unit defender, boolean ignoreRange) {
+			return null;
+		}
+
+		@Override
+		public int[] calculateDefendingDamage(Unit attacker, Unit defender, boolean ignoreRange) {
+			return null;
+		}
+
+		@Override
+		public int calculateHealing(Unit healer, Unit healed) {
+			return 0;
+		}
+
+		@Override
+		public int[] getStats() {
+			return null;
+		}
+
+		@Override
+		public void onCombatEnd(Unit unit, StateDungeon context) {
+			// Empty
+		}
+
+		@Override
+		public void onHit(StateDungeon context) {
+			// Empty
+		}
+
+		@Override
+		public void onRetaliation(StateDungeon context) {
+			// Empty
+		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Ensures attempts to", "steal will succeed" };
+		}
+	},
+
+	ITEM_ABILITY_DISARM("Disarm", "target.enemy", true, false, true, false, true, 2, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -495,9 +581,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Removes the targets weapon", "when the attack lands" };
+		}
 	},
 
-	ITEM_ABILITY_FORTIFIED("Fortified", "target.none", false, false, false, true, true, 1) {
+	ITEM_ABILITY_FORTIFIED("Fortified", "target.none", false, false, false, true, true, 1, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -543,9 +634,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Bolsters defenses at the", "cost of movement", "def/res + 6   mov - 3" };
+		}
 	},
 
-	ITEM_ABILITY_SHELTER("Shelter", "target.none", false, false, false, false, true, 1) {
+	ITEM_ABILITY_SHELTER("Shelter", "target.none", false, false, false, false, true, 1, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -597,9 +693,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Heals adjacent alies for", "5 when combat ends" };
+		}
 	},
 
-	ITEM_ABILITY_HARDEN("Harden", "target.none", false, false, true, false, true, 1) {
+	ITEM_ABILITY_HARDEN("Harden", "target.none", false, false, true, false, true, 1, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -658,10 +759,15 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Bolsters defenses for 1 turn" };
+		}
 	},
 
 	// One attack that confuses target
-	ITEM_ABILITY_BASH("Bash", "target.enemy", true, false, true, false, true, 1) {
+	ITEM_ABILITY_BASH("Bash", "target.enemy", true, false, true, false, true, 1, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -755,9 +861,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Inflicts the target with", "daze when the attack lands" };
+		}
 	},
 
-	ITEM_ABILITY_HEAL_10("S Heal", "target.unit", false, true, true, false, false, 1) {
+	ITEM_ABILITY_HEAL_10("S Heal", "target.unit", false, true, true, false, false, 1, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -817,9 +928,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Heals the target for 10" };
+		}
 	},
 
-	ITEM_ABILITY_HEAL_20("M Heal", "target.unit", false, true, true, false, false, 2) {
+	ITEM_ABILITY_HEAL_20("M Heal", "target.unit", false, true, true, false, false, 2, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -879,9 +995,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Heals the target for 20" };
+		}
 	},
 
-	ITEM_ABILITY_HEAL_30("L Heal", "target.unit", false, true, true, false, false, 2) {
+	ITEM_ABILITY_HEAL_30("L Heal", "target.unit", false, true, true, false, false, 2, 2) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -941,9 +1062,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Heals the target for 30" };
+		}
 	},
 
-	ITEM_ABILITY_CURE("Cure", "target.unit", false, false, true, false, false, 2) {
+	ITEM_ABILITY_CURE("Cure", "target.unit", false, false, true, false, false, 2, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1005,9 +1131,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Removes statuses from", "the target" };
+		}
 	},
 
-	ITEM_ABILITY_WARP("Warp", "target.none", false, false, true, false, false, 3) {
+	ITEM_ABILITY_WARP("Warp", "target.none", false, false, true, false, false, 3, 2) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1073,9 +1204,14 @@ public enum ItemAbility {
 
 		}
 
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Warps the user to a", "chosen position" };
+		}
+
 	},
 
-	ITEM_ABILITY_IMMOLATION("Immolation", "target.none", false, false, true, false, false, 3) {
+	ITEM_ABILITY_IMMOLATION("Immolation", "target.none", false, false, true, false, false, 3, 3) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1136,10 +1272,15 @@ public enum ItemAbility {
 
 		}
 
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Sets the user ablaze to", "deal immense damage to", "nearby enemies" };
+		}
+
 	},
 
 	// Adds half of enemy def as damage but with 1/3rd attack
-	ITEM_ABILITY_WEAK_POINT("Weak Point", "target.enemy", true, false, true, false, true, 1) {
+	ITEM_ABILITY_WEAK_POINT("Weak Point", "target.enemy", true, false, true, false, true, 1, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1231,9 +1372,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Deals extra damage based", "on the targets defenses" };
+		}
 	},
 
-	ITEM_ABILITY_ATTACK_POISON("Toxic Cut", "target.enemy", true, false, true, false, true, 1) {
+	ITEM_ABILITY_ATTACK_POISON("Toxic Cut", "target.enemy", true, false, true, false, true, 1, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1325,9 +1471,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Poisons the target when", "the attack lands" };
+		}
 	},
 
-	ITEM_ABILITY_ATTACK_SLEEP("Tranq Cut", "target.enemy", true, false, true, false, true, 1) {
+	ITEM_ABILITY_ATTACK_SLEEP("Tranq Cut", "target.enemy", true, false, true, false, true, 1, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1421,9 +1572,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Applies sleep to the", "target when hit" };
+		}
 	},
 
-	ITEM_ABILITY_BRUTE("Brute", "target.none", false, false, false, true, true, 1) {
+	ITEM_ABILITY_BRUTE("Brute", "target.none", false, false, false, true, true, 1, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1469,9 +1625,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Increases attack at the", "cost of defense", "atk + 10   def - 10" };
+		}
 	},
 
-	ITEM_ABILITY_REFLECT("Reflect", "target.none", false, false, false, false, true, 2) {
+	ITEM_ABILITY_REFLECT("Reflect", "target.none", false, false, false, false, true, 2, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1517,9 +1678,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Repels throws objects" };
+		}
 	},
 
-	ITEM_ABILITY_XPGAIN_10("Growth", "target.none", false, false, false, false, true, 3) {
+	ITEM_ABILITY_XPGAIN_10("Growth", "target.none", false, false, false, false, true, 3, 3) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1565,9 +1731,14 @@ public enum ItemAbility {
 		public void onRetaliation(StateDungeon context) {
 			// Empty
 		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Increases experience gained", "exp x 1.1" };
+		}
 	},
 
-	ITEM_ABILITY_LOCKSMITH("Locksmith", "target.none", false, false, false, false, true, 1) {
+	ITEM_ABILITY_LOCKSMITH("Locksmith", "target.none", false, false, false, false, true, 1, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1612,10 +1783,15 @@ public enum ItemAbility {
 		@Override
 		public void onRetaliation(StateDungeon context) {
 			// Empty
+		}
+
+		@Override
+		public String[] getInfo() {
+			return new String[] { toString(), "", "", "Allows the user to unlock", "doors and chests", "without keys" };
 		}
 	};
 
-	ItemAbility(String name, String target, boolean showCombat, boolean showHealing, boolean activated, boolean hasStats, boolean canInherit, int size) {
+	ItemAbility(String name, String target, boolean showCombat, boolean showHealing, boolean activated, boolean hasStats, boolean canInherit, int size, int rarity) {
 		this.name = name;
 		this.target = target;
 		this.showCombat = showCombat;
@@ -1624,11 +1800,49 @@ public enum ItemAbility {
 		this.hasStats = hasStats;
 		this.canInherit = canInherit;
 		this.size = size;
+		this.rarity = rarity;
+
+		// Calculate gem color
+		float b = 0;
+
+		float r = 1;
+		for (char c : toString().toCharArray()) {
+			r *= c;
+		}
+
+		float g = 0;
+		g = Math.abs(new Random(toString().length()).nextLong() % (r * 2));
+
+		b += r;
+		b += g;
+
+		r %= 255;
+		r /= 255;
+
+		g %= 255;
+		g /= 255;
+
+		b %= 255;
+		b /= 255;
+
+		color = new Vector4f(r > 0.5 ? r : 1 - r, g > 0.5 ? g : 1 - g, b > 0.5 ? b : 1 - b, 1);
 	}
 
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public Vector4f getColor() {
+		return color;
+	}
+
+	public int getRarity() {
+		return rarity;
 	}
 
 	// These are used for the inital action (use) and what to do after targeting
@@ -1655,6 +1869,8 @@ public enum ItemAbility {
 	// This is called after combat ends
 	public abstract void onCombatEnd(Unit unit, StateDungeon context);
 
+	public abstract String[] getInfo();
+
 	public static final String TARGET_ENEMY = "target.enemy";
 	public static final String TARGET_UNIT = "target.unit";
 	public static final String TARGET_NONE = "target.none";
@@ -1667,6 +1883,8 @@ public enum ItemAbility {
 	public boolean hasStats;
 	public boolean canInherit;
 	public int size;
+	public Vector4f color;
+	public int rarity;
 
 	public static ItemAbility getAbilityFromName(String name) {
 		for (ItemAbility values : values()) {
@@ -1677,11 +1895,13 @@ public enum ItemAbility {
 		return null;
 	}
 
-	public static String[] getNameList() {
-		String[] names = new String[values().length];
-		for (int i = 0; i < names.length; i++) {
-			names[i] = values()[i].name;
+	public static String[] getNameList(boolean filter) {
+		ArrayList<String> names = new ArrayList<>();
+		for (int i = 0; i < values().length; i++) {
+			if (!filter || values()[i].rarity > -1) {
+				names.add(values()[i].name);
+			}
 		}
-		return names;
+		return names.toArray(new String[names.size()]);
 	}
 }

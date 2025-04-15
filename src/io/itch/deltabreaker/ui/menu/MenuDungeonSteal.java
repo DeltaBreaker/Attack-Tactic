@@ -12,6 +12,7 @@ import io.itch.deltabreaker.math.AdvMath;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
 import io.itch.deltabreaker.object.Unit;
+import io.itch.deltabreaker.object.item.ItemAbility;
 import io.itch.deltabreaker.object.item.ItemProperty;
 import io.itch.deltabreaker.state.StateDungeon;
 import io.itch.deltabreaker.state.StateManager;
@@ -64,7 +65,7 @@ public class MenuDungeonSteal extends Menu {
 			if (!command.equals("back")) {
 				if (command.equals("")) {
 					// This checks to see if the host unit will successfully steal the chosen item
-					int chance = (int) AdvMath.inRange(100 - (u.getItemList().get(selected).tier * 20) * Math.max(0, 1 - (host.spd - u.spd) * 0.05), 1, 100);
+					int chance = host.weapon.hasAbility(ItemAbility.ITEM_ABILITY_TRICKSTER) ? 100 : (int) AdvMath.inRange(100 - (u.getItemList().get(selected).tier * 20) * Math.max(0, 1 - (host.spd - u.spd) * 0.05), 1, 100);
 					if (new Random().nextInt(100) <= chance) {
 						StateManager.currentState.effects.add(new EffectText("+" + u.getItemList().get(selected).name,
 								new Vector3f(host.x - ("+" + u.getItemList().get(selected).name).length(), 20 + StateManager.currentState.tiles[host.locX][host.locY].getPosition().getY(), host.y - 8),
@@ -99,7 +100,7 @@ public class MenuDungeonSteal extends Menu {
 			if (i * 18 + 12 < height) {
 				TextRenderer.render(options[item], Vector3f.add(position, 4, -i * 18 - 9, 1), new Vector3f(0, 0, 0), scale, new Vector4f(1, 1, 1, 1), true);
 				if (open) {
-					int chance = (int) AdvMath.inRange(100 - (u.getItemList().get(selected).tier * 20) * Math.max(0, 1 - (host.spd - u.spd) * 0.05), 1, 100);
+					int chance = host.weapon.hasAbility(ItemAbility.ITEM_ABILITY_TRICKSTER) ? 100 : (int) AdvMath.inRange(100 - (u.getItemList().get(selected).tier * 20) * Math.max(0, 1 - (host.spd - u.spd) * 0.05), 1, 100);
 					TextRenderer.render(chance + "%", Vector3f.add(position, width - 29, -i * 18 - 9, 1), new Vector3f(0, 0, 0), scale, new Vector4f(1, 1, 1, 1), true);
 				}
 			}

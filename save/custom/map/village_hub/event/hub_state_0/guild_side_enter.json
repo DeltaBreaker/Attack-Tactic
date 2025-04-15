@@ -1,0 +1,11 @@
+{
+	"activator": "event.activator.wait 4 8",
+	"script": [
+		"if hub_state 0",
+		"controllock true",
+		"script guild_side_enter.json",
+		"moveunit bfce0c80-ebe4-487d-90a1-a869e0c4e8b9 4 9",
+		"controllock false",
+		"end"
+	]
+}

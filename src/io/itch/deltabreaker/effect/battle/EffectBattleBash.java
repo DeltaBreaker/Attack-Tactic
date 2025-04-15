@@ -58,7 +58,7 @@ public class EffectBattleBash extends EffectBattle {
 	}
 
 	public void onFrame() {
-		if (frame == 1) {
+		if (frame == 1 && StateManager.currentState.effects.size() < 100) {
 			StateManager.currentState.lights.add(light);
 			for (int i = 0; i < sparkAmount; i++) {
 				sparks.add(new EffectBattleSpark(Vector3f.mul(Vector3f.add(position, 0, -12, 2), 0.5f, 0.5f, 0.5f),

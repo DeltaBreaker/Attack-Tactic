@@ -14,6 +14,7 @@
 	"res": 0,
 	"mov": 1,
 	"abilities": [],
+	"capacity": 5,
 	"rate": 0.0,
 	"fish_rate": 0.0,
 	"locations": [

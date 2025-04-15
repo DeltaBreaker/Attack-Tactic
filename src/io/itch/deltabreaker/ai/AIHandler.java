@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import io.itch.deltabreaker.core.Inventory;
 import io.itch.deltabreaker.core.Startup;
+import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.effect.EffectPoof;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.object.Unit;
@@ -105,6 +106,7 @@ public class AIHandler {
 										if (context.items.get(i).locX == context.enemies.get(currentUnit).locX && context.items.get(i).locY == context.enemies.get(currentUnit).locY) {
 											int overflow = context.enemies.get(currentUnit).addItem(context.items.get(i).item);
 											if (overflow == 0) {
+												AudioManager.getSound("loot.ogg").play(AudioManager.defaultMainSFXGain, false);
 												StateManager.currentState.effects.add(new EffectPoof(Vector3f.add(new Vector3f(context.enemies.get(currentUnit).locX * 16, 20, context.enemies.get(currentUnit).locY * 16), 0,
 														StateManager.currentState.tiles[context.enemies.get(currentUnit).locX][context.enemies.get(currentUnit).locY].getPosition().getY(), 0)));
 												context.items.remove(i);

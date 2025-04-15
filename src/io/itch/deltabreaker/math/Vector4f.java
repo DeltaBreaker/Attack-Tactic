@@ -8,6 +8,7 @@ public class Vector4f {
 	public static final Vector4f COLOR_GREEN = new Vector4f(0.5f, 1, 0.5f, 1);
 	public static final Vector4f COLOR_BLUE = new Vector4f(0, 0.580f, 1, 1);
 	public static final Vector4f COLOR_GRAY = new Vector4f(0.5f, 0.5f, 0.5f, 1);
+	public static final Vector4f COLOR_DARK_GRAY = new Vector4f(0.25f, 0.25f, 0.25f, 1);
 	public static final Vector4f COLOR_LAVA = new Vector4f(1.35f, 0.64f, 0.64f, 0.75f);
 	public static final Vector4f COLOR_WATER = new Vector4f(0.427f, 0.765f, 0.9f, 0.75f);
 	public static final Vector4f COLOR_SPLASH_MAIN = new Vector4f(0.39216f, 0.44314f, 0.53333f, 1);

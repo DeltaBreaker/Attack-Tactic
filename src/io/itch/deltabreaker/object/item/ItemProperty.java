@@ -5,8 +5,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.swing.JOptionPane;
@@ -43,6 +45,7 @@ public class ItemProperty implements Cloneable {
 	public static final String TYPE_ACCESSORY = "item.type.accessory";
 	public static final String TYPE_OTHER = "item.type.other";
 	public static final String TYPE_KEY_CHEST = "item.type.key.chest";
+	public static final String TYPE_GEM_ABILITY = "item.type.gem.ability";
 
 	public static final String TYPE_DAMAGE_PHYSICAL = "item.damage.physical";
 	public static final String TYPE_DAMAGE_MAGIC = "item.damage.magic";
@@ -82,6 +85,7 @@ public class ItemProperty implements Cloneable {
 	public String animation;
 	public int range;
 	public String[] abilities;
+	public int capacity;
 
 	// Wearable modifiers
 	public int hp;
@@ -139,6 +143,7 @@ public class ItemProperty implements Cloneable {
 							item.damageType = (String) jo.get("damage_type");
 							item.animation = (String) jo.get("animation");
 							item.range = Math.toIntExact((long) jo.get("range"));
+							item.capacity = Math.toIntExact((long) jo.get("capacity"));
 						}
 
 						if (item.type.equals(TYPE_WEAPON) || item.type.equals(TYPE_ACCESSORY) || item.type.equals(TYPE_EMPTY)) {
@@ -194,6 +199,19 @@ public class ItemProperty implements Cloneable {
 		try {
 			ItemProperty item = (ItemProperty) clone();
 			item.uuid = UUID.randomUUID().toString();
+
+			if (item.type.equals(TYPE_GEM_ABILITY)) {
+				String[] abilities = ItemAbility.getNameList(true);
+				ItemAbility ability = ItemAbility.ITEM_ABILITY_TRICKSTER;
+
+				item.price = 1000 * ability.getRarity();
+				item.tier = ability.getRarity();
+				item.name = ability.toString() + " Gem";
+
+				item.abilities = new String[] { ability.name() };
+
+			}
+
 			return item;
 		} catch (CloneNotSupportedException e) {
 			e.printStackTrace();
@@ -212,25 +230,39 @@ public class ItemProperty implements Cloneable {
 		return false;
 	}
 
+	public void addAbility(String ability) {
+		System.out.println(abilities.length);
+		abilities = Arrays.copyOf(abilities, abilities.length + 1);
+		abilities[abilities.length - 1] = ability;
+		System.out.println(abilities.length);
+	}
+
+	public void addAbility(ItemAbility ability) {
+		System.out.println(abilities.length);
+		abilities = Arrays.copyOf(abilities, abilities.length + 1);
+		abilities[abilities.length - 1] = ability.name();
+		System.out.println(abilities.length);
+	}
+
 	public static ItemProperty loadItem(String path) {
 		File file = new File(path);
 		if (file.exists()) {
 			try {
 				DataInputStream in = new DataInputStream(new FileInputStream(file));
-				
+
 				ItemProperty item = items.get(in.readUTF());
 				item.uuid = in.readUTF();
-				
+
 				if (item.type.equals(TYPE_WEAPON) || item.type.equals(TYPE_ACCESSORY) || item.type.equals(TYPE_EMPTY)) {
 					int length = in.readInt();
 					item.abilities = new String[length];
-					for(int i = 0; i < length; i++) {
+					for (int i = 0; i < length; i++) {
 						item.abilities[i] = in.readUTF();
 					}
 				}
-				
+
 				in.close();
-				
+
 				return item;
 			} catch (Exception e) {
 				e.printStackTrace();

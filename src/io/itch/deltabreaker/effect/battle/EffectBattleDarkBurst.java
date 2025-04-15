@@ -53,7 +53,7 @@ public class EffectBattleDarkBurst extends EffectBattle {
 	}
 
 	public void onFrame() {
-		if (frame == 1) {
+		if (frame == 1 && StateManager.currentState.effects.size() < 100) {
 			for (int i = 0; i < sparkAmount; i++) {
 				sparks.add(new EffectBattleSpark(Vector3f.mul(Vector3f.add(position, 0, -12, 2), 0.5f, 0.5f, 0.5f),
 						new Vector3f(0.384f, 0f, 0.45f).mul(3), 0.01f));

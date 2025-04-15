@@ -18,6 +18,7 @@ import com.flowpowered.noise.module.source.Perlin;
 import io.itch.deltabreaker.ai.AIType;
 import io.itch.deltabreaker.core.FileManager;
 import io.itch.deltabreaker.core.Inventory;
+import io.itch.deltabreaker.effect.EffectHealAura;
 import io.itch.deltabreaker.effect.EffectLava;
 import io.itch.deltabreaker.effect.EffectWater;
 import io.itch.deltabreaker.math.Vector3f;
@@ -42,6 +43,7 @@ public class DungeonGenerator {
 	public static final String TAG_DECORATION_DOOR = "dungeon.decoration.door";
 	public static final String TAG_DECORATION_CHEST = "dungeon.decoration.chest";
 	public static final String TAG_DECORATION_WALL = "dungeon.decoration.wall";
+	public static final String TAG_DECORATION_TERRAIN = "dungeon.decoration.terrain";
 
 	public static final String TAG_ALT_ITEM_SURPLUS = "dungeon.alt.item.surplus";
 	public static final String TAG_ALT_ENEMY_NONE = "dungeon.alt.enemy.none";
@@ -1421,6 +1423,17 @@ public class DungeonGenerator {
 				}
 				break;
 
+			case TAG_DECORATION_TERRAIN:
+					for(int x = 0; x < tiles.length; x++) {
+						for(int y = 0; y < tiles[0].length; y++) {
+							if(!tiles[x][y].isSolid() && r.nextFloat() < pattern.decorationVariables[p][0]) {
+								StateManager.currentState.effects.add(new EffectHealAura(tiles[x][y]));
+								tiles[x][y].defense = 1;
+							}
+						}
+					}
+					break;
+				
 			}
 		}
 

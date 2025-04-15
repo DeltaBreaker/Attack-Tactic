@@ -18,6 +18,7 @@
 		"ITEM_ABILITY_CURE",
 		"ITEM_ABILITY_WARP"
 	],
+	"capacity": 7,
 	"rate": 0.0,
 	"fish_rate": 0.0,
 	"locations": [

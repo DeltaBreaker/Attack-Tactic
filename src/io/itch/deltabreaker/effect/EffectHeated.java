@@ -11,6 +11,7 @@ import io.itch.deltabreaker.math.AdvMath;
 import io.itch.deltabreaker.math.Matrix4f;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
+import io.itch.deltabreaker.state.StateManager;
 
 public class EffectHeated extends Effect {
 
@@ -39,9 +40,11 @@ public class EffectHeated extends Effect {
 					if (spawnTimer < spawnRate) {
 						spawnTimer++;
 					} else {
-						spawnTimer = 0;
-						snowflakes.add(new HeatParticle(position, color.copy()));
-						snowflakes.add(new HeatParticle(position, color.copy()));
+						if (StateManager.currentState.effects.size() < 100) {
+							spawnTimer = 0;
+							snowflakes.add(new HeatParticle(position, color.copy()));
+							snowflakes.add(new HeatParticle(position, color.copy()));
+						}
 					}
 				}
 			} else if (allParticlesDone()) {

@@ -102,7 +102,7 @@ public class EffectCoupDeGrace extends EffectBattle {
 	}
 
 	public void onFrame() {
-		if (frame == 3) {
+		if (frame == 3 && StateManager.currentState.effects.size() < 100) {
 			for (int i = 0; i < sparkAmount; i++) {
 				sparks.add(new EffectBattleSpark(Vector3f.mul(Vector3f.add(position, 0, -12, 2), 0.5f, 0.5f, 0.5f), new Vector3f(3f, 1f, 0f), 0.005f));
 			}

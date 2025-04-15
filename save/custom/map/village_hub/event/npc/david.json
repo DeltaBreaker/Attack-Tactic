@@ -1,0 +1,14 @@
+{
+	"activator": "event.activator.action a0da0e0a-6b0d-4d94-91e2-53880f64b2f7",
+	"script": [
+		"controllock true",
+		
+		"init david_action_state 0",
+		
+		"if david_action_state 0",
+		"script david_first_interaction.json",
+		"end",
+		
+		"controllock false"
+	]
+}
