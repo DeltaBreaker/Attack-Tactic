@@ -15,7 +15,7 @@
 	"mov": 0,
 	"abilities": [
 		"ITEM_ABILITY_STEAL",
-		"ITEM_ABILITY_TRICKSTER"
+		"ITEM_ABILITY_BASH"
 	],
 	"capacity": 5,
 	"rate": 0.0,

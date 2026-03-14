@@ -64,7 +64,6 @@ import io.itch.deltabreaker.ui.UIBox;
 import io.itch.deltabreaker.ui.menu.Menu;
 import io.itch.deltabreaker.ui.menu.MenuDungeonAction;
 import io.itch.deltabreaker.ui.menu.MenuDungeonMain;
-import io.itch.deltabreaker.ui.menu.MenuSkillTransfer;
 import io.itch.deltabreaker.ui.menu.MenuStatusCard;
 import io.itch.deltabreaker.ui.menu.MenuUnitLevel;
 
@@ -1410,7 +1409,7 @@ public class StateDungeon extends State {
 					if (unit.exists()) {
 						state.enemies.add(Unit.loadUnit(in.readInt(), in.readInt(), Vector4f.COLOR_BASE.copy(), StateCreatorHub.LOAD_PATH + "/" + map + "/unit/" + uuid + ".dat"));
 					} else {
-						System.out.println("[StsteDungeon]: The unit file for " + StateCreatorHub.LOAD_PATH + "/" + map + "/" + uuid + " is missing");
+						System.out.println("[StateDungeon]: The unit file for " + StateCreatorHub.LOAD_PATH + "/" + map + "/" + uuid + " is missing");
 					}
 				}
 				for (Unit u : state.enemies) {
@@ -1750,8 +1749,8 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-			Inventory.active.get(0).weapon = ItemProperty.get("item.tome.exfire").copy();
-			menus.add(new MenuSkillTransfer(new Vector3f(0, 0, -80), Inventory.active.get(0).weapon));
+			
+			
 			break;
 
 		case SHOW_MINIMAP:
@@ -1929,6 +1928,7 @@ public class StateDungeon extends State {
 											for (Unit u : enemies) {
 												if (cursorPos.x == u.locX && cursorPos.y == u.locY) {
 													if (u != selectedUnit) {
+														clearSelectedTiles();
 														u.select();
 														curRotate = true;
 														AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);

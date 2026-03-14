@@ -22,7 +22,7 @@ import io.itch.deltabreaker.ui.menu.MenuTrade;
 public enum ItemAbility {
 
 	// The standard attack
-	ITEM_ABILITY_ATTACK("Attack", "target.enemy", true, false, true, false, false, 99, -1) {
+	ITEM_ABILITY_ATTACK("Attack", "target.enemy", true, false, true, false, false, new boolean[] {}, -1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -121,7 +121,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_TRADE("Trade", "target.unit", false, false, true, false, false, 99, -1) {
+	ITEM_ABILITY_TRADE("Trade", "target.unit", false, false, true, false, false, new boolean[] {}, -1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -180,7 +180,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_USE_ITEM_ALLY("", "target.unit", false, false, true, false, false, 99, -1) {
+	ITEM_ABILITY_USE_ITEM_ALLY("", "target.unit", false, false, true, false, false, new boolean[] {}, -1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -235,7 +235,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_USE_ITEM_ENEMY("", "target.enemy", false, false, true, false, false, 99, -1) {
+	ITEM_ABILITY_USE_ITEM_ENEMY("", "target.enemy", false, false, true, false, false, new boolean[] {}, -1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -290,7 +290,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_SWAP("Swap", "target.unit", false, false, true, false, true, 1, 0) {
+	ITEM_ABILITY_SWAP("Swap", "target.unit", false, false, true, false, true, new boolean[] {true}, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -359,7 +359,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_STEAL("Steal", "target.enemy", false, false, true, false, true, 1, 0) {
+	ITEM_ABILITY_STEAL("Steal", "target.enemy", false, false, true, false, true, new boolean[] {false, true, false, false, false, true}, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -427,7 +427,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_TRICKSTER("Trickster", "target.none", false, false, false, false, true, 1, 1) {
+	ITEM_ABILITY_TRICKSTER("Trickster", "target.none", false, false, false, false, true, new boolean[] {true, false, false, false, false, false, true}, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -480,7 +480,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_DISARM("Disarm", "target.enemy", true, false, true, false, true, 2, 1) {
+	ITEM_ABILITY_DISARM("Disarm", "target.enemy", true, false, true, false, true, new boolean[] {true, false, true, false, true}, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -588,7 +588,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_FORTIFIED("Fortified", "target.none", false, false, false, true, true, 1, 0) {
+	ITEM_ABILITY_FORTIFIED("Fortified", "target.none", false, false, false, true, true, new boolean[] {true, true, true, false, true}, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -641,7 +641,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_SHELTER("Shelter", "target.none", false, false, false, false, true, 1, 1) {
+	ITEM_ABILITY_SHELTER("Shelter", "target.none", false, false, false, false, true, new boolean[] {true}, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -700,7 +700,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_HARDEN("Harden", "target.none", false, false, true, false, true, 1, 1) {
+	ITEM_ABILITY_HARDEN("Harden", "target.none", false, false, true, false, true, new boolean[] {true, true}, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -767,7 +767,7 @@ public enum ItemAbility {
 	},
 
 	// One attack that confuses target
-	ITEM_ABILITY_BASH("Bash", "target.enemy", true, false, true, false, true, 1, 0) {
+	ITEM_ABILITY_BASH("Bash", "target.enemy", true, false, true, false, true, new boolean[] {true, true, true}, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -868,7 +868,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_HEAL_10("S Heal", "target.unit", false, true, true, false, false, 1, 0) {
+	ITEM_ABILITY_HEAL_10("S Heal", "target.unit", false, true, true, false, false, new boolean[] {true, true, true}, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -935,7 +935,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_HEAL_20("M Heal", "target.unit", false, true, true, false, false, 2, 1) {
+	ITEM_ABILITY_HEAL_20("M Heal", "target.unit", false, true, true, false, false, new boolean[] {true, true, true, false, false, true}, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1002,7 +1002,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_HEAL_30("L Heal", "target.unit", false, true, true, false, false, 2, 2) {
+	ITEM_ABILITY_HEAL_30("L Heal", "target.unit", false, true, true, false, false, new boolean[] {true, true, true, true, true}, 2) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1069,7 +1069,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_CURE("Cure", "target.unit", false, false, true, false, false, 2, 0) {
+	ITEM_ABILITY_CURE("Cure", "target.unit", false, false, true, false, false, new boolean[] {true, false, true}, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1138,7 +1138,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_WARP("Warp", "target.none", false, false, true, false, false, 3, 2) {
+	ITEM_ABILITY_WARP("Warp", "target.none", false, false, true, false, false, new boolean[] {false, true, false, false, false, true, true, true, false, false, false, true, false}, 2) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1211,7 +1211,7 @@ public enum ItemAbility {
 
 	},
 
-	ITEM_ABILITY_IMMOLATION("Immolation", "target.none", false, false, true, false, false, 3, 3) {
+	ITEM_ABILITY_IMMOLATION("Immolation", "target.none", false, false, true, false, false, new boolean[] {true, true, true, true, false, false, false, true}, 3) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1280,7 +1280,7 @@ public enum ItemAbility {
 	},
 
 	// Adds half of enemy def as damage but with 1/3rd attack
-	ITEM_ABILITY_WEAK_POINT("Weak Point", "target.enemy", true, false, true, false, true, 1, 0) {
+	ITEM_ABILITY_WEAK_POINT("Weak Point", "target.enemy", true, false, true, false, true, new boolean[] {true, false, false, false, false, true}, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1379,7 +1379,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_ATTACK_POISON("Toxic Cut", "target.enemy", true, false, true, false, true, 1, 0) {
+	ITEM_ABILITY_ATTACK_POISON("Toxic Cut", "target.enemy", true, false, true, false, true, new boolean[] {true, false, false, false, false, true, true}, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1478,7 +1478,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_ATTACK_SLEEP("Tranq Cut", "target.enemy", true, false, true, false, true, 1, 1) {
+	ITEM_ABILITY_ATTACK_SLEEP("Tranq Cut", "target.enemy", true, false, true, false, true, new boolean[] {false, true, false, false, false, true, true}, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1579,7 +1579,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_BRUTE("Brute", "target.none", false, false, false, true, true, 1, 0) {
+	ITEM_ABILITY_BRUTE("Brute", "target.none", false, false, false, true, true, new boolean[] {true, true, true, false, false, false, true, false, false, false, false, true}, 0) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1632,7 +1632,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_REFLECT("Reflect", "target.none", false, false, false, false, true, 2, 1) {
+	ITEM_ABILITY_REFLECT("Reflect", "target.none", false, false, false, false, true, new boolean[] {true, true, false, false, false, true}, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1685,7 +1685,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_XPGAIN_10("Growth", "target.none", false, false, false, false, true, 3, 3) {
+	ITEM_ABILITY_XPGAIN_10("Growth", "target.none", false, false, false, false, true, new boolean[] { true, true, true, false, false, false, true }, 3) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1738,7 +1738,7 @@ public enum ItemAbility {
 		}
 	},
 
-	ITEM_ABILITY_LOCKSMITH("Locksmith", "target.none", false, false, false, false, true, 1, 1) {
+	ITEM_ABILITY_LOCKSMITH("Locksmith", "target.none", false, false, false, false, true, new boolean[] { true, true }, 1) {
 
 		@Override
 		public boolean use(Unit u, StateDungeon context) {
@@ -1791,7 +1791,7 @@ public enum ItemAbility {
 		}
 	};
 
-	ItemAbility(String name, String target, boolean showCombat, boolean showHealing, boolean activated, boolean hasStats, boolean canInherit, int size, int rarity) {
+	ItemAbility(String name, String target, boolean showCombat, boolean showHealing, boolean activated, boolean hasStats, boolean canInherit, boolean[] size, int rarity) {
 		this.name = name;
 		this.target = target;
 		this.showCombat = showCombat;
@@ -1833,7 +1833,7 @@ public enum ItemAbility {
 		return name;
 	}
 
-	public int getSize() {
+	public boolean[] getSize() {
 		return size;
 	}
 
@@ -1882,7 +1882,7 @@ public enum ItemAbility {
 	public boolean activated;
 	public boolean hasStats;
 	public boolean canInherit;
-	public int size;
+	public boolean[] size;
 	public Vector4f color;
 	public int rarity;
 

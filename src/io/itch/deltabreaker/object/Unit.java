@@ -49,11 +49,11 @@ public class Unit {
 	public static final int TYPE_HOSTILE = 1;
 	public static final int TYPE_FRIENDLY = 2;
 
-	public static final String STATUS_POISON = "unit.status.poison";
-	public static final String STATUS_SLEEP = "unit.status.sleep";
-	public static final String STATUS_CONFUSION = "unit.status.confusion";
-	public static final String STATUS_DAZE = "unit.status.daze";
-	public static final String STATUS_GOLDEN = "unit.status.golden";
+	public static final String STATUS_POISON = "unit.status.poison"; // Deals damage
+	public static final String STATUS_SLEEP = "unit.status.sleep"; // Skips turn
+	public static final String STATUS_CONFUSION = "unit.status.confusion"; // Gives a random movement change from -3 to 3
+	public static final String STATUS_DAZE = "unit.status.daze"; // Can't activates abilities
+	public static final String STATUS_GOLDEN = "unit.status.golden"; // Has extra levels, immune to status
 
 	public static ArrayList<String> names = new ArrayList<>();
 	public static HashMap<String, float[]> GROWTH_PROFILES = new HashMap<>();

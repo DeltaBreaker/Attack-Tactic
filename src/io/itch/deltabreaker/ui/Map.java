@@ -43,7 +43,7 @@ public class Map {
 				}
 			}
 		}
-		time = pixels.size() / 72;
+		time = pixels.size() / 80;
 	}
 
 	public void toggle() {
@@ -76,6 +76,7 @@ public class Map {
 	}
 	
 	public void tick() {
+		time = pixels.size() / 30;
 		if(sin < 359) {
 			sin++;
 		} else {
@@ -166,6 +167,9 @@ class MapPixel {
 		}
 		if (height < target) {
 			height += (target - height) * 0.075f;
+		}
+		if(Math.abs(height - target) < 0.15f) {
+			height = target;
 		}
 		position.setX(origin.getX() + height + Startup.staticView.targetPosition.getX() * 2);
 		position.setY(origin.getY() + Startup.staticView.targetPosition.getY() * 2);

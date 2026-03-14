@@ -231,17 +231,13 @@ public class ItemProperty implements Cloneable {
 	}
 
 	public void addAbility(String ability) {
-		System.out.println(abilities.length);
 		abilities = Arrays.copyOf(abilities, abilities.length + 1);
 		abilities[abilities.length - 1] = ability;
-		System.out.println(abilities.length);
 	}
 
 	public void addAbility(ItemAbility ability) {
-		System.out.println(abilities.length);
 		abilities = Arrays.copyOf(abilities, abilities.length + 1);
 		abilities[abilities.length - 1] = ability.name();
-		System.out.println(abilities.length);
 	}
 
 	public static ItemProperty loadItem(String path) {

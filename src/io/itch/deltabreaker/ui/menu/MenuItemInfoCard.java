@@ -255,7 +255,7 @@ class MenuItemInfoCardSkillsInfo extends Menu {
 		}
 
 		if (selected < 6) {
-			for (int i = 0; i < ability.getSize(); i++) {
+			for (int i = 0; i < 1; i++) {
 				BatchSorter.add("item_material_gem.dae", "item_material_diamond.png", "static_3d", Material.DEFAULT.toString(), Vector3f.add(position, 8 + i * 18, selected < 5 ? -17 : -9, 1), new Vector3f(0, 0, 0), new Vector3f(0.5f, 0.5f, 0.5f),
 						ability.getColor(), false, true);
 			}
