@@ -62,6 +62,7 @@ import io.itch.deltabreaker.ui.Message;
 import io.itch.deltabreaker.ui.TextBox;
 import io.itch.deltabreaker.ui.UIBox;
 import io.itch.deltabreaker.ui.menu.Menu;
+import io.itch.deltabreaker.ui.menu.MenuAbilityEditor;
 import io.itch.deltabreaker.ui.menu.MenuDungeonAction;
 import io.itch.deltabreaker.ui.menu.MenuDungeonMain;
 import io.itch.deltabreaker.ui.menu.MenuStatusCard;
@@ -232,7 +233,7 @@ public class StateDungeon extends State {
 		info = "";
 
 		Inventory.active.get(0).weapon = ItemProperty.get("item.tome.exfire");
-		
+
 		dungeon.map.tick();
 
 		// Moves the shadow camera along with the normal camera
@@ -1749,8 +1750,17 @@ public class StateDungeon extends State {
 			break;
 
 		case MISC:
-			
-			
+			for (ItemAbility i : ItemAbility.values()) {
+				ItemProperty item = ItemProperty.get("item.material.gem.ability").copy();
+				item.abilities = new String[] { i.name() };
+				if (i.size.length > 0) {
+					Inventory.addItem(item.copy());
+				}
+			}
+			for (ItemProperty i : Inventory.getItemList()) {
+				// System.out.println(i.abilities[0]);
+			}
+			menus.add(new MenuAbilityEditor(new Vector3f(0, 0, -80), Inventory.active.get(0).weapon));
 			break;
 
 		case SHOW_MINIMAP:
@@ -1778,11 +1788,11 @@ public class StateDungeon extends State {
 				break;
 			}
 
-			if(menus.size() > 0) {
-				menus.get(0).action("left", null);
+			if (menus.size() > 0) {
+				menus.get(0).action("shift_left", null);
 				break;
 			}
-			
+
 			if (combatMode && messages.size() == 0) {
 				if (selectedAbility.target.equals(ItemAbility.TARGET_ENEMY)) {
 					for (Unit u : enemies) {
@@ -1833,11 +1843,11 @@ public class StateDungeon extends State {
 				break;
 			}
 
-			if(menus.size() > 0) {
-				menus.get(0).action("right", null);
+			if (menus.size() > 0) {
+				menus.get(0).action("shift_right", null);
 				break;
 			}
-			
+
 			if (combatMode && messages.size() == 0) {
 				if (selectedAbility.target.equals(ItemAbility.TARGET_ENEMY)) {
 					for (Unit u : enemies) {

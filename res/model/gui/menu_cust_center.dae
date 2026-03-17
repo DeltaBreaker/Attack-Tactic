@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <created>2026-03-14T10:08:37Z</created>
+    <modified>2026-03-14T10:08:37Z</modified>
+    <revision>1.0</revision>
+  </asset>
+  <library_images>
+    <image id="Board-diffuse-tex" name="Board-diffuse-tex">
+      <init_from>menu_cust_center_Board_diffuse.png</init_from>
+    </image>
+    <image id="Board-emissive-tex" name="Board-emissive-tex">
+      <init_from>menu_cust_center_Board_emissive.png</init_from>
+    </image>
+  </library_images>
+  <library_effects>
+    <effect id="Board-Effect">
+      <profile_COMMON>
+        <newparam sid="Board-diffuse-surface">
+          <surface type="2D">
+            <init_from>Board-diffuse-tex</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="Board-emissive-surface">
+          <surface type="2D">
+            <init_from>Board-emissive-tex</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="Board-diffuse-sampler">
+          <sampler2D>
+            <source>Board-diffuse-surface</source>
+            <wrap_s>CLAMP</wrap_s>
+            <wrap_t>CLAMP</wrap_t>
+            <minfilter>NONE</minfilter>
+            <magfilter>NONE</magfilter>
+            <mipfilter>NONE</mipfilter>
+          </sampler2D>
+        </newparam>
+        <newparam sid="Board-emissive-sampler">
+          <sampler2D>
+            <source>Board-emissive-surface</source>
+            <wrap_s>CLAMP</wrap_s>
+            <wrap_t>CLAMP</wrap_t>
+            <minfilter>NONE</minfilter>
+            <magfilter>NONE</magfilter>
+            <mipfilter>NONE</mipfilter>
+          </sampler2D>
+        </newparam>
+        <technique sid="phong1">
+          <phong>
+            <emission>
+              <texture texcoord="Board-tex-bind" texture="Board-emissive-sampler"/>
+            </emission>
+            <ambient>
+              <color>1.0 1.0 1.0 1.0</color>
+            </ambient>
+            <diffuse>
+              <texture texcoord="Board-tex-bind" texture="Board-diffuse-sampler"/>
+            </diffuse>
+            <specular>
+              <color>0.0 0.0 0.0 1.0</color>
+            </specular>
+            <shininess>
+              <float>5.0</float>
+            </shininess>
+            <reflective>
+              <color>1.0 1.0 1.0 1.0</color>
+            </reflective>
+            <reflectivity>
+              <float>0.2</float>
+            </reflectivity>
+            <transparent>
+              <color>1.0 1.0 1.0 1.0</color>
+            </transparent>
+            <transparency>
+              <float>1.0</float>
+            </transparency>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="Board-Material">
+      <instance_effect url="#Board-Effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="Board-Geom" name="Board-Geom">
+      <mesh>
+        <source id="Board-Pos">
+          <float_array count="72" id="Board-Pos-array">-3.0 -3.0 0.5 -3.0 3.0 0.5 -3.0 3.0 -0.5 -3.0 -3.0 -0.5 3.0 -3.0 -0.5 3.0 3.0 -0.5 3.0 3.0 0.5 3.0 -3.0 0.5 -3.0 -3.0 -0.5 3.0 -3.0 -0.5 3.0 -3.0 0.5 -3.0 -3.0 0.5 -3.0 3.0 0.5 3.0 3.0 0.5 3.0 3.0 -0.5 -3.0 3.0 -0.5 -3.0 3.0 -0.5 3.0 3.0 -0.5 3.0 -3.0 -0.5 -3.0 -3.0 -0.5 -3.0 -3.0 0.5 3.0 -3.0 0.5 3.0 3.0 0.5 -3.0 3.0 0.5 </float_array>
+          <technique_common>
+            <accessor count="24" source="#Board-Pos-array" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Board-UV">
+          <float_array count="48" id="Board-UV-array">0.03125 0.625 0.03125 1.0 0.0 1.0 0.0 0.625 0.0 0.625 0.0 1.0 0.03125 1.0 0.03125 0.625 0.0 0.625 0.0 1.0 0.03125 1.0 0.03125 0.625 0.03125 0.625 0.03125 1.0 0.0 1.0 0.0 0.625 0.3125 0.625 0.5 0.625 0.5 1.0 0.3125 1.0 0.3125 1.0 0.5 1.0 0.5 0.625 0.3125 0.625 </float_array>
+          <technique_common>
+            <accessor count="24" source="#Board-UV-array" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Board-Normal">
+          <float_array count="18" id="Board-Normal-array">-1.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 1.0 0.0 0.0 0.0 -1.0 0.0 0.0 1.0</float_array>
+          <technique_common>
+            <accessor count="6" source="#Board-Normal-array" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Board-Vertices">
+          <input semantic="POSITION" source="#Board-Pos"/>
+        </vertices>
+        <polylist count="6" material="Board-Material">
+          <input offset="0" semantic="VERTEX" source="#Board-Vertices"/>
+          <input offset="1" semantic="TEXCOORD" set="0" source="#Board-UV"/>
+          <input offset="2" semantic="NORMAL" source="#Board-Normal"/>
+          <vcount>4 4 4 4 4 4 </vcount>
+          <p>0 0 0 1 1 0 2 2 0 3 3 0 4 4 1 5 5 1 6 6 1 7 7 1 8 8 2 9 9 2 10 10 2 11 11 2 12 12 3 13 13 3 14 14 3 15 15 3 16 16 4 17 17 4 18 18 4 19 19 4 20 20 5 21 21 5 22 22 5 23 23 5 </p>
+        </polylist>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_animations/>
+  <library_visual_scenes>
+    <visual_scene id="DefaultScene">
+      <node id="Board" name="Board">
+        <translate>0 0 0</translate>
+        <rotate>0 0 1 0</rotate>
+        <rotate>0 1 0 0</rotate>
+        <rotate>1 0 0 0</rotate>
+        <scale>1 1 1</scale>
+        <instance_geometry url="#Board-Geom">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Board-Material" target="#Board-Material">
+                <bind_vertex_input input_semantic="TEXCOORD" input_set="0" semantic="Board-tex-bind"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#DefaultScene"/>
+  </scene>
+</COLLADA>

@@ -279,10 +279,6 @@ public class Startup implements Runnable {
 				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
 				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
 				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.tank.magic"), AIType.get("standard_dungeon.json")));
-
-				for(int i = 0; i < 10; i++) {
-					Inventory.addItem(ItemProperty.get("item.material.gem.ability").copy());
-				}
 				
 //				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
 //				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));

@@ -1,5 +1,6 @@
 package io.itch.deltabreaker.object.item;
 
+import java.awt.Point;
 import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -8,7 +9,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Random;
 import java.util.UUID;
 
 import javax.swing.JOptionPane;
@@ -86,6 +86,8 @@ public class ItemProperty implements Cloneable {
 	public int range;
 	public String[] abilities;
 	public int capacity;
+	public Point[] positions = new Point[] {};
+	public int[] rotations = new int[] {};
 
 	// Wearable modifiers
 	public int hp;
@@ -201,14 +203,13 @@ public class ItemProperty implements Cloneable {
 			item.uuid = UUID.randomUUID().toString();
 
 			if (item.type.equals(TYPE_GEM_ABILITY)) {
-				String[] abilities = ItemAbility.getNameList(true);
-				ItemAbility ability = ItemAbility.ITEM_ABILITY_TRICKSTER;
+				ItemAbility ability = ItemAbility.valueOf(item.abilities[0]);
 
 				item.price = 1000 * ability.getRarity();
 				item.tier = ability.getRarity();
 				item.name = ability.toString() + " Gem";
 
-				item.abilities = new String[] { ability.name() };
+				item.abilities = new String[] { item.abilities[0] };
 
 			}
 

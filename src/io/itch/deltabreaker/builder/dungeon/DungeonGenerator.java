@@ -25,6 +25,7 @@ import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.math.Vector4f;
 import io.itch.deltabreaker.object.Unit;
 import io.itch.deltabreaker.object.item.Item;
+import io.itch.deltabreaker.object.item.ItemAbility;
 import io.itch.deltabreaker.object.item.ItemProperty;
 import io.itch.deltabreaker.object.tile.Tile;
 import io.itch.deltabreaker.object.tile.TileBrazier;
@@ -889,6 +890,16 @@ public class DungeonGenerator {
 				while (r.nextFloat() > items[item].rate) {
 					item = r.nextInt(items.length);
 				}
+				
+				ItemAbility[] abilities = ItemAbility.values();
+				int ability = r.nextInt(abilities.length);
+				while (pattern.tier >= abilities[ability].rarity) {
+					ability = r.nextInt(abilities.length);
+				}
+				if(items[item].type.equals(ItemProperty.TYPE_GEM_ABILITY)) {
+					items[item].abilities = new String[] { abilities[ability].name() };
+				}
+				
 				this.items.add(new Item(
 						position.add(new Vector3f(rooms.get(i).x, 16, rooms.get(i).y)).mul(new Vector3f(16, 1, 16)),
 						items[item].copy()));

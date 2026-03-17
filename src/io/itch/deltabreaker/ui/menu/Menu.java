@@ -56,14 +56,8 @@ public abstract class Menu extends UIBox {
 	}
 
 	public void tick() {
-		if (selected > options.length - 1) {
-			selected = options.length - 1;
-		}
 		if (options.length == 0) {
 			open = false;
-		}
-		if (selected > options.length - 1) {
-			selected = options.length - 1;
 		}
 		if (open) {
 			if (height < openTo) {
