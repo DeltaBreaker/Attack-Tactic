@@ -26,6 +26,7 @@ public class MenuAbilityEditor extends Menu {
 	private int gridX = 0, gridY = 0;
 	private Vector3f cursorPos;
 	private boolean picked = false;
+	private boolean pickedFromList = true;
 	private int pickPos = -1;
 	private int heldRotation = 0;
 	private boolean[] heldPiece;
@@ -53,40 +54,76 @@ public class MenuAbilityEditor extends Menu {
 				switch (command) {
 
 				case "":
-					if (!onGrid && abilities.size() > 0) {
+					if (!picked && !onGrid && abilities.size() > 0) {
 						picked = true;
 						pickPos = selected;
+						pickedFromList = true;
 						onGrid = true;
 						heldRotation = 0;
 						heldPiece = ItemAbility.valueOf(abilities.get(pickPos).abilities[0]).size;
 						AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 						break;
 					}
+					if (!picked && onGrid) {
+						boolean wasPicked = false;
+						for (int i = 0; i < item.abilities.length; i++) {
+							boolean[] abilityList = ItemAbility.valueOf(item.abilities[i]).size;
+							Point position = item.positions[i];
+
+							// Rotate ability list for matching
+							int rotations = item.rotations[i];
+							for (int r = 0; r < rotations; r++) {
+								abilityList = rotateRight(abilityList);
+							}
+
+							int posX = gridX - position.x;
+							int posY = gridY - position.y;
+							int pos = posX + posY * 5;
+
+							if (pos > -1 && pos < abilityList.length && abilityList[pos]) {
+								wasPicked = true;
+								picked = true;
+								pickPos = i;
+								pickedFromList = false;
+								heldRotation = rotations;
+								heldPiece = abilityList;
+								AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+								break;
+							}
+						}
+						if (wasPicked) {
+							break;
+						}
+					}
 					if (picked) {
 						if (posValid()) {
-							String[] abilities = new String[item.abilities.length + 1];
-							Point[] positions = new Point[abilities.length];
-							int[] rotations = new int[abilities.length];
-							for (int i = 0; i < item.abilities.length; i++) {
-								abilities[i] = item.abilities[i];
-								positions[i] = item.positions[i];
-								rotations[i] = item.rotations[i];
+							if (pickedFromList) {
+								String[] abilities = new String[item.abilities.length + 1];
+								Point[] positions = new Point[abilities.length];
+								int[] rotations = new int[abilities.length];
+								for (int i = 0; i < item.abilities.length; i++) {
+									abilities[i] = item.abilities[i];
+									positions[i] = item.positions[i];
+									rotations[i] = item.rotations[i];
+								}
+								abilities[abilities.length - 1] = ItemAbility.valueOf(this.abilities.get(pickPos).abilities[0]).name();
+								positions[positions.length - 1] = new Point(gridX, gridY);
+								rotations[rotations.length - 1] = heldRotation;
+								item.abilities = abilities;
+								item.positions = positions;
+								item.rotations = rotations;
+								this.abilities.remove(pickPos);
+								onGrid = false;
+								if (selected > this.abilities.size() - 1) {
+									selected = this.abilities.size() - 1;
+								}
+							} else {
+								item.positions[pickPos] = new Point(gridX, gridY);
+								item.rotations[pickPos] = heldRotation;
 							}
-							abilities[abilities.length - 1] = ItemAbility.valueOf(this.abilities.get(pickPos).abilities[0]).name();
-							positions[positions.length - 1] = new Point(gridX, gridY);
-							rotations[rotations.length - 1] = heldRotation;
-							item.abilities = abilities;
-							item.positions = positions;
-							item.rotations = rotations;
-							this.abilities.remove(pickPos);
-
 							picked = false;
-							onGrid = false;
 							pickPos = -1;
 							heldRotation = 0;
-							if (selected > this.abilities.size() - 1) {
-								selected = this.abilities.size() - 1;
-							}
 							AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 						} else {
 							AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
@@ -142,7 +179,9 @@ public class MenuAbilityEditor extends Menu {
 					picked = false;
 					pickPos = -1;
 					AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
-					onGrid = false;
+					if (pickedFromList) {
+						onGrid = false;
+					}
 					return;
 				}
 
@@ -155,27 +194,52 @@ public class MenuAbilityEditor extends Menu {
 	}
 
 	private boolean posValid() {
-		boolean isValid = true;
 		int height = (int) Math.ceil(heldPiece.length / 5f);
 
-		loopStart: for (int x = 0; x < Math.min(5, heldPiece.length); x++) {
+		for (int x = 0; x < Math.min(5, heldPiece.length); x++) {
 			for (int y = 0; y < height; y++) {
 				int pos = x + y * 5;
-				if (pos < heldPiece.length) {
+				if (pos < heldPiece.length && pos > -1) {
 					if (heldPiece[pos]) {
 						if (gridX + x > item.capacity - 1) {
-							isValid = false;
-							break loopStart;
+							return false;
 						}
 						if (gridY + y > item.capacity - 1) {
-							isValid = false;
-							break loopStart;
+							return false;
+						}
+
+						// Loop through placed abilities
+						for (int i = 0; i < item.abilities.length; i++) {
+							if (!pickedFromList && i == pickPos) {
+								continue;
+							}
+							
+							boolean[] abilityList = ItemAbility.valueOf(item.abilities[i]).size;
+							Point position = item.positions[i];
+
+							// Rotate ability list for matching
+							int rotations = item.rotations[i];
+							for (int r = 0; r < rotations; r++) {
+								abilityList = rotateRight(abilityList);
+							}
+
+							int posXOnBoard = gridX + x;
+							int posYOnBoard = gridY + y;
+
+							int posXOnPiece = posXOnBoard - position.x;
+							int posYOnPiece = posYOnBoard - position.y;
+
+							int posTwo = posXOnPiece + posYOnPiece * 5;
+							if (posTwo < abilityList.length && posTwo > -1 && abilityList[posTwo]) {
+								return false;
+							}
 						}
 					}
 				}
 			}
 		}
-		return isValid;
+
+		return true;
 	}
 
 	public void tick() {
@@ -212,9 +276,9 @@ public class MenuAbilityEditor extends Menu {
 
 		if (subMenu.size() == 0 && open) {
 			if (!onGrid) {
-				StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() + 36, position.getY() - 12 - Math.min(9, selected) * 7, position.getZ() + 2));
+				StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() + 36, position.getY() - 12 - Math.min(9, selected) * 7 - 6, position.getZ() + 2));
 			} else {
-				StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() + gridX * 7f - 1, position.getY() - 12 - gridY * 7f, position.getZ() + 2));
+				StateManager.currentState.cursor.setLocation(new Vector3f(position.getX() + gridX * 7f - 1, position.getY() - 12 - gridY * 7f - 6, position.getZ() + 2));
 			}
 		}
 	}
@@ -322,7 +386,6 @@ public class MenuAbilityEditor extends Menu {
 				minLength = length;
 			}
 		}
-		
 
 		// Rotate array
 		for (int x = 0; x < Math.min(5, input.length); x++) {
@@ -360,30 +423,67 @@ public class MenuAbilityEditor extends Menu {
 	public void render() {
 		UIBox.render(position, width, height);
 
+		item.capacity = 5;
+		
 		// Draw grid
+		int offset = -6;
 		for (int x = 0; x < item.capacity; x++) {
 			for (int y = 0; y < item.capacity; y++) {
-				if (height > 15 + y * 7) {
-					BatchSorter.add("menu_cust_outline.dae", "menu_cust_outline.png", "static_3d", Material.DEFAULT.toString(), Vector3f.add(position, 8 + x * 7, -9 - y * 7, 1), new Vector3f(0, 0, 0), new Vector3f(0.5f, 0.5f, 0.5f),
+				if (height > 15 + offset + y * 7) {
+					BatchSorter.add("menu_cust_outline.dae", "menu_cust_outline.png", "static_3d", Material.DEFAULT.toString(), Vector3f.add(position, 8 + x * 7, -9 - y * 7 + offset, 1), new Vector3f(0, 0, 0), new Vector3f(0.5f, 0.5f, 0.5f),
 							new Vector4f(1, 1, 1, 1), false, true);
 				}
 			}
 		}
 
+		// Draw hovered ability
+		String text = "";
+		Vector4f color = Vector4f.COLOR_BASE;
+		
+		if(onGrid) {
+			for (int i = 0; i < item.abilities.length; i++) {
+				if(!pickedFromList && i == pickPos) {
+					break;
+				}
+				boolean[] abilityList = ItemAbility.valueOf(item.abilities[i]).size;
+				Point position = item.positions[i];
+
+				// Rotate ability list for matching
+				int rotations = item.rotations[i];
+				for (int r = 0; r < rotations; r++) {
+					abilityList = rotateRight(abilityList);
+				}
+
+				int posX = gridX - position.x;
+				int posY = gridY - position.y;
+				int pos = posX + posY * 5;
+
+				if (pos > -1 && pos < abilityList.length && abilityList[pos]) {
+					text = ItemAbility.valueOf(item.abilities[i]).toString();
+					color = ItemAbility.valueOf(item.abilities[i]).color;
+					break;
+				}
+			}
+		}
+		
+		if (this.height > 15 + 6 * 7) {
+			TextRenderer.render(text, Vector3f.add(position, 7, 36.5f - 6 * 7, 1), new Vector3f(0, 0, 0), new Vector3f(0.5f, 0.5f, 0.5f), color, true);
+		}
+		
 		// Draw ability list
 		for (int i = 0; i < Math.min(10, abilities.size()); i++) {
-			if (picked && i == Math.min(9, pickPos)) {
+			if ((picked && pickedFromList) && i == Math.min(9, pickPos)) {
 				continue;
 			}
 			ItemAbility ability = ItemAbility.valueOf(abilities.get(i + Math.max(0, selected - 9)).abilities[0]);
 			int height = (int) Math.ceil(ability.size.length / 5f);
 			for (int x = 0; x < Math.min(5, ability.size.length); x++) {
 				for (int y = 0; y < height; y++) {
-					if (this.height > 15 + i * 7) {
+					if (this.height > 15 + i * 7 + offset) {
 						int pos = x + y * 5;
 						if (pos < ability.size.length) {
 							if (ability.size[pos]) {
-								BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(), Vector3f.add(position, 47.5f + x, -9 - i * 7 - y + height / 4f, 1), new Vector3f(0, 0, 0), new Vector3f(0.5f, 0.5f, 0.5f),
+								BatchSorter.add("pixel.dae", "pixel.png", "static_3d", Material.DEFAULT.toString(), Vector3f.add(position, 47.5f + x, -9 - i * 7 - y + height / 4f + offset, 1), new Vector3f(0, 0, 0), new Vector3f(0.5f, 0.5f, 0.5f),
 										ability.getColor(), false, true);
 							}
 						}
@@ -391,14 +491,14 @@ public class MenuAbilityEditor extends Menu {
 				}
 			}
 
-			if (this.height > 15 + i * 7) {
-				TextRenderer.render(ability.toString(), Vector3f.add(position, 57, -9.5f - i * 7, 1), new Vector3f(0, 0, 0), new Vector3f(0.5f, 0.5f, 0.5f), ability.getColor(), true);
+			if (this.height > 15 + i * 7 + offset) {
+				TextRenderer.render(ability.toString(), Vector3f.add(position, 57, -9.5f - i * 7 + offset, 1), new Vector3f(0, 0, 0), new Vector3f(0.5f, 0.5f, 0.5f), ability.getColor(), true);
 			}
 		}
 
 		// Draw picked ability
 		if (picked && pickPos > -1) {
-			ItemAbility ability = ItemAbility.valueOf(abilities.get(pickPos).abilities[0]);
+			ItemAbility ability = ItemAbility.valueOf((pickedFromList) ? abilities.get(pickPos).abilities[0] : item.abilities[pickPos]);
 			int height = (int) Math.ceil(heldPiece.length / 5f);
 			for (int x = 0; x < Math.min(5, heldPiece.length); x++) {
 				for (int y = 0; y < height; y++) {
@@ -415,6 +515,10 @@ public class MenuAbilityEditor extends Menu {
 
 		// Draw weapon abilities
 		for (int i = 0; i < item.abilities.length; i++) {
+			if (!pickedFromList && pickPos == i) {
+				continue;
+			}
+
 			ItemAbility ability = ItemAbility.valueOf(item.abilities[i]);
 			Point point = item.positions[i];
 			boolean[] drawnPiece = ability.size;
@@ -427,7 +531,7 @@ public class MenuAbilityEditor extends Menu {
 						int pos = x + y * 5;
 						if (pos < drawnPiece.length) {
 							if (drawnPiece[pos]) {
-								BatchSorter.add("menu_cust_center.dae", "menu_cust_center.png", "static_3d", Material.DEFAULT.toString(), Vector3f.add(position, 8 + (x + point.x) * 7, -9 - (y + point.y) * 7, 1), new Vector3f(0, 0, 0),
+								BatchSorter.add("menu_cust_center.dae", "menu_cust_center.png", "static_3d", Material.DEFAULT.toString(), Vector3f.add(position, 8 + (x + point.x) * 7, -9 - (y + point.y) * 7 + offset, 1), new Vector3f(0, 0, 0),
 										new Vector3f(0.5f, 0.5f, 0.5f), ability.getColor(), false, true);
 							}
 						}

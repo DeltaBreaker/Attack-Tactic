@@ -155,7 +155,7 @@ public class Startup implements Runnable {
 			checkArgs(args);
 			System.out.println("[Startup] Starting game... ");
 			thread = new Startup(args);
-			new Thread(thread).start();
+			thread.run();
 		}
 	}
 
