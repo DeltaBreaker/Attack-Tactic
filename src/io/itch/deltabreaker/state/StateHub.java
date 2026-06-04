@@ -35,6 +35,7 @@ import io.itch.deltabreaker.math.Vector4f;
 import io.itch.deltabreaker.object.Cursor;
 import io.itch.deltabreaker.object.Unit;
 import io.itch.deltabreaker.object.tile.Tile;
+import io.itch.deltabreaker.object.tile.TileBrazier;
 import io.itch.deltabreaker.ui.menu.Menu;
 
 public class StateHub extends State {
@@ -61,8 +62,6 @@ public class StateHub extends State {
 		if (Inventory.units.size() > 0) {
 			camX = Inventory.units.get(0).x / 2.0;
 			camY = Inventory.units.get(0).y / 2.0 + 24;
-			rcamX = Math.floorDiv((int) camX, 8) - 15;
-			rcamY = Math.floorDiv((int) camY, 8) - 17;
 			Startup.camera.targetPosition.setX((float) camX);
 			Startup.camera.targetPosition.setZ((float) camY);
 			Startup.camera.targetPosition.setY(42 + (tiles[Inventory.units.get(0).locX][Inventory.units.get(0).locY].getPosition().getY() / 2));
@@ -80,7 +79,17 @@ public class StateHub extends State {
 			}
 
 			Inventory.units.get(0).tick();
+		} else {
+			Startup.camera.targetPosition.setX((float) camX);
+			Startup.camera.targetPosition.setZ((float) camY);
+			Startup.camera.targetPosition.setY(42 + (tiles[cursorPos.x][cursorPos.y].getPosition().getY() / 2));
+			Startup.shadowCamera.setPosition(Startup.camera.position.getX(), Startup.shadowCamera.position.getY(), Startup.camera.position.getZ());
+			Startup.shadowCamera.targetPosition.setY(128 + tiles[cursorPos.x][cursorPos.y].getPosition().getY() / 2);
 		}
+			
+		rcamX = Math.floorDiv((int) camX, 8) - 15;
+		rcamY = Math.floorDiv((int) camY, 8) - 17;
+		
 		for (Unit u : npcs) {
 			u.tick();
 		}
@@ -285,7 +294,23 @@ public class StateHub extends State {
 				hub.tiles = new Tile[width][height];
 				for (int x = 0; x < width; x++) {
 					for (int y = 0; y < height; y++) {
-						hub.tiles[x][y] = Tile.getTile(Tile.getProperty(in.readUTF()), new Vector3f(in.readFloat() / 16, in.readFloat() / 16, in.readFloat() / 16));
+						String prop = in.readUTF();
+						boolean hasTag = false;
+						String[] tags = Tile.getTagsFromString(prop);
+						for (String s : tags) {
+							if (s.equals(Tile.TAG_DECORATION_ILLUMINATION_WALL)) {
+								hasTag = true;
+							}
+						}
+						
+						if(hasTag) {
+							String tile = in.readUTF();
+							Vector3f position = new Vector3f(in.readFloat() / 16, in.readFloat() / 16, in.readFloat() / 16);
+							Tile base = Tile.getTile(Tile.getProperty(tile), position.copy());
+							hub.tiles[x][y] = new TileBrazier(Tile.getProperty(prop), position.copy(), base);
+						} else {
+							hub.tiles[x][y] = Tile.getTile(Tile.getProperty(prop), new Vector3f(in.readFloat() / 16, in.readFloat() / 16, in.readFloat() / 16));
+						}
 						hub.tiles[x][y].setRotation(in.readFloat(), in.readFloat(), in.readFloat());
 
 						if (in.readBoolean()) {

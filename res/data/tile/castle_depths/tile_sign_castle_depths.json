@@ -1,0 +1,16 @@
+{
+	"tags": [
+		"pallet.castle_depths"
+	],
+	"property": "TILE_COMPOUND",
+	"model": "tile_sign.dae",
+	"texture": "tile_sign.png",
+	"shader": "main_3d",
+	"solid": true,
+	"offset": [
+		0.0,
+		16.0,
+		0.0
+	],
+	"material": "DEFAULT"
+}

@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.castle_depths",
+        "tile.house.shelf.save"
+    ],
+    "property": "TILE_COMPOUND",
+    "model": "tile_shelf_save.dae",
+    "texture": "tile_shelf_save.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 16.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

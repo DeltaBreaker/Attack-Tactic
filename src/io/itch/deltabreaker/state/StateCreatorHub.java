@@ -872,7 +872,7 @@ public class StateCreatorHub extends State {
 						} else {
 							state.tiles[x][y] = Tile.getTile(Tile.getProperty(prop), new Vector3f(in.readFloat() / 16, in.readFloat() / 16, in.readFloat() / 16));
 						}
-						state.tiles[x][y].rotate(in.readFloat(), in.readFloat(), in.readFloat());
+						state.tiles[x][y].setRotation(in.readFloat(), in.readFloat(), in.readFloat());
 
 						if (in.readBoolean()) {
 							Point p = new Point(x, y);

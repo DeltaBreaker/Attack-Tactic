@@ -1,0 +1,15 @@
+{
+    "tags": [
+        "pallet.castle_depths",
+        "tile.house.bed"
+    ],
+    "property": "TILE_ROTATED_COMPOUND",
+    "model": "tile_bed.dae",
+    "texture": "tile_bed.png",
+    "shader": "main_3d",
+    "solid": true,
+    "offset": [
+        0.0, 16.0, 0.0
+    ],
+    "material": "DEFAULT"
+}

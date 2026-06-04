@@ -268,17 +268,18 @@ public class Startup implements Runnable {
 //				StateManager.swapState(StateSplash.STATE_ID);
 //				StateManager.swapState(StateTitle.STATE_ID);
 
-//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_BALANCE, AIType.get("standard_dungeon.json")));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
+//				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
 //				StateHub.loadMap("house");
 
 //				StateDungeon.loadMap("bridge_test");
-//				StateHub.loadMap("village_hub");
+				StateHub.loadMap("hub_castle");
 
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
-				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.tank.magic"), AIType.get("standard_dungeon.json")));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.magic"), AIType.get("standard_dungeon.json")));
+//				Inventory.active.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES.get("unit.profile.tank.magic"), AIType.get("standard_dungeon.json")));
 				
 //				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
 //				Inventory.units.add(Unit.randomCombatUnit(-1, -1, new Vector4f(1, 1, 1, 1), 5, 0, Unit.GROWTH_PROFILES[new Random().nextInt(Unit.GROWTH_PROFILES.length)], AIType.get("standard_dungeon.json")));
@@ -289,7 +290,7 @@ public class Startup implements Runnable {
 //				Inventory.loadMap = "title_scene";
 //				Inventory.saveHeader(2);
 //				Inventory.saveGame(2);
-				StateDungeon.startDungeon("snow_forrest.json", 99, -1932052909105962160L);
+//				StateDungeon.startDungeon("snow_forrest.json", 99, -1932052909105962160L);
 //				StateDungeon.startDungeon("scorched_crater.json", 99, -274341930193026469L);
 
 //				ArrayList<float[]> profiles = new ArrayList<>();

@@ -1,0 +1,52 @@
+{
+	"activator": "event.activator.map.load",
+	"script": [
+		"controllock true",
+		"loadheaders",
+		
+		"// X-Y 5-13 is the middle of the carpet and the camera position",
+		"warpcamera 5 16",
+		"hidecursor true",
+		"warpcursor 5 13",
+
+		"fade 1 1 1 1",
+		
+		"continuous true",		
+
+		"// Spawn Allan and Ciel",
+		"loadunit res/data/map/hub_castle/unit/unit_allan.dat",
+		"loadunit res/data/map/hub_castle/unit/unit_ciel.dat",
+
+		"continuous false",
+		
+
+
+
+
+
+
+		"// Activate start menu here",
+
+
+
+
+
+
+
+
+
+
+		"wait 72",
+		"fade 1 1 1 0",
+		"wait 144",
+		
+		"controllock false",
+		
+		"// Just sets the save file name if not done before",
+		"init load_state 0",
+		"if load_state 0",
+		"setheader New To This",
+		"set load_state 1",
+		"end"
+	]
+}

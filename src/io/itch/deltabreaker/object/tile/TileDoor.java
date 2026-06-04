@@ -2,6 +2,7 @@ package io.itch.deltabreaker.object.tile;
 
 import java.util.ArrayList;
 
+import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.object.Unit;
 import io.itch.deltabreaker.object.item.ItemProperty;
@@ -23,7 +24,8 @@ public class TileDoor extends TileCompound {
 				}
 			}
 			property = getProperty(tags.toArray(new String[tags.size()]))[0];
-
+			AudioManager.getSound("door_open.ogg").play(AudioManager.defaultMainSFXGain, false);
+			
 			// Removes the key from the unit
 			for (int i = 0; i < u.getItemList().size(); i++) {
 				if (u.getItemList().get(i).type.equals(ItemProperty.TYPE_KEY_CHEST)) {
@@ -42,6 +44,7 @@ public class TileDoor extends TileCompound {
 					}
 				}
 				property = getProperty(tags.toArray(new String[tags.size()]))[0];
+				AudioManager.getSound("door_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 			} else {
 				ArrayList<String> tags = new ArrayList<>();
 				for (String s : property.tags) {
@@ -52,6 +55,7 @@ public class TileDoor extends TileCompound {
 					}
 				}
 				property = getProperty(tags.toArray(new String[tags.size()]))[0];
+				AudioManager.getSound("door_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 			}
 		}
 	}
