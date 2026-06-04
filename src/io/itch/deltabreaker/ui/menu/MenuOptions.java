@@ -8,6 +8,7 @@ import io.itch.deltabreaker.core.Startup;
 import io.itch.deltabreaker.core.audio.AudioManager;
 import io.itch.deltabreaker.math.Vector3f;
 import io.itch.deltabreaker.object.Unit;
+import io.itch.deltabreaker.state.StateHub;
 import io.itch.deltabreaker.state.StateManager;
 import io.itch.deltabreaker.state.StateTitle;
 
@@ -57,6 +58,11 @@ public class MenuOptions extends Menu {
 			Startup.staticView.setTargetPosition(0, 0, 0);
 		}
 
+		if (StateManager.currentState == StateManager.getState(StateHub.STATE_ID)) {
+			((MenuHubTitle) StateHub.getCurrentContext().menus.get(0)).hideMenu = false;
+			Startup.staticView.setTargetPosition(0, 0, 0);
+		}
+		
 		SettingsManager.saveSettingsFile(Startup.CFG_PATH, Startup.CFG_FILE);
 	}
 
@@ -85,7 +91,6 @@ class MenuOptionsVideo extends Menu {
 			AudioManager.getSound("menu_close.ogg").play(AudioManager.defaultMainSFXGain, false);
 			return;
 		}
-
 		if (command.equals("left") || command.equals("right")) {
 			switch (selected) {
 

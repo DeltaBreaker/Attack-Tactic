@@ -25,13 +25,20 @@ public abstract class Menu extends UIBox {
 
 	public boolean moveCamera = true;
 
+	public Menu() {
+		super(Vector3f.EMPTY.copy(), 0, 1);
+		options = new String[] {};
+		openTo = 100;
+		height = 0;
+	}
+	
 	public Menu(Vector3f position, String[] options) {
 		super(position, getDimensions(options).width, 8);
 		this.options = options;
 		openTo = getDimensions(options).height;
 		AudioManager.getSound("menu_open.ogg").play(AudioManager.defaultMainSFXGain, false);
 	}
-
+	
 	public Menu(Vector3f position, String[] options, int width, int height) {
 		super(position, width, 8);
 		this.options = options;

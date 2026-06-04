@@ -31,6 +31,8 @@ public class Camera {
 
 	public Vector3f targetPosition;
 	public Vector3f targetRotation;
+	
+	public boolean lock = false;
 
 	public Camera(Vector3f position, Vector3f rotation, int width, int height, float speedX, float speedY, float speedZ) {
 		this.position = position;
@@ -70,6 +72,10 @@ public class Camera {
 	}
 
 	private Vector3f moveToTarget(Vector3f position, Vector3f target, float speedX, float speedY, float speedZ) {
+		if(lock) {
+			return position;
+		}
+		
 		speedX = Math.abs(position.getX() - target.getX()) / 16.0f;
 		speedY = Math.abs(position.getY() - target.getY()) / 16.0f;
 		speedZ = Math.abs(position.getZ() - target.getZ()) / 16.0f;

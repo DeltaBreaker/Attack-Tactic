@@ -427,7 +427,7 @@ public class StateHub extends State {
 
 	@SuppressWarnings("incomplete-switch")
 	public void onKeyPress(InputMapping key) {
-		if (Inventory.units.size() > 0) {
+		if (Inventory.units.size() > 0 || menus.size() > 0) {
 			switch (key) {
 
 			case JOYSTICK:
@@ -555,7 +555,7 @@ public class StateHub extends State {
 
 	@SuppressWarnings("incomplete-switch")
 	public void onKeyRepeat(InputMapping key) {
-		if (Inventory.units.size() > 0) {
+		if (Inventory.units.size() > 0 || menus.size() > 0) {
 			switch (key) {
 
 			case UP:
@@ -583,6 +583,9 @@ public class StateHub extends State {
 						checkForMovementEvent();
 					}
 				}
+				if(menus.size() > 0) {
+					menus.get(0).action("left", null);
+				}
 				break;
 
 			case RIGHT:
@@ -591,6 +594,9 @@ public class StateHub extends State {
 						Inventory.units.get(0).locX++;
 						checkForMovementEvent();
 					}
+				}
+				if(menus.size() > 0) {
+					menus.get(0).action("right", null);
 				}
 				break;
 

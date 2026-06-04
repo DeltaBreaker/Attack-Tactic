@@ -18,6 +18,7 @@ import io.itch.deltabreaker.ui.Message;
 import io.itch.deltabreaker.ui.TextBox;
 import io.itch.deltabreaker.ui.menu.MenuChoice;
 import io.itch.deltabreaker.ui.menu.MenuDungeonAction;
+import io.itch.deltabreaker.ui.menu.MenuHubTitle;
 import io.itch.deltabreaker.ui.menu.MenuSave;
 
 public class Event {
@@ -288,6 +289,14 @@ enum EventCommand {
 		}
 	},
 
+	// Locks the camera
+	cameralock(false) {
+		@Override
+		public void run(String[] args, Event event) {
+			Startup.camera.lock = Boolean.parseBoolean(args[1]);
+		}
+	},
+	
 	// Displays a script
 	script(false) {
 		@Override
@@ -300,7 +309,18 @@ enum EventCommand {
 	event(true) {
 		@Override
 		public void run(String[] args, Event event) {
-			StateDungeon.getCurrentContext().events.add(new Event(StateDungeon.getCurrentContext().eventList.get(args[1])));
+			switch (StateManager.currentState.STATE_ID) {
+
+			case StateDungeon.STATE_ID:
+				StateDungeon.getCurrentContext().events.add(new Event(StateDungeon.getCurrentContext().eventList.get(args[1])));
+				break;
+
+			case StateHub.STATE_ID:
+				StateHub.getCurrentContext().events.add(new Event(StateHub.getCurrentContext().eventList.get(args[1])));
+				break;
+
+			}
+
 		}
 	},
 
@@ -367,9 +387,6 @@ enum EventCommand {
 		@Override
 		public void run(String[] args, Event event) {
 			if (StateManager.currentState == StateManager.getState(StateDungeon.STATE_ID)) {
-				if (!Inventory.units.contains(Inventory.loaded.get(args[1]))) {
-					Inventory.units.add(Inventory.loaded.get(args[1]));
-				}
 				if (!Inventory.active.contains(Inventory.loaded.get(args[1]))) {
 					Inventory.active.add(Inventory.loaded.get(args[1]));
 				}
@@ -569,10 +586,24 @@ enum EventCommand {
 		}
 	},
 
+	loadmenu(false) {
+		@Override
+		public void run(String[] args, Event event) {
+			StateManager.currentState.menus.add(new MenuHubTitle());
+		}
+	},
+
 	savemenu(false) {
 		@Override
 		public void run(String[] args, Event event) {
 			StateManager.currentState.menus.add(new MenuSave(new Vector3f(0, 0, -80)));
+		}
+	},
+
+	tileaction(false) {
+		@Override
+		public void run(String[] args, Event event) {
+			StateManager.currentState.tiles[Integer.parseInt(args[1])][Integer.parseInt(args[2])].action(Inventory.loaded.get(args[3]), args);
 		}
 	};
 
